@@ -1,0 +1,151 @@
+body{
+    background-color: #111B24;
+    overflow:scroll;
+}
+
+/* 欄高 */
+
+.row{
+    min-width: 1440px;
+}
+.rowNum1{
+    height: 260px;
+}
+
+.rowNum2{
+    height: 60px;
+    font-size: 24px;
+    color: white;
+    }
+
+.rowNum3{
+    height: 100px;
+    }
+
+.rowNum4{
+    height: 100px;
+    }
+
+.rowNum5{
+    height: 100px;
+    }    
+
+/* 第一欄 */
+
+
+.line{
+    max-width: 260px;
+    height: 2px;
+    width: 100%;
+    margin: 0 0 50px 0;
+    }
+
+.line1{
+    background-image: linear-gradient(to right, #f4da24, #d96d0e);
+    float: right;
+    }
+
+.line2{
+    background-image: linear-gradient(to right, #d96d0e, #b51d29);
+    float: left;
+    }
+
+.goodnight{
+    max-height: 106px;
+    height: auto; 
+    max-width: 100%;
+    position: absolute;
+    left: 0px; right: 0px;top:0px; bottom:90px;
+    margin: auto;
+    }
+
+/* 第三欄 */
+
+.textin{
+    background-color: #212832;
+    border: white 1px solid;
+    height: 50px;
+    width: 240px;
+    font-size: 18px;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 80px;
+    }
+
+.btn{
+    background-color: #111B24;
+    border: #FF7F00 2px solid ;
+    border-radius: 10px;
+    height: 70px;
+    width: 220px;
+    color: white;
+    font-size: 24pt;
+    }
+
+.area{
+    margin: 10px 0 0 0;
+}
+
+.area:hover{
+    background-color: #FFA700;
+    border: white 2px solid;
+    cursor: pointer;
+    color: #111B24;
+    }
+
+.account{
+    margin-top: 40px;
+}
+
+.password{
+    margin-top: 10px;
+}
+
+.mid{
+    margin: 10px 0 0 60px;
+}
+
+/* 第四欄 */
+
+.forget{
+    color:white; 
+    font-size: 11pt; 
+    text-decoration: underline;
+    margin-left: 250px;
+}
+
+.forget:hover{
+    color:#e39532;
+}
+/* 第五欄 */
+
+.login-btn{
+    background-color: #111B24;
+    border: #FF7F00 2px solid;
+    border-radius: 50px;
+    height: 50px;
+    width: 260px;
+    margin: 10px 0 0 70px;
+    padding: 0%;
+    }
+
+.login-btn span{
+    background-image: linear-gradient(to right, #f4da24,#be4c45,#b51d29);
+    -webkit-background-clip: text;
+    color: transparent;
+    font: italic bold 28pt Times;
+    word-spacing: 5px;
+    }
+
+.login-btn:hover{
+    border: #B7282E 2px solid;
+    cursor: pointer;
+}
+
+/* @media all and (min-width: 480px) {  }
+
+@media all and (min-width: 768px) {  }  
+
+@media all and (min-width: 992px) {  }  
+
+@media all and (min-width: 1200px) {  }  
+ */

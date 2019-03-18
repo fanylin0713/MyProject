@@ -1,0 +1,15 @@
+.btn-orgin{
+    background-color: #111B24;
+    border: #FF7F00 2px solid ;
+    border-radius: 10px;
+    height: 70px;
+    width: 220px;
+    color: white;
+    font-size: 24pt;
+}
+
+
+
+.btn-red {
+    background-color: red;
+}
