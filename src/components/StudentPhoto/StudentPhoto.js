@@ -6,7 +6,7 @@ import Card from '@material-ui/core/Card';
 const styles = {
     card: {
         backgtoundColot: 'white',
-        width: '40%',
+        width: '180px',
         height: '240px',
         margin: 'auto',
     },

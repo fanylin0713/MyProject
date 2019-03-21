@@ -20,13 +20,14 @@ const styles = theme => ({
         height: '100%',
     },
     textcolor: {
+        margin: '5px',
         color: "white",
     }
 });
 
-function ListItemLink(props) {
-    return <ListItem button component="a" {...props} />;
-}
+// function ListItemLink(props) {
+//     return <ListItem button component="a" {...props} />;
+// }
 
 function SimpleList(props) {
     const { classes } = props;

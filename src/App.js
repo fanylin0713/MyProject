@@ -22,9 +22,9 @@ class App extends Component {
   render() {
     return (
       // <Login />
-      <Homepage />
+      // <Homepage />
       // <Proptest />
-      // <Apply />
+      <Apply />
       // <Demo></Demo>
       // <React.Fragment>
       //   <Button onClick={this.handleClick} color="red">change date message</Button>
