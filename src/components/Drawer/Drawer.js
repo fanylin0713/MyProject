@@ -8,7 +8,6 @@ import SidebarList from '../SidebarList/SidebarList'
 
 //icon
 import SideBarIcon from '@material-ui/icons/NotesRounded';
-import { blue } from '@material-ui/core/colors';
 
 const styles = {
   root:{

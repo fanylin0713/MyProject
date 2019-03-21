@@ -6,6 +6,11 @@ import Tabs from '@material-ui/core/Tabs';
 import NoSsr from '@material-ui/core/NoSsr';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import Gradepage from '../Classpage/Gradepage';
+import Progresspage from '../Classpage/Progresspage';
+import Studentpage from '../Classpage/studentpage';
+
+
 
 function TabContainer(props) {
     return (
@@ -61,9 +66,9 @@ class NavTabs extends React.Component {
                             <LinkTab label="學生資料輸入" href="page3" />
                         </Tabs>
                     </AppBar>
-                    {value === 0 && <TabContainer>Page One</TabContainer>}
-                    {value === 1 && <TabContainer>Page Two</TabContainer>}
-                    {value === 2 && <TabContainer>Page Three</TabContainer>}
+                    {value === 0 && <TabContainer><Gradepage /></TabContainer>}
+                    {value === 1 && <TabContainer><Progresspage /></TabContainer>}
+                    {value === 2 && <TabContainer><Studentpage /></TabContainer>}
                 </div>
             </NoSsr>
         );
