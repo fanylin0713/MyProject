@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-// import Login from './components/Login';
+import Login from './components/Login';
 import Button from './components/Button';
 // import Proptest from './Proptest';
 import LifeCycle from 'components/LifeCycle'
@@ -21,10 +21,10 @@ class App extends Component {
 
   render() {
     return (
-      // <Login></Login>
-      // <Homepage />
+      // <Login />
+      <Homepage />
       // <Proptest />
-      <Apply />
+      // <Apply />
       // <Demo></Demo>
       // <React.Fragment>
       //   <Button onClick={this.handleClick} color="red">change date message</Button>

@@ -4,8 +4,12 @@ import ApplyText from './components/ApplyText/ApplyText';
 import Button from './components/Button/Button';
 import DatePicker from './components/DatePicker/DatePicker'
 import StudentPhoto from './components/StudentPhoto/StudentPhoto';
+
+
 class Apply extends React.Component {
+    
     render() {
+        
         return (
             
         <div style={{ backgroundColor: "#111B24" , height:"1000px"}}>
@@ -16,7 +20,7 @@ class Apply extends React.Component {
                 <Button onClick={this.handleClick} type="org">Train</Button>
                 </div>
                 
-                <div style={{float:'right',color:'white',width:'60%',padding:'4%'}}>
+                <div style={{float:'right',color:'white',width:'60%',padding:'4% 0',fontSize:'20pt'}}>
                 姓名：
                 <ApplyText type="org"/>
                 <br />
