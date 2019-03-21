@@ -19,6 +19,9 @@ const styles = {
   fullList: {
     width: 'auto',
   },
+  listcolor:{
+    backgroundColor:'#111B24',
+  }
 };
 
 class TemporaryDrawer extends React.Component {
@@ -42,10 +45,15 @@ class TemporaryDrawer extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} >
         <CssBaseline />
         <SideBarIcon onClick={this.toggleDrawer('left', true)} style={{fontSize:'40px'}}></SideBarIcon>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)} >
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)} 
+        PaperProps={{
+          classes: {
+            root: classes.listcolor
+          }
+        }}>
           <div
             tabIndex={0}
             role="button"
