@@ -8,8 +8,12 @@ import SidebarList from '../SidebarList/SidebarList'
 
 //icon
 import SideBarIcon from '@material-ui/icons/NotesRounded';
+import { blue } from '@material-ui/core/colors';
 
 const styles = {
+  root:{
+    
+  },
   list: {
     width: 250,
   },
@@ -42,7 +46,7 @@ class TemporaryDrawer extends React.Component {
       <div className={classes.root}>
         <CssBaseline />
         <SideBarIcon onClick={this.toggleDrawer('left', true)} style={{fontSize:'40px'}}></SideBarIcon>
-        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)} >
           <div
             tabIndex={0}
             role="button"

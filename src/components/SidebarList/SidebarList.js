@@ -15,9 +15,9 @@ const styles = theme => ({
     root: {
         width: '100%',
         maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: "#111B24",
         color: 'white',
-        height: 'auto',
+        height: '100%',
     },
     textcolor: {
         color: "white",
@@ -31,7 +31,7 @@ function ListItemLink(props) {
 function SimpleList(props) {
     const { classes } = props;
     return (
-        <div className={classes.root} style={{ backgroundColor: "#111B24" }} >
+        <div className={classes.root}>
             <List component="nav" style={{ backgroundColor: "#FFBF5F" }}>
                 <ListItem >
                     <ListItemIcon>

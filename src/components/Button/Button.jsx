@@ -12,13 +12,13 @@ class Button extends Component {
     if (type === 'home') {
       className = 'btn btn-home'
     }
-    
-    if (type === 'org'){
+
+    if (type === 'org') {
       className = 'btn btn-org'
     }
 
     return (
-      <button className={className} {...other}/>
+      <button className={className} {...other} />
     );
   }
 }
