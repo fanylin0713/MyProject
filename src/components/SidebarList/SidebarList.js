@@ -33,7 +33,7 @@ function SimpleList(props) {
     return (
         <div className={classes.root} style={{ backgroundColor: "#111B24" }} >
             <List component="nav" style={{ backgroundColor: "#FFBF5F" }}>
-                <ListItem button>
+                <ListItem >
                     <ListItemIcon>
                         <Moon style={{ color: "#111B24", }} />
                     </ListItemIcon>
