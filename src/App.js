@@ -7,6 +7,7 @@ import LifeCycle from 'components/LifeCycle'
 import Homepage from './Homepage'
 import Demo from './Demo'
 import Apply from './Apply';
+import Class from './Class';
 
 class App extends Component {
   // state = {
@@ -24,7 +25,8 @@ class App extends Component {
       // <Login />
       // <Homepage />
       // <Proptest />
-      <Apply />
+      // <Apply />
+      <Class />
       // <Demo></Demo>
       // <React.Fragment>
       //   <Button onClick={this.handleClick} color="red">change date message</Button>

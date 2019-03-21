@@ -3,7 +3,7 @@ import AppBar from './components/AppBar/AppBar'
 import ApplyText from './components/ApplyText/ApplyText';
 import Button from './components/Button/Button';
 import DatePicker from './components/DatePicker/DatePicker'
-import StudentPhoto from './components/StudentPhoto/StudentPhoto';
+import StudentPhoto from './components/Cards/StudentPhoto';
 
 
 class Apply extends React.Component {

@@ -1,3 +1,7 @@
+.btn{
+    line-height: 1;
+}
+
 .btn-home{
     background-color: #111B24;
     border: #FFBF5F 2px solid ;
@@ -12,9 +16,10 @@
 .btn-org{
     background-color: #111B24;
     border: #FFBF5F 1px solid ;
-    border-radius: 30px;
-    height: 40px;
+    border-radius: 20px;
+    height: 35px;
     width: 100px;
     color: #FFBF5F;
-    font-size: 20pt;
+    font-size: 14pt;
+    
 }

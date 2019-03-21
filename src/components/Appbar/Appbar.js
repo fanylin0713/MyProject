@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import pin from './pin.png';
 import Drawer from '../Drawer/Drawer';
-import Selector from '../Selector/Selector'
+import Selector from '../Selector/ClassSelector'
 
 //icon
 import SearchIcon from '@material-ui/icons/Search';
