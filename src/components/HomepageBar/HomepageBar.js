@@ -27,9 +27,9 @@ const styles = theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+    backgroundColor: fade(theme.palette.common.white, 0.25),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.35),
     },
     marginLeft: 0,
     width: '100%',
@@ -39,7 +39,8 @@ const styles = theme => ({
     },
   },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    color:'#111B24',
+    width: theme.spacing.unit * 6,
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -48,14 +49,14 @@ const styles = theme => ({
     justifyContent: 'center',
   },
   inputRoot: {
-    color: 'inherit',
+    color: '#111B24',
     width: '100%',
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingLeft: theme.spacing.unit * 5,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -68,6 +69,13 @@ const styles = theme => ({
   input: {
     display: 'none',
   },
+  button:{
+    backgroundColor: '#111B24',
+    color: 'white',
+  },
+  UploadIcon:{
+    marginRight:theme.spacing.unit * 1,
+  }
 });
 
 function SearchAppBar(props) {
@@ -81,7 +89,7 @@ function SearchAppBar(props) {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="學號查詢…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -98,7 +106,7 @@ function SearchAppBar(props) {
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" component="span" className={classes.button}>
-        <Upload />
+        <Upload className={classes.UploadIcon}/>
           匯入學生資料
         </Button>
       </label>

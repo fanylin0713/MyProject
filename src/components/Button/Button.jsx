@@ -7,16 +7,16 @@ class Button extends Component {
     //   return <button className="btn btn-orgin btn-red" {...this.props}/>
     // }
     const { type, ...other } = this.props
-    let className = 'btn btn-orgin'
+    let className = 'btn '
 
-    if (type === 'big') {
-      className = 'btn btn-orgin btn-big'
+    if (type === 'home') {
+      className = 'btn btn-home'
     }
     
     if (type === 'small'){
-      className = 'btn btn-orgin btn-small'
+      className = 'btn btn-small'
     }
-    
+
     return (
       <button className={className} {...other}/>
     );

@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
 //icon
-import Moon from '@material-ui/icons/Brightness2';
+import Moon from '@material-ui/icons/Brightness4';
 
 
 const styles = theme => ({
@@ -33,45 +33,77 @@ function SimpleList(props) {
     return (
         <div className={classes.root} style={{ backgroundColor: "#111B24" }} >
             <List component="nav" style={{ backgroundColor: "#FFBF5F" }}>
-                <ListItem className={classes.textcolor} button>
+                <ListItem button>
                     <ListItemIcon>
-                        <Moon style={{ color: "#FFBF5F", }} />
+                        <Moon style={{ color: "#111B24", }} />
                     </ListItemIcon>
                     <ListItemText primary="早安，晚點名" />
                 </ListItem>
             </List>
             <Divider /> 
-            <List component="nav">
+            <List component="nav" style={{ backgroundColor: "#111B24", }}>
                 <ListItem button>
-                    <ListItemText primary="報名" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="報名" />
                 </ListItem>
 
                 <ListItem button>
-                    <ListItemText primary="點名" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="點名" />
                 </ListItem>
 
                 <ListItem button>
-                    <ListItemText primary="班級資料" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="班級資料" />
                 </ListItem>
 
                 <ListItem button>
-                    <ListItemText primary="老師管理" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="老師管理" />
                 </ListItem>
 
                 <ListItem button>
-                    <ListItemText primary="課程管理" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="課程管理" />
                 </ListItem>
 
                 <ListItem button>
-                    <ListItemText primary="營運狀態" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="營運狀態" />
                 </ListItem>
 
                 <ListItem button>
-                    <ListItemText primary="補課管理" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="補課管理" />
                 </ListItem>
 
                 <ListItem button>
-                    <ListItemText primary="公告" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.textcolor
+                        }
+                    }} primary="公告" />
                 </ListItem>
             </List>
         </div>

@@ -65,7 +65,6 @@ const styles = theme => ({
     },
 
     button: {
-        margin: theme.spacing.unit,
         color: "white",
     },
 
@@ -98,7 +97,7 @@ function SearchAppBar(props) {
             <Typography className={classes.title} color="inherit" noWrap>
                 台北校區
             </Typography>
-            <Button><Home className={classes.button} /></Button>
+            <Button className={classes.button}><Home /></Button>
             <Button className={classes.button}>
             <LogoutIcon className={classes.rightIcon} />
                 Log out
