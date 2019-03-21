@@ -41,7 +41,7 @@ class Login extends React.Component {
               <input className="textin account" type="text" name="account" placeholder="帳號："></input>
             </div>
             <div className="col-2 ">
-              <Button onClick={this.handleClick} color=" ">北投校區</Button>
+              <Button onClick={this.handleClick} type=" ">北投校區</Button>
             </div>
             <div className="col-3">
               <input className="btn area mid" type="button" value="古亭校區"></input>

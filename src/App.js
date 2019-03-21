@@ -4,9 +4,9 @@ import './App.css';
 import Button from './components/Button';
 // import Proptest from './Proptest';
 import LifeCycle from 'components/LifeCycle'
-import Homepage from 'components/Homepage'
+import Homepage from './Homepage'
 import Demo from './Demo'
-import Appbar from './components/Appbar/Appbar';
+import Apply from './Apply';
 
 class App extends Component {
   // state = {
@@ -22,9 +22,9 @@ class App extends Component {
   render() {
     return (
       // <Login></Login>
-      // <Homepage />
-      <Appbar/>
+      <Homepage />
       // <Proptest />
+      // <Apply />
       // <Demo></Demo>
       // <React.Fragment>
       //   <Button onClick={this.handleClick} color="red">change date message</Button>

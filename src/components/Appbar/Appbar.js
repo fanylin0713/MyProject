@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
@@ -11,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import pin from './pin.png';
 import Drawer from '../Drawer/Drawer';
+import Selector from '../Selector/Selector'
 
 //icon
 import SearchIcon from '@material-ui/icons/Search';
@@ -94,6 +94,7 @@ function SearchAppBar(props) {
             {/* <SideBarIcon className={classes.menuButton} onClick={this.toggleDrawer('left', true)} /> */}
             <Drawer />
             <img src={pin} height ="26" alt ="location"></img>
+            {/* <Selector /> */}
             <Typography className={classes.title} color="inherit" noWrap>
                 台北校區
             </Typography>

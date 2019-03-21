@@ -2,15 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import SidebarList from '../SidebarList/SidebarList'
 
 
 //icon
 import SideBarIcon from '@material-ui/icons/NotesRounded';
-
-
 
 const styles = {
   list: {
@@ -23,7 +20,7 @@ const styles = {
 
 class TemporaryDrawer extends React.Component {
   state = {
-    left: false,
+    open: false,
   };
 
   toggleDrawer = (side, open) => () => {
@@ -37,19 +34,13 @@ class TemporaryDrawer extends React.Component {
 
     const sideList = (
       <div className={classes.list}>
-        <List>
-          {['報名', '點名', '班級資料', '營運狀態查詢','補課管理','課程總管','公告'].map((text, index) => (
-            <ListItem button key={text}>
-              {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon> */}
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        <SidebarList />
       </div>
     );
 
     return (
-      <div className="container">
+      <div className={classes.root}>
+        <CssBaseline />
         <SideBarIcon onClick={this.toggleDrawer('left', true)} style={{fontSize:'40px'}}></SideBarIcon>
         <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
           <div

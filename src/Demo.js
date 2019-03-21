@@ -15,4 +15,3 @@ class Bbutton extends React.Component{
 
 export default Bbutton;
 
-                                                                                                                                                 
