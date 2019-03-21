@@ -16,6 +16,7 @@ import Selector from '../Selector/Selector'
 import SearchIcon from '@material-ui/icons/Search';
 import Home from '@material-ui/icons/HomeRounded';
 import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
+import Face from '@material-ui/icons/FaceOutlined';
 
 const styles = theme => ({
     root: {
@@ -98,6 +99,7 @@ function SearchAppBar(props) {
                 台北校區
             </Typography>
             <Button className={classes.button}><Home /></Button>
+            <Button className={classes.button}><Face /></Button>
             <Button className={classes.button}>
             <LogoutIcon className={classes.rightIcon} />
                 Log out
