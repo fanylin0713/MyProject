@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@e-group/react-material-components": "^1.2.17",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "bootstrap": "^4.0.0-alpha.6",

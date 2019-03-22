@@ -67,24 +67,12 @@ class OutlinedTextFields extends React.Component {
                 <TextField
                     id="outlined-with-placeholder"
                     placeholder="王小明"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                    value={this.state.name}
-                    onChange={this.handleChange('name')}
-                    InputLabelProps={{
-                        classes: {
-                            root: classes.cssLabel,
-                            focused: classes.cssFocused,
-                        },
-                    }}
                     InputProps={{
                         classes: {
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.notchedOutline,
-                        },
+                            
+                        }
                     }}
+                    
                 />
 
                 <TextField
