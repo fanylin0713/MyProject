@@ -20,15 +20,19 @@ const theme = createMuiTheme({
 
             underline: {
                 '&:after': {
-                    
+
                 },
                 '&:hover': {
                     borderBottom: '2px solid white',
                 },
+
+                '&:before': {
+                    
+                }
             },
 
             input: {
-                color:'white',
+                color: 'white',
             },
 
         }
