@@ -20,14 +20,18 @@ const theme = createMuiTheme({
 
             underline: {
                 '&:after': {
-
+                    // transition: theme.transitions.create('transform', {
+                    //     duration: theme.transitions.duration.shorter,
+                    //     easing: theme.transitions.easing.easeOut,
+                    // }),
                 },
+                
                 '&:hover': {
                     borderBottom: '2px solid white',
                 },
 
                 '&:before': {
-                    
+
                 }
             },
 
