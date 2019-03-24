@@ -20,17 +20,16 @@ const theme = createMuiTheme({
 
             underline: {
                 '&:after': {
-                    borderBottom: '2px solid',
-                }
+                    
+                },
+                '&:hover': {
+                    borderBottom: '2px solid white',
+                },
             },
 
-            '&:hover': {
-                borderBottom: '2px solid red',
+            input: {
+                color:'white',
             },
-
-            '&$focused:after': {
-                transform: 'scaleX(1)',
-            }, 
 
         }
     }
