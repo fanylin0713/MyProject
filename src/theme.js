@@ -2,6 +2,22 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
 
+    palette: {
+        primary: {
+            light: 'white',
+            main: '#417505',
+            dark: '#2B5101',
+            contrastText: '#EEEEEE'
+        },
+        // secondary: {
+        //     light: '#888888',
+        //     main: '#444444',
+        //     dark: '#222222',
+        //     contrastText: '#EEEEEE'
+        // },
+        type: 'dark'
+    },
+
     typography: {
         useNextVariants: true,
         fontFamily: [
@@ -14,9 +30,9 @@ const theme = createMuiTheme({
     },
     overrides: {
         MuiInput: {
-            focused: {
-                borderBottom: '2px solid white',
-            },
+            // focused: {
+            //     borderBottom: '2px solid white',
+            // },
 
             underline: {
                 '&:after': {
@@ -25,9 +41,9 @@ const theme = createMuiTheme({
                     //     easing: theme.transitions.easing.easeOut,
                     // }),
                 },
-                
+
                 '&:hover': {
-                    borderBottom: '2px solid white',
+                    borderBottom: '',
                 },
 
                 '&:before': {
@@ -35,9 +51,9 @@ const theme = createMuiTheme({
                 }
             },
 
-            input: {
-                color: 'white',
-            },
+            // input: {
+            //     color: 'white',
+            // },
 
         }
     }
