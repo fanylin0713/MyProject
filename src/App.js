@@ -27,9 +27,10 @@ class App extends Component {
       // <Login />
       // <Homepage />
       // <Proptest />
-      // <Apply />
+      
       <Theme theme={theme}>
-      < Class />
+      <Apply />
+      {/* < Class /> */}
       </Theme>
       // <Demo></Demo>
       // <React.Fragment>

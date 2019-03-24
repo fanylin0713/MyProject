@@ -58,7 +58,8 @@ class NavTabs extends React.Component {
 
         return (
             <NoSsr>
-                <div className={classes.root}>
+                {/* style={{backgroundColor:'#111B24'}} */}
+                <div className={classes.root} >
                     <AppBar position="static">
                         <Tabs className={classes.tabs} variant="fullWidth" value={value} onChange={this.handleChange}>
                             <LinkTab label="成績輸入" href="page1" />

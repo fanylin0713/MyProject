@@ -13,7 +13,6 @@ class Class extends React.Component {
             <div style={{backgroundColor:'#111B24'}}>
             <AppBar />
             <Selector />
-            
             <Tabs />
             </div>
         )

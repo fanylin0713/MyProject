@@ -1,22 +1,39 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-    fontFamily: [
-      '"Roboto"',
-      '"Helvetica"',
-      '"Arial"',
-      'sans-serif',
-      '"Microsoft JhengHei"'
-    ].join(',')
-  },
-  overrides:{
-    underline: {
-        '&:after': {
-            
-        }}
-  }
+
+    typography: {
+        useNextVariants: true,
+        fontFamily: [
+            '"Roboto"',
+            '"Helvetica"',
+            '"Arial"',
+            'sans-serif',
+            '"Microsoft JhengHei"'
+        ].join(',')
+    },
+    overrides: {
+        MuiInput: {
+            focused: {
+                borderBottom: '2px solid white',
+            },
+
+            underline: {
+                '&:after': {
+                    borderBottom: '2px solid',
+                }
+            },
+
+            '&:hover': {
+                borderBottom: '2px solid red',
+            },
+
+            '&$focused:after': {
+                transform: 'scaleX(1)',
+            }, 
+
+        }
+    }
 });
 
 // for develop

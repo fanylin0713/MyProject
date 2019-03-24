@@ -19,33 +19,33 @@ const styles = theme => ({
         color: 'white',
     },
 
-    cssLabel: {
-        '&$cssFocused': {
-            color:' #FFBF5F',
-        },
-    },
-    cssFocused: {},
-    cssUnderline: {
-        '&:after': {
-            borderBottomColor: '#FFBF5F !important',
-            color: 'white',
-        },
-    },
-    cssOutlinedInput: {
-        '&$cssFocused $notchedOutline': {
-            borderColor: '#FFBF5F',
-            color: 'white',
-        },
-    },
-    notchedOutline: {
-        borderWidth: '1px',
-        borderColor: 'white !important' ,
-    },
+    // cssLabel: {
+    //     '&$cssFocused': {
+    //         color:' #FFBF5F',
+    //     },
+    // },
+    // cssFocused: {},
+    // cssUnderline: {
+    //     '&:after': {
+    //         borderBottomColor: '#FFBF5F !important',
+    //         color: 'white',
+    //     },
+    // },
+    // cssOutlinedInput: {
+    //     '&$cssFocused $notchedOutline': {
+    //         borderColor: '#FFBF5F',
+    //         color: 'white',
+    //     },
+    // },
+    // notchedOutline: {
+    //     borderWidth: '1px',
+    //     borderColor: 'white !important' ,
+    // },
 
 });
 
 class OutlinedTextFields extends React.Component {
-    
+
     state = {
         name: '',
         school: '',
@@ -65,14 +65,10 @@ class OutlinedTextFields extends React.Component {
             <form className={classes.container} noValidate autoComplete="off">
                 姓名：
                 <TextField
-                    id="outlined-with-placeholder"
+                    id="standard-with-placeholder"
                     placeholder="王小明"
-                    InputProps={{
-                        classes: {
-                            
-                        }
-                    }}
-                    
+                    className={classes.textField}
+                    margin="normal"
                 />
 
                 <TextField
@@ -82,21 +78,38 @@ class OutlinedTextFields extends React.Component {
                     defaultValue="2020-09-09"
                     className={classes.textField}
                     margin="normal"
-                    classes={{
-                        underline: classes.cssUnderline,
-                    }}
-                    InputLabelProps={{
-                        shrink: true,
-                        classes: {
-                            root: classes.cssLabel,
-                            focused: classes.cssFocused,
-                        },
-                    }}
-                    InputProps={{
-                        classes: {
-                            focused: classes.cssFocused,
-                        },
-                    }}
+                // classes={{
+                //     underline: classes.cssUnderline,
+                // }}
+                // InputLabelProps={{
+                //     shrink: true,
+                //     classes: {
+                //         root: classes.cssLabel,
+                //         focused: classes.cssFocused,
+                //     },
+                // }}
+                // InputProps={{
+                //     classes: {
+                //         focused: classes.cssFocused,
+                //     },
+                // }}
+                />
+
+                學校：
+                <TextField
+                    id="standard-with-placeholder"
+                    placeholder="XX中學"
+                    className={classes.textField}
+                    margin="normal"
+                />
+
+                班別：
+
+                <TextField
+                    id="standard-with-placeholder"
+                    placeholder="英文A班"
+                    className={classes.textField}
+                    margin="normal"
                 />
 
                 <TextField
