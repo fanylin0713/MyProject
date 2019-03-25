@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Login from './components/Login';
+import Login from './Login';
 import Button from './components/Button';
 // import Proptest from './Proptest';
 import LifeCycle from 'components/LifeCycle'
