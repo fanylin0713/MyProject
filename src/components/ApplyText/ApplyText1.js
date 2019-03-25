@@ -4,12 +4,9 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Input from '@material-ui/core/Input';
-import white from '@material-ui/core/colors/amber';
 
 const styles = theme => ({
     container: {
-        display: 'flex',
-        flexWrap: 'wrap',
         color: 'white',
 
     },
@@ -63,64 +60,73 @@ class OutlinedTextFields extends React.Component {
 
         return (
             <form className={classes.container} noValidate autoComplete="off">
-                姓名：
+                <div>
+                    姓名：
                 <TextField
-                    id="standard-with-placeholder"
-                    placeholder="王小明"
-                    className={classes.textField}
-                    margin="normal"
-                />
+                        id="standard-with-placeholder"
+                        placeholder="王小明"
+                        className={classes.textField}
+                        margin="normal"
+                    />
+                </div>
 
+                <div>
+                    生日：
                 <TextField
-                    id="date"
-                    label="生日"
-                    type="date"
-                    defaultValue="2020-09-09"
-                    className={classes.textField}
-                    margin="normal"
-                // classes={{
-                //     underline: classes.cssUnderline,
-                // }}
-                // InputLabelProps={{
-                //     shrink: true,
-                //     classes: {
-                //         root: classes.cssLabel,
-                //         focused: classes.cssFocused,
-                //     },
-                // }}
-                // InputProps={{
-                //     classes: {
-                //         focused: classes.cssFocused,
-                //     },
-                // }}
-                />
+                        id="date"
+                        type="date"
+                        defaultValue="2020-09-09"
+                        className={classes.textField}
+                        margin="normal"
+                    // classes={{
+                    //     underline: classes.cssUnderline,
+                    // }}
+                    // InputLabelProps={{
+                    //     shrink: true,
+                    //     classes: {
+                    //         root: classes.cssLabel,
+                    //         focused: classes.cssFocused,
+                    //     },
+                    // }}
+                    // InputProps={{
+                    //     classes: {
+                    //         focused: classes.cssFocused,
+                    //     },
+                    // }}
+                    />
+                </div>
 
-                學校：
+                <div>
+                    學校：
                 <TextField
-                    id="standard-with-placeholder"
-                    placeholder="XX中學"
-                    className={classes.textField}
-                    margin="normal"
-                />
+                        id="standard-with-placeholder"
+                        placeholder="XX中學"
+                        className={classes.textField}
+                        margin="normal"
+                    />
+                </div>
 
-                班別：
-
+                <div>
+                    班別：
                 <TextField
-                    id="standard-with-placeholder"
-                    placeholder="英文A班"
-                    className={classes.textField}
-                    margin="normal"
-                />
+                        id="standard-with-placeholder"
+                        placeholder="英文A班"
+                        className={classes.textField}
+                        margin="normal"
+                    />
+                </div>
 
-                <TextField
-                    id="outlined-multiline-static"
-                    label="備註"
-                    multiline
-                    rows="6"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="outlined"
-                />
+                <div>
+                    <TextField
+                        id="outlined-multiline-static"
+                        label="備註"
+                        multiline
+                        rows="6"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    />
+                </div>
             </form>
         );
     }

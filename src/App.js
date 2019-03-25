@@ -24,12 +24,13 @@ class App extends Component {
 
   render() {
     return (
-      // <Login />
+      
       // <Homepage />
       // <Proptest />
       
       <Theme theme={theme}>
-      <Apply />
+      <Login />
+      {/* <Apply /> */}
       {/* < Class /> */}
       </Theme>
       // <Demo></Demo>
