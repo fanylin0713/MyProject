@@ -14,7 +14,7 @@ class Login extends React.Component {
                 <div style={{float:"left"}}>
                 {/* <Account /> */}
                 </div>
-                <div style={{backgroundColor: "#111B24",float:"right",width:'65%',color:'white'}}>
+                <div style={{backgroundColor: "#111B24",float:"right",width:'65%',color:'white',fontSize:'18pt'}}>
                 校區選擇：
                 <Area />
                 </div>
