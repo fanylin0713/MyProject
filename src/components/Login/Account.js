@@ -1,50 +1,70 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import './Login.css';
 import TextField from '@material-ui/core/TextField';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
     container: {
-        display: 'flex',
-        flexWrap: 'wrap',
+        
+        
     },
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
     },
-}));
+});
 
-function OutlinedTextFields() {
-    const classes = useStyles();
-    const [values, setValues] = React.useState({
-        name: '',
-    });
-
-    const handleChange = name => event => {
-        setValues({ ...values, [name]: event.target.value });
+class OutlinedTextFields extends React.Component {
+    state = {
+        account: '',
     };
 
-    return (
-        <form className={classes.container} noValidate autoComplete="off">
-            <TextField
-                id="outlined-name"
-                label="Name"
-                className={classes.textField}
-                value={values.name}
-                onChange={handleChange('name')}
-                margin="normal"
-                variant="outlined"
-            />
-            <TextField
-                id="outlined-password-input"
-                label="Password"
-                className={classes.textField}
-                type="password"
-                autoComplete="current-password"
-                margin="normal"
-                variant="outlined"
-            />
-        </form>
-    );
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
+    render() {
+        const { classes } = this.props;
+
+        return (
+            <form className={classes.container} noValidate autoComplete="off">
+                <div>
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="帳號"
+                        value={this.state.name}
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    /></div>
+                <div>
+                    <TextField
+                        id="outlined-password-input"
+                        label="密碼"
+                        className={classes.textField}
+                        type="password"
+                        autoComplete="current-password"
+                        margin="normal"
+                        variant="outlined"
+                    /></div>
+                <div><a className="forget" href="">忘記密碼?</a></div>
+                <div>
+                    <button className="btn login-btn" type="submit" name="loginbutton">
+                        <span>Log in</span>
+                    </button>
+                </div>
+            </form>
+        );
+    }
 }
 
-export default OutlinedTextFields;
+OutlinedTextFields.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(OutlinedTextFields);

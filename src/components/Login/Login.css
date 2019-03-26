@@ -1,3 +1,5 @@
+
+
 .line{
     max-width: 300px;
     height: 2px;
@@ -22,3 +24,36 @@
     position: relative;
     margin:auto;
     }
+
+.login-btn{
+        background-color: #111B24;
+        border: #FF7F00 2px solid;
+        border-radius: 50px;
+        height: 50px;
+        width: 260px;
+        margin: 10px 0 0 70px;
+        padding: 0%;
+        }
+    
+.login-btn span{
+        background-image: linear-gradient(to right, #f4da24,#be4c45,#b51d29);
+        -webkit-background-clip: text;
+        color: transparent;
+        font: italic bold 28pt Times;
+        word-spacing: 5px;
+        }
+
+.login-btn:hover{
+            border: #B7282E 2px solid;
+            cursor: pointer;
+        }
+.forget{
+            color:white; 
+            font-size: 11pt; 
+            text-decoration: underline;
+            margin-left: 250px;
+        }
+.forget:hover{
+            color:#e39532;
+        }
+    

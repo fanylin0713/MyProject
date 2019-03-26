@@ -29,8 +29,8 @@ class App extends Component {
       // <Proptest />
       
       <Theme theme={theme}>
-      {/* <Login /> */}
-      <Apply />
+      <Login />
+      {/* <Apply /> */}
       {/* < Class /> */}
       </Theme>
       // <Demo></Demo>
