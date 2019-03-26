@@ -8,6 +8,7 @@ import Input from '@material-ui/core/Input';
 const styles = theme => ({
     container: {
         color: 'white',
+        padding:'10px 300px',
 
     },
     textField: {

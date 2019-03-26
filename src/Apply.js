@@ -17,7 +17,6 @@ class Apply extends React.Component {
                                 border:'1px white solid',
                                 borderRadius:'10px',
                                 width:'60%',
-                                padding:'0 auto',
                                 margin:'50px auto',
                                 }}>
                 <ApplyText />

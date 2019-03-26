@@ -47,9 +47,11 @@ const theme = createMuiTheme({
             underline: {
                 '&:after': {
                     borderBottomColor: `#fff`,
+                    borderColor: 'fff',
                 },
                 '&:before': {
                     borderBottomColor: `rgba(255, 255, 255, 0.7)`,
+                    borderColor:'rgba(255, 255, 255, 0.7)',
                 }
             },
 
