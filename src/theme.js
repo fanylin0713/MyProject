@@ -3,19 +3,19 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
 
     palette: {
-        // primary: {
-        //     light: 'white',
-        //     main: '#417505',
-        //     dark: '#2B5101',
-        //     contrastText: '#EEEEEE'
-        // },
-        // secondary: {
-        //     light: '#888888',
-        //     main: '#444444',
-        //     dark: '#222222',
-        //     contrastText: '#EEEEEE'
-        // },
-        // type: 'dark'
+        primary: {
+            light: 'white',
+            main: '#fff',
+            dark: '#fff',
+            contrastText: '#EEEEEE'
+        },
+        secondary: {
+            light: '#888888',
+            main: '#444444',
+            dark: '#222222',
+            contrastText: '#EEEEEE'
+        },
+        type: 'dark'
     },
 
     typography: {
@@ -38,7 +38,13 @@ const theme = createMuiTheme({
                 border: '2px solid #FFBF5F'
             }
         },
-        
+
+        MuiOutlinedInput:{
+            input: {
+                color:'white',
+            }, 
+
+        },
         
         MuiInput: {
             input: {
@@ -47,11 +53,9 @@ const theme = createMuiTheme({
             underline: {
                 '&:after': {
                     borderBottomColor: `#fff`,
-                    borderColor: 'fff',
                 },
                 '&:before': {
                     borderBottomColor: `rgba(255, 255, 255, 0.7)`,
-                    borderColor:'rgba(255, 255, 255, 0.7)',
                 }
             },
 

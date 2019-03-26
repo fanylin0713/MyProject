@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AppBar from './components/AppBar/AppBar'
-import ApplyText from './components/ApplyText/ApplyText';
+import ApplyForm from './components/ApplyForm/ApplyForm';
 import Button from './components/Button/Button';
 import { Card } from '@material-ui/core';
 
@@ -19,7 +19,7 @@ class Apply extends React.Component {
                                 width:'60%',
                                 margin:'50px auto',
                                 }}>
-                <ApplyText />
+                <ApplyForm />
                 </Card>
                 {/* <Button onClick={this.handleClick} type="org" style={{margin:'10px 0 0 290px'}}>Train</Button> */}
                 {/* <Button onClick={this.handleClick} type="org">儲存</Button> */}
