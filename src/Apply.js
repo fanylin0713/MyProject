@@ -1,43 +1,30 @@
 import React, { Component } from 'react';
 import AppBar from './components/AppBar/AppBar'
-import ApplyText1 from './components/ApplyText/ApplyText1';
+import ApplyText from './components/ApplyText/ApplyText';
 import Button from './components/Button/Button';
-import DatePicker from './components/DatePicker/DatePicker'
-import StudentPhoto from './components/Cards/StudentPhoto';
+import { Card } from '@material-ui/core';
 
 
 class Apply extends React.Component {
-    
+
     render() {
-        
+
         return (
-            
-        <div style={{ backgroundColor: "#111B24" , height:"1000px"}}>
+            <div style={{ backgroundColor: "#111B24", height: "1000px" }}>
                 <AppBar />
-                <div style={{float:'left',width:'40%',padding:'4%'}}>
-                <StudentPhoto />
                 
-                <Button onClick={this.handleClick} type="org">Train</Button>
-                </div>
-                
-                <div style={{float:'right',color:'white',width:'60%',padding:'4% 0',fontSize:'20pt'}}>
-                <ApplyText1 />
-                {/* 姓名：
-                <ApplyText type="org"/>
-                <br />
-                生日：
-                <DatePicker />
-                學校：
-                <ApplyText type="org"/>
-                <br />
-                班別：
-                <ApplyText type="small"/>
-                <br />
-                備註： */}
-                <Button onClick={this.handleClick} type="org">儲存</Button>
-                </div>
+                <Card style={{backgroundColor:"#212832", 
+                                border:'1px white solid',
+                                borderRadius:'10px',
+                                width:'60%',
+                                padding:'0 auto',
+                                margin:'50px auto',
+                                }}>
+                <ApplyText />
+                </Card>
+                {/* <Button onClick={this.handleClick} type="org" style={{margin:'10px 0 0 290px'}}>Train</Button> */}
+                {/* <Button onClick={this.handleClick} type="org">儲存</Button> */}
             </div>
-            
         )
     }
 

@@ -1,23 +1,88 @@
-import React, { Component } from 'react';
-import './ApplyText.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 
-class Button extends Component {
+const styles = theme => ({
+    container: {
+        color: 'white',
+
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        color: 'white',
+    },
+});
+
+class OutlinedTextFields extends React.Component {
+
+    state = {
+        name: '',
+        school: '',
+        class: '',
+    };
+
+    handleChange = name => event => {
+        this.setState({
+            [name]: event.target.value,
+        });
+    };
+
     render() {
-        const { type, ...other } = this.props
-        let className = 'text '
-
-        if (type === 'org') {
-            className = 'text text-org'
-        }
-
-        if (type === 'small') {
-            className = 'text text-small'
-        }
+        const { classes } = this.props;
 
         return (
-            <input type="text" className={className} {...other} />
+            <form className={classes.container} noValidate autoComplete="off">
+                <div>
+                    姓名：
+                <TextField
+                        id="standard-with-placeholder"
+                        placeholder="王小明"
+                        className={classes.textField}
+                        margin="normal"
+                    />
+                </div>
+
+                <div>
+                    生日：
+                <TextField
+                        id="date"
+                        type="date"
+                        defaultValue="2020-09-09"
+                        className={classes.textField}
+                        margin="normal"
+                    />
+                </div>
+
+                <div>
+                    學校：
+                <TextField
+                        id="standard-with-placeholder"
+                        placeholder="XX中學"
+                        className={classes.textField}
+                        margin="normal"
+                    />
+                </div>
+
+                <div>
+                    班別：
+                <TextField
+                        id="standard-with-placeholder"
+                        placeholder="英文A班"
+                        className={classes.textField}
+                        margin="normal"
+                    />
+                </div>
+            </form>
         );
     }
 }
 
-export default Button;
+OutlinedTextFields.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(OutlinedTextFields);
