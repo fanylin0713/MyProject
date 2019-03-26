@@ -6,7 +6,6 @@ import Button from './components/Button';
 import LifeCycle from 'components/LifeCycle'
 import Theme from '@e-group/react-material-components/dist/Theme'
 import Homepage from './Homepage'
-import Demo from './Demo'
 import Apply from './Apply';
 import Class from './Class';
 import theme from './theme';
@@ -29,8 +28,8 @@ class App extends Component {
       // <Proptest />
       
       <Theme theme={theme}>
-      <Login />
-      {/* <Apply /> */}
+      {/* <Login /> */}
+      <Apply />
       {/* < Class /> */}
       </Theme>
       // <Demo></Demo>
