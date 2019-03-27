@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './Login';
-import Button from './components/Button';
 // import Proptest from './Proptest';
-import LifeCycle from 'components/LifeCycle'
 import Theme from '@e-group/react-material-components/dist/Theme'
 import Homepage from './Homepage'
 import Apply from './Apply';
 import Class from './Class';
 import Rollcall from './Rollcall';
 import theme from './theme';
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends Component {
   // state = {

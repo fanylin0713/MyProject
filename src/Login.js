@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './components/Login/Header';
 import Account from './components/Login/Account';
 import Area from './components/Login/Area';

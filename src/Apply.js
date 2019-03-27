@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AppBar from './components/AppBar/Appbar'
 import ApplyForm from './components/ApplyForm/ApplyForm';
-import Button from './components/Button/Button';
 import { Card } from '@material-ui/core';
 
 

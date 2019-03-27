@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Gradepage from '../Classpage/Gradepage';
 import Progresspage from '../Classpage/Progresspage';
-import Studentpage from '../Classpage/studentpage';
+import Studentpage from '../Classpage/Studentpage';
 
 
 
@@ -31,7 +31,7 @@ function LinkTab(props) {
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: '#212832',
         width: '90%',
         margin:'auto',
     },
@@ -39,6 +39,7 @@ const styles = theme => ({
     tabs:{
         backgroundColor:'#FFBF5F',
         color:'#111B24',
+        
     }
 
 });
