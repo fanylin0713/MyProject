@@ -16,6 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Home from '@material-ui/icons/HomeRounded';
 import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import Face from '@material-ui/icons/FaceOutlined';
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 const styles = theme => ({
     root: {
@@ -97,12 +98,14 @@ function SearchAppBar(props) {
             <Typography className={classes.title} color="inherit" noWrap>
                 台北校區
             </Typography>
-            <Button className={classes.button}><Home /></Button>
+            <NavLink activeClassName="active" to="/">
+            <Button className={classes.button}><Home /></Button></NavLink>
             <Button className={classes.button}><Face /></Button>
+            <NavLink activeClassName="active" to="/login">
             <Button className={classes.button}>
             <LogoutIcon className={classes.rightIcon} />
                 Log out
-            </Button>
+            </Button></NavLink>
             <div className={classes.grow} />
             <div className={classes.search}>
             <div className={classes.searchIcon}>

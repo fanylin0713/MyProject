@@ -6,6 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 //icon
 import Moon from '@material-ui/icons/Brightness4';
@@ -43,6 +44,7 @@ function SimpleList(props) {
             </List>
             <Divider /> 
             <List component="nav" style={{ backgroundColor: "#111B24", }}>
+                <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/apply">
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{
                         classes: {
@@ -50,6 +52,7 @@ function SimpleList(props) {
                         }
                     }} primary="報名" />
                 </ListItem>
+                </NavLink>
 
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{
@@ -59,6 +62,7 @@ function SimpleList(props) {
                     }} primary="點名" />
                 </ListItem>
 
+                <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/class">
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{
                         classes: {
@@ -66,6 +70,7 @@ function SimpleList(props) {
                         }
                     }} primary="班級資料" />
                 </ListItem>
+                </NavLink>
 
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{

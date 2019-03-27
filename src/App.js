@@ -9,6 +9,7 @@ import Homepage from './Homepage'
 import Apply from './Apply';
 import Class from './Class';
 import theme from './theme';
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 class App extends Component {
   // state = {
@@ -26,12 +27,16 @@ class App extends Component {
       
       // <Homepage />
       // <Proptest />
-      
+      <Router>
       <Theme theme={theme}>
       {/* <Login /> */}
-      <Apply />
+      <Route exact path="/" component={Homepage} />
+      <Route path="/apply" component={Apply} />
+      <Route path="/class" component={Class} />
+      <Route path="/login"  component={Login} />
       {/* < Class /> */}
       </Theme>
+      </Router> 
       // <Demo></Demo>
       // <React.Fragment>
       //   <Button onClick={this.handleClick} color="red">change date message</Button>
