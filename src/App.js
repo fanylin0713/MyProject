@@ -8,6 +8,7 @@ import Theme from '@e-group/react-material-components/dist/Theme'
 import Homepage from './Homepage'
 import Apply from './Apply';
 import Class from './Class';
+import Rollcall from './Rollcall';
 import theme from './theme';
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
@@ -25,19 +26,15 @@ class App extends Component {
   render() {
     return (
       
-      // <Homepage />
-      // <Proptest />
       <Router>
       <Theme theme={theme}>
-      {/* <Login /> */}
       <Route exact path="/" component={Homepage} />
       <Route path="/apply" component={Apply} />
       <Route path="/class" component={Class} />
       <Route path="/login"  component={Login} />
-      {/* < Class /> */}
+      <Route path="/rollcall"  component={Rollcall} />
       </Theme>
       </Router> 
-      // <Demo></Demo>
       // <React.Fragment>
       //   <Button onClick={this.handleClick} color="red">change date message</Button>
       //   <LifeCycle data={this.state.data} />

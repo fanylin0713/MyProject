@@ -27,10 +27,13 @@ class Homepage extends React.Component {
             <Cards>
               課程辨識系統
               <hr style={{borderColor:'#FFBF5F',}}/>
+              {/* 跳頁連結 */}
               <NavLink activeClassName="active" to="/apply">
               <Button type="home">報名</Button>
               </NavLink>
+              <NavLink activeClassName="active" to="/rollcall">
               <Button type="home">點名</Button>
+              </NavLink>
             </Cards>
             <Cards>
               課程管理
