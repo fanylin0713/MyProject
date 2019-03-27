@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AppBar from './components/Appbar/Appbar'
+import AppBar from './components/AppBar/Appbar'
 import ApplyForm from './components/ApplyForm/ApplyForm';
 import Button from './components/Button/Button';
 import { Card } from '@material-ui/core';

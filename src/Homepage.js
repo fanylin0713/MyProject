@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
-import AppBar from './components/Appbar/Appbar'
+import AppBar from './components/AppBar/Appbar'
 import HomepageBar from './components/HomepageBar/HomepageBar'
 import Cards from './components/Cards/Cards'
 import Button from './components/Button/Button'
