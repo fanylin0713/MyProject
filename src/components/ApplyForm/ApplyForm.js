@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
+import Myclass from './Myclass';
+import { Card, Button } from '@material-ui/core';
+import CameraIcon from '@material-ui/icons/CameraAltRounded';
 
 const styles = theme => ({
     container: {
@@ -11,9 +13,19 @@ const styles = theme => ({
 
     },
     textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
+        marginLeft: theme.spacing.unit * 5,
+        marginRight: theme.spacing.unit * 5,
         color: 'white',
+        width: '260px',
+    },
+    button: {
+        display: 'flex',
+        border: '1px #FFBF5F solid',
+        borderRadius: '30px',
+        color: '#FFBF5F',
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
     },
 });
 
@@ -38,7 +50,11 @@ class OutlinedTextFields extends React.Component {
         return (
             <form className={classes.container} noValidate autoComplete="off">
                 <div>
-
+                    <Card style={{ width: '200px', height: '260px', margin: '40px auto' }} />
+                    <Button className={classes.button}>
+                        Train
+                    <CameraIcon className={classes.rightIcon} />
+                    </Button>
                 </div>
                 <div>
                     <TextField
@@ -83,7 +99,7 @@ class OutlinedTextFields extends React.Component {
                     />
                 </div>
                 <div>
-                    班別：
+                    <Myclass />
                 </div>
                 <div>
                     <TextField
@@ -122,6 +138,23 @@ class OutlinedTextFields extends React.Component {
                         variant="outlined"
                     />
                 </div>
+                <div>
+                    <TextField
+                        id="outlined-name"
+                        label="聯絡人"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    />
+                    <TextField
+                        id="outlined-name"
+                        label="聯絡人手機"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    />
+                </div>
+
             </form>
         );
     }

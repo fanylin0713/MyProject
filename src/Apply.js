@@ -21,7 +21,7 @@ class Apply extends React.Component {
                                 }}>
                 <ApplyForm />
                 </Card>
-                {/* <Button onClick={this.handleClick} type="org" style={{margin:'10px 0 0 290px'}}>Train</Button> */}
+                
                 {/* <Button onClick={this.handleClick} type="org">儲存</Button> */}
             </div>
         )
