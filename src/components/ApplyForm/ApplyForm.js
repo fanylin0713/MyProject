@@ -34,8 +34,15 @@ class OutlinedTextFields extends React.Component {
     state = {
         name: '',
         number: '',
-        school: '',
+        grade: '',
+        birthday: '1998-07-13',
         class: '',
+        school: '',
+        phone: '',
+        email: '',
+        address: '',
+        parent: '',
+        parentPhone: '',
     };
 
     handleChange = name => event => {
@@ -83,15 +90,18 @@ class OutlinedTextFields extends React.Component {
                     <TextField
                         id="outlined-name"
                         label="年級"
+                        value={this.state.grade}
+                        onChange={this.handleChange('grade')}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
                     />
                     <TextField
                         id="date"
-                        label="Birthday"
+                        label="生日"
                         type="date"
-                        defaultValue="2017-05-24"
+                        value={this.state.birthday}
+                        onChange={this.handleChange('birthday')}
                         className={classes.textField}
                         InputLabelProps={{
                             shrink: true,
@@ -105,6 +115,8 @@ class OutlinedTextFields extends React.Component {
                     <TextField
                         id="outlined-name"
                         label="學校"
+                        value={this.state.school}
+                        onChange={this.handleChange('school')}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
@@ -112,6 +124,8 @@ class OutlinedTextFields extends React.Component {
                     <TextField
                         id="outlined-name"
                         label="手機"
+                        value={this.state.phone}
+                        onChange={this.handleChange('phone')}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
@@ -121,6 +135,8 @@ class OutlinedTextFields extends React.Component {
                     <TextField
                         id="outlined-email-input"
                         label="Email"
+                        value={this.state.email}
+                        onChange={this.handleChange('email')}
                         className={classes.textField}
                         type="email"
                         name="email"
@@ -133,6 +149,8 @@ class OutlinedTextFields extends React.Component {
                     <TextField
                         id="outlined-name"
                         label="住址"
+                        value={this.state.address}
+                        onChange={this.handleChange('address')}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
@@ -142,6 +160,8 @@ class OutlinedTextFields extends React.Component {
                     <TextField
                         id="outlined-name"
                         label="聯絡人"
+                        value={this.state.parent}
+                        onChange={this.handleChange('parent')}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
@@ -149,12 +169,16 @@ class OutlinedTextFields extends React.Component {
                     <TextField
                         id="outlined-name"
                         label="聯絡人手機"
+                        value={this.state.parentPhone}
+                        onChange={this.handleChange('parentPhone')}
                         className={classes.textField}
                         margin="normal"
                         variant="outlined"
                     />
                 </div>
-
+                <Button className={classes.button} style={{width:300,margin:'20px auto',}}>
+                    送出
+                </Button>
             </form>
         );
     }
