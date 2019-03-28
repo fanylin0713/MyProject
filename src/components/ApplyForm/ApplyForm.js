@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Myclass from './Myclass';
 import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
+import { fetchPostUser } from 'api'
 
 const styles = theme => ({
     container: {
@@ -63,11 +64,17 @@ class OutlinedTextFields extends React.Component {
         });
     };
 
+
+    handleSubmit = (e)=> {
+        e.preventDefault()
+        fetchPostUser(this.state)
+    };
+    
     render() {
         const { classes } = this.props;
 
         return (
-            <form className={classes.container} noValidate autoComplete="off">
+            <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div>
                     <Card style={{ width: '200px', height: '260px', margin: '40px auto' }} />
                     <Button className={classes.button}>
@@ -188,7 +195,7 @@ class OutlinedTextFields extends React.Component {
                         variant="outlined"
                     />
                 </div>
-                <Button className={classes.button} style={{width:300,margin:'20px auto',}}>
+                <Button type="submit" className={classes.button} style={{width:300,margin:'20px auto',}}>
                     送出
                 </Button>
             </form>

@@ -33,7 +33,7 @@ class Apply extends React.Component {
                                 width:'60%',
                                 margin:'50px auto',
                                 }}>
-                <ApplyForm name={this.name} />
+                <ApplyForm />
                 </Card>
 
                 {/* {
