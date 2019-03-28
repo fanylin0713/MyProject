@@ -7,7 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '../Button/Button';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
@@ -15,11 +15,20 @@ const styles = theme => ({
         flexWrap: 'wrap',
     },
     formControl: {
-        margin: theme.spacing.unit,
+        marginLeft: theme.spacing.unit * 10,
+        marginTop:theme.spacing.unit,
+        marginBottom:theme.spacing.unit,
         minWidth: 120,
+        width:150,
     },
     selectEmpty: {
-        marginTop: theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit,
+    },
+
+    button:{
+        margin:'auto 30px',
+        borderRadius:'30px',
+        marginLeft: theme.spacing.unit * 10,
     },
 });
 
@@ -46,20 +55,32 @@ class SimpleSelect extends React.Component {
 
         return (
             <form className={classes.root} autoComplete="off">
-                <FormControl className={classes.formControl}>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel
+                        ref={ref => {
+                            this.InputLabelRef = ref;
+                        }}
+                        htmlFor="outlined-grade-simple"
+                    >
+                        年級
+                    </InputLabel>
                     <Select
                         value={this.state.grade}
                         onChange={this.handleChange}
-                        name="grade"
-                        displayEmpty
-                        className={classes.selectEmpty}
+                        input={
+                            <OutlinedInput
+                                labelWidth={this.state.labelWidth}
+                                name="grade"
+                                id="outlined-asubject-simple"
+                            />
+                        }
                     >
-                    <MenuItem value="" disabled>
-                        年級
-                    </MenuItem>
-                    <MenuItem value={10}>國一</MenuItem>
-                    <MenuItem value={20}>國二</MenuItem>
-                    <MenuItem value={30}>國三</MenuItem>
+                        <MenuItem value="">
+                            <em>年級</em>
+                        </MenuItem>
+                        <MenuItem value={10}>國一</MenuItem>
+                        <MenuItem value={20}>國二</MenuItem>
+                        <MenuItem value={30}>國三</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -68,7 +89,7 @@ class SimpleSelect extends React.Component {
                         ref={ref => {
                             this.InputLabelRef = ref;
                         }}
-                        htmlFor="outlined-age-simple"
+                        htmlFor="outlined-subject-simple"
                     >
                         科目
                     </InputLabel>
@@ -96,7 +117,7 @@ class SimpleSelect extends React.Component {
                         ref={ref => {
                             this.InputLabelRef = ref;
                         }}
-                        htmlFor="outlined-age-simple"
+                        htmlFor="outlined-myclass-simple"
                     >
                         班別
                     </InputLabel>
@@ -119,7 +140,7 @@ class SimpleSelect extends React.Component {
                         <MenuItem value={30}>國文C班</MenuItem>
                     </Select>
                 </FormControl>
-                <Button onClick={this.handleClick} type="org">搜尋</Button>
+                <Button variant="outlined" size='large' onClick={this.handleClick} className={classes.button}>搜尋</Button>
             </form>
         );
     }
