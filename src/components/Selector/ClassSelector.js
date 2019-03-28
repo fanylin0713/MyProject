@@ -16,18 +16,17 @@ const styles = theme => ({
     },
     formControl: {
         marginLeft: theme.spacing.unit * 10,
-        marginTop:theme.spacing.unit,
-        marginBottom:theme.spacing.unit,
+        marginTop: theme.spacing.unit,
+        marginBottom: theme.spacing.unit,
         minWidth: 120,
-        width:150,
+        width: 150,
     },
     selectEmpty: {
         marginTop: theme.spacing.unit,
     },
-
-    button:{
-        margin:'auto 30px',
-        borderRadius:'30px',
+    button: {
+        margin: 'auto 30px',
+        borderRadius: '30px',
         marginLeft: theme.spacing.unit * 10,
     },
 });
@@ -35,8 +34,8 @@ const styles = theme => ({
 class SimpleSelect extends React.Component {
     state = {
         grade: '',
-        subject:'',
-        myclass:'',
+        subject: '',
+        myclass: '',
         labelWidth: 0,
     };
 
