@@ -10,7 +10,8 @@ const styles = theme => ({
         
     },
     textField: {
-        marginLeft: theme.spacing.unit,
+        width: 240,
+        marginLeft: theme.spacing.unit * 10,
         marginRight: theme.spacing.unit,
     },
 });
