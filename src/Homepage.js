@@ -4,8 +4,7 @@ import AppBar from './components/AppBar/Appbar'
 import HomepageBar from './components/HomepageBar/HomepageBar'
 import Cards from './components/Cards/Cards'
 import Button from './components/Button/Button'
-import { BrowserRouter as NavLink } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 
 class Homepage extends React.Component {
 
@@ -26,27 +25,27 @@ class Homepage extends React.Component {
               <hr style={{borderColor:'#FFBF5F',}}/>
               {/* 跳頁連結 */}
               <NavLink activeClassName="active" to="/apply">
-              <Button type="home">報名</Button>
+                <Button type="home">報名</Button>
               </NavLink>
               <NavLink activeClassName="active" to="/rollcall">
-              <Button type="home">點名</Button>
+                <Button type="home">點名</Button>
               </NavLink>
             </Cards>
             <Cards>
               課程管理
               <hr style={{borderColor:'#FFBF5F',}}/>
               <NavLink activeClassName="active" to="/class">
-              <Button onClick={this.handleClick} type="home">班級資料</Button>
+                <Button type="home">班級資料</Button>
               </NavLink>
-              <Button onClick={this.handleClick} type="home">老師管理</Button>
-              <Button onClick={this.handleClick} type="home">課程管理</Button>
+              <Button type="home">老師管理</Button>
+              <Button type="home">課程管理</Button>
             </Cards>
             <Cards>
               補習班管理
               <hr style={{borderColor:'#FFBF5F',}}/>
-              <Button onClick={this.handleClick} type="home">營運狀態查詢</Button>
-              <Button onClick={this.handleClick} type="home">補課管理</Button>
-              <Button onClick={this.handleClick} type="home">公告</Button>
+              <Button type="home">營運狀態查詢</Button>
+              <Button type="home">補課管理</Button>
+              <Button type="home">公告</Button>
             </Cards>
           </div>
         </main>

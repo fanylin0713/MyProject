@@ -16,7 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Home from '@material-ui/icons/HomeRounded';
 import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import Face from '@material-ui/icons/FaceOutlined';
-import { BrowserRouter as NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const styles = theme => ({
     root: {
