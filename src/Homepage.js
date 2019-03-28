@@ -35,7 +35,7 @@ class Homepage extends React.Component {
               課程管理
               <hr style={{borderColor:'#FFBF5F',}}/>
               <NavLink activeClassName="active" to="/class">
-                <Button type="home">班級資料</Button>
+              <Button type="home">班級資料</Button>
               </NavLink>
               <Button type="home">老師管理</Button>
               <Button type="home">課程管理</Button>
