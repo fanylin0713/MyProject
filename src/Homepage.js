@@ -19,7 +19,7 @@ class Homepage extends React.Component {
         <main style={{ marginTop: "20px" }}>
           <HomepageBar />
           {/* 這是背景排序 */}
-          <div style={{ width: "90%", height: "1000px", margin: "30px auto", display: "flex", flexDirection: "row" }}>
+          <div style={{ width: "90%", margin: "30px auto", display: "flex", flexDirection: "row" }}>
             <Cards>
               課程辨識系統
               <hr style={{borderColor:'#FFBF5F',}}/>
