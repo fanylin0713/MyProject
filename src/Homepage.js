@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AppBar from './components/AppBar/Appbar'
-import HomepageBar from './components/HomepageBar/HomepageBar'
+import HomepageBar from './components/Homepage/HomepageBar'
 import Cards from './components/Cards/Cards'
 import Button from './components/Button/Button'
 import { NavLink } from "react-router-dom";
