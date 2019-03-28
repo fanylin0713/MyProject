@@ -58,7 +58,6 @@ class NavTabs extends React.Component {
 
         return (
             <NoSsr>
-                {/* style={{backgroundColor:'#111B24'}} */}
                 <div className={classes.root} >
                     <AppBar position="static">
                         <Tabs className={classes.tabs} variant="fullWidth" value={value} onChange={this.handleChange}>
