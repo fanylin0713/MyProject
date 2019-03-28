@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from './components/AppBar/Appbar'
 import ApplyForm from './components/ApplyForm/ApplyForm';
-import { Card, Button } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 import { fetchGetCharacterList, fetchPostUser } from 'api'
 
 class Apply extends React.Component {
@@ -9,16 +9,15 @@ class Apply extends React.Component {
     state = {}
 
     componentDidMount() {
-        fetchGetCharacterList({
-            page: 4
-        }).then((response) => {
-            this.setState({
-                data: response.data.data
-            })
-        })
+        // fetchGetCharacterList({
+        //     page: 4
+        // }).then((response) => {
+        //     this.setState({
+        //         data: response.data.data
+        //     })
+        // })
         fetchPostUser({
-            name: "morpheus",
-            job: "leader"
+            name: '123',
         })
     }
 
@@ -34,15 +33,14 @@ class Apply extends React.Component {
                                 width:'60%',
                                 margin:'50px auto',
                                 }}>
-                <ApplyForm data={data} />
-                </Card> */}
+                <ApplyForm name={this.name} />
+                </Card>
 
-                
-                {
+                {/* {
                     data && data.map((el, index) => (
                         <div key={index}>{el.first_name}</div>
                     ))
-                }
+                } */}
             </div>
         )
     }

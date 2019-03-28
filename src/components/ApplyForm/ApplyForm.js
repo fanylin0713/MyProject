@@ -11,17 +11,30 @@ const styles = theme => ({
         color: 'white',
 
     },
-    textField: {
-        marginLeft: theme.spacing.unit * 5,
-        marginRight: theme.spacing.unit * 5,
+    textFieldLeft: {
+        marginLeft: theme.spacing.unit * 18,
+        marginTop:theme.spacing.unit * 2,
         color: 'white',
         width: '260px',
+    },
+    textFieldRight: {
+        marginLeft: theme.spacing.unit * 6,
+        marginTop:theme.spacing.unit * 2,
+        color: 'white',
+        width: '260px',
+    },
+    textFieldFull: {
+        marginLeft: theme.spacing.unit * 18,
+        marginTop:theme.spacing.unit * 2,
+        color: 'white',
+        width: '570px',
     },
     button: {
         display: 'flex',
         border: '1px #FFBF5F solid',
         borderRadius: '30px',
         color: '#FFBF5F',
+        margin: 'auto',
     },
     rightIcon: {
         marginLeft: theme.spacing.unit,
@@ -68,7 +81,7 @@ class OutlinedTextFields extends React.Component {
                         label="姓名"
                         value={this.state.name}
                         onChange={this.handleChange('name')}
-                        className={classes.textField}
+                        className={classes.textFieldLeft}
                         helperText="*Required"
                         margin="normal"
                         variant="outlined"
@@ -78,7 +91,7 @@ class OutlinedTextFields extends React.Component {
                         label="學號"
                         value={this.state.number}
                         onChange={this.handleChange('number')}
-                        className={classes.textField}
+                        className={classes.textFieldRight}
                         helperText="*Required"
                         margin="normal"
                         variant="outlined"
@@ -91,7 +104,7 @@ class OutlinedTextFields extends React.Component {
                         label="年級"
                         value={this.state.grade}
                         onChange={this.handleChange('grade')}
-                        className={classes.textField}
+                        className={classes.textFieldLeft}
                         margin="normal"
                         variant="outlined"
                     />
@@ -101,7 +114,7 @@ class OutlinedTextFields extends React.Component {
                         type="date"
                         value={this.state.birthday}
                         onChange={this.handleChange('birthday')}
-                        className={classes.textField}
+                        className={classes.textFieldRight}
                         InputLabelProps={{
                             shrink: true,
                         }}
@@ -116,7 +129,7 @@ class OutlinedTextFields extends React.Component {
                         label="學校"
                         value={this.state.school}
                         onChange={this.handleChange('school')}
-                        className={classes.textField}
+                        className={classes.textFieldLeft}
                         margin="normal"
                         variant="outlined"
                     />
@@ -125,7 +138,7 @@ class OutlinedTextFields extends React.Component {
                         label="手機"
                         value={this.state.phone}
                         onChange={this.handleChange('phone')}
-                        className={classes.textField}
+                        className={classes.textFieldRight}
                         margin="normal"
                         variant="outlined"
                     />
@@ -136,7 +149,7 @@ class OutlinedTextFields extends React.Component {
                         label="Email"
                         value={this.state.email}
                         onChange={this.handleChange('email')}
-                        className={classes.textField}
+                        className={classes.textFieldFull}
                         type="email"
                         name="email"
                         autoComplete="email"
@@ -150,7 +163,7 @@ class OutlinedTextFields extends React.Component {
                         label="住址"
                         value={this.state.address}
                         onChange={this.handleChange('address')}
-                        className={classes.textField}
+                        className={classes.textFieldFull}
                         margin="normal"
                         variant="outlined"
                     />
@@ -161,7 +174,7 @@ class OutlinedTextFields extends React.Component {
                         label="聯絡人"
                         value={this.state.parent}
                         onChange={this.handleChange('parent')}
-                        className={classes.textField}
+                        className={classes.textFieldLeft}
                         margin="normal"
                         variant="outlined"
                     />
@@ -170,7 +183,7 @@ class OutlinedTextFields extends React.Component {
                         label="聯絡人手機"
                         value={this.state.parentPhone}
                         onChange={this.handleChange('parentPhone')}
-                        className={classes.textField}
+                        className={classes.textFieldRight}
                         margin="normal"
                         variant="outlined"
                     />
