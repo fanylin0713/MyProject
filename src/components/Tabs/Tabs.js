@@ -39,7 +39,6 @@ const styles = theme => ({
     tabs:{
         backgroundColor:'#FFBF5F',
         color:'#111B24',
-        
     }
 
 });
