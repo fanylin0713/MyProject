@@ -33,12 +33,12 @@ const styles = theme => ({
         flexGrow: 1,
         backgroundColor: '#212832',
         width: '90%',
-        margin:'auto',
+        margin: 'auto',
     },
 
-    tabs:{
-        backgroundColor:'#FFBF5F',
-        color:'#111B24',
+    tabs: {
+        backgroundColor: '#FFBF5F',
+        color: '#111B24',
     }
 
 });
@@ -61,9 +61,9 @@ class NavTabs extends React.Component {
                 <div className={classes.root} >
                     <AppBar position="static">
                         <Tabs className={classes.tabs} variant="fullWidth" value={value} onChange={this.handleChange}>
-                            <LinkTab style={{textDecoration:'none'}} label="成績輸入" href="page1" />
-                            <LinkTab style={{textDecoration:'none'}} label="教學進度輸入" href="page2" />
-                            <LinkTab style={{textDecoration:'none'}} label="學生資料輸入" href="page3" />
+                            <LinkTab style={{ textDecoration: 'none' }} label="成績輸入" href="page1" />
+                            <LinkTab style={{ textDecoration: 'none' }} label="教學進度輸入" href="page2" />
+                            <LinkTab style={{ textDecoration: 'none' }} label="學生資料輸入" href="page3" />
                         </Tabs>
                     </AppBar>
                     {value === 0 && <TabContainer><Gradepage /></TabContainer>}
