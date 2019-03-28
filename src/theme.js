@@ -4,16 +4,19 @@ const theme = createMuiTheme({
 
     palette: {
         primary: {
-            light: 'white',
+            light: '#fff',
             main: '#FFBF5F',
             dark: '#fff',
             contrastText: '#EEEEEE'
         },
-        secondary: {
-            light: '#888888',
-            main: '#444444',
-            dark: '#222222',
-            contrastText: '#EEEEEE'
+        // secondary: {
+        //     light: '#888888',
+        //     main: '#444444',
+        //     dark: '#222222',
+        //     contrastText: '#EEEEEE'
+        // },
+        background: {
+            default: '#111B24',
         },
         type: 'dark'
     },
@@ -36,7 +39,7 @@ const theme = createMuiTheme({
             },
             outlined: {
                 border: '2px solid #FFBF5F'
-            }
+            },
         },
 
         MuiOutlinedInput:{
