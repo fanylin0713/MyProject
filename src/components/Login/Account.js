@@ -6,8 +6,6 @@ import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
     container: {
-        
-        
     },
     textField: {
         width: 240,
@@ -32,7 +30,7 @@ class OutlinedTextFields extends React.Component {
 
         return (
             <form className={classes.container} noValidate autoComplete="off">
-                <div>
+                <div style={{marginTop:50}}>
                     <TextField
                         required
                         id="outlined-required"
