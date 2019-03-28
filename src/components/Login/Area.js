@@ -10,6 +10,7 @@ const styles = theme => ({
         width: '250px',
         height: '60px',
         fontSize: '16pt',
+        borderRadius: '10px',
     },
     input: {
         display: 'none',
