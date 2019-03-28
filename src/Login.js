@@ -7,14 +7,14 @@ class Login extends React.Component {
     render() {
 
         return (
-            <div style={{ backgroundColor: "#111B24",height: "100%",width:"100%"}}>
+            <div style={{ backgroundColor: "#111B24",width:"100%"}}>
                 <div style={{height: "200px"}}>
                     <Header />
                 </div>
-                <div style={{backgroundColor: "#111B24", float:"left",width:'35%',height:'1000px'}}>
+                <div style={{backgroundColor: "#111B24", float:"left",width:'35%'}}>
                 <Account />
                 </div>
-                <div style={{backgroundColor: "#111B24",float:"right",width:'65%',height:'1000px',color:'white',fontSize:'18pt'}}>
+                <div style={{backgroundColor: "#111B24",float:"right",width:'65%',color:'white',fontSize:'18pt'}}>
                 校區選擇：
                 <Area />
                 </div>
