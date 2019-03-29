@@ -10,19 +10,19 @@ class Apply extends React.Component {
 
     componentDidMount() {
         // fetchGetCharacterList({
-        //     page: 4
+        //     page: 3
         // }).then((response) => {
         //     this.setState({
         //         data: response.data.data
         //     })
         // })
-        fetchPostUser({
-            name: '123',
-        })
+        // fetchPostUser({
+        //     name: '123',
+        // })
     }
 
     render() {
-        const { data } = this.state
+        // const { data } = this.state
         return (
             <div style={{ backgroundColor: "#111B24", height: "1000px" }}>
                 <AppBar />
