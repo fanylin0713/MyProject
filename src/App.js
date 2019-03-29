@@ -9,6 +9,7 @@ import Homepage from './Homepage'
 import Apply from './Apply';
 import Class from './Class';
 import theme from './theme';
+import Operation from './Operation'
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 class App extends Component {
@@ -30,10 +31,12 @@ class App extends Component {
       <Router>
       <Theme theme={theme}>
       {/* <Login /> */}
+      {/* <Operation/> */}
       <Route exact path="/" component={Homepage} />
       <Route path="/apply" component={Apply} />
       <Route path="/class" component={Class} />
       <Route path="/login"  component={Login} />
+      <Route path="/operation" component={Operation}/>
       {/* < Class /> */}
       </Theme>
       </Router> 

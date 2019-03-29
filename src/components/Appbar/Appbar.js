@@ -98,10 +98,10 @@ function SearchAppBar(props) {
             <Typography className={classes.title} color="inherit" noWrap>
                 台北校區
             </Typography>
-            <NavLink activeClassName="active" to="/">
+            <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/">
             <Button className={classes.button}><Home /></Button></NavLink>
             <Button className={classes.button}><Face /></Button>
-            <NavLink activeClassName="active" to="/login">
+            <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/login">
             <Button className={classes.button}>
             <LogoutIcon className={classes.rightIcon} />
                 Log out
