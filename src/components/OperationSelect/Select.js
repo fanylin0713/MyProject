@@ -34,11 +34,11 @@ class SimpleSelect extends React.Component {
         labelWidth: 0,
     };
 
-    // componentDidMount() {
-    //     this.setState({
-    //         labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    //     });
-    // }
+    componentDidMount() {
+        this.setState({
+            labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
+        });
+    }
 
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
@@ -49,75 +49,91 @@ class SimpleSelect extends React.Component {
 
         return (
             <form className={classes.root} autoComplete="off">
-                <FormControl className={classes.formControl}>
-                    <Select
-                        value={this.state.grade}
-                        onChange={this.handleChange}
-                        name="grade"
-                        displayEmpty
-                        className={classes.selectEmpty}
-                    >
-                    <MenuItem value="" disabled>
-                        <Typography align="center">年級</Typography>
-                    </MenuItem>
-                    <MenuItem value={1}>國一</MenuItem>
-                    <MenuItem value={2}>國二</MenuItem>
-                    <MenuItem value={3}>國三</MenuItem>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel ref={ref => {this.InputLabelRef = ref;}}
+                        htmlFor="outlined-age-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white',}}>
+                        年級</InputLabel>
+                    <Select value={this.state.grade} onChange={this.handleChange}
+                        input={<OutlinedInput labelWidth={this.state.labelWidth} name="grade"
+                        id="outlined-asubject-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}/>}>
+                        
+                        <MenuItem value="" style={{fontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}>
+                        年級</MenuItem>
+                        <MenuItem value={1} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>國一</MenuItem>
+                        <MenuItem value={2} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>國二</MenuItem>
+                        <MenuItem value={3} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>國三</MenuItem>
                     </Select>
                 </FormControl>
 
-                <FormControl className={classes.formControl}>
-                    <Select
-                        value={this.state.subject}
-                        onChange={this.handleChange}
-                        name="subject"
-                        displayEmpty
-                        className={classes.selectEmpty}
-                    >
-                    <MenuItem value="" disabled>
-                        科目
-                    </MenuItem>
-                    <MenuItem value={10}>國一</MenuItem>
-                    <MenuItem value={20}>國二</MenuItem>
-                    <MenuItem value={30}>國三</MenuItem>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel ref={ref => {this.InputLabelRef = ref;}}
+                        htmlFor="outlined-age-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white',}}>
+                        科目</InputLabel>
+                    <Select value={this.state.subject} onChange={this.handleChange}
+                        input={<OutlinedInput labelWidth={this.state.labelWidth} name="subject"
+                        id="outlined-asubject-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}/>}>
+                        
+                        <MenuItem value="" style={{fontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}>
+                        科目</MenuItem>
+                        <MenuItem value={10} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>國文</MenuItem>
+                        <MenuItem value={11} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>數學</MenuItem>
+                        <MenuItem value={12} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>英文</MenuItem>
                     </Select>
                 </FormControl>
 
-                <FormControl className={classes.formControl}>
-                    <Select
-                        value={this.state.teacher}
-                        onChange={this.handleChange}
-                        name="teacher"
-                        displayEmpty
-                        className={classes.selectEmpty}
-                    >
-                    <MenuItem value="" disabled>
-                        老師
-                    </MenuItem>
-                    <MenuItem value={10}>國一</MenuItem>
-                    <MenuItem value={20}>國二</MenuItem>
-                    <MenuItem value={30}>國三</MenuItem>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel ref={ref => {this.InputLabelRef = ref;}}
+                        htmlFor="outlined-age-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white',}}>
+                        老師</InputLabel>
+                    <Select value={this.state.teacher} onChange={this.handleChange}
+                        input={<OutlinedInput labelWidth={this.state.labelWidth} name="teacher"
+                        id="outlined-asubject-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}/>}>
+                        
+                        <MenuItem value="" style={{fontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}>
+                        老師</MenuItem>
+                        <MenuItem value={21} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>蔡明志</MenuItem>
+                        <MenuItem value={22} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>胡俊之</MenuItem>
+                        <MenuItem value={23} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>吳濟聰</MenuItem>
                     </Select>
                 </FormControl>
 
-                <FormControl className={classes.formControl}>
-                    <Select
-                        value={this.state.myclass}
-                        onChange={this.handleChange}
-                        name="myclass"
-                        displayEmpty
-                        className={classes.selectEmpty}
-                    >
-                    <MenuItem value="" disabled>
-                        班別
-                    </MenuItem>
-                    <MenuItem value={10}>國一</MenuItem>
-                    <MenuItem value={20}>國二</MenuItem>
-                    <MenuItem value={30}>國三</MenuItem>
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel ref={ref => {this.InputLabelRef = ref;}}
+                        htmlFor="outlined-age-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white',}}>
+                        班級</InputLabel>
+                    <Select value={this.state.myclass} onChange={this.handleChange}
+                        input={<OutlinedInput labelWidth={this.state.labelWidth} name="myclass"
+                        id="outlined-asubject-simple"
+                        style={{ontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}/>}>
+                        
+                        <MenuItem value="" style={{fontFamily: "Microsoft JhengHei",fontSize:16,color:'white'}}>
+                        班級</MenuItem>
+                        <MenuItem value={31} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>A班</MenuItem>
+                        <MenuItem value={32} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>B班</MenuItem>
+                        <MenuItem value={33} style={{fontFamily: "Microsoft JhengHei",fontSize:16,
+                        color:'white'}}>C班</MenuItem>
                     </Select>
                 </FormControl>
-                
-                <Button onClick={this.handleClick} type="org" style={{marginTop:25,marginLeft:30}}>匯出</Button>
+
+                <Button type="org" style={{marginTop:20,marginLeft:25}}>搜尋</Button>
             </form>
         );
     }
