@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Myclass from './Myclass';
 import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
-import { fetchPostUser } from 'api'
+import { fetchPostStudent } from '../../api';
 
 const styles = theme => ({
     container: {
@@ -86,8 +86,8 @@ class OutlinedTextFields extends React.Component {
         // changed here
         let data = {fields:{}};
         data.fields = this.state;
-        
-        fetchPostUser(data);
+
+        fetchPostStudent(data);
     };
 
     componentDidUpdate(){
