@@ -47,8 +47,8 @@ const baroptions={
   is3D: false,
   backgroundColor:'transparent',
   legend: {textStyle: {color: 'white',fontName:'Microsoft JhengHei',fontSize:14,fontWeight:"bold" }},
-  hAxis: {textStyle:{color:'white'}},
-  titleTextStyle: { color: '#FFF' },
+  hAxis: {textStyle:{color:'white',fontName:'Microsoft JhengHei',fontSize:14,fontWeight:"bold"}},
+  vAxis: {textStyle:{color:'white',fontName:'Microsoft JhengHei',fontSize:14,fontWeight:"bold"}},
 };
 
 
@@ -64,13 +64,13 @@ class Operation extends React.Component {
         </div>
 
         <div style={{backgroundColor:"#111B24"}}>
-          <Card style={{backgroundColor:"#212832",border:'0.8px #FFBF5F solid',borderRadius:'1px',
+          <Card style={{backgroundColor:"#111B24",border:'0.8px #FFBF5F solid',borderRadius:'1px',
             width:'60%',margin:'50px auto'}}>
             <Typography style={{marginTop:30,fontFamily: "Microsoft JhengHei",LetterSpacing:4,fontSize:16,
             fontWeight: "bold",color:'white'}}><a style={{marginLeft:50}}>到課率:</a>
             <a style={{marginLeft:350}}>本學期報名人數:1000/30000</a></Typography>
 
-            <div style={{ backgroundColor: "#212832" ,display:'flex',flexDirection:'row'}}>
+            <div style={{ backgroundColor: "#111B24" ,display:'flex',flexDirection:'row'}}>
             <Chart chartType="PieChart" data={piedata} options={pieoptions}/>
             </div>
 
@@ -80,7 +80,7 @@ class Operation extends React.Component {
 
           </Card>
         </div>
-        <div style={{height:40}}></div>
+        <div style={{height:20}}></div>
       </div>
     )
   }
