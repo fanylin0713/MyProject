@@ -8,8 +8,8 @@ import { NavLink } from "react-router-dom";
 
 class Homepage extends React.Component {
 
-  
-  
+
+
   render() {
     return (
       <div style={{ backgroundColor: "#111B24" }}>
@@ -22,7 +22,7 @@ class Homepage extends React.Component {
           <div style={{ width: "90%", margin: "30px auto", display: "flex", flexDirection: "row" }}>
             <Cards>
               課程辨識系統
-              <hr style={{borderColor:'#FFBF5F',}}/>
+              <hr style={{ borderColor: '#FFBF5F', }} />
               {/* 跳頁連結 */}
               <NavLink activeClassName="active" to="/apply">
                 <Button type="home">報名</Button>
@@ -33,19 +33,21 @@ class Homepage extends React.Component {
             </Cards>
             <Cards>
               課程管理
-              <hr style={{borderColor:'#FFBF5F',}}/>
+              <hr style={{ borderColor: '#FFBF5F', }} />
               <NavLink activeClassName="active" to="/class">
-              <Button type="home">班級資料</Button>
+                <Button type="home">班級資料</Button>
               </NavLink>
               <Button type="home">老師管理</Button>
               <Button type="home">課程管理</Button>
             </Cards>
             <Cards>
               補習班管理
-              <hr style={{borderColor:'#FFBF5F',}}/>
+              <hr style={{ borderColor: '#FFBF5F', }} />
               <Button type="home">營運狀態查詢</Button>
               <Button type="home">補課管理</Button>
-              <Button type="home">公告</Button>
+              <NavLink activeClassName="active" to="/announcment">
+                <Button type="home">公告</Button>
+              </NavLink>
             </Cards>
           </div>
         </main>

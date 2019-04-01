@@ -9,6 +9,7 @@ import Class from './Class';
 import Rollcall from './Rollcall';
 import theme from './theme';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Announcement from './Announcement';
 
 class App extends Component {
   // state = {
@@ -31,6 +32,7 @@ class App extends Component {
       <Route path="/class" component={Class} />
       <Route path="/login"  component={Login} />
       <Route path="/rollcall"  component={Rollcall} />
+      <Route path="/announcment"  component={Announcement} />
       </Theme>
       </Router> 
       // <React.Fragment>
