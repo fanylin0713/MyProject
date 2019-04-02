@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from './components/AppBar/Appbar'
+import AnnounceTable from './components/Announce/AnnounceTable';
 
 
 class Announcement extends React.Component {
@@ -9,6 +10,7 @@ class Announcement extends React.Component {
         return (
             <div>
             <AppBar />
+            <AnnounceTable />
             </div>
         )
     }
