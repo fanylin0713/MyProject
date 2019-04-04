@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from './components/AppBar/Appbar'
+import AppBar from './components/Appbar/Appbar'
 
 
 class Homepage extends React.Component {

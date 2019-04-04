@@ -9,3 +9,5 @@ const config = {
 // Api docs, http://www.amiiboapi.com/
 export const fetchGetCharacterList = (payload) => axios.get(`https://reqres.in/api/users?${queryString.stringify(payload)}`, config)
 export const fetchPostStudent = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Student?view=Grid%20view', payload, config)
+
+export const fetchPostClassMember = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ClassMember?view=Grid%20view', payload, config)

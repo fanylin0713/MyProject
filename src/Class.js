@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from './components/AppBar/Appbar'
+import AppBar from './components/Appbar/Appbar'
 import Tabs from './components/Tabs/Tabs';
 import Selector from './components/Selector/ClassSelector';
 

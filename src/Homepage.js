@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AppBar from './components/AppBar/Appbar'
+import AppBar from './components/Appbar/Appbar'
 import HomepageBar from './components/Homepage/HomepageBar'
 import Cards from './components/Cards/Cards'
 import Button from './components/Button/Button'

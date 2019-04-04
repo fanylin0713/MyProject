@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Myclass from './Myclass';
 import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
-import { fetchPostStudent } from '../../api';
+import { fetchPostStudent, fetchPostClassMember } from '../../api';
 
 const styles = theme => ({
     container: {
@@ -43,35 +43,28 @@ const styles = theme => ({
 });
 
 class OutlinedTextFields extends React.Component {
-
-    state = {
-        //changed here
-        student_name: '',
-        student_id: '',
-        student_grade: '',
-        student_phone:'',
-        student_birth:'',
-        student_school:'',
-        student_email:'',
-        student_parent:'',
-        student_parent_phone:''
-        /*
-        name:'',
-        number:'',
-        grade: '123',
-        birthday: '1998-07-13',
-        class: '',
-        school: '',
-        phone: '',
-        email: '',
-        address: '',
-        parent: '',
-        parentPhone: '',
-        */
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            class_id: null,
+            student_name: '',
+            student_id: '',
+            student_grade: '',
+            student_phone:'',
+            student_birth:'1998-07-13',
+            student_school:'',
+            student_email:'',
+            student_parent:'',
+            student_parent_phone:'',
+            student_address:''
+        };    
+    }
+    //https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
+    myCallback = (dataFromChild) => {
+        this.setState({ class_id: dataFromChild });
+    }
 
     handleChange = name => event => {
-        
         this.setState({
             [name] : event.target.value});
         //console.log(this.state);
@@ -81,13 +74,31 @@ class OutlinedTextFields extends React.Component {
     handleSubmit = (e)=> {
         e.preventDefault()
         
-            //this.setState({fields:{student_name:this.state.name}})
         console.log(this.state);
         // changed here
-        let data = {fields:{}};
-        data.fields = this.state;
-
+        //let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{}}};
+        let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{},student_school:{},student_email:{},student_parent:{},student_parent_phone:{},student_address:{}}};
+        data.fields.student_name = this.state.student_name;
+        data.fields.student_id = this.state.student_id;
+        data.fields.student_grade = this.state.student_grade;
+        data.fields.student_phone = this.state.student_phone;
+        data.fields.student_birth = this.state.student_birth;
+        data.fields.student_school = this.state.student_school;
+        data.fields.student_email = this.state.student_email;
+        data.fields.student_parent = this.state.student_parent;
+        data.fields.student_parent_phone = this.state.student_parent_phone;
+        data.fields.student_address = this.state.student_address;
+        console.log(data);
         fetchPostStudent(data);
+
+        let memberData = {fields:{class_id:{},student_id:{}}};
+        //memberData.fields = this.state.class_id + this.state.student_name;
+        var count = this.state.class_id.length;
+        for(var index = 0; index < count; index++) {
+            memberData.fields.student_id =  this.state.student_id
+            memberData.fields.class_id = this.state.class_id[index]       
+        }
+        fetchPostClassMember(memberData);
     };
 
     componentDidUpdate(){
@@ -143,7 +154,7 @@ class OutlinedTextFields extends React.Component {
                         id="date"
                         label="生日"
                         type="date"
-                        value={this.state.birthday}
+                        value={this.state.student_birth}
                         onChange={this.handleChange('student_birth')}
                         className={classes.textFieldRight}
                         InputLabelProps={{
@@ -152,7 +163,7 @@ class OutlinedTextFields extends React.Component {
                     />
                 </div>
                 <div>
-                    <Myclass />
+                    <Myclass callbackFromParent={this.myCallback}/>
                 </div>
                 <div>
                     <TextField
@@ -193,7 +204,7 @@ class OutlinedTextFields extends React.Component {
                         id="outlined-name"
                         label="住址"
                         value={this.state.address}
-                        onChange={this.handleChange('address')}
+                        onChange={this.handleChange('student_address')}
                         className={classes.textFieldFull}
                         margin="normal"
                         variant="outlined"
