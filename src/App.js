@@ -8,16 +8,10 @@ import Apply from './Apply';
 import Class from './Class';
 import Rollcall from './Rollcall';
 import theme from './theme';
-<<<<<<< HEAD
 import Operation from './Operation'
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
-=======
-import { BrowserRouter as Router, Route } from "react-router-dom";
-<<<<<<< HEAD
 import Announcement from './Announcement';
-=======
->>>>>>> 727fb28a4df99694d18af0f5db33668b08c3c126
->>>>>>> 409f349dd8805286a2be2146c31a44ad3979cfdd
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
 
 class App extends Component {
       // state = {
