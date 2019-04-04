@@ -43,19 +43,13 @@ class Homepage extends React.Component {
             <Cards>
               補習班管理
               <hr style={{ borderColor: '#FFBF5F', }} />
+              <NavLink activeClassName="active" to="/operation">
               <Button type="home">營運狀態查詢</Button>
+              </NavLink>
               <Button type="home">補課管理</Button>
               <NavLink activeClassName="active" to="/announcment">
                 <Button type="home">公告</Button>
               </NavLink>
-              <hr style={{ borderColor: '#FFBF5F', }} />
-              <NavLink activeClassName="active" to="/operation">
-                <Button type="home">營運狀態查詢</Button></NavLink>
-              <Button onClick={this.handleClick} type="home">補課管理</Button>
-              <Button onClick={this.handleClick} type="home">公告</Button>
-              <Button type="home">營運狀態查詢</Button>
-              <Button type="home">補課管理</Button>
-              <Button type="home">公告</Button>
             </Cards>
           </div>
         </main>

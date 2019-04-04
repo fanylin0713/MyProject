@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-
-import AppBar from './components/Appbar/Appbar'
-import HomepageBar from './components/HomepageBar/HomepageBar'
-import Cards from './components/Cards/Cards'
-import Button from './components/Button/Button'
+import AppBar from './components/AppBar/Appbar';
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import Select from './components/OperationSelect/Select'
 import { Card, Typography } from '@material-ui/core';
