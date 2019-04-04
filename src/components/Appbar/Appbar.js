@@ -91,6 +91,41 @@ const styles = theme => ({
     },
 });
 
+<<<<<<< HEAD
+function SearchAppBar(props) {
+    const { classes } = props;
+    return (
+        <div className={classes.root}>
+        <AppBar position="static" style={{backgroundColor: '#111B24'}}>
+        <Toolbar>
+            {/* <SideBarIcon className={classes.menuButton} onClick={this.toggleDrawer('left', true)} /> */}
+            <Drawer />
+            <img src={pin} height ="26" alt ="location"></img>
+            {/* <Selector /> */}
+            <Typography className={classes.title} color="inherit" noWrap>
+                台北校區
+            </Typography>
+            <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/">
+            <Button className={classes.button}><Home /></Button></NavLink>
+            <Button className={classes.button}><Face /></Button>
+            <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/login">
+            <Button className={classes.button}>
+            <LogoutIcon className={classes.rightIcon} />
+                Log out
+            </Button></NavLink>
+            <div className={classes.grow} />
+            <div className={classes.search}>
+            <div className={classes.searchIcon}>
+            <SearchIcon />
+            </div>
+            <InputBase
+                placeholder="學號查詢…"
+                classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+                }}
+            />
+=======
 
 class SearchAppBar extends React.Component {
 
@@ -186,6 +221,7 @@ class SearchAppBar extends React.Component {
                         </div>
                     </Toolbar>
                 </AppBar>
+>>>>>>> 727fb28a4df99694d18af0f5db33668b08c3c126
             </div>
         );
     }

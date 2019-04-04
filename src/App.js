@@ -8,39 +8,48 @@ import Apply from './Apply';
 import Class from './Class';
 import Rollcall from './Rollcall';
 import theme from './theme';
+<<<<<<< HEAD
+import Operation from './Operation'
+import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+=======
 import { BrowserRouter as Router, Route } from "react-router-dom";
+<<<<<<< HEAD
 import Announcement from './Announcement';
+=======
+>>>>>>> 727fb28a4df99694d18af0f5db33668b08c3c126
+>>>>>>> 409f349dd8805286a2be2146c31a44ad3979cfdd
 
 class App extends Component {
-  // state = {
-  //   data: 'data message'
-  // }
+      // state = {
+      //   data: 'data message'
+      // }
 
-  // handleClick = () => {
-  //   this.setState({
-  //     data: 'clicked data message'
-  //   })
-  // }
+      // handleClick = () => {
+      //   this.setState({
+      //     data: 'clicked data message'
+      //   })
+      // }
 
-  render() {
-    return (
-      
-      <Router>
-      <Theme theme={theme}>
-      <Route exact path="/" component={Homepage} />
-      <Route path="/apply" component={Apply} />
-      <Route path="/class" component={Class} />
-      <Route path="/login"  component={Login} />
-      <Route path="/rollcall"  component={Rollcall} />
-      <Route path="/announcment"  component={Announcement} />
-      </Theme>
-      </Router> 
-      // <React.Fragment>
-      //   <Button onClick={this.handleClick} color="red">change date message</Button>
-      //   <LifeCycle data={this.state.data} />
-      // </React.Fragment>
-    );
-  }
+      render() {
+            return (
+
+                  <Router>
+                        <Theme theme={theme}>
+                              <Route exact path="/" component={Homepage} />
+                              <Route path="/apply" component={Apply} />
+                              <Route path="/class" component={Class} />
+                              <Route path="/login" component={Login} />
+                              <Route path="/operation" component={Operation} />
+                              <Route path="/rollcall" component={Rollcall} />
+                              <Route path="/announcment" component={Announcement} />
+                        </Theme>
+                  </Router>
+                  // <React.Fragment>
+                  //   <Button onClick={this.handleClick} color="red">change date message</Button>
+                  //   <LifeCycle data={this.state.data} />
+                  // </React.Fragment>
+            );
+      }
 }
 
 export default App;
