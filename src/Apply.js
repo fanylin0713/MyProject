@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from './components/Appbar/Appbar'
+import AppBar from './components/AppBar/Appbar'
 import ApplyForm from './components/ApplyForm/ApplyForm';
 import { Card } from '@material-ui/core';
 import { fetchGetCharacterList, fetchPostUser } from 'api'

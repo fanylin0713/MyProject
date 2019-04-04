@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Gradepage from '../Classpage/Gradepage';
 import Progresspage from '../Classpage/Progresspage';
-import Studentpage from '../Classpage/studentpage';
+import Studentpage from '../Classpage/Studentpage';
 
 
 

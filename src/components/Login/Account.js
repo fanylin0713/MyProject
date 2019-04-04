@@ -20,19 +20,19 @@ const styles = theme => ({
 });
 
 function createData(account_id, account_passwd) {
-    return { account_id, account_passwd};
-  }
+    return { account_id, account_passwd };
+}
 
 class OutlinedTextFields extends React.Component {
     constructor(props) {
         super(props);
-    
+
         this.state = {
             account: "",
             password: "",
-            userData:[]
+            userData: []
         };
-      }
+    }
     // state = {
     //     account: '',
     //     password: ''
@@ -41,27 +41,27 @@ class OutlinedTextFields extends React.Component {
         table.select({
             //filterByFormula: 'AND(student_id = 405401369)',
             view: "Grid view"
-            }).eachPage((records, fetchNextPage) => {
-              this.setState({records});
-              console.log(records);
-              const account_id = this.state.records.map((record, index) => record.fields['account_id']);
-              const account_passwd = this.state.records.map((record, index) => record.fields['account_passwd']);
-              // This function (`page`) will get called for each page of records.
-              var count = account_id.length;
-              var temp=[];
-              for(var index = 0; index < count; index++) {
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+            console.log(records);
+            const account_id = this.state.records.map((record, index) => record.fields['account_id']);
+            const account_passwd = this.state.records.map((record, index) => record.fields['account_passwd']);
+            // This function (`page`) will get called for each page of records.
+            var count = account_id.length;
+            var temp = [];
+            for (var index = 0; index < count; index++) {
                 temp.push(createData(account_id[index], account_passwd[index]));
-              
-              }
-              this.setState({ userData : temp });
-              fetchNextPage(); 
+
             }
-            );
+            this.setState({ userData: temp });
+            fetchNextPage();
+        }
+        );
     }
 
     validateForm() {
         return this.state.account.length > 0 && this.state.password.length > 0;
-      }
+    }
 
     handleChange = event => {
         this.setState({
@@ -74,17 +74,17 @@ class OutlinedTextFields extends React.Component {
         console.log(this.state.account);
         console.log(this.state.userData);
 
-        for(var index = 0; index < this.state.userData.length; index++) {
-            if(this.state.account == this.state.userData[index].account_id){
-                if(this.state.password == this.state.userData[index].account_passwd){
+        for (var index = 0; index < this.state.userData.length; index++) {
+            if (this.state.account == this.state.userData[index].account_id) {
+                if (this.state.password == this.state.userData[index].account_passwd) {
                     console.log("enter");
-                }else{
+                } else {
                     console.log("wrong passwd");
                 }
-            }else{
+            } else {
                 console.log("wrong account");
             }
-          
+
         }
         // if(this.state.account == this.state.userData.account_id){
         //     if(this.state.password == this.state.userData.account_passwd){
@@ -98,7 +98,7 @@ class OutlinedTextFields extends React.Component {
 
         return (
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
-                <div style={{marginTop:50}}>
+                <div style={{ marginTop: 50 }}>
                     <TextField
                         required
                         //id="outlined-required"
@@ -125,7 +125,7 @@ class OutlinedTextFields extends React.Component {
                     /></div>
                 <div><a className="forget" href="">忘記密碼?</a></div>
                 <div>
-                    <button className="btn login-btn" type="submit" name="loginbutton" disabled={!this.validateForm()}> 
+                    <button className="btn login-btn" type="submit" name="loginbutton" disabled={!this.validateForm()}>
                         <span>Log in</span>
                     </button>
                 </div>
