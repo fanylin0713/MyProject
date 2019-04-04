@@ -13,9 +13,19 @@ const styles = theme => ({
         width: '80%',
         margin:'0 auto',
         marginTop: theme.spacing.unit * 3,
+        backgroundColor:'#212832',
+        border:'white 1px solid',
     },
-    table: {
-        minWidth: 700,
+    // table: {
+    //     minWidth: 700,
+    // },
+    head:{
+        fontSize:'16pt',
+        backgroundColor:'#FFBF5F',
+        color:'#111B24',
+    },
+    content:{
+        fontSize:'14pt',
     },
 });
 
@@ -26,11 +36,11 @@ function createData(time, title) {
 }
 
 const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
+    createData('2019/02/27', '颱風天停課！'),
+    createData('2019/03/02', '國文Ａ班改到302教室'),
+    createData('2019/03/04', 'XXXXXXXXXXXXX'),
+    createData('2019/03/09', 'XXXXXXXXXX'),
+    createData('2019/04/01', 'XXXXXXXXXXXXXXXXXXXXXXXXX'),
 ];
 
 function SimpleTable(props) {
@@ -39,17 +49,17 @@ function SimpleTable(props) {
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
-                <TableHead>
+                <TableHead >
                     <TableRow>
-                        <TableCell>時間</TableCell>
-                        <TableCell align="right">標題</TableCell>
+                        <TableCell className={classes.head}>發佈日期</TableCell>
+                        <TableCell className={classes.head} >標題</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">{row.time}</TableCell>
-                            <TableCell align="right">{row.title}</TableCell>
+                            <TableCell className={classes.content} style={{width:'15%'}} component="th" scope="row">{row.time}</TableCell>
+                            <TableCell className={classes.content}>{row.title}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
