@@ -88,6 +88,7 @@ function SimpleList(props) {
                     }} primary="課程管理" />
                 </ListItem>
 
+                <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/operation">
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{
                         classes: {
@@ -95,6 +96,7 @@ function SimpleList(props) {
                         }
                     }} primary="營運狀態" />
                 </ListItem>
+                </NavLink>
 
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{
@@ -104,6 +106,7 @@ function SimpleList(props) {
                     }} primary="補課管理" />
                 </ListItem>
 
+                <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/announcment">
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{
                         classes: {
@@ -111,6 +114,7 @@ function SimpleList(props) {
                         }
                     }} primary="公告" />
                 </ListItem>
+                </NavLink>
             </List>
         </div>
     );

@@ -91,7 +91,6 @@ const styles = theme => ({
     },
 });
 
-
 class SearchAppBar extends React.Component {
 
     state = {
