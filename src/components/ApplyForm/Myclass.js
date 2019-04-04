@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -16,7 +15,7 @@ const styles = theme => ({
         flexWrap: 'wrap',
     },
     formControl: {
-        margin: theme.spacing.unit,
+        marginLeft: theme.spacing.unit * 18,
         minWidth: 120,
         maxWidth: 300,
     },

@@ -10,6 +10,7 @@ const styles = theme => ({
         width: '250px',
         height: '60px',
         fontSize: '16pt',
+        borderRadius: '10px',
     },
     input: {
         display: 'none',
@@ -22,35 +23,35 @@ function OutlinedButtons(props) {
         <div>
             <div>
             <Button variant="outlined" className={classes.button}>
-                台北校區
+                北投校區
+            </Button>
+            <Button variant="outlined" className={classes.button}>
+                新莊校區
+            </Button>
+            <Button variant="outlined" className={classes.button}>
+                信義校區
+            </Button>
+            </div>
+            <div>
+            <Button variant="outlined" className={classes.button}>
+                南港校區
+            </Button>
+            <Button variant="outlined" className={classes.button}>
+                古亭校區
+            </Button>
+            <Button variant="outlined" className={classes.button}>
+                士林校區
+            </Button>
+            </div>
+            <div>
+            <Button variant="outlined" className={classes.button}>
+                板橋校區
+            </Button>
+            <Button variant="outlined" className={classes.button}>
+                北車校區
             </Button>
             <Button variant="outlined" className={classes.button}>
                 台中校區
-            </Button>
-            <Button variant="outlined" className={classes.button}>
-                台難校區
-            </Button>
-            </div>
-            <div>
-            <Button variant="outlined" className={classes.button}>
-                台一校區
-            </Button>
-            <Button variant="outlined" className={classes.button}>
-                台二校區
-            </Button>
-            <Button variant="outlined" className={classes.button}>
-                台三校區
-            </Button>
-            </div>
-            <div>
-            <Button variant="outlined" className={classes.button}>
-                台四校區
-            </Button>
-            <Button variant="outlined" className={classes.button}>
-                台五校區
-            </Button>
-            <Button variant="outlined" className={classes.button}>
-                台六校區
             </Button>
             </div>
         </div>

@@ -1,14 +1,28 @@
-import React, { Component } from 'react';
-import AppBar from './components/Appbar/Appbar'
+import React from 'react';
+import AppBar from './components/AppBar/Appbar'
 import ApplyForm from './components/ApplyForm/ApplyForm';
-import Button from './components/Button/Button';
 import { Card } from '@material-ui/core';
-
+import { fetchGetCharacterList, fetchPostUser } from 'api'
 
 class Apply extends React.Component {
 
-    render() {
+    state = {}
 
+    componentDidMount() {
+        // fetchGetCharacterList({
+        //     page: 3
+        // }).then((response) => {
+        //     this.setState({
+        //         data: response.data.data
+        //     })
+        // })
+        // fetchPostUser({
+        //     name: '123',
+        // })
+    }
+
+    render() {
+        // const { data } = this.state
         return (
             <div style={{ backgroundColor: "#111B24", height: "1000px" }}>
                 <AppBar />
@@ -21,8 +35,12 @@ class Apply extends React.Component {
                                 }}>
                 <ApplyForm />
                 </Card>
-                
-                {/* <Button onClick={this.handleClick} type="org">儲存</Button> */}
+
+                {/* {
+                    data && data.map((el, index) => (
+                        <div key={index}>{el.first_name}</div>
+                    ))
+                } */}
             </div>
         )
     }

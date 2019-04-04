@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Gradepage from '../Classpage/Gradepage';
 import Progresspage from '../Classpage/Progresspage';
-import Studentpage from '../Classpage/studentpage';
+import Studentpage from '../Classpage/Studentpage';
 
 
 
@@ -31,14 +31,14 @@ function LinkTab(props) {
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: '#212832',
         width: '90%',
-        margin:'auto',
+        margin: 'auto',
     },
 
-    tabs:{
-        backgroundColor:'#FFBF5F',
-        color:'#111B24',
+    tabs: {
+        backgroundColor: '#FFBF5F',
+        color: '#111B24',
     }
 
 });
@@ -58,13 +58,12 @@ class NavTabs extends React.Component {
 
         return (
             <NoSsr>
-                {/* style={{backgroundColor:'#111B24'}} */}
                 <div className={classes.root} >
                     <AppBar position="static">
                         <Tabs className={classes.tabs} variant="fullWidth" value={value} onChange={this.handleChange}>
-                            <LinkTab label="成績輸入" href="page1" />
-                            <LinkTab label="教學進度輸入" href="page2" />
-                            <LinkTab label="學生資料輸入" href="page3" />
+                            <LinkTab style={{ textDecoration: 'none' }} label="成績輸入" href="page1" />
+                            <LinkTab style={{ textDecoration: 'none' }} label="教學進度輸入" href="page2" />
+                            <LinkTab style={{ textDecoration: 'none' }} label="學生資料輸入" href="page3" />
                         </Tabs>
                     </AppBar>
                     {value === 0 && <TabContainer><Gradepage /></TabContainer>}
