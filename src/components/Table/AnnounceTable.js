@@ -15,6 +15,7 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
         backgroundColor:'#212832',
         border:'white 1px solid',
+        overflowX: 'auto',
     },
     // table: {
     //     minWidth: 700,
