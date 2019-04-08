@@ -12,6 +12,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 //     },
 // };
 
+// const styles = theme => ({
+//     textField:{
+//         color:'blue',
+//     }
+// });
+
 export default class FormDialog extends React.Component {
     state = {
         open: false
@@ -26,7 +32,7 @@ export default class FormDialog extends React.Component {
     };
 
     render() {
-        const { classes } = this.props;
+        // const { classes } = this.props;
         return (
             <div>
                 <Button variant="outlined" onClick={this.handleClickOpen}>
@@ -50,7 +56,7 @@ export default class FormDialog extends React.Component {
                             id="outlined-multiline-flexible"
                             label="內容"
                             multiline
-                            rowsMax="8"
+                            rows="10"
                             margin="normal"
                             variant="outlined"
                             fullWidth
