@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from './components/AppBar/Appbar'
+import MakeupTable from './components/Table/MakeupTable';
 
 
 class MakeupClass extends React.Component {
@@ -9,6 +10,7 @@ class MakeupClass extends React.Component {
         return (
             <div>
             <AppBar />
+            <MakeupTable />
             </div>
         )
     }
