@@ -10,6 +10,7 @@ import Rollcall from './Rollcall';
 import theme from './theme';
 import Operation from './Operation'
 import Announcement from './Announcement';
+import Makeupclass from './MakeupClass';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 
@@ -36,6 +37,7 @@ class App extends Component {
                               <Route path="/operation" component={Operation} />
                               <Route path="/rollcall" component={Rollcall} />
                               <Route path="/announcment" component={Announcement} />
+                              <Route path="/makeupclass" component={Makeupclass} />
                         </Theme>
                   </Router>
                   // <React.Fragment>
