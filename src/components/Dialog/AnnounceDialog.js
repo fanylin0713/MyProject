@@ -5,20 +5,16 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { withStyles } from '@material-ui/core/styles';
 
-// const styles = {
-//     textField: {
-//         width: 200,
-//     },
-// };
+const styles = theme => ({
+    root:{
+        width: '800px',
+        margin: 'auto',
+    },
+});
 
-// const styles = theme => ({
-//     textField:{
-//         color:'blue',
-//     }
-// });
-
-export default class FormDialog extends React.Component {
+class FormDialog extends React.Component {
     state = {
         open: false
     };
@@ -32,13 +28,13 @@ export default class FormDialog extends React.Component {
     };
 
     render() {
-        // const { classes } = this.props;
+        const { classes } = this.props;
         return (
             <div>
                 <Button variant="outlined" onClick={this.handleClickOpen}>
                     新增公告
                 </Button>
-                <Dialog
+                <Dialog className={classes.root}
                     open={this.state.open}
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
@@ -48,7 +44,6 @@ export default class FormDialog extends React.Component {
                         <TextField
                             id="standard-with-placeholder"
                             placeholder="標題"
-                            // className={classes.textField}
                             margin="normal"
                             fullWidth
                         />
@@ -71,3 +66,5 @@ export default class FormDialog extends React.Component {
         );
     }
 }
+
+export default withStyles(styles)(FormDialog);
