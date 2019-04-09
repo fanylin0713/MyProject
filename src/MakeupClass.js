@@ -13,6 +13,8 @@ const styles = theme => ({
     },
     table:{
         margin:'auto',
+        fontSize:'14pt',
+        marginTop: theme.spacing.unit * 3,
     },
 });
 class MakeupClass extends React.Component {
