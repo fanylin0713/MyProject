@@ -10,20 +10,21 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
     root: {
-        width: '90%',
+        width: '100%',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
-        margin:'auto',
+        backgroundColor:'#212832',
+        border:'white 1px solid',
     },
     table: {
-        minWidth: 700,
+        // minWidth: 700,
     },
 });
 
 let id = 0;
-function createData(morning, afternoon, night) {
+function createData(student, number, project) {
     id += 1;
-    return { id, morning, afternoon, night};
+    return { id, student, number, project};
 }
 
 const rows = [
@@ -42,19 +43,19 @@ function SimpleTable(props) {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>早上</TableCell>
-                        <TableCell>下午</TableCell>
-                        <TableCell>晚上</TableCell>
+                        <TableCell>姓名</TableCell>
+                        <TableCell>學號</TableCell>
+                        <TableCell>補課項目</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.id}>
                             <TableCell component="th" scope="row">
-                                {row.morning}
+                                {row.student}
                             </TableCell>
-                            <TableCell>{row.afternoon}</TableCell>
-                            <TableCell>{row.night}</TableCell>
+                            <TableCell>{row.number}</TableCell>
+                            <TableCell>{row.project}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
