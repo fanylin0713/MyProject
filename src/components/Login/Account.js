@@ -33,10 +33,7 @@ class OutlinedTextFields extends React.Component {
             userData: []
         };
     }
-    // state = {
-    //     account: '',
-    //     password: ''
-    // };
+    
     componentDidMount() {
         table.select({
             //filterByFormula: 'AND(student_id = 405401369)',
