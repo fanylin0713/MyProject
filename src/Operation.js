@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from './components/AppBar/Appbar';
 // import { NavLink } from "react-router-dom";
-import Select from './components/OperationSelect/Select'
+import Select from './components/Selector/OperationSelect'
 import { Card, Typography } from '@material-ui/core';
 import Chart from "react-google-charts";
 
