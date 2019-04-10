@@ -13,6 +13,7 @@ import Announcement from './Announcement';
 import Makeupclass from './MakeupClass';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Teacher from './Teacher';
+import Course from './Course';
 
 
 class App extends Component {
@@ -40,6 +41,7 @@ class App extends Component {
                               <Route path="/announcment" component={Announcement} />
                               <Route path="/makeupclass" component={Makeupclass} />
                               <Route path="/teacher" component={Teacher} />
+                              <Route path="/course" component={Course} />
                         </Theme>
                   </Router>
                   // <React.Fragment>

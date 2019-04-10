@@ -40,7 +40,9 @@ class Homepage extends React.Component {
               <NavLink activeClassName="active" to="/teacher">
               <Button type="home">老師管理</Button>
               </NavLink>
+              <NavLink activeClassName="active" to="/course">
               <Button type="home">課程管理</Button>
+              </NavLink>
             </Cards>
             <Cards>
               補習班管理

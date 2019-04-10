@@ -82,6 +82,7 @@ function SimpleList(props) {
                 </ListItem>
                 </NavLink>
 
+                <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/course">
                 <ListItem button>
                     <ListItemText primaryTypographyProps={{
                         classes: {
@@ -89,6 +90,7 @@ function SimpleList(props) {
                         }
                     }} primary="課程管理" />
                 </ListItem>
+                </NavLink>
 
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/operation">
                 <ListItem button>
