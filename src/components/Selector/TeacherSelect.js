@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '../Button/Button';
+import TeacherDialog from '../Dialog/TeacherDialog';
 
 
 const styles = theme => ({
@@ -30,6 +31,10 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit * 3,
         borderRadius: '30px',
         height: '40px',
+    },
+    add:{
+        marginTop: theme.spacing.unit * 4,
+        marginLeft: theme.spacing.unit * 97.5,
     },
 });
 
@@ -54,7 +59,6 @@ class SimpleSelect extends React.Component {
 
         return (
             <form className={classes.root} autoComplete="off">
-
                 <FormControl variant="outlined" className={classes.formControl}>
                     <InputLabel
                         ref={ref => {
@@ -85,6 +89,7 @@ class SimpleSelect extends React.Component {
                 </FormControl>
                 {/* <Button variant="outlined" size='large' onClick={this.handleClick} className={classes.button}>搜尋</Button> */}
                 <Button type="org" style={{marginTop:35,marginLeft:25}}>搜尋</Button>
+                <span className={classes.add} ><TeacherDialog/></span>
             </form>
         );
     }
