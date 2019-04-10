@@ -149,7 +149,7 @@ const styles = theme => ({
     root: {
         width: '80%',
         margin: '0 auto',
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing.unit,
         backgroundColor: '#212832',
         border: 'white 1px solid',
         overflowX: 'auto',
