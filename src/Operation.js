@@ -1,9 +1,24 @@
 import React from 'react';
 import AppBar from './components/AppBar/Appbar';
-// import { NavLink } from "react-router-dom";
 import Select from './components/Selector/OperationSelect'
 import { Card, Typography } from '@material-ui/core';
 import Chart from "react-google-charts";
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme =>({
+  select:{
+    marginTop: theme.spacing.unit * 3,
+    marginLeft:'15%',
+  },
+  card:{
+    backgroundColor:'#212832',
+    border:'0.8px #FFBF5F solid',
+    borderRadius:'2px',
+    width:'70%',
+    marginTop: theme.spacing.unit * 3,
+    margin:'0 auto',
+  },
+});
 
 
 const piedata = [
@@ -11,13 +26,15 @@ const piedata = [
   ["出席", 70.3],
   ["缺席", 29.7], // CSS-style declaration
 ];
+
+//圓餅圖
 const pieoptions = {
   //title: "My Daily Activities",
-  is3D: false,
+  is3D: true,
   backgroundColor: 'transparent',
-  heigth:400,
-  width:400,
-  colors: ['#7373b9', '#e6693e'],
+  heigth:'800px',
+  width:'400px',
+  colors: ['#3366cc', '#ff9900'],
   //testStyle:{color:'blue',fontSize:16},
   pieSliceTextStyle: {color: 'white',fontFamily:'Microsoft JhengHei',fontSize:14,fontWeight:"bold"},
   legend: {textStyle: {color: 'white',fontName:'Microsoft JhengHei',fontSize:14,fontWeight:"bold" }},
@@ -32,6 +49,7 @@ const bardata=[
   ['社會', 69, 89],
 ];
 
+//長條圖
 const baroptions={
   //backgroundColor: 'transparent',
   colors: ['#7373b9', '#e6693e'],
@@ -48,29 +66,25 @@ const baroptions={
 class Operation extends React.Component {
 
   render() {
+    const { classes } = this.props;
     return (
-      <div style={{ backgroundColor: "#111B24" }}>
+      <div>
         {/* 這是導覽 */}
         <AppBar />
-        <div style={{backgroundColor: "#111B24",marginLeft:220,marginTop:30}}>
+        <div className={classes.select}>
         <Select/>
         </div>
-
-        <div style={{backgroundColor:"#111B24"}}>
-          <Card style={{backgroundColor:"#111B24",border:'0.8px #FFBF5F solid',borderRadius:'1px',
-            width:'60%',margin:'50px auto'}}>
+        <div>
+          <Card className={classes.card} >
             <Typography style={{marginTop:30,fontFamily: "Microsoft JhengHei",LetterSpacing:4,fontSize:16,
             fontWeight: "bold",color:'white'}}><a style={{marginLeft:50}}>到課率:</a>
             <a style={{marginLeft:350}}>本學期報名人數:1000/30000</a></Typography>
-
-            <div style={{ backgroundColor: "#111B24" ,display:'flex',flexDirection:'row'}}>
+            <div style={{ display:'flex',flexDirection:'row'}}>
             <Chart chartType="PieChart" data={piedata} options={pieoptions}/>
             </div>
-
             <div align="center">
-            <Chart chartType="BarChart"data={bardata} options={baroptions} style={{marginTop:50,marginBottom:60,}}/>
+            <Chart chartType="BarChart" data={bardata} options={baroptions} style={{marginTop:50,marginBottom:60,}}/>
             </div>
-
           </Card>
         </div>
         <div style={{height:20}}></div>
@@ -80,4 +94,4 @@ class Operation extends React.Component {
 
 }
 
-export default Operation;
+export default withStyles(styles)(Operation);
