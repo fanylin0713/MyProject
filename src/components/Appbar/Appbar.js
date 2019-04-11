@@ -136,9 +136,9 @@ class SearchAppBar extends React.Component {
                                     <form className={classes.container}>
                                         <FormControl className={classes.formControl}>
                                             <Select
-                                                value={this.state.age}
+                                                value={this.state.area}
                                                 onChange={this.handleChange('area')}
-                                                input={<Input id="age-simple" />}
+                                                input={<Input id="area-simple" />}
                                             >
                                                 <MenuItem value="">
                                                     <em>校區</em>
