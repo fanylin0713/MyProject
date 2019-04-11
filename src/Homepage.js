@@ -32,7 +32,7 @@ class Homepage extends React.Component {
               </NavLink>
             </Cards>
             <Cards>
-              課程管理
+              課程資訊
               <hr style={{ borderColor: '#FFBF5F', }} />
               <NavLink activeClassName="active" to="/class">
                 <Button type="home">班級資料</Button>
