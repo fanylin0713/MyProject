@@ -23,6 +23,9 @@ const styles = theme => ({
     textcolor: {
         margin: '5px',
         color: "white",
+    },
+    headcolor:{
+        color: "#111B24",
     }
 });
 
@@ -39,7 +42,11 @@ function SimpleList(props) {
                     <ListItemIcon>
                         <Moon style={{ color: "#111B24", }} />
                     </ListItemIcon>
-                    <ListItemText primary="早安，晚點名" />
+                    <ListItemText primaryTypographyProps={{
+                        classes: {
+                            root: classes.headcolor
+                        }
+                    }}primary="早安，晚點名" />
                 </ListItem>
             </List>
             <Divider /> 
