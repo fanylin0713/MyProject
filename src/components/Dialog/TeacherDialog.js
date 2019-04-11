@@ -18,16 +18,16 @@ const styles = theme => ({
         width: '800px',
         margin: 'auto',
     },
-    formControl: {
-        minWidth: 120,
-        width:220,
-        marginTop: theme.spacing.unit * 3,
-    },
-    container:{
+    container: {
         width: '400px',
     },
-    textField:{
-        width:220,
+    textField: {
+        width: 220,
+        marginTop: theme.spacing.unit * 3,
+    },
+    formControl: {
+        minWidth: 120,
+        width: 220,
         marginTop: theme.spacing.unit * 3,
     },
 });

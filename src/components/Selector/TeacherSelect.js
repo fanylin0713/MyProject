@@ -17,13 +17,10 @@ const styles = theme => ({
         flexWrap: 'wrap',
     },
     formControl: {
-        marginLeft: theme.spacing.unit * 18,
+        marginLeft:'10%',
         marginTop: theme.spacing.unit * 3,
         minWidth: 120,
         width: 150,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing.unit,
     },
     button: {
         margin:'auto',
@@ -34,7 +31,6 @@ const styles = theme => ({
     },
     add:{
         marginTop: theme.spacing.unit * 4,
-        marginLeft: theme.spacing.unit * 97.5,
     },
 });
 
@@ -89,7 +85,7 @@ class SimpleSelect extends React.Component {
                 </FormControl>
                 {/* <Button variant="outlined" size='large' onClick={this.handleClick} className={classes.button}>搜尋</Button> */}
                 <Button type="org" style={{marginTop:35,marginLeft:25}}>搜尋</Button>
-                <span className={classes.add} ><TeacherDialog/></span>
+                <span className={classes.add}><TeacherDialog/></span>
             </form>
         );
     }
