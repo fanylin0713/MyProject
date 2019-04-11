@@ -63,8 +63,8 @@ class FormDialog extends React.Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose}>取消</Button>
-                        <Button onClick={this.handleClose}>發佈</Button>
+                        <Button onClick={this.handleClose} color="primary">取消</Button>
+                        <Button onClick={this.handleClose} color="primary">發佈</Button>
                     </DialogActions>
                 </Dialog>
             </div>
