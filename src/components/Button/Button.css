@@ -21,5 +21,12 @@
     width: 100px;
     color: #FFBF5F;
     font-size: 14pt;
-    
+}
+
+.btn-home:hover{
+    background-color: #FFBF5F;
+}
+
+.btn-org:hover{
+    background-color: #FFBF5F;
 }
