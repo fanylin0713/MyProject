@@ -118,7 +118,7 @@ class FormDialog extends React.Component {
                                 </InputLabel>
                                     <Select
                                         value={this.state.subject}
-                                        onChange={this.handleChange}
+                                        onChange={this.handleChange('subject')}
                                         input={
                                             <OutlinedInput
                                                 labelWidth={this.state.labelWidth}
