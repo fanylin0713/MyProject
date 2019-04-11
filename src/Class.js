@@ -9,7 +9,7 @@ class Class extends React.Component {
     render() {
         
         return (
-            <div style={{backgroundColor:'#111B24'}}>
+            <div>
             <AppBar />
             <Selector />
             <Tabs />
