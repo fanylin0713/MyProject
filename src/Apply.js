@@ -31,6 +31,7 @@ class Apply extends React.Component {
                                 border:'1px white solid',
                                 borderRadius:'10px',
                                 width:'60%',
+                                minWidth:'850px',
                                 margin:'50px auto',
                                 }}>
                 <ApplyForm />
