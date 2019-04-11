@@ -30,7 +30,9 @@ class OutlinedTextFields extends React.Component {
         this.state = {
             account: "",
             password: "",
-            userData: []
+            userData: [],
+            error: false,
+            errorMessage: ''
         };
     }
     
@@ -72,14 +74,14 @@ class OutlinedTextFields extends React.Component {
         console.log(this.state.userData);
 
         for (var index = 0; index < this.state.userData.length; index++) {
-            if (this.state.account == this.state.userData[index].account_id) {
-                if (this.state.password == this.state.userData[index].account_passwd) {
+            if (this.state.account === this.state.userData[index].account_id &&
+                this.state.password === this.state.userData[index].account_passwd) {
                     console.log("enter");
-                } else {
-                    console.log("wrong passwd");
-                }
             } else {
-                console.log("wrong account");
+                this.setState({
+                    error: true,
+                    errorMessage:'帳號密碼錯誤'
+                })
             }
 
         }
@@ -91,6 +93,7 @@ class OutlinedTextFields extends React.Component {
     }
 
     render() {
+        const { error, errorMessage } = this.state
         const { classes } = this.props;
 
         return (
@@ -101,6 +104,8 @@ class OutlinedTextFields extends React.Component {
                         //id="outlined-required"
                         id='account'
                         label="帳號"
+                        error={error}
+                        helperText={errorMessage}
                         value={this.state.account}
                         onChange={this.handleChange}
                         className={classes.textField}
