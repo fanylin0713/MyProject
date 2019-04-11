@@ -12,6 +12,11 @@ const styles = theme => ({
         width: '800px',
         margin: 'auto',
     },
+    btn:{
+        marginTop: theme.spacing.unit * 3,
+        marginLeft: theme.spacing.unit * 150,
+        borderRadius:'10px',
+    },
 });
 
 class FormDialog extends React.Component {
@@ -31,7 +36,7 @@ class FormDialog extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <Button variant="outlined" onClick={this.handleClickOpen}>
+                <Button className={classes.btn} variant="outlined" onClick={this.handleClickOpen}>
                     新增公告
                 </Button>
                 <Dialog className={classes.root}
