@@ -9,12 +9,12 @@ const theme = createMuiTheme({
             dark: '#fff',
             contrastText: '#EEEEEE'
         },
-        // secondary: {
-        //     light: '#888888',
-        //     main: '#444444',
-        //     dark: '#222222',
-        //     contrastText: '#EEEEEE'
-        // },
+        secondary: {
+            light: '#888888',
+            main: '#444444',
+            dark: '#222222',
+            contrastText: '#EEEEEE'
+        },
         background: {
             default: '#111B24',
         },
@@ -24,11 +24,11 @@ const theme = createMuiTheme({
     typography: {
         useNextVariants: true,
         fontFamily: [
+            '"Microsoft JhengHei"',
             '"Roboto"',
             '"Helvetica"',
             '"Arial"',
             'sans-serif',
-            '"Microsoft JhengHei"'
         ].join(',')
     },
     overrides: {
