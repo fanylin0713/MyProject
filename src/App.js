@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import Login from './Login';
+import Login from './components/Login/Login';
 // import Proptest from './Proptest';
 import Theme from '@e-group/react-material-components/dist/Theme'
-import Homepage from './Homepage'
-import Apply from './Apply';
-import Class from './Class';
-import Rollcall from './Rollcall';
+import Homepage from './components/Homepage/Homepage'
+import Apply from './components/Apply/Apply';
+import Class from './components/Classpage/Class';
+import Rollcall from './components/Rollcall/Rollcall';
 import theme from './theme';
-import Operation from './Operation'
-import Announcement from './Announcement';
-import Makeupclass from './MakeupClass';
+import Operation from './components/Operation/Operation'
+import Announcement from './components/Announcement/Announcement';
+import Makeupclass from './components/MakeupClass/MakeupClass';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Teacher from './Teacher';
-import Course from './Course';
+import Teacher from './components/Teacher/Teacher';
+import Course from './components/Course/Course';
 
 
 class App extends Component {
