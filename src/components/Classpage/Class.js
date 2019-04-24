@@ -1,7 +1,7 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar'
-import Tabs from '../Tabs/Tabs';
-import Selector from '../ClassSelector/ClassSelector';
+import Tabs from './Tabs';
+import Selector from './ClassSelector';
 
 
 class Class extends React.Component {

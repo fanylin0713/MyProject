@@ -1,8 +1,8 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar'
-import ApplyForm from '../ApplyForm/ApplyForm';
+import ApplyForm from './ApplyForm';
 import { Card } from '@material-ui/core';
-import { fetchGetCharacterList, fetchPostUser } from 'api'
+// import { fetchGetCharacterList, fetchPostUser } from 'api'
 
 class Apply extends React.Component {
 

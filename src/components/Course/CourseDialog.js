@@ -45,6 +45,7 @@ class FormDialog extends React.Component {
         classroom: '',
         day: '',
         time: '',
+        labelWidth: 0,
         open: false
     };
 

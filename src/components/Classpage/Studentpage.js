@@ -1,8 +1,8 @@
-import React, { Component } from '../../../node_modules/react';
-import Button from '../../../node_modules/@material-ui/core/Button';
-import Upload from '../../../node_modules/@material-ui/icons/CreateNewFolderRounded';
-import { withStyles } from '../../../node_modules/@material-ui/core/styles';
-import { fromJS, List, Map } from '../../../node_modules/immutable'
+import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Upload from '@material-ui/icons/CreateNewFolderRounded';
+import { withStyles } from '@material-ui/core/styles';
+import { fromJS, List, Map } from 'immutable'
 
 const data = [
     // { name: '', }

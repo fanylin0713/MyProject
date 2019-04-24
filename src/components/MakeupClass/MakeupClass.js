@@ -1,8 +1,8 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar'
-import MakeupTable1 from '../MakeupTable1/MakeupTable1';
-import MakeupTable2 from '../MakeupTable2/MakeupTable2';
-import MakeupTable3 from '../MakeupTable3/MakeupTable3';
+import MakeupTable1 from './MakeupTable1';
+import MakeupTable2 from './MakeupTable2';
+import MakeupTable3 from './MakeupTable3';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({

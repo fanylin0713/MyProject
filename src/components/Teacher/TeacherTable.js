@@ -113,7 +113,7 @@ let EnhancedTableToolbar = props => {
                 {numSelected > 0
                     ? (
                         <Typography color="inherit" variant="subtitle1">
-                            {numSelected} 已選擇
+                            已選擇 {numSelected} 位老師
                     </Typography>)
                     : (
                         <Typography style={{ color: '#111B24' }} variant="h6" id="tableTitle">

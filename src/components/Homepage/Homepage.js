@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AppBar from '../AppBar/Appbar'
-import HomepageBar from '../HomepageBar/HomepageBar'
+import HomepageBar from './HomepageBar'
 import Cards from '../Cards/Cards'
 import Button from '../Button/Button'
 import { NavLink } from "react-router-dom";
@@ -12,7 +12,7 @@ class Homepage extends React.Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: "#111B24" }}>
+      <div >
         {/* 這是導覽 */}
         <AppBar />
         {/* 這是首頁導覽 */}

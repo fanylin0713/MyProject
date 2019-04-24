@@ -6,9 +6,9 @@ import Tabs from '@material-ui/core/Tabs';
 import NoSsr from '@material-ui/core/NoSsr';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Gradepage from '../ClassGrade/Gradepage';
-import Progresspage from '../ClassProgress/Progresspage';
-import Studentpage from '../ClassStudent/Studentpage';
+import Gradepage from './Gradepage';
+import Progresspage from './Progresspage';
+import Studentpage from './Studentpage';
 
 
 

@@ -66,7 +66,7 @@ const styles = theme => ({
     },
   },
   input: {
-    display: 'none',
+    //display: 'none',
   },
   button:{
     backgroundColor: '#111B24',

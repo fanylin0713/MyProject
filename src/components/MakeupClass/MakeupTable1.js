@@ -28,11 +28,11 @@ function createData(student, number, project) {
 }
 
 const rows = [
-    createData('Frozen yoghurt', 159, 6.0),
-    createData('Ice cream sandwich', 237, 9.0),
-    createData('Eclair', 262, 16.0),
-    createData('Cupcake', 305, 3.7),
-    createData('Gingerbread', 356, 16.0),
+    createData('王小明', 405401360 , '國文A班 02/13'),
+    createData('孫小美', 405401360 , '國文A班 02/13'),
+    createData('王小明', 405401360 , '國文A班 02/13'),
+    createData('孫小美', 405401360 , '國文A班 02/13'),
+    createData('王小明', 405401360 , '國文A班 02/13'),
 ];
 
 function SimpleTable(props) {
@@ -44,8 +44,8 @@ function SimpleTable(props) {
                 <TableHead>
                     <TableRow>
                         <TableCell>姓名</TableCell>
-                        <TableCell>學號</TableCell>
-                        <TableCell>補課項目</TableCell>
+                        <TableCell align="center">學號</TableCell>
+                        <TableCell align="center">補課項目</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

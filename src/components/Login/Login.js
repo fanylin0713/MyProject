@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../LoginHeader/LoginHeader';
-import Account from '../LoginAccount/LoginAccount';
-import Area from '../LoginArea/LoginArea';
+import Account from './LoginAccount';
+import Area from './LoginArea';
 class Login extends React.Component {
 
     render() {

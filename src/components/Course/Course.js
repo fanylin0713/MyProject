@@ -1,8 +1,8 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar'
 import { withStyles } from '@material-ui/core/styles';
-import CourseTable from '../CourseTable/CourseTable';
-import CourseDialog from '../CourseDialog/CourseDialog';
+import CourseTable from './CourseTable';
+import CourseDialog from './CourseDialog';
 
 const styles = theme => ({
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar'
 import { withStyles } from '@material-ui/core/styles';
-import TeacherTable from '../TeacherTable/TeacherTable';
-import TeacherSelect from '../TeacherSelector/TeacherSelect';
+import TeacherTable from './TeacherTable';
+import TeacherSelect from './TeacherSelect';
 
 const styles = theme => ({
 });
