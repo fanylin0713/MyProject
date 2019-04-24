@@ -31,17 +31,17 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(time, title) {
+function createData(time, title, content) {
     id += 1;
-    return { id, time, title};
+    return { id, time, title, content};
 }
 
 const rows = [
-    createData('2019/02/27', '颱風天停課！'),
-    createData('2019/03/02', '國文Ａ班改到302教室'),
-    createData('2019/03/04', 'XXXXXXXXXXXXX'),
-    createData('2019/03/09', 'XXXXXXXXXX'),
-    createData('2019/04/01', 'XXXXXXXXXXXXXXXXXXXXXXXXX'),
+    createData('2019/02/27', '颱風天停課！','1234567890'),
+    createData('2019/03/02', '國文Ａ班改到302教室','1234我今天早餐沒有吃午餐吃了麥當勞各位同學要不要來上課呀，我一一一一我我我我，我一愛案的底儂母會去567890'),
+    createData('2019/03/04', 'XXXXXX','1234567890'),
+    createData('2019/03/09', 'XXXXXXXXXX','1234567890'),
+    createData('2019/04/01', 'XXXXXXXXXX','1234567890'),
 ];
 
 function SimpleTable(props) {
@@ -54,13 +54,15 @@ function SimpleTable(props) {
                     <TableRow>
                         <TableCell className={classes.head}>發佈日期</TableCell>
                         <TableCell className={classes.head} >標題</TableCell>
+                        <TableCell className={classes.head} >內容</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map(row => (
                         <TableRow key={row.id}>
                             <TableCell className={classes.content} style={{width:'15%'}} component="th" scope="row">{row.time}</TableCell>
-                            <TableCell className={classes.content}>{row.title}</TableCell>
+                            <TableCell className={classes.content} style={{width:'20%'}}>{row.title}</TableCell>
+                            <TableCell className={classes.content}>{row.content}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
