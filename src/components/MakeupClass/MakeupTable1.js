@@ -16,9 +16,10 @@ const styles = theme => ({
         backgroundColor:'#212832',
         border:'white 1px solid',
     },
-    table: {
-        // minWidth: 700,
-    },
+    head:{
+        fontSize:'14pt',
+        color:'#FFBF5F',
+    }
 });
 
 let id = 0;
@@ -43,9 +44,9 @@ function SimpleTable(props) {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>姓名</TableCell>
-                        <TableCell align="center">學號</TableCell>
-                        <TableCell align="center">補課項目</TableCell>
+                        <TableCell className={classes.head}>姓名</TableCell>
+                        <TableCell className={classes.head} align="center">學號</TableCell>
+                        <TableCell className={classes.head} align="center">補課項目</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
