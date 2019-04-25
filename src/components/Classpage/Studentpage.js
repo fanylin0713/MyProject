@@ -44,7 +44,9 @@ function createData(time, title, content) {
 }
 
 const data = [
-    createData('405401360','林ＸＸ')
+    createData('405401360','林ＸＸ',<Button>更多資訊 ></Button>),
+    createData('405401360','林ＸＸ',<Button>更多資訊 ></Button>),
+    createData('405401360','林ＸＸ',<Button>更多資訊 ></Button>),
 ]
 
 
@@ -77,7 +79,7 @@ class Studentpage extends Component {
                                     <TableRow>
                                         <TableCell className={classes.head}>學號</TableCell>
                                         <TableCell className={classes.head}>姓名</TableCell>
-                                        <TableCell className={classes.head}>內容</TableCell>
+                                        <TableCell className={classes.head}>個人頁面</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
