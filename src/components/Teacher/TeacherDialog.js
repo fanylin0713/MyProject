@@ -7,6 +7,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from '@material-ui/core/styles';
 
+
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -114,7 +115,7 @@ class FormDialog extends React.Component {
                                         }}
                                         htmlFor="outlined-subject-simple"
                                     >
-                                        Subject
+                                        Subject 
                                 </InputLabel>
                                     <Select
                                         value={this.state.subject}
