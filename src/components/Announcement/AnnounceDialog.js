@@ -6,6 +6,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from '@material-ui/core/styles';
+import { fetchPostAnnounce } from '../../api';
 
 const styles = theme => ({
     root:{
@@ -21,8 +22,16 @@ const styles = theme => ({
 
 class FormDialog extends React.Component {
     state = {
-        open: false
+        open: false,
+        announce_title:'',
+        announce_email:'',
+        data:[],
     };
+
+    handleChange = name => event => {
+        this.setState({
+            [name] : event.target.value});
+      };
 
     handleClickOpen = () => {
         this.setState({ open: true });
@@ -31,6 +40,17 @@ class FormDialog extends React.Component {
     handleClose = () => {
         this.setState({ open: false });
     };
+
+    handleSubmit = (e)=> {
+        e.preventDefault()
+        let data = {fields:{announce_id:{},announce_title:{}, announce_body:{}}};
+        data.fields.announce_id = "ann";
+        data.fields.announce_title = this.state.announce_title;
+        data.fields.announce_body = this.state.announce_body;
+    
+        fetchPostAnnounce(data);
+        this.setState({ open: false });
+      };
 
     render() {
         const { classes } = this.props;
@@ -51,6 +71,7 @@ class FormDialog extends React.Component {
                             placeholder="標題"
                             margin="normal"
                             fullWidth
+                            onChange={this.handleChange('announce_title')}
                         />
                         <TextField
                             id="outlined-multiline-flexible"
@@ -60,11 +81,12 @@ class FormDialog extends React.Component {
                             margin="normal"
                             variant="outlined"
                             fullWidth
+                            onChange={this.handleChange('announce_body')}
                         />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">取消</Button>
-                        <Button onClick={this.handleClose} color="primary">發佈</Button>
+                        <Button onClick={this.handleSubmit} color="primary">發佈</Button>
                     </DialogActions>
                 </Dialog>
             </div>
