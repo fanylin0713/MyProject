@@ -7,7 +7,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '../Button/Button';
 import TeacherDialog from './TeacherDialog';
 
 import classNames from "classnames";
@@ -178,26 +177,26 @@ const styles = theme => ({
     content: {
         fontSize: '14pt',
     },
-    
+
     //Select
     Selectroot: {
         display: 'flex',
         flexWrap: 'wrap',
     },
     formControl: {
-        marginLeft:'10%',
+        marginLeft: '10%',
         marginTop: theme.spacing.unit * 3,
         minWidth: 120,
         width: 150,
     },
     button: {
-        margin:'auto',
+        margin: 'auto',
         marginTop: theme.spacing.unit * 4,
         marginLeft: theme.spacing.unit * 3,
         borderRadius: '30px',
         height: '40px',
     },
-    add:{
+    add: {
         marginTop: theme.spacing.unit * 4,
     },
 });
@@ -214,7 +213,7 @@ class EnhancedTable extends React.Component {
             // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java'),
             // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java')
         ],
-        dataInit:[],
+        dataInit: [],
         //select
         subject: '',
         age: '',
@@ -227,49 +226,49 @@ class EnhancedTable extends React.Component {
         this.setState({
             labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
         });
-        base('Teacher').select({view: 'Grid view'})
-        .eachPage(
-          (records, fetchNextPage) => {
-            this.setState({records});
-            console.log(records);
-            const teacher_name = this.state.records.map((record, index) => record.fields['teacher_name']);
-            const teacher_email = this.state.records.map((record, index) => record.fields['teacher_email']);
-            const teacher_phone = this.state.records.map((record, index) => record.fields['teacher_phone']);
-            const subject_name = this.state.records.map((record, index) => record.fields['subject_name']);
+        base('Teacher').select({ view: 'Grid view' })
+            .eachPage(
+                (records, fetchNextPage) => {
+                    this.setState({ records });
+                    console.log(records);
+                    const teacher_name = this.state.records.map((record, index) => record.fields['teacher_name']);
+                    const teacher_email = this.state.records.map((record, index) => record.fields['teacher_email']);
+                    const teacher_phone = this.state.records.map((record, index) => record.fields['teacher_phone']);
+                    const subject_name = this.state.records.map((record, index) => record.fields['subject_name']);
 
-    
-            var count = teacher_name.length;
-            var tempT=[];
 
-            //select
-            var temp=[];
-            var temp2=[];
-            for(var index = 0; index < count; index++) {
-              temp.push(subject_name[index]);
-            }
+                    var count = teacher_name.length;
+                    var tempT = [];
 
-            var classResult = temp.filter(function(element, index, arr){
-              return arr.indexOf(element) === index;
-            });
+                    //select
+                    var temp = [];
+                    var temp2 = [];
+                    for (var index = 0; index < count; index++) {
+                        temp.push(subject_name[index]);
+                    }
 
-            for(var index = 0; index < classResult.length; index++){
-              temp2.push(classResult[index]);
-            }
+                    var classResult = temp.filter(function (element, index, arr) {
+                        return arr.indexOf(element) === index;
+                    });
 
-            this.setState({ classData : temp2 });
+                    for (var index = 0; index < classResult.length; index++) {
+                        temp2.push(classResult[index]);
+                    }
 
-            //table
-            for(var index = 0; index < count; index++) {
-              tempT.push(createData(teacher_name[index],teacher_phone[index],teacher_email[index],subject_name[index]));
-            
-            }
+                    this.setState({ classData: temp2 });
 
-            this.setState({ data : tempT });
-            this.setState({ dataInit : tempT });
-    
-            fetchNextPage();
-          }
-        );
+                    //table
+                    for (var index = 0; index < count; index++) {
+                        tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index]));
+
+                    }
+
+                    this.setState({ data: tempT });
+                    this.setState({ dataInit: tempT });
+
+                    fetchNextPage();
+                }
+            );
 
     }
     //select
@@ -279,16 +278,16 @@ class EnhancedTable extends React.Component {
         let temp = [];
         var count = this.state.dataInit.length;
         console.log(event.target.value);
-    
-        for(var index = 0; index < count; index++) {
-          if(this.state.dataInit[index].subject == event.target.value){
-            temp.push(this.state.dataInit[index]);
-            //console.log(temp);
-          }
-        } 
-        this.setState({ data : temp });
-        if(event.target.value == "1"){
-          this.setState({ data : this.state.dataInit });
+
+        for (var index = 0; index < count; index++) {
+            if (this.state.dataInit[index].subject == event.target.value) {
+                temp.push(this.state.dataInit[index]);
+                //console.log(temp);
+            }
+        }
+        this.setState({ data: temp });
+        if (event.target.value == "1") {
+            this.setState({ data: this.state.dataInit });
         }
     };
 
@@ -327,96 +326,91 @@ class EnhancedTable extends React.Component {
         const { data, selected } = this.state;
 
         return (
-            <div style={{marginTop:100}}>
-            <form className={classes.Selectroot} autoComplete="off">
-            <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel
-                    ref={ref => {
-                        this.InputLabelRef = ref;
-                    }}
-                    htmlFor="outlined-subject-simple"
-                >
-                    科目
+            <div>
+                <form className={classes.Selectroot} autoComplete="off">
+                    <FormControl variant="outlined" className={classes.formControl}>
+                        <InputLabel
+                            ref={ref => {
+                                this.InputLabelRef = ref;
+                            }}
+                            htmlFor="outlined-subject-simple"
+                        >
+                            科目
                 </InputLabel>
-                <Select
-                    // value={this.state.subject}
-                    // onChange={this.handleChange}
-                    // input={
-                    //     <OutlinedInput
-                    //         labelWidth={this.state.labelWidth}
-                    //         name="subject"
-                    //         id="outlined-asubject-simple"
-                    //     />
-                    // }
-                    //native
-                    value={this.state.age}
-                    onChange={this.handleChange('age')}
-                    input={
-                      <OutlinedInput
-                        name="Age"
-                        labelWidth={this.state.labelWidth}
-                        id="outlined-asubject-simple"
-                      />
-                    }
-                >
-                    <MenuItem value="1">
-                        <em>科目</em>
-                    </MenuItem>
-                    {(this.state.classData).map((n,index) => {
-                    return (
-                        <MenuItem value={n}>{n}</MenuItem>
-                    );
-                    })}
-                    {/* <MenuItem value={10}>英文</MenuItem>
-                    <MenuItem value={20}>數學</MenuItem>
-                    <MenuItem value={30}>國文</MenuItem> */}
-                </Select>
-            </FormControl>
-            {/* <Button variant="outlined" size='large' onClick={this.handleClick} className={classes.button}>搜尋</Button> */}
-            <Button type="org" style={{marginTop:35,marginLeft:25}}>搜尋</Button>
-            <span className={classes.add}><TeacherDialog/></span>
-            </form>
-            
-            <Paper className={classes.root}>
-                <EnhancedTableToolbar numSelected={selected.length} />
-                <div className={classes.tableWrapper}>
-                    <Table className={classes.table} aria-labelledby="tableTitle">
-                        <EnhancedTableHead
-                            numSelected={selected.length}
-                            onSelectAllClick={this.handleSelectAllClick}
-                            rowCount={data.length}
-                        />
-                        <TableBody>
-                            {data.map(n => {
-                                const isSelected = this.isSelected(n.id);
+                        <Select
+                            // value={this.state.subject}
+                            // onChange={this.handleChange}
+                            // input={
+                            //     <OutlinedInput
+                            //         labelWidth={this.state.labelWidth}
+                            //         name="subject"
+                            //         id="outlined-asubject-simple"
+                            //     />
+                            // }
+                            //native
+                            value={this.state.age}
+                            onChange={this.handleChange('age')}
+                            input={
+                                <OutlinedInput
+                                    name="Age"
+                                    labelWidth={this.state.labelWidth}
+                                    id="outlined-asubject-simple"
+                                />
+                            }
+                        >
+                            <MenuItem value="1">
+                                <em>科目</em>
+                            </MenuItem>
+                            {(this.state.classData).map((n, index) => {
                                 return (
-                                    <TableRow
-                                        hover
-                                        role="checkbox"
-                                        key={n.id}
-                                    >
-                                        <TableCell
-                                            padding="checkbox"
-                                            onClick={event => this.handleClick(event, n.id)}
-                                            aria-checked={isSelected}
-                                            tabIndex={-1}
-                                            selected={isSelected}
-                                        >
-                                            <Checkbox checked={isSelected} />
-                                        </TableCell>
-                                        <TableCell className={classes.content} component="th" scope="row" padding="none">
-                                            {n.name}
-                                        </TableCell>
-                                        <TableCell className={classes.content} align="center">{n.phone}</TableCell>
-                                        <TableCell className={classes.content} align="center">{n.email}</TableCell>
-                                        <TableCell className={classes.content} align="center">{n.subject}</TableCell>
-                                    </TableRow>
+                                    <MenuItem value={n}>{n}</MenuItem>
                                 );
                             })}
-                        </TableBody>
-                    </Table>
-                </div>
-            </Paper>
+                        </Select>
+                    </FormControl>
+                    <span className={classes.add}><TeacherDialog /></span>
+                </form>
+
+                <Paper className={classes.root}>
+                    <EnhancedTableToolbar numSelected={selected.length} />
+                    <div className={classes.tableWrapper}>
+                        <Table className={classes.table} aria-labelledby="tableTitle">
+                            <EnhancedTableHead
+                                numSelected={selected.length}
+                                onSelectAllClick={this.handleSelectAllClick}
+                                rowCount={data.length}
+                            />
+                            <TableBody>
+                                {data.map(n => {
+                                    const isSelected = this.isSelected(n.id);
+                                    return (
+                                        <TableRow
+                                            hover
+                                            role="checkbox"
+                                            key={n.id}
+                                        >
+                                            <TableCell
+                                                padding="checkbox"
+                                                onClick={event => this.handleClick(event, n.id)}
+                                                aria-checked={isSelected}
+                                                tabIndex={-1}
+                                                selected={isSelected}
+                                            >
+                                                <Checkbox checked={isSelected} />
+                                            </TableCell>
+                                            <TableCell className={classes.content} component="th" scope="row" padding="none">
+                                                {n.name}
+                                            </TableCell>
+                                            <TableCell className={classes.content} align="center">{n.phone}</TableCell>
+                                            <TableCell className={classes.content} align="center">{n.email}</TableCell>
+                                            <TableCell className={classes.content} align="center">{n.subject}</TableCell>
+                                        </TableRow>
+                                    );
+                                })}
+                            </TableBody>
+                        </Table>
+                    </div>
+                </Paper>
             </div>
         );
     }
