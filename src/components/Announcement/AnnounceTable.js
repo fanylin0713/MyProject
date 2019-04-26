@@ -96,7 +96,7 @@ class SimpleTable extends React.Component {
                     <TableBody>
                         {rows.map(row => (
                             <TableRow key={row.id}>
-                                <TableCell className={classes.content} style={{width:'15%'}} component="th" scope="row">{row.time}</TableCell>
+                                <TableCell className={classes.content} style={{width:'20%'}} component="th" scope="row">{row.time}</TableCell>
                                 <TableCell className={classes.content}>{row.title}</TableCell>
                                 <TableCell className={classes.content}>{row.body}</TableCell>
                             </TableRow>
