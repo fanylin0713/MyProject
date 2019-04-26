@@ -317,6 +317,7 @@ class EnhancedTable extends React.Component {
                 selected.slice(selectedIndex + 1)
             );
         }
+        console.log(newSelected);
 
         this.setState({ selected: newSelected });
     };

@@ -34,7 +34,8 @@ class OutlinedTextFields extends React.Component {
             password: "",
             userData: [],
             error: false,
-            errorMessage: ''
+            errorMessage: '',
+            enter:false,
         };
     }
     
@@ -79,6 +80,8 @@ class OutlinedTextFields extends React.Component {
             if (this.state.account === this.state.userData[index].account_id &&
                 this.state.password === this.state.userData[index].account_passwd) {
                     console.log("enter");
+                    this.setState({enter: true});
+                    this.props.history.replace('/')
             } else {
                 this.setState({
                     error: true,
@@ -94,9 +97,14 @@ class OutlinedTextFields extends React.Component {
         // }console.log("wrong account");
     }
 
-    handleClick = () => {
-        this.props.history.replace('/')
-    }
+    // handleClick = () => {
+    //     console.log("in handleClick");
+    //     console.log(this.state.enter);
+    //     if(this.state.enter){
+    //         this.props.history.replace('/')
+    //     }
+        
+    // }
 
     render() {
         const { error, errorMessage } = this.state
@@ -133,7 +141,7 @@ class OutlinedTextFields extends React.Component {
                     /></div>
                 <div><a className="forget" href="">忘記密碼?</a></div>
                 <div>
-                    <button className="btn login-btn" type="submit" name="loginbutton" onClick={this.handleClick} disabled={!this.validateForm()}>
+                    <button className="btn login-btn" type="submit" name="loginbutton" disabled={!this.validateForm()}>
                         <span>Log in</span>
                     </button>
                 </div>
