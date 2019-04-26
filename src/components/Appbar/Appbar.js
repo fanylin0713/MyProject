@@ -162,6 +162,7 @@ class SearchAppBar extends React.Component {
                         {/* 校區選擇 */}
                         <NavLink activeClassName="active" to="/">
                             <Button className={classes.button}><Home /></Button></NavLink>
+                        {/* 點名button */}
                         <Button className={classes.button}><Face /></Button>
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
                             <Button className={classes.button}>
