@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { NavLink } from "react-router-dom";
 import { fromJS, List, Map } from 'immutable'
 
 const styles = theme => ({
@@ -44,11 +45,10 @@ function createData(time, title, content) {
 }
 
 const data = [
-    createData('405401360','林ＸＸ',<Button>更多資訊 ></Button>),
-    createData('405401360','林ＸＸ',<Button>更多資訊 ></Button>),
-    createData('405401360','林ＸＸ',<Button>更多資訊 ></Button>),
+    createData('405401360','林ＸＸ',<NavLink style={{textDecoration:'none'}} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
+    createData('405401360','林ＸＸ',<NavLink style={{textDecoration:'none'}} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
+    createData('405401360','林ＸＸ',<NavLink style={{textDecoration:'none'}} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
 ]
-
 
 class Studentpage extends Component {
     render() {
