@@ -2,8 +2,6 @@ import React from 'react';
 import AppBar from '../AppBar/Appbar'
 import { withStyles } from '@material-ui/core/styles';
 import TeacherTable from './TeacherTable';
-import TeacherSelect from './TeacherSelect';
-import TeacherComponent from './TeacherComponent';
 
 const styles = theme => ({
 });
@@ -25,9 +23,7 @@ class Teacher extends React.Component {
         return (
             <div>
                 <AppBar />
-                <TeacherComponent/>
-                {/* <TeacherSelect />
-                <TeacherTable /> */}
+                <TeacherTable />
             </div>
         )
     }
