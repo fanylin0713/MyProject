@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import Upload from '@material-ui/icons/CreateNewFolderRounded';
+import HomeUpload from './HomeUpload';
 
 const styles = theme => ({
   root: {
@@ -38,7 +39,7 @@ const styles = theme => ({
     },
   },
   searchIcon: {
-    color:'#111B24',
+    color: '#111B24',
     width: theme.spacing.unit * 6,
     height: '100%',
     position: 'absolute',
@@ -66,14 +67,14 @@ const styles = theme => ({
     },
   },
   input: {
-    //display: 'none',
+    display: 'none',
   },
-  button:{
+  button: {
     backgroundColor: '#111B24',
     color: 'white',
   },
-  UploadIcon:{
-    marginRight:theme.spacing.unit * 1,
+  UploadIcon: {
+    marginRight: theme.spacing.unit * 1,
   }
 });
 
@@ -81,7 +82,7 @@ function SearchAppBar(props) {
   const { classes } = props;
   return (
     <div className={classes.root} >
-      <AppBar position="static" style={{backgroundColor:'#FFBF5F',borderRadius:'5px'}}>
+      <AppBar position="static" style={{ backgroundColor: '#FFBF5F', borderRadius: '5px' }}>
         <Toolbar>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -97,18 +98,18 @@ function SearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <input
-        accept="image/*"
-        className={classes.input}
-        id="contained-button-file"
-        multiple
-        type="file"
-      />
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" component="span" className={classes.button}>
-        <Upload className={classes.UploadIcon}/>
-          匯入學生資料
+            accept="image/*"
+            className={classes.input}
+            id="contained-button-file"
+            multiple
+            type="file"
+          />
+          <label htmlFor="contained-button-file">
+            <Button variant="contained" component="span" className={classes.button}>
+              <Upload className={classes.UploadIcon} />
+              匯入學生資料
         </Button>
-      </label>
+          </label>
         </Toolbar>
       </AppBar>
     </div>

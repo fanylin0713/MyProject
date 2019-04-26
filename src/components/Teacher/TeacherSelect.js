@@ -7,7 +7,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Button from '../Button/Button';
 import TeacherDialog from './TeacherDialog';
 
 
@@ -83,8 +82,6 @@ class SimpleSelect extends React.Component {
                         <MenuItem value={30}>國文</MenuItem>
                     </Select>
                 </FormControl>
-                {/* <Button variant="outlined" size='large' onClick={this.handleClick} className={classes.button}>搜尋</Button> */}
-                <Button type="org" style={{marginTop:35,marginLeft:25}}>搜尋</Button>
                 <span className={classes.add}><TeacherDialog/></span>
             </form>
         );
