@@ -6,17 +6,6 @@ import TeacherTable from './TeacherTable';
 const styles = theme => ({
 });
 class Teacher extends React.Component {
-    state = {
-        open: false,
-    };
-
-    handleClickOpen = () => {
-        this.setState({ open: true });
-    };
-
-    handleClose = () => {
-        this.setState({ open: false });
-    };
 
     render() {
         const { classes } = this.props;
