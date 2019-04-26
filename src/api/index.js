@@ -16,3 +16,20 @@ export const fetchPostClassMember = (payload) => axios.post('https://api.airtabl
 
 //announce
 export const fetchPostAnnounce = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Announcement?view=Grid%20view', payload, config)
+//Teacher
+export const fetchPostTeacher = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Teacher?view=Grid%20view', payload, config)
+
+
+// this.Axios = axios.create({
+//   baseURL: "http://localhost:8000",
+//   headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+
+// });
+// this.Axios.get("/retrieveface")
+//   .then(function(response){
+//     console.log(respones.status);
+//     console.log('open camera');
+//   })
+//   .catch(function(error){
+//     retrun error;
+//   });

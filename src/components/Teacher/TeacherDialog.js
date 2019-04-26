@@ -12,6 +12,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { fetchPostTeacher } from '../../api';
+import Airtable from 'airtable';
+
+const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 
 const styles = theme => ({
     root: {
@@ -34,11 +38,58 @@ const styles = theme => ({
 
 class FormDialog extends React.Component {
     state = {
-        name: '',
-        phone: '',
-        email: '',
+        teacher_name: '',
+        teacher_phone: '',
+        teacher_email: '',
         subject: '',
-        open: false
+        open: false,
+        age:'',
+        classData:[],
+    };
+
+    componentDidMount() {
+
+        base('Teacher').select({view: 'Grid view'})
+        .eachPage(
+          (records, fetchNextPage) => {
+            this.setState({records});
+            console.log(records);
+            const subject_name = this.state.records.map((record, index) => record.fields['subject_name']);
+
+            var count = subject_name.length;
+            var temp=[];
+            var temp2=[];
+            for(var index = 0; index < count; index++) {
+              temp.push(subject_name[index]);
+            }
+
+            var classResult = temp.filter(function(element, index, arr){
+              return arr.indexOf(element) === index;
+            });
+
+            for(var index = 0; index < classResult.length; index++){
+              temp2.push(classResult[index]);
+            }
+
+            this.setState({ classData : temp2 });
+    
+            fetchNextPage();
+          }
+        );
+
+    }
+
+    handleSubmit = (e)=> {
+        e.preventDefault()
+        let data = {fields:{teacher_id:{},teacher_name:{},teacher_phone:{}, teacher_email:{}, subject_name:{}}};
+        data.fields.teacher_id = "Teacher";
+        data.fields.teacher_name = this.state.teacher_name;
+        data.fields.teacher_phone = this.state.teacher_phone;
+        data.fields.teacher_email = this.state.teacher_email;
+        data.fields.subject_name = this.state.age;
+    
+        fetchPostTeacher(data);
+        this.setState({ open: false });
     };
 
     handleChange = name => event => {
@@ -76,7 +127,7 @@ class FormDialog extends React.Component {
                                     label="Name"
                                     className={classes.textField}
                                     value={this.state.name}
-                                    onChange={this.handleChange('name')}
+                                    onChange={this.handleChange('teacher_name')}
                                     margin="normal"
                                     variant="outlined"
                                 />
@@ -87,7 +138,7 @@ class FormDialog extends React.Component {
                                     label="Phone"
                                     className={classes.textField}
                                     value={this.state.phone}
-                                    onChange={this.handleChange('phone')}
+                                    onChange={this.handleChange('teacher_phone')}
                                     margin="normal"
                                     variant="outlined"
                                 />
@@ -98,7 +149,7 @@ class FormDialog extends React.Component {
                                     label="Email"
                                     className={classes.textField}
                                     value={this.state.email}
-                                    onChange={this.handleChange('email')}
+                                    onChange={this.handleChange('teacher_email')}
                                     type="email"
                                     name="email"
                                     autoComplete="email"
@@ -117,22 +168,36 @@ class FormDialog extends React.Component {
                                         Subject
                                 </InputLabel>
                                     <Select
-                                        value={this.state.subject}
-                                        onChange={this.handleChange('subject')}
+                                        // value={this.state.subject}
+                                        // onChange={this.handleChange('subject')}
+                                        // input={
+                                        //     <OutlinedInput
+                                        //         labelWidth={this.state.labelWidth}
+                                        //         name="subject"
+                                        //         id="outlined-subject-simple"
+                                        //     />
+                                        // }
+                                        value={this.state.age}
+                                        onChange={this.handleChange('age')}
                                         input={
-                                            <OutlinedInput
-                                                labelWidth={this.state.labelWidth}
-                                                name="subject"
-                                                id="outlined-subject-simple"
-                                            />
+                                          <OutlinedInput
+                                            name="Age"
+                                            labelWidth={this.state.labelWidth}
+                                            id="outlined-asubject-simple"
+                                          />
                                         }
                                     >
-                                        <MenuItem value="">
+                                        <MenuItem value="1">
                                             <em>科目</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>國文</MenuItem>
+                                        {(this.state.classData).map((n,index) => {
+                                        return (
+                                        <MenuItem value={n}>{n}</MenuItem>
+                                        );
+                                        })}
+                                        {/* <MenuItem value={10}>國文</MenuItem>
                                         <MenuItem value={20}>數學</MenuItem>
-                                        <MenuItem value={30}>英文</MenuItem>
+                                        <MenuItem value={30}>英文</MenuItem> */}
                                     </Select>
                                 </FormControl>
                             </div>
@@ -140,7 +205,7 @@ class FormDialog extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">取消</Button>
-                        <Button onClick={this.handleClose} color="primary">新增</Button>
+                        <Button onClick={this.handleSubmit} color="primary">新增</Button>
                     </DialogActions>
                 </Dialog>
             </div>
