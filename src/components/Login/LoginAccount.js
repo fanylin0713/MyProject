@@ -16,8 +16,8 @@ const styles = theme => ({
     },
     textField: {
         width: 240,
-        marginLeft: theme.spacing.unit * 10,
-        marginRight: theme.spacing.unit,
+        // marginLeft: theme.spacing.unit * 10,
+        // marginRight: theme.spacing.unit,
     },
 });
 
@@ -112,7 +112,7 @@ class OutlinedTextFields extends React.Component {
 
         return (
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
-                <div style={{ marginTop: 50 }}>
+                <div>
                     <TextField
                         required
                         //id="outlined-required"

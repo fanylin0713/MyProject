@@ -2,21 +2,39 @@ import React from 'react';
 import Header from '../LoginHeader/LoginHeader';
 import Account from './LoginAccount';
 import Area from './LoginArea';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    head: {
+        height : 200,
+        marginTop: theme.spacing.unit * 6,
+    },
+    left: {
+        float: "left",
+        width: '40%',
+        marginTop: theme.spacing.unit * 6,
+        marginLeft: "10%",
+    },
+    right: {
+        float: "right",
+        width: '40%',
+        marginTop: theme.spacing.unit * 6,
+    },
+});
 class Login extends React.Component {
 
     render() {
-
+        const { classes } = this.props;
         return (
-            <div style={{ backgroundColor: "#111B24",width:"100%"}}>
-                <div style={{height: "200px"}}>
+            <div>
+                <div className={classes.head}>
                     <Header />
                 </div>
-                <div style={{backgroundColor: "#111B24", float:"left",width:'35%'}}>
-                <Account />
+                <div className={classes.left}>
+                    <Area />
                 </div>
-                <div style={{backgroundColor: "#111B24",float:"right",width:'65%',color:'white',fontSize:'18pt'}}>
-                校區選擇：
-                <Area />
+                <div className={classes.right}>
+                    <Account />
                 </div>
             </div>
         )
@@ -24,4 +42,4 @@ class Login extends React.Component {
 
 }
 
-export default Login;
+export default withStyles(styles)(Login);
