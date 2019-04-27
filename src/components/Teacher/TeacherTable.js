@@ -271,13 +271,13 @@ class EnhancedTable extends React.Component {
         console.log(event.target.value);
 
         for (var index = 0; index < count; index++) {
-            if (this.state.dataInit[index].subject == event.target.value) {
+            if (this.state.dataInit[index].subject === event.target.value) {
                 temp.push(this.state.dataInit[index]);
                 //console.log(temp);
             }
         }
         this.setState({ data: temp });
-        if (event.target.value == "1") {
+        if (event.target.value === "1") {
             this.setState({ data: this.state.dataInit });
         }
     };
