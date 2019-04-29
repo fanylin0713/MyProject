@@ -24,12 +24,13 @@ class Rollcall extends React.Component {
 
   state = {
     value: '',
-    class: '',
+    nowClass: '',
+    name: 's'
   };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-};
+    this.setState({ value: event.target.value });
+  };
 
   render() {
     const { classes } = this.props;
@@ -39,8 +40,9 @@ class Rollcall extends React.Component {
         <div>
           <FormControl className={classes.root} component="fieldset">
             <RadioGroup
-              aria-label="year"
-              name="year"
+              aria-label="area"
+              name="area"
+              className={classes.group}
               value={this.state.value}
               onChange={this.handleChange}
             >
@@ -48,33 +50,6 @@ class Rollcall extends React.Component {
               <FormControlLabel classes={{ label: classes.label, }} value="高中" control={<Radio />} label="高中" />
             </RadioGroup>
           </FormControl>
-          {/* <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel
-              ref={ref => {
-                this.InputLabelRef = ref;
-              }}
-              htmlFor="outlined-nowClass-native-simple"
-            >
-              Class
-          </InputLabel>
-            <Select
-              native
-              value={this.state.nowClass}
-              onChange={this.handleChange('nowClass')}
-              input={
-                <OutlinedInput
-                  name="nowClass"
-                  labelWidth={this.state.labelWidth}
-                  id="outlined-nowClass-native-simple"
-                />
-              }
-            >
-              <option value="" />
-              <option value={10}>Ten</option>
-              <option value={20}>Twenty</option>
-              <option value={30}>Thirty</option>
-            </Select>
-          </FormControl> */}
         </div>
       </div>
     )
