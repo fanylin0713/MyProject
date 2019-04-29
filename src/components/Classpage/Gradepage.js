@@ -40,13 +40,13 @@ class Gradepage extends Component {
                 const workbook = XLSX.read(result, { type: 'binary' });
                 // 儲存獲取到的數據
                 let data = [];
-                // 對每張工作表行行讀取（這裡預設只讀取第一張表）
+                // 對每張工作表行行讀取（預設只讀取第一張表）
                 for (const sheet in workbook.Sheets) {
                     // esline-disable-next-line
                     if (workbook.Sheets.hasOwnProperty(sheet)) {
                         // 利用 sheet_to_json 方法將 excel 轉成 json 數據
                         data = data.concat(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
-                        // break; // 如果只取第一張表，就取消注解
+                        // break;
                     }
                 }
                 // 最終獲取到且格式化的 json 數據
@@ -68,9 +68,8 @@ class Gradepage extends Component {
                     <Button className={classes.button}>
                         <Upload type='upload' />
                         <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
-                        <span>上傳成績</span>
+                        <span>成績上傳</span>
                     </Button>
-                    <p >支持 .xlsx、.xls 格式的文件</p>
                 </div >
                 {/* <input
                     input type='file'
