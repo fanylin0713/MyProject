@@ -10,21 +10,22 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { NavLink } from "react-router-dom";
 import { fromJS, List, Map } from 'immutable'
+import XLSX from 'xlsx';
 
 const styles = theme => ({
     root: {
-        margin:'0 auto',
+        margin: '0 auto',
         marginTop: theme.spacing.unit,
-        backgroundColor:'#212832',
-        border:'white 1px solid',
+        backgroundColor: '#212832',
+        border: 'white 1px solid',
         overflowX: 'auto',
     },
-    head:{
-        fontSize:'14pt',
-        color:'#FFBF5F',
+    head: {
+        fontSize: '14pt',
+        color: '#FFBF5F',
     },
-    content:{
-        fontSize:'12pt',
+    content: {
+        fontSize: '12pt',
     },
     button: {
         backgroundColor: '#111B24',
@@ -34,7 +35,13 @@ const styles = theme => ({
         margin: '0 auto',
     },
     input: {
-        display: 'none',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        top: 0,
+        left: 0,
+        outline: 'none',
+        opacity: 0,
     },
 });
 
@@ -45,31 +52,45 @@ function createData(time, title, content) {
 }
 
 const data = [
-    createData('405401360','林ＸＸ',<NavLink style={{textDecoration:'none'}} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
-    createData('405401360','林ＸＸ',<NavLink style={{textDecoration:'none'}} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
-    createData('405401360','林ＸＸ',<NavLink style={{textDecoration:'none'}} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
+    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
+    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
+    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
 ]
 
 class Studentpage extends Component {
+    onImportExcel = file => {
+        const { files } = file.target;
+        const fileReader = new FileReader();
+        fileReader.onload = event => {
+            try {
+                const { result } = event.target;
+                const workbook = XLSX.read(result, { type: 'binary' });
+                let data = [];
+                for (const sheet in workbook.Sheets) {
+                    if (workbook.Sheets.hasOwnProperty(sheet)) {
+                        data = data.concat(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
+                        // break;
+                    }
+                }
+                // message.success('上傳成功！')
+                console.log(data);
+            } catch (e) {
+                // message.error('文件類型不正确！');
+            }
+        };
+        fileReader.readAsBinaryString(files[0]);
+    }
     render() {
         const { classes } = this.props;
         return (
             <div style={{ borderColor: '#FFBF5F' }}>
-            <div>
-                            <input
-                                accept="image/*"
-                                className={classes.input}
-                                id="contained-button-file"
-                                multiple
-                                type="file"
-                            />
-                            <label htmlFor="contained-button-file">
-                                <Button variant="contained" component="span" className={classes.button}>
-                                    <Upload className={classes.UploadIcon} />
-                                    匯入學生資料
-                        </Button>
-                            </label>
-                        </div>
+                <div>
+                    <Button className={classes.button}>
+                        <Upload type='upload' />
+                        <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
+                        <span>匯入學生資料</span>
+                    </Button>
+                </div>
                 {
                     data.length
                         ?
