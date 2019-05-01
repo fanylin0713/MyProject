@@ -8,9 +8,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 const styles = theme => ({
-    root:{
-        // width:'80%',
-    },
     title: {
         fontSize: '18pt',
     },
