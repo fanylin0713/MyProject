@@ -114,8 +114,15 @@ const toolbarStyles = theme => ({
     }
 });
 
+
+
+
 let EnhancedTableToolbar = props => {
     const { numSelected, classes } = props;
+
+    // handleDelete= event => {
+    //     console.log("in handleDelete");
+    // };
 
     return (
         <Toolbar
@@ -141,6 +148,7 @@ let EnhancedTableToolbar = props => {
                 {numSelected > 0 ? (
                     <Tooltip title="Delete">
                         <IconButton aria-label="Delete">
+                        {/* onClick={this.handleDelete} */}
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
@@ -277,7 +285,7 @@ class EnhancedTable extends React.Component {
         this.setState({ [name]: event.target.value });
         let temp = [];
         var count = this.state.dataInit.length;
-        console.log(event.target.value);
+        //console.log(event.target.value);
 
         for (var index = 0; index < count; index++) {
             if (this.state.dataInit[index].subject == event.target.value) {
@@ -303,6 +311,7 @@ class EnhancedTable extends React.Component {
         const { selected } = this.state;
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
+        console.log(newSelected);
 
         if (selectedIndex === -1) {
             newSelected = newSelected.concat(selected, id);
@@ -316,10 +325,12 @@ class EnhancedTable extends React.Component {
                 selected.slice(selectedIndex + 1)
             );
         }
+        console.log(newSelected);
 
         this.setState({ selected: newSelected });
     };
     isSelected = id => this.state.selected.indexOf(id) !== -1;
+
 
     render() {
         const { classes } = this.props;
