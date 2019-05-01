@@ -212,15 +212,7 @@ const styles = theme => ({
 class EnhancedTable extends React.Component {
     state = {
         selected: [],
-        data: [
-            // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java'),
-            // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java'),
-            // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java'),
-            // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java'),
-            // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java'),
-            // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java'),
-            // createData("蔡明志", '0987654321', 'abc@gmail.com', 'java')
-        ],
+        data: [],
         dataInit: [],
         //select
         subject: '',
@@ -243,7 +235,6 @@ class EnhancedTable extends React.Component {
                     const teacher_email = this.state.records.map((record, index) => record.fields['teacher_email']);
                     const teacher_phone = this.state.records.map((record, index) => record.fields['teacher_phone']);
                     const subject_name = this.state.records.map((record, index) => record.fields['subject_name']);
-
 
                     var count = teacher_name.length;
                     var tempT = [];
@@ -288,13 +279,13 @@ class EnhancedTable extends React.Component {
         //console.log(event.target.value);
 
         for (var index = 0; index < count; index++) {
-            if (this.state.dataInit[index].subject == event.target.value) {
+            if (this.state.dataInit[index].subject === event.target.value) {
                 temp.push(this.state.dataInit[index]);
                 //console.log(temp);
             }
         }
         this.setState({ data: temp });
-        if (event.target.value == "1") {
+        if (event.target.value === "1") {
             this.setState({ data: this.state.dataInit });
         }
     };
