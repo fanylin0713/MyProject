@@ -7,9 +7,14 @@ import CourseDialog from './CourseDialog';
 const styles = theme => ({
 });
 class Course extends React.Component {
-    // state = {
-    //     open: false,
-    // };
+    state = {
+        //open: false,
+        class_area:null,
+    };
+    myCallback = (dataFromChild) => {
+        this.setState({ class_area: dataFromChild });
+    }
+
 
     // handleClickOpen = () => {
     //     this.setState({ open: true });
@@ -20,12 +25,13 @@ class Course extends React.Component {
     // };
 
     render() {
+        //console.log(this.state.class_area);
         const { classes } = this.props;
         return (
             <div>
-                <AppBar />
+                <AppBar callbackFromParent={this.myCallback}/>
                 <CourseDialog />
-                <CourseTable />
+                <CourseTable listNameFromParent={this.state.class_area}/>
             </div>
         )
     }
