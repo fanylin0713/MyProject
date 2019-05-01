@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -32,6 +33,10 @@ class Rollcall extends React.Component {
 
   handleChange = name => event => {
     this.setState({ [name] : event.target.value });
+  };
+
+  handleClick = e =>{
+
   };
 
   render() {
@@ -59,7 +64,7 @@ class Rollcall extends React.Component {
               }}
               htmlFor="outlined-nowClass-simple"
             >
-            年級
+            班級
                     </InputLabel>
             <Select
               value={this.state.nowClass}
@@ -74,13 +79,14 @@ class Rollcall extends React.Component {
               }
             >
               <MenuItem value="">
-                <em>年級</em>
+                <em>班級</em>
               </MenuItem>
-              <MenuItem value={10}>英文</MenuItem>
-              <MenuItem value={20}>數學</MenuItem>
-              <MenuItem value={30}>國文</MenuItem>
+              <MenuItem value={10}>英文Ａ班</MenuItem>
+              <MenuItem value={20}>數學Ａ班</MenuItem>
+              <MenuItem value={30}>國文Ｂ班</MenuItem>
             </Select>
           </FormControl>
+          <Button onClick={this.handleClick}>開始點名</Button>
         </div>
       </div>
     )
