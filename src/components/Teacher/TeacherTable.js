@@ -114,12 +114,13 @@ const toolbarStyles = theme => ({
     }
 });
 
+class EnhancedTableToolbar extends React.Component {
 
+    handleDelete = e =>{
 
-
-let EnhancedTableToolbar = props => {
-    const { numSelected, classes } = props;
-
+    }
+    render(){
+        const { numSelected, classes } = this.props;
     // handleDelete= event => {
     //     console.log("in handleDelete");
     // };
@@ -158,6 +159,7 @@ let EnhancedTableToolbar = props => {
             </div>
         </Toolbar>
     );
+}
 };
 
 EnhancedTableToolbar.propTypes = {

@@ -12,7 +12,7 @@ const styles = theme => ({
     left: {
         float: "left",
         width: '40%',
-        marginTop: theme.spacing.unit * 6,
+        marginTop: theme.spacing.unit * 3,
         marginLeft: "10%",
     },
     right: {

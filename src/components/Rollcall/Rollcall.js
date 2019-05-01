@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import { Button } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -18,6 +19,9 @@ const styles = theme => ({
   label: {
     fontSize: '14pt',
   },
+  nowClass:{
+    width:'140px'
+  },
 });
 
 class Rollcall extends React.Component {
@@ -25,11 +29,14 @@ class Rollcall extends React.Component {
   state = {
     value: '',
     nowClass: '',
-    name: 's'
   };
 
-  handleChange = event => {
-    this.setState({ value: event.target.value });
+  handleChange = name => event => {
+    this.setState({ [name] : event.target.value });
+  };
+
+  handleClick = e =>{
+
   };
 
   render() {
@@ -44,12 +51,42 @@ class Rollcall extends React.Component {
               name="area"
               className={classes.group}
               value={this.state.value}
-              onChange={this.handleChange}
+              onChange={this.handleChange('value')}
             >
               <FormControlLabel classes={{ label: classes.label, }} value="國中" control={<Radio />} label="國中" />
               <FormControlLabel classes={{ label: classes.label, }} value="高中" control={<Radio />} label="高中" />
             </RadioGroup>
           </FormControl>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel
+              ref={ref => {
+                this.InputLabelRef = ref;
+              }}
+              htmlFor="outlined-nowClass-simple"
+            >
+            班級
+                    </InputLabel>
+            <Select
+              value={this.state.nowClass}
+              onChange={this.handleChange('nowClass')}
+              className={classes.nowClass}
+              input={
+                <OutlinedInput
+                  labelWidth={this.state.labelWidth}
+                  name="nowClass"
+                  id="outlined-nowClass-simple"
+                />
+              }
+            >
+              <MenuItem value="">
+                <em>班級</em>
+              </MenuItem>
+              <MenuItem value={10}>英文Ａ班</MenuItem>
+              <MenuItem value={20}>數學Ａ班</MenuItem>
+              <MenuItem value={30}>國文Ｂ班</MenuItem>
+            </Select>
+          </FormControl>
+          <Button onClick={this.handleClick}>開始點名</Button>
         </div>
       </div>
     )

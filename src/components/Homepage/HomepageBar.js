@@ -8,11 +8,12 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import Upload from '@material-ui/icons/CreateNewFolderRounded';
-import HomeUpload from './HomeUpload';
 
 const styles = theme => ({
   root: {
     width: '90%',
+    minWidth: 1000,
+    marginLeft: '10%',
     margin: 'auto',
   },
   grow: {

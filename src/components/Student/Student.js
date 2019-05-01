@@ -25,14 +25,10 @@ const styles = theme => ({
         marginTop:theme.spacing.unit * 10,
     },
     button: {
-        display: 'flex',
         border: '1px #FFBF5F solid',
         borderRadius: '30px',
         color: '#FFBF5F',
         margin: 'auto',
-    },
-    rightIcon: {
-        marginLeft: theme.spacing.unit,
     },
     right:{
         width:'60%',
@@ -63,8 +59,10 @@ class Student extends React.Component {
                     學號：
                     </Typography>
                     <Button className={classes.button}>
+                    <CameraIcon/>
+                    </Button>
+                    <Button className={classes.button}>
                         Train
-                    <CameraIcon className={classes.rightIcon} />
                     </Button>
                     </div>
                     <div className={classes.right}>
