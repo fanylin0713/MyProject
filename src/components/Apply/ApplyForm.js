@@ -6,6 +6,8 @@ import Myclass from './ApplyFormClass';
 import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
+import axios from 'axios';
+const IP = "http://192.168.79.1:8080";
 
 const styles = theme => ({
     container: {
@@ -99,7 +101,38 @@ class OutlinedTextFields extends React.Component {
             memberData.fields.class_id = this.state.class_id[index]       
         }
         fetchPostClassMember(memberData);
+
+        //train
+        axios.create({
+            baseURL: IP,
+            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+        }).get("/retrieveface")
+        .then((response)=>{
+            console.log("in response");
+            console.log('open :',response.status,'\nopen camera',new Date());
+        })
+        .catch((error)=>
+            console.error(error)
+        );
+
+
     };
+
+    handleClick =() =>{
+        axios.create({
+            baseURL: IP,
+            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+        }).get("/retrieveface")
+        .then((response)=>{
+            console.log("in response");
+            console.log('open :',response.status,'\nopen camera',new Date());
+        })
+        .catch((error)=>
+            console.error(error)
+        );
+    }
+
+
 
     componentDidUpdate(){
         console.log(this.state);
@@ -112,9 +145,12 @@ class OutlinedTextFields extends React.Component {
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div>
                     <Card style={{ width: '200px', height: '260px', margin: '40px auto' }} />
+                    <Button className={classes.button} onClick={this.handleClick}>
+                        Open Camera
+                    <CameraIcon className={classes.rightIcon} />
+                    </Button>
                     <Button className={classes.button}>
                         Train
-                    <CameraIcon className={classes.rightIcon} />
                     </Button>
                 </div>
                 <div>

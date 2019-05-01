@@ -26,8 +26,15 @@ import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import Face from '@material-ui/icons/FaceOutlined';
 import { NavLink } from "react-router-dom";
 import Airtable from 'airtable';
-
+import axios from 'axios';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const IP = "http://192.168.79.1:8080";
+
+// this.Axios = axios.create({
+//         baseURL: IP,
+//         headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+//       });
+
 
 const styles = theme => ({
     root: {
@@ -131,6 +138,19 @@ class SearchAppBar extends React.Component {
                 }
             );
 
+
+        // axios.create({
+        //         baseURL: IP,
+        //         headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+        //       }).get("/retrieveface")
+        // .then((response)=>{
+        //     console.log("in response");
+        //     console.log('open :',response.status,'\nopen camera',new Date());
+        // })
+        // .catch((error)=>
+        //     console.error(error)
+        // );
+
     }
 
     //select
@@ -160,6 +180,19 @@ class SearchAppBar extends React.Component {
         
         this.setState({ open: false });
     };
+    handleClick =() =>{
+        axios.create({
+            baseURL: IP,
+            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+        }).get("/retrieveface")
+        .then((response)=>{
+            console.log("in response");
+            console.log('open :',response.status,'\nopen camera',new Date());
+        })
+        .catch((error)=>
+            console.error(error)
+        );
+    }
 
 
     render() {
@@ -220,7 +253,7 @@ class SearchAppBar extends React.Component {
                         <NavLink activeClassName="active" to="/">
                             <Button className={classes.button}><Home /></Button></NavLink>
                         {/* 點名button */}
-                        <Button className={classes.button}><Face /></Button>
+                        <Button className={classes.button} onClick={this.handleClick}><Face /></Button>
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
                             <Button className={classes.button}>
                                 <LogoutIcon className={classes.rightIcon} />
