@@ -16,10 +16,17 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 
+import Airtable from 'airtable';
+
+const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const tableClass = base('ClassDay');
+const tableTeacher = base('Teacher');
+const tableClassRoom = base('ClassRoom');
+
 let counter = 0;
-function createData(course, teacher, classroom, day, time) {
+function createData(course, teacher, classroom, day, time, area) {
     counter += 1;
-    return { id: counter, course, teacher, classroom, day, time };
+    return { id: counter, course, teacher, classroom, day, time, area };
 }
 
 const rows = [
@@ -167,20 +174,110 @@ const styles = theme => ({
 });
 
 class EnhancedTable extends React.Component {
+    
     state = {
         selected: [],
         data: [
-            createData("數學A班", '蔡明志', 'BS336', '星期一','10:00'),
-            createData("英文A班", '蔡明志', 'BS336', '星期一','12:00'),
-            createData("國文A班", '蔡明志', 'BS336', '星期二','10:00'),
-            createData("英文B班", '蔡明志', 'BS336', '星期二','14:00'),
-            createData("英文C班", '蔡明志', 'BS336', '星期三','12:00'),
-            createData("數學S班", '蔡明志', 'BS336', '星期四','18:00'),
-            createData("國文B班", '蔡明志', 'BS336', '星期六','10:00')
-        ]
+            // createData("數學A班", '蔡明志', 'BS336', '星期一','10:00'),
+            // createData("英文A班", '蔡明志', 'BS336', '星期一','12:00'),
+            // createData("國文A班", '蔡明志', 'BS336', '星期二','10:00'),
+            // createData("英文B班", '蔡明志', 'BS336', '星期二','14:00'),
+            // createData("英文C班", '蔡明志', 'BS336', '星期三','12:00'),
+            // createData("數學S班", '蔡明志', 'BS336', '星期四','18:00'),
+            // createData("國文B班", '蔡明志', 'BS336', '星期六','10:00')
+        ],
+        dataInit:[],
+        listNameFromParent:'',
     };
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.listNameFromParent !== this.state.listNameFromParent) {
+            var count = this.state.dataInit.length;
+            var temp = [];
+            for(var index = 0; index < count; index++){
+                if(nextProps.listNameFromParent == this.state.dataInit[index].area){
+                    temp.push(this.state.dataInit[index]);
+                    this.setState({data : temp});
+                }
+            }
+          this.setState({ listNameFromParent: nextProps.listNameFromParent });
+        }
+      }
+
+    componentDidMount() {
+    
+        //classDay table
+        tableClass.select({
+          view: "Grid view",
+          //maxRecords: 1
+          }).eachPage((records, fetchNextPage) => {
+            this.setState({records});
+            const classroom_id_link = this.state.records.map((record, index) => record.fields['classroom_id_link']);
+            const class_id = this.state.records.map((record, index) => record.fields['class_id']);
+            const class_day = this.state.records.map((record, index) => record.fields['class_day']);
+            const class_start_time = this.state.records.map((record, index) => record.fields['class_start_time']);
+            const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']);
+            const teacher_id = this.state.records.map((record, index) => record.fields['teacher_id']);
+
+            //const class_end_time = this.state.records.map((record, index) => record.fields['class_end_time']);
+    
+    
+            var temp=[];
+            var temp2=[];
+            var count = teacher_id.length;
+            for(var index = 0; index < count; index++){
+              const record_id = teacher_id[index];
+              const record_id_room = classroom_id_link[index];
+              const class_idR = class_id[index];
+              const class_dayR = class_day[index];
+              const class_start_timeR = class_start_time[index];
+              const classroom_idR = classroom_id[index];
+              //const class_end_timeR = class_end_time[index];
+    
+              //teacher Name
+              tableTeacher.find(record_id, (err, record) => {
+                if (err) {
+                  console.error(err)
+                  return
+                }
+                const teacher_name = record.fields['teacher_name'];
+                //temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
+
+                tableClassRoom.find(record_id_room, (err, record) => {
+                    if (err) {
+                        console.error(err)
+                        return
+                      }
+                      const class_area = record.fields['class_area'];
+                      temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR, class_area));
+                      
+                    //   if(classroom_area == this.props.listNameFromParent){
+                    //     console.log("same!");
+                    //     //temp2.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
+                    //   }
+                      //temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
+          
+                    })
+    
+              })
+
+
+
+            }
+            console.log(temp);
+            this.setState({ data : temp });
+            this.setState({ dataInit : temp });
+            //this.setState({ data : temp2 });
+            
+            
+            console.log(this.props.listNameFromParent);
+            fetchNextPage(); 
+          }
+          );
+      }
+
     handleSelectAllClick = event => {
+        //console.log(this.props.listNameFromParent);
         if (event.target.checked) {
             this.setState(state => ({ selected: state.data.map(n => n.id) }));
             return;

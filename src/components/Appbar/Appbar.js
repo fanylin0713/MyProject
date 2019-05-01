@@ -25,6 +25,9 @@ import Home from '@material-ui/icons/HomeRounded';
 import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import Face from '@material-ui/icons/FaceOutlined';
 import { NavLink } from "react-router-dom";
+import Airtable from 'airtable';
+
+const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 
 const styles = theme => ({
     root: {
@@ -95,17 +98,66 @@ class SearchAppBar extends React.Component {
     state = {
         open: false,
         area: '',
+        classData:[],
+        data:'',
+        dataChange:false,
+        finalValue:'台北校區',
     };
 
+    componentDidMount() {
+        base('ClassRoom').select({ view: 'Grid view' })
+            .eachPage(
+                (records, fetchNextPage) => {
+                    this.setState({ records });
+                    console.log(records);
+                    const class_area = this.state.records.map((record, index) => record.fields['class_area']);
+                    var count = class_area.length;
+                    var temp = [];
+                    var temp2 = [];
+                    for (var index = 0; index < count; index++) {
+                        temp.push(class_area[index]);
+                    }
+
+                    var classResult = temp.filter(function (element, index, arr) {
+                        return arr.indexOf(element) === index;
+                    });
+
+                    for (var index = 0; index < classResult.length; index++) {
+                        temp2.push(classResult[index]);
+                    }
+                    this.setState({ classData: temp2 });
+
+                    fetchNextPage();
+                }
+            );
+
+    }
+
+    //select
     handleChange = name => event => {
-        this.setState({ [name]: Number(event.target.value) });
-    };
+        //this.setState({ [event.target.name]: event.target.value });
+        this.setState({ [name]: event.target.value });
+        this.setState({ data: event.target.value });
+        this.setState({dataChange: true});
+
+    }
 
     handleClickOpen = () => {
         this.setState({ open: true });
     };
 
     handleClose = () => {
+        this.setState({ area: this.state.finalValue });
+        this.setState({ open: false });
+        
+    };
+
+    handleSubmit = () => {
+        if(this.state.dataChange){
+            this.setState({ finalValue: this.state.data });
+            this.props.callbackFromParent(this.state.finalValue);
+        }
+        
         this.setState({ open: false });
     };
 
@@ -123,7 +175,7 @@ class SearchAppBar extends React.Component {
                         {/* <Selector /> */}
                         {/* 校區選擇 */}
                         <div>
-                            <Button onClick={this.handleClickOpen}>北投校區</Button>
+                            <Button onClick={this.handleClickOpen}>{this.state.finalValue}</Button>
                             <Dialog
                                 disableBackdropClick
                                 disableEscapeKeyDown
@@ -142,9 +194,14 @@ class SearchAppBar extends React.Component {
                                                 <MenuItem value="">
                                                     <em>校區</em>
                                                 </MenuItem>
-                                                <MenuItem value={10}>北投校區</MenuItem>
+                                                {(this.state.classData).map((n, index) => {
+                                                return (
+                                                <MenuItem value={n}>{n}</MenuItem>
+                                                );
+                                                })}
+                                                {/* <MenuItem value={10}>北投校區</MenuItem>
                                                 <MenuItem value={20}>士林校區</MenuItem>
-                                                <MenuItem value={30}>南港校區</MenuItem>
+                                                <MenuItem value={30}>南港校區</MenuItem> */}
                                             </Select>
                                         </FormControl>
                                     </form>
@@ -153,7 +210,7 @@ class SearchAppBar extends React.Component {
                                     <Button onClick={this.handleClose} color="primary">
                                         Cancel
                                     </Button>
-                                    <Button onClick={this.handleClose} color="primary">
+                                    <Button onClick={this.handleSubmit} color="primary">
                                         Ok
                                     </Button>
                                 </DialogActions>

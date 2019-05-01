@@ -18,6 +18,8 @@ export const fetchPostClassMember = (payload) => axios.post('https://api.airtabl
 export const fetchPostAnnounce = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Announcement?view=Grid%20view', payload, config)
 //Teacher
 export const fetchPostTeacher = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Teacher?view=Grid%20view', payload, config)
+//Course
+export const fetchPostCourse = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ClassDay?view=Grid%20view', payload, config)
 
 
 // this.Axios = axios.create({

@@ -11,8 +11,8 @@ class Teacher extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                <AppBar />
-                <TeacherTable />
+                <AppBar/>
+                <TeacherTable/>
             </div>
         )
     }
