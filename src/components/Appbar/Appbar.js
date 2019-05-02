@@ -54,6 +54,7 @@ const styles1 = theme => ({
     },
     icon: {
         fontSize: 20,
+        color:'#111B24',
     },
     iconVariant: {
         opacity: 0.9,
@@ -62,6 +63,7 @@ const styles1 = theme => ({
     message: {
         display: 'flex',
         alignItems: 'center',
+        color:'#111B24',
     },
 });
 
@@ -72,9 +74,8 @@ function MySnackbarContent(props) {
     return (
         <SnackbarContent
             className={classNames(classes[variant], className)}
-            aria-describedby="client-snackbar"
             message={
-                <span id="client-snackbar" className={classes.message}>
+                <span className={classes.message}>
                     <Icon className={classNames(classes.icon, classes.iconVariant)} />
                     {message}
                 </span>
@@ -175,6 +176,7 @@ class SearchAppBar extends React.Component {
 
     state = {
         open: false,
+        openSnack: false,
         classData: [],
         data: ''
     };
@@ -234,22 +236,35 @@ class SearchAppBar extends React.Component {
         this.setState({ open: false });
     };
 
+    //snack
+    handleClickSnack = () => {
+        this.setState({ openSnack: true });
+    };
+
+    handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        this.setState({ openSnack: false });
+    };
+
     handleSubmit = () => {
         this.props.callbackFromParent(this.state.data);
         this.setState({ open: false });
     };
-    handleClick =() =>{
+    handleClick = () => {
         axios.create({
             baseURL: IP,
-            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         }).get("/retrieveface")
-        .then((response)=>{
-            console.log("in response");
-            console.log('open :',response.status,'\nopen camera',new Date());
-        })
-        .catch((error)=>
-            console.error(error)
-        );
+            .then((response) => {
+                console.log("in response");
+                console.log('open :', response.status, '\nopen camera', new Date());
+            })
+            .catch((error) =>
+                console.error(error)
+            );
     }
 
 
@@ -288,7 +303,7 @@ class SearchAppBar extends React.Component {
                                                 {(this.state.classData).map((n, index) => {
                                                     console.log(n)
                                                     return (
-                                                        
+
                                                         <MenuItem key={n} value={n}>{n}</MenuItem>
                                                     );
                                                 })}
@@ -313,7 +328,22 @@ class SearchAppBar extends React.Component {
                         <NavLink activeClassName="active" to="/">
                             <Button className={classes.button}><Home /></Button></NavLink>
                         {/* 點名button */}
-                        <Button className={classes.button} onClick={this.handleClick}><Face /></Button>
+                        <Button className={classes.button} onClick={this.handleClickSnack}><Face /></Button>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            open={this.state.openSnack}
+                            autoHideDuration={2000}
+                            onClose={this.handleCloseSnack}
+                        >
+                            <MySnackbarContentWrapper
+                                onClose={this.handleCloseSnack}
+                                variant="warning"
+                                message="學生：林奕蓓 學號：405401360 "
+                            />
+                        </Snackbar>
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
                             <Button className={classes.button}>
                                 <LogoutIcon className={classes.rightIcon} />
