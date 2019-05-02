@@ -215,7 +215,7 @@ class EnhancedTable extends React.Component {
 
 
             var temp = [];
-            var temp2 = [];
+            // var temp2 = [];
             var count = teacher_id.length;
             for (var index = 0; index < count; index++) {
                 const record_id = teacher_id[index];

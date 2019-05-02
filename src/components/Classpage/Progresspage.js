@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Upload from '@material-ui/icons/CreateNewFolderRounded';
 import { withStyles } from '@material-ui/core/styles';
-import { fromJS, List, Map } from 'immutable'
+// import { fromJS, List, Map } from 'immutable'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';

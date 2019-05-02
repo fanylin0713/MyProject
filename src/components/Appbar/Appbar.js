@@ -1,27 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import InputBase from '@material-ui/core/InputBase';
+import {AppBar, Toolbar, Button, InputBase, 
+        FormControl, Select, MenuItem, 
+        Dialog, DialogActions, DialogContent, DialogTitle,
+        Input, IconButton,
+        Snackbar, SnackbarContent} from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Input from '@material-ui/core/Input';
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import { NavLink } from "react-router-dom";
 import Airtable from 'airtable';
 import classNames from 'classnames';
 
-import amber from '@material-ui/core/colors/amber';
 import pin from './pin.png';
 import Drawer from '../Drawer/Drawer';
 
@@ -210,7 +199,7 @@ class SearchAppBar extends React.Component {
                         return arr.indexOf(element) === index;
                     });
 
-                    for (var index = 0; index < classResult.length; index++) {
+                    for (index = 0; index < classResult.length; index++) {
                         temp2.push(classResult[index]);
                     }
                     this.setState({ classData: temp2 });

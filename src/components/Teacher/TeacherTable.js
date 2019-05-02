@@ -252,14 +252,14 @@ class EnhancedTable extends React.Component {
                         return arr.indexOf(element) === index;
                     });
 
-                    for (var index = 0; index < classResult.length; index++) {
+                    for (index = 0; index < classResult.length; index++) {
                         temp2.push(classResult[index]);
                     }
 
                     this.setState({ classData: temp2 });
 
                     //table
-                    for (var index = 0; index < count; index++) {
+                    for (index = 0; index < count; index++) {
                         tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index]));
 
                     }

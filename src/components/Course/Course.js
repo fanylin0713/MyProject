@@ -1,11 +1,8 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar'
-import { withStyles } from '@material-ui/core/styles';
 import CourseTable from './CourseTable';
 import CourseDialog from './CourseDialog';
 
-const styles = theme => ({
-});
 class Course extends React.Component {
     state = {
         //open: false,
@@ -17,7 +14,6 @@ class Course extends React.Component {
 
     render() {
         //console.log(this.state.class_area);
-        const { classes } = this.props;
         return (
             <div>
                 <AppBar callbackFromParent={this.myCallback}/>
@@ -29,4 +25,4 @@ class Course extends React.Component {
 
 }
 
-export default withStyles(styles)(Course);
+export default Course;
