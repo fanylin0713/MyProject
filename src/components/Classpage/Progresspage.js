@@ -3,6 +3,12 @@ import Button from '@material-ui/core/Button';
 import Upload from '@material-ui/icons/CreateNewFolderRounded';
 import { withStyles } from '@material-ui/core/styles';
 import { fromJS, List, Map } from 'immutable'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import XLSX from 'xlsx';
 
 const styles = theme => ({
@@ -22,9 +28,39 @@ const styles = theme => ({
         outline: 'none',
         opacity: 0,
     },
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+        backgroundColor:'#212832',
+        border:'white 1px solid',
+    },
+    head:{
+        fontSize:'14pt',
+        color:'#FFBF5F',
+    },
+    content: {
+        fontSize: '14pt',
+    },
 });
 
+let id = 0;
+function createData(date, origin, real) {
+    id += 1;
+    return { id, date, origin, real };
+}
+
+// const rows = [
+//     { id: "date", label: "日期" },
+//     { id: "origin", label: "預排進度" },
+//     { id: "real", label: "實際進度" },
+// ];
+
 class Progresspage extends Component {
+    state = {
+        rows: [],
+    }
+
     onImportExcel = file => {
         const { files } = file.target;
         const fileReader = new FileReader();
@@ -39,6 +75,16 @@ class Progresspage extends Component {
                         // break;
                     }
                 }
+                this.setState({ data });
+                const progress_date = this.state.data.map((data, index) => data['progress_date']);
+                const progress_origin = this.state.data.map((data, index) => data['progress_origin']);
+                const progress_real = this.state.data.map((data, index) => data['progress_real']);
+                for (var index = 0; index < id; index++) {
+                    data.push(createData(progress_date[index], progress_origin[index], progress_real[index]));
+
+                }
+
+                this.setState({ rows: data });
                 console.log(data);
                 console.log(data[0]);
                 console.log(data[0].date);
@@ -50,7 +96,10 @@ class Progresspage extends Component {
         fileReader.readAsBinaryString(files[0]);
     }
     render() {
+
         const { classes } = this.props;
+        const { rows } = this.state;
+
         return (
             <div style={{ borderColor: '#FFBF5F' }}>
                 <Button className={classes.button}>
@@ -58,8 +107,36 @@ class Progresspage extends Component {
                     <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
                     <span>匯入教學進度</span>
                 </Button>
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead >
+                            <TableRow>
+                                <TableCell className={classes.head}>日期</TableCell>
+                                <TableCell className={classes.head} >預先排定進度</TableCell>
+                                <TableCell className={classes.head} >實際教授進度</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map(row => (
+                                <TableRow key={row.id}>
+                                    <TableCell className={classes.content} style={{ width: '20%' }} component="th" scope="row">{row.date}</TableCell>
+                                    <TableCell className={classes.content}>{row.origin}</TableCell>
+                                    <TableCell className={classes.content}>{row.real}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Paper>
 
-                {/* {
+            </div>
+        );
+    }
+}
+
+export default withStyles(styles)(Progresspage);
+
+
+{/* {
                     data.length ?
                         <ul>
                             {data.map((el, index) => (
@@ -82,9 +159,3 @@ class Progresspage extends Component {
                             </label>
                         </div>
                 } */}
-            </div>
-        );
-    }
-}
-
-export default withStyles(styles)(Progresspage);
