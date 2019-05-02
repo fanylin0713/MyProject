@@ -342,16 +342,6 @@ class EnhancedTable extends React.Component {
                             科目
                 </InputLabel>
                         <Select
-                            // value={this.state.subject}
-                            // onChange={this.handleChange}
-                            // input={
-                            //     <OutlinedInput
-                            //         labelWidth={this.state.labelWidth}
-                            //         name="subject"
-                            //         id="outlined-asubject-simple"
-                            //     />
-                            // }
-                            //native
                             value={this.state.age}
                             onChange={this.handleChange('age')}
                             input={
