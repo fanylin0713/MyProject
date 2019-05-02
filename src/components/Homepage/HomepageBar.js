@@ -13,7 +13,7 @@ const styles = theme => ({
   root: {
     width: '90%',
     minWidth: 1000,
-    marginLeft: '10%',
+    marginLeft: '5%',
     margin: 'auto',
   },
   grow: {
