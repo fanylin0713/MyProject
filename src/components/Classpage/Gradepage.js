@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Upload from '@material-ui/icons/CreateNewFolderRounded';
 import { withStyles } from '@material-ui/core/styles';
+import { fromJS, List, Map } from 'immutable'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 import XLSX from 'xlsx';
 
 const styles = theme => ({
@@ -21,13 +28,33 @@ const styles = theme => ({
         outline: 'none',
         opacity: 0,
     },
+    root: {
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
+        backgroundColor:'#212832',
+        border:'white 1px solid',
+    },
+    head:{
+        fontSize:'14pt',
+        color:'#FFBF5F',
+    },
+    content: {
+        fontSize: '14pt',
+    },
 });
 
-// const data = [
-//     { name: 'name', }
-// ]
+let id = 0;
+function createData(name, number, grade, rank) {
+    id += 1;
+    return { id, name, number, grade, rank };
+}
 
-class Gradepage extends Component {
+class Progresspage extends Component {
+    state = {
+        rows: [],
+    }
+
     onImportExcel = file => {
         // 獲取上傳的文件對象
         const { files } = file.target;
@@ -50,53 +77,66 @@ class Gradepage extends Component {
                     }
                 }
                 // 最終獲取到且格式化的 json 數據
-                // message.success('上傳成功！')
+                this.setState({ data });
+                const grade_studentName = this.state.data.map((data, index) => data['grade_studentName']);
+                const grade_studentId = this.state.data.map((data, index) => data['grade_studentId']);
+                const grade_studentGrade = this.state.data.map((data, index) => data['grade_studentGrade']);
+                const grade_studentRank = this.state.data.map((data, index) => data['grade_studentRank']);
+                
+                for (var index = 0; index < id; index++) {
+                    data.push(createData(grade_studentName[index], grade_studentId[index], grade_studentGrade[index],grade_studentRank[index]));
+
+                }
+
+                this.setState({ rows: data });
                 console.log(data);
+                console.log(data[0]);
+                console.log(data[0].grade_studentName);
+                console.log(data[0].grade_studentId);
             } catch (e) {
-                // 文件類型錯誤出現
                 // message.error('文件類型不正确！');
             }
         };
-        // 以二進制方式打開文件
         fileReader.readAsBinaryString(files[0]);
     }
     render() {
+
         const { classes } = this.props;
+        const { rows } = this.state;
+
         return (
-            <div>
-                <div>
-                    <Button className={classes.button}>
-                        <Upload type='upload' />
-                        <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
-                        <span>成績上傳</span>
-                    </Button>
-                </div >
-                {/* <input
-                    input type='file'
-                    accept='.xlsx, .xls'
-                    onChange={this.onImportExcel}
-                    className={classes.input}
-                    id="contained-button-file"
-                    multiple
-                />
-                <label htmlFor="contained-button-file">
-                    <Button variant="contained" component="span" className={classes.button}>
-                        <Upload className={classes.UploadIcon} />
-                        匯入學生資料
-                        </Button>
-                </label> */}
-                {/* {
-                    data.length ? 
-                    <ul>
-                        {data.map((el, index) => (
-                            <li key={index}>{el.name}</li>
+            <div style={{ borderColor: '#FFBF5F' }}>
+                <Button className={classes.button}>
+                    <Upload type='upload' />
+                    <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
+                    <span>成績上傳</span>
+                </Button>
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead >
+                            <TableRow>
+                                <TableCell className={classes.head} style={{ width: '25%' }}>學生姓名</TableCell>
+                                <TableCell className={classes.head} >學號</TableCell>
+                                <TableCell className={classes.head} >分數</TableCell>
+                                <TableCell className={classes.head} >排名</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map(row => (
+                                <TableRow hover key={row.id}>
+                                    <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
+                                    <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
+                                    <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
+                                    <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
+                                </TableRow>
                             ))}
-                    </ul> :
-                    '新增資料'
-                }     */}
+                        </TableBody>
+                    </Table>
+                </Paper>
+
             </div>
         );
     }
 }
 
-export default withStyles(styles)(Gradepage);
+export default withStyles(styles)(Progresspage);
