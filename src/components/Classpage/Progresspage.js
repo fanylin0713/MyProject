@@ -42,6 +42,11 @@ const styles = theme => ({
     content: {
         fontSize: '14pt',
     },
+    editButton:{
+        border:'#FFBF5F 1px solid',
+        float:'right',
+        marginLeft: theme.spacing.unit * 2,
+    }
 });
 
 let id = 0;
@@ -49,12 +54,6 @@ function createData(date, origin, real) {
     id += 1;
     return { id, date, origin, real };
 }
-
-// const rows = [
-//     { id: "date", label: "日期" },
-//     { id: "origin", label: "預排進度" },
-//     { id: "real", label: "實際進度" },
-// ];
 
 class Progresspage extends Component {
     state = {
@@ -106,6 +105,12 @@ class Progresspage extends Component {
                     <Upload type='upload' />
                     <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
                     <span>匯入教學進度</span>
+                </Button>
+                <Button className={classes.editButton}>
+                    儲存
+                </Button>
+                <Button className={classes.editButton}>
+                    編輯
                 </Button>
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
