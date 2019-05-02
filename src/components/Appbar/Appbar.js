@@ -14,8 +14,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Input from '@material-ui/core/Input';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import { NavLink } from "react-router-dom";
+import Airtable from 'airtable';
+import classNames from 'classnames';
 
-
+import amber from '@material-ui/core/colors/amber';
 import pin from './pin.png';
 import Drawer from '../Drawer/Drawer';
 
@@ -24,11 +30,74 @@ import SearchIcon from '@material-ui/icons/Search';
 import Home from '@material-ui/icons/HomeRounded';
 import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import Face from '@material-ui/icons/FaceOutlined';
-import { NavLink } from "react-router-dom";
-import Airtable from 'airtable';
+import InfoIcon from '@material-ui/icons/Info';
+import CloseIcon from '@material-ui/icons/Close';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 
+const variantIcon = {
+    warning: InfoIcon,
+};
+//snackBar
+const styles1 = theme => ({
+    warning: {
+        backgroundColor: amber[600],
+    },
+    icon: {
+        fontSize: 20,
+    },
+    iconVariant: {
+        opacity: 0.9,
+        marginRight: theme.spacing.unit,
+    },
+    message: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+});
+
+function MySnackbarContent(props) {
+    const { classes, className, message, onClose, variant, ...other } = props;
+    const Icon = variantIcon[variant];
+
+    return (
+        <SnackbarContent
+            className={classNames(classes[variant], className)}
+            aria-describedby="client-snackbar"
+            message={
+                <span id="client-snackbar" className={classes.message}>
+                    <Icon className={classNames(classes.icon, classes.iconVariant)} />
+                    {message}
+                </span>
+            }
+            action={[
+                <IconButton
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
+                    className={classes.close}
+                    onClick={onClose}
+                >
+                    <CloseIcon className={classes.icon} />
+                </IconButton>,
+            ]}
+            {...other}
+        />
+    );
+}
+
+MySnackbarContent.propTypes = {
+    classes: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    message: PropTypes.node,
+    onClose: PropTypes.func,
+    variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+};
+
+const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
+
+
+//Appbar
 const styles = theme => ({
     root: {
         width: '100%',
@@ -97,11 +166,8 @@ class SearchAppBar extends React.Component {
 
     state = {
         open: false,
-        area: '',
-        classData:[],
-        data:'',
-        dataChange:false,
-        finalValue:'台北校區',
+        classData: [],
+        data: ''
     };
 
     componentDidMount() {
@@ -134,12 +200,8 @@ class SearchAppBar extends React.Component {
     }
 
     //select
-    handleChange = name => event => {
-        //this.setState({ [event.target.name]: event.target.value });
-        this.setState({ [name]: event.target.value });
+    handleChange = event => {
         this.setState({ data: event.target.value });
-        this.setState({dataChange: true});
-
     }
 
     handleClickOpen = () => {
@@ -147,17 +209,11 @@ class SearchAppBar extends React.Component {
     };
 
     handleClose = () => {
-        this.setState({ area: this.state.finalValue });
         this.setState({ open: false });
-        
     };
 
     handleSubmit = () => {
-        if(this.state.dataChange){
-            this.setState({ finalValue: this.state.data });
-            this.props.callbackFromParent(this.state.finalValue);
-        }
-        
+        this.props.callbackFromParent(this.state.data);
         this.setState({ open: false });
     };
 
@@ -175,7 +231,7 @@ class SearchAppBar extends React.Component {
                         {/* <Selector /> */}
                         {/* 校區選擇 */}
                         <div>
-                            <Button onClick={this.handleClickOpen}>{this.state.finalValue}</Button>
+                            <Button onClick={this.handleClickOpen}>{this.state.data || '校區選擇'}</Button>
                             <Dialog
                                 disableBackdropClick
                                 disableEscapeKeyDown
@@ -187,17 +243,19 @@ class SearchAppBar extends React.Component {
                                     <form className={classes.container}>
                                         <FormControl className={classes.formControl}>
                                             <Select
-                                                value={this.state.area}
-                                                onChange={this.handleChange('area')}
+                                                value={this.state.data}
+                                                onChange={this.handleChange}
                                                 input={<Input id="area-simple" />}
                                             >
                                                 <MenuItem value="">
                                                     <em>校區</em>
                                                 </MenuItem>
                                                 {(this.state.classData).map((n, index) => {
-                                                return (
-                                                <MenuItem value={n}>{n}</MenuItem>
-                                                );
+                                                    console.log(n)
+                                                    return (
+                                                        
+                                                        <MenuItem key={n} value={n}>{n}</MenuItem>
+                                                    );
                                                 })}
                                                 {/* <MenuItem value={10}>北投校區</MenuItem>
                                                 <MenuItem value={20}>士林校區</MenuItem>
