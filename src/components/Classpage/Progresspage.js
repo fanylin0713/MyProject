@@ -11,7 +11,7 @@ const styles = theme => ({
         color: 'white',
     },
     UploadIcon: {
-        margin:'0 auto',
+        margin: '0 auto',
     },
     input: {
         position: 'absolute',
@@ -23,8 +23,6 @@ const styles = theme => ({
         opacity: 0,
     },
 });
-
-const data = [];
 
 class Progresspage extends Component {
     onImportExcel = file => {
@@ -41,10 +39,10 @@ class Progresspage extends Component {
                         // break;
                     }
                 }
-                
                 console.log(data);
                 console.log(data[0]);
-                console.log(data[0].dtae);
+                console.log(data[0].date);
+                console.log(data[0].origin);
             } catch (e) {
                 // message.error('文件類型不正确！');
             }
@@ -55,11 +53,12 @@ class Progresspage extends Component {
         const { classes } = this.props;
         return (
             <div style={{ borderColor: '#FFBF5F' }}>
-            <Button className={classes.button}>
-                        <Upload type='upload' />
-                        <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
-                        <span>匯入教學進度</span>
-                    </Button>
+                <Button className={classes.button}>
+                    <Upload type='upload' />
+                    <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
+                    <span>匯入教學進度</span>
+                </Button>
+
                 {/* {
                     data.length ?
                         <ul>
