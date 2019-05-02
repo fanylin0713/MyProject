@@ -15,15 +15,6 @@ class Course extends React.Component {
         this.setState({ class_area: dataFromChild });
     }
 
-
-    // handleClickOpen = () => {
-    //     this.setState({ open: true });
-    // };
-
-    // handleClose = () => {
-    //     this.setState({ open: false });
-    // };
-
     render() {
         //console.log(this.state.class_area);
         const { classes } = this.props;
