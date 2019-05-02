@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import { NavLink } from "react-router-dom";
 import { fromJS, List, Map } from 'immutable'
 import XLSX from 'xlsx';
+import ArrowIcon from '@material-ui/icons/ArrowForwardRounded';
 
 const styles = theme => ({
     root: {
@@ -52,9 +53,9 @@ function createData(time, title, content) {
 }
 
 const data = [
-    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
-    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
-    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊 ></Button></NavLink>),
+    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊<ArrowIcon/></Button></NavLink>),
+    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊<ArrowIcon/></Button></NavLink>),
+    createData('405401360', '林ＸＸ', <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/student"><Button>更多資訊<ArrowIcon/></Button></NavLink>),
 ]
 
 class Studentpage extends Component {
