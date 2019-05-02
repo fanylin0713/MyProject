@@ -32,6 +32,7 @@ import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import Face from '@material-ui/icons/FaceOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
 
 import axios from 'axios';
 
@@ -50,11 +51,11 @@ const variantIcon = {
 //snackBar
 const styles1 = theme => ({
     warning: {
-        backgroundColor: amber[600],
+        backgroundColor: '#FFBF5F',
     },
     icon: {
         fontSize: 20,
-        color:'#111B24',
+        color: '#111B24',
     },
     iconVariant: {
         opacity: 0.9,
@@ -63,7 +64,7 @@ const styles1 = theme => ({
     message: {
         display: 'flex',
         alignItems: 'center',
-        color:'#111B24',
+        color: '#111B24',
     },
 });
 
@@ -88,8 +89,18 @@ function MySnackbarContent(props) {
                     className={classes.close}
                     onClick={onClose}
                 >
-                    <CloseIcon className={classes.icon} />
+                    <CheckIcon className={classes.icon} />
                 </IconButton>,
+                <IconButton
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
+                    className={classes.close}
+                    onClick={onClose}
+                >
+
+                    <CloseIcon className={classes.icon} />
+                </IconButton>
             ]}
             {...other}
         />
