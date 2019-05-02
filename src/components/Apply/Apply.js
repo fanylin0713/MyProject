@@ -1,6 +1,7 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar'
 import ApplyForm from './ApplyForm';
+import UploadFile from './UploadFile';
 import { Card } from '@material-ui/core';
 // import { fetchGetCharacterList, fetchPostUser } from 'api'
 
@@ -26,6 +27,8 @@ class Apply extends React.Component {
         return (
             <div style={{ backgroundColor: "#111B24", height: "1000px" }}>
                 <AppBar />
+
+                <UploadFile />
                 
                 <Card style={{backgroundColor:"#212832", 
                                 border:'1px white solid',
