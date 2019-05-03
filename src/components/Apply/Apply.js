@@ -28,7 +28,7 @@ class Apply extends React.Component {
             <div style={{ backgroundColor: "#111B24", height: "1000px" }}>
                 <AppBar />
 
-                <UploadFile />
+                {/* <UploadFile /> */}
                 
                 <Card style={{backgroundColor:"#212832", 
                                 border:'1px white solid',
