@@ -44,51 +44,51 @@ class FormDialog extends React.Component {
         teacher_email: '',
         subject: '',
         open: false,
-        age:'',
-        classData:[],
+        age: '',
+        classData: [],
     };
 
     componentDidMount() {
 
-        base('Teacher').select({view: 'Grid view'})
-        .eachPage(
-          (records, fetchNextPage) => {
-            this.setState({records});
-            console.log(records);
-            const subject_name = this.state.records.map((record, index) => record.fields['subject_name']);
+        base('Teacher').select({ view: 'Grid view' })
+            .eachPage(
+                (records, fetchNextPage) => {
+                    this.setState({ records });
+                    console.log(records);
+                    const subject_name = this.state.records.map((record, index) => record.fields['subject_name']);
 
-            var count = subject_name.length;
-            var temp=[];
-            var temp2=[];
-            for(var index = 0; index < count; index++) {
-              temp.push(subject_name[index]);
-            }
+                    var count = subject_name.length;
+                    var temp = [];
+                    var temp2 = [];
+                    for (var index = 0; index < count; index++) {
+                        temp.push(subject_name[index]);
+                    }
 
-            var classResult = temp.filter(function(element, index, arr){
-              return arr.indexOf(element) === index;
-            });
+                    var classResult = temp.filter(function (element, index, arr) {
+                        return arr.indexOf(element) === index;
+                    });
 
-            for(var index = 0; index < classResult.length; index++){
-              temp2.push(classResult[index]);
-            }
+                    for (index = 0; index < classResult.length; index++) {
+                        temp2.push(classResult[index]);
+                    }
 
-            this.setState({ classData : temp2 });
-    
-            fetchNextPage();
-          }
-        );
+                    this.setState({ classData: temp2 });
+
+                    fetchNextPage();
+                }
+            );
 
     }
 
-    handleSubmit = (e)=> {
+    handleSubmit = (e) => {
         e.preventDefault()
-        let data = {fields:{teacher_id:{},teacher_name:{},teacher_phone:{}, teacher_email:{}, subject_name:{}}};
+        let data = { fields: { teacher_id: {}, teacher_name: {}, teacher_phone: {}, teacher_email: {}, subject_name: {} } };
         data.fields.teacher_id = "Teacher";
         data.fields.teacher_name = this.state.teacher_name;
         data.fields.teacher_phone = this.state.teacher_phone;
         data.fields.teacher_email = this.state.teacher_email;
         data.fields.subject_name = this.state.age;
-    
+
         fetchPostTeacher(data);
         this.setState({ open: false });
     };
@@ -166,7 +166,7 @@ class FormDialog extends React.Component {
                                         }}
                                         htmlFor="outlined-subject-simple"
                                     >
-                                        Subject 
+                                        Subject
                                 </InputLabel>
                                     <Select
                                         // value={this.state.subject}
@@ -181,20 +181,20 @@ class FormDialog extends React.Component {
                                         value={this.state.age}
                                         onChange={this.handleChange('age')}
                                         input={
-                                          <OutlinedInput
-                                            name="Age"
-                                            labelWidth={this.state.labelWidth}
-                                            id="outlined-asubject-simple"
-                                          />
+                                            <OutlinedInput
+                                                name="Age"
+                                                labelWidth={this.state.labelWidth}
+                                                id="outlined-asubject-simple"
+                                            />
                                         }
                                     >
                                         <MenuItem value="1">
                                             <em>科目</em>
                                         </MenuItem>
-                                        {(this.state.classData).map((n,index) => {
-                                        return (
-                                        <MenuItem value={n}>{n}</MenuItem>
-                                        );
+                                        {(this.state.classData).map((n, index) => {
+                                            return (
+                                                <MenuItem value={n}>{n}</MenuItem>
+                                            );
                                         })}
                                         {/* <MenuItem value={10}>國文</MenuItem>
                                         <MenuItem value={20}>數學</MenuItem>

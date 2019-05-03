@@ -62,7 +62,12 @@ const theme = createMuiTheme({
                 }
             },
 
-        }
+        },
+        MuiSnackbarContent:{
+            message:{
+                padding:'0px',
+            }
+        },
 
     }
 });

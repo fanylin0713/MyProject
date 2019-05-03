@@ -133,8 +133,8 @@ let EnhancedTableToolbar = props => {
             <div className={classes.spacer} />
             <div className={classes.actions}>
                 {numSelected > 0 ? (
-                    <Tooltip title="Delete">
-                        <IconButton aria-label="Delete">
+                    <Tooltip title="刪除">
+                        <IconButton aria-label="刪除">
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
@@ -177,15 +177,7 @@ class EnhancedTable extends React.Component {
 
     state = {
         selected: [],
-        data: [
-            // createData("數學A班", '蔡明志', 'BS336', '星期一','10:00'),
-            // createData("英文A班", '蔡明志', 'BS336', '星期一','12:00'),
-            // createData("國文A班", '蔡明志', 'BS336', '星期二','10:00'),
-            // createData("英文B班", '蔡明志', 'BS336', '星期二','14:00'),
-            // createData("英文C班", '蔡明志', 'BS336', '星期三','12:00'),
-            // createData("數學S班", '蔡明志', 'BS336', '星期四','18:00'),
-            // createData("國文B班", '蔡明志', 'BS336', '星期六','10:00')
-        ],
+        data: [],
         dataInit: [],
         listNameFromParent: '',
     };
@@ -195,7 +187,7 @@ class EnhancedTable extends React.Component {
             var count = this.state.dataInit.length;
             var temp = [];
             for (var index = 0; index < count; index++) {
-                if (nextProps.listNameFromParent == this.state.dataInit[index].area) {
+                if (nextProps.listNameFromParent === this.state.dataInit[index].area) {
                     temp.push(this.state.dataInit[index]);
                     this.setState({ data: temp });
                 }
@@ -223,7 +215,7 @@ class EnhancedTable extends React.Component {
 
 
             var temp = [];
-            var temp2 = [];
+            // var temp2 = [];
             var count = teacher_id.length;
             for (var index = 0; index < count; index++) {
                 const record_id = teacher_id[index];

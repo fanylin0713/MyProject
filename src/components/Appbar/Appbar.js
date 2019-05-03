@@ -1,20 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import InputBase from '@material-ui/core/InputBase';
+import {AppBar, Toolbar, Button, InputBase, 
+        FormControl, Select, MenuItem, 
+        Dialog, DialogActions, DialogContent, DialogTitle,
+        Input, IconButton,
+        Snackbar, SnackbarContent} from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Input from '@material-ui/core/Input';
-
+import { NavLink } from "react-router-dom";
+import Airtable from 'airtable';
+import classNames from 'classnames';
 
 import pin from './pin.png';
 import Drawer from '../Drawer/Drawer';
@@ -24,9 +19,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import Home from '@material-ui/icons/HomeRounded';
 import LogoutIcon from '@material-ui/icons/DirectionsWalkOutlined';
 import Face from '@material-ui/icons/FaceOutlined';
-import { NavLink } from "react-router-dom";
-import Airtable from 'airtable';
+import InfoIcon from '@material-ui/icons/Info';
+import CloseIcon from '@material-ui/icons/Close';
+import CheckIcon from '@material-ui/icons/Check';
+
 import axios from 'axios';
+
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const IP = "http://192.168.79.1:8080";
 
@@ -36,6 +34,80 @@ const IP = "http://192.168.79.1:8080";
 //       });
 
 
+const variantIcon = {
+    warning: InfoIcon,
+};
+//snackBar
+const styles1 = theme => ({
+    warning: {
+        backgroundColor: '#FFBF5F',
+    },
+    icon: {
+        fontSize: 20,
+        color: '#111B24',
+    },
+    iconVariant: {
+        opacity: 0.9,
+        marginRight: theme.spacing.unit,
+    },
+    message: {
+        display: 'flex',
+        alignItems: 'center',
+        color: '#111B24',
+    },
+});
+
+function MySnackbarContent(props) {
+    const { classes, className, message, onClose, variant, ...other } = props;
+    const Icon = variantIcon[variant];
+
+    return (
+        <SnackbarContent
+            className={classNames(classes[variant], className)}
+            message={
+                <span className={classes.message}>
+                    <Icon className={classNames(classes.icon, classes.iconVariant)} />
+                    {message}
+                </span>
+            }
+            action={[
+                <IconButton
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
+                    className={classes.close}
+                    onClick={onClose}
+                >
+                    <CheckIcon className={classes.icon} />
+                </IconButton>,
+                <IconButton
+                    key="close"
+                    aria-label="Close"
+                    color="inherit"
+                    className={classes.close}
+                    onClick={onClose}
+                >
+
+                    <CloseIcon className={classes.icon} />
+                </IconButton>
+            ]}
+            {...other}
+        />
+    );
+}
+
+MySnackbarContent.propTypes = {
+    classes: PropTypes.object.isRequired,
+    className: PropTypes.string,
+    message: PropTypes.node,
+    onClose: PropTypes.func,
+    variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
+};
+
+const MySnackbarContentWrapper = withStyles(styles1)(MySnackbarContent);
+
+
+//Appbar
 const styles = theme => ({
     root: {
         width: '100%',
@@ -104,11 +176,9 @@ class SearchAppBar extends React.Component {
 
     state = {
         open: false,
-        area: '',
-        classData:[],
-        data:'',
-        dataChange:false,
-        finalValue:'台北校區',
+        openSnack: false,
+        classData: [],
+        data: ''
     };
 
     componentDidMount() {
@@ -129,7 +199,7 @@ class SearchAppBar extends React.Component {
                         return arr.indexOf(element) === index;
                     });
 
-                    for (var index = 0; index < classResult.length; index++) {
+                    for (index = 0; index < classResult.length; index++) {
                         temp2.push(classResult[index]);
                     }
                     this.setState({ classData: temp2 });
@@ -154,12 +224,8 @@ class SearchAppBar extends React.Component {
     }
 
     //select
-    handleChange = name => event => {
-        //this.setState({ [event.target.name]: event.target.value });
-        this.setState({ [name]: event.target.value });
+    handleChange = event => {
         this.setState({ data: event.target.value });
-        this.setState({dataChange: true});
-
     }
 
     handleClickOpen = () => {
@@ -167,31 +233,37 @@ class SearchAppBar extends React.Component {
     };
 
     handleClose = () => {
-        this.setState({ area: this.state.finalValue });
         this.setState({ open: false });
-        
+    };
+
+    //snack
+    handleClickSnack = () => {
+        this.setState({ openSnack: true });
+    };
+
+    handleCloseSnack = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        this.setState({ openSnack: false });
     };
 
     handleSubmit = () => {
-        if(this.state.dataChange){
-            this.setState({ finalValue: this.state.data });
-            this.props.callbackFromParent(this.state.finalValue);
-        }
-        
+        this.props.callbackFromParent(this.state.data);
         this.setState({ open: false });
     };
-    handleClick =() =>{
+    handleClick = () => {
         axios.create({
             baseURL: IP,
-            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         }).get("/retrieveface")
-        .then((response)=>{
-            console.log("in response");
-            console.log('open :',response.status,'\nopen camera',new Date());
-        })
-        .catch((error)=>
-            console.error(error)
-        );
+            .then((response) => {
+                console.log("in response");
+                console.log('open :', response.status, '\nopen camera', new Date());
+            })
+            .catch((error) =>
+                console.error(error)
+            );
     }
 
 
@@ -208,7 +280,7 @@ class SearchAppBar extends React.Component {
                         {/* <Selector /> */}
                         {/* 校區選擇 */}
                         <div>
-                            <Button onClick={this.handleClickOpen}>{this.state.finalValue}</Button>
+                            <Button onClick={this.handleClickOpen}>{this.state.data || '校區選擇'}</Button>
                             <Dialog
                                 disableBackdropClick
                                 disableEscapeKeyDown
@@ -220,17 +292,19 @@ class SearchAppBar extends React.Component {
                                     <form className={classes.container}>
                                         <FormControl className={classes.formControl}>
                                             <Select
-                                                value={this.state.area}
-                                                onChange={this.handleChange('area')}
+                                                value={this.state.data}
+                                                onChange={this.handleChange}
                                                 input={<Input id="area-simple" />}
                                             >
                                                 <MenuItem value="">
                                                     <em>校區</em>
                                                 </MenuItem>
                                                 {(this.state.classData).map((n, index) => {
-                                                return (
-                                                <MenuItem value={n}>{n}</MenuItem>
-                                                );
+                                                    console.log(n)
+                                                    return (
+
+                                                        <MenuItem key={n} value={n}>{n}</MenuItem>
+                                                    );
                                                 })}
                                                 {/* <MenuItem value={10}>北投校區</MenuItem>
                                                 <MenuItem value={20}>士林校區</MenuItem>
@@ -253,7 +327,22 @@ class SearchAppBar extends React.Component {
                         <NavLink activeClassName="active" to="/">
                             <Button className={classes.button}><Home /></Button></NavLink>
                         {/* 點名button */}
-                        <Button className={classes.button} onClick={this.handleClick}><Face /></Button>
+                        <Button className={classes.button} onClick={this.handleClickSnack}><Face /></Button>
+                        <Snackbar
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            open={this.state.openSnack}
+                            autoHideDuration={2000}
+                            onClose={this.handleCloseSnack}
+                        >
+                            <MySnackbarContentWrapper
+                                onClose={this.handleCloseSnack}
+                                variant="warning"
+                                message="學生：林奕蓓 學號：405401360 "
+                            />
+                        </Snackbar>
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
                             <Button className={classes.button}>
                                 <LogoutIcon className={classes.rightIcon} />

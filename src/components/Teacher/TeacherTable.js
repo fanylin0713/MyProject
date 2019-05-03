@@ -255,15 +255,20 @@ class EnhancedTable extends React.Component {
                         return arr.indexOf(element) === index;
                     });
 
-                    for (var index = 0; index < classResult.length; index++) {
+                    for (index = 0; index < classResult.length; index++) {
                         temp2.push(classResult[index]);
                     }
 
                     this.setState({ classData: temp2 });
 
                     //table
+<<<<<<< HEAD
                     for (var index = 0; index < count; index++) {
                         tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index], record_id[index]));
+=======
+                    for (index = 0; index < count; index++) {
+                        tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index]));
+>>>>>>> 714b9720333d5bf2168026f2a5380c35ea8415a4
 
                     }
                     this.setState({ data: tempT });
@@ -349,16 +354,6 @@ class EnhancedTable extends React.Component {
                             科目
                 </InputLabel>
                         <Select
-                            // value={this.state.subject}
-                            // onChange={this.handleChange}
-                            // input={
-                            //     <OutlinedInput
-                            //         labelWidth={this.state.labelWidth}
-                            //         name="subject"
-                            //         id="outlined-asubject-simple"
-                            //     />
-                            // }
-                            //native
                             value={this.state.age}
                             onChange={this.handleChange('age')}
                             input={

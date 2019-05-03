@@ -9,29 +9,30 @@ import { withStyles } from '@material-ui/core/styles';
 import { fetchPostAnnounce } from '../../api';
 
 const styles = theme => ({
-    root:{
+    root: {
         width: '800px',
         margin: 'auto',
     },
-    btn:{
+    btn: {
         marginTop: theme.spacing.unit * 3,
         marginLeft: theme.spacing.unit * 150,
-        borderRadius:'10px',
+        borderRadius: '10px',
     },
 });
 
 class FormDialog extends React.Component {
     state = {
         open: false,
-        announce_title:'',
-        announce_email:'',
-        data:[],
+        announce_title: '',
+        announce_email: '',
+        data: [],
     };
 
     handleChange = name => event => {
         this.setState({
-            [name] : event.target.value});
-      };
+            [name]: event.target.value
+        });
+    };
 
     handleClickOpen = () => {
         this.setState({ open: true });
@@ -41,16 +42,16 @@ class FormDialog extends React.Component {
         this.setState({ open: false });
     };
 
-    handleSubmit = (e)=> {
+    handleSubmit = (e) => {
         e.preventDefault()
-        let data = {fields:{announce_id:{},announce_title:{}, announce_body:{}}};
+        let data = { fields: { announce_id: {}, announce_title: {}, announce_body: {} } };
         data.fields.announce_id = "ann";
         data.fields.announce_title = this.state.announce_title;
         data.fields.announce_body = this.state.announce_body;
-    
+
         fetchPostAnnounce(data);
         this.setState({ open: false });
-      };
+    };
 
     render() {
         const { classes } = this.props;
