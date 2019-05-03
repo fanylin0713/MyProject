@@ -123,8 +123,6 @@ class EnhancedTableToolbar extends React.Component {
         for(var index = 0; index < this.props.toDelete.length; index++){
             fetchDeleteTeacher(this.props.toDelete[index]);
         }
-
-
     }
     render(){
         const { numSelected, classes } = this.props;
