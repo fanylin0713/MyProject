@@ -7,6 +7,8 @@ const config = {
   },
 }
 
+const deleteURL = 'https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Teacher/'
+
 
 // Api docs, http://www.amiiboapi.com/
 export const fetchGetCharacterList = (payload) => axios.get(`https://reqres.in/api/users?${queryString.stringify(payload)}`, config)
@@ -18,6 +20,16 @@ export const fetchPostClassMember = (payload) => axios.post('https://api.airtabl
 export const fetchPostAnnounce = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Announcement?view=Grid%20view', payload, config)
 //Teacher
 export const fetchPostTeacher = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Teacher?view=Grid%20view', payload, config)
+
+//TeacherDelete
+export const fetchDeleteTeacher = (payload) => axios.delete(deleteURL + payload ,config)
+.then(res => {
+  console.log(res)
+})
+.catch(err => {
+  console.error(err); 
+})
+
 //Course
 export const fetchPostCourse = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ClassDay?view=Grid%20view', payload, config)
 

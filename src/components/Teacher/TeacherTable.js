@@ -23,15 +23,18 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import { fetchDeleteTeacher } from '../../api';
 
 import Airtable from 'airtable';
 
+const TABLE_NAME = 'Teacher';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const table = base(TABLE_NAME);
 
 let counter = 0;
-function createData(name, phone, email, subject) {
+function createData(name, phone, email, subject, record_id) {
     counter += 1;
-    return { id: counter, name, phone, email, subject };
+    return { id: counter, name, phone, email, subject, record_id};
 }
 const rows = [
     {
@@ -116,50 +119,51 @@ const toolbarStyles = theme => ({
 
 class EnhancedTableToolbar extends React.Component {
 
-    handleDelete = e =>{
+    handleDelete = e => {
+        for(var index = 0; index < this.props.toDelete.length; index++){
+            fetchDeleteTeacher(this.props.toDelete[index]);
+        }
+
 
     }
     render(){
         const { numSelected, classes } = this.props;
-    // handleDelete= event => {
-    //     console.log("in handleDelete");
-    // };
+        //console.log(this.props.toDelete);
 
-    return (
-        <Toolbar
-            className={classNames(classes.root, {
-                [classes.highlight]: numSelected > 0
-            })}
-        >
-            <div className={classes.title}>
-                {numSelected > 0
-                    ? (
-                        <Typography color="inherit" variant="subtitle1">
-                            已選擇 {numSelected} 位老師
-                    </Typography>)
-                    : (
-                        <Typography style={{ color: '#111B24' }} variant="h6" id="tableTitle">
-                            老師名單
-                    </Typography>
-                    )
-                }
-            </div>
-            <div className={classes.spacer} />
-            <div className={classes.actions}>
-                {numSelected > 0 ? (
-                    <Tooltip title="Delete">
-                        <IconButton aria-label="Delete">
-                        {/* onClick={this.handleDelete} */}
-                            <DeleteIcon />
-                        </IconButton>
-                    </Tooltip>
-                ) : (
+        return (
+            <Toolbar
+                className={classNames(classes.root, {
+                    [classes.highlight]: numSelected > 0
+                })}
+            >
+                <div className={classes.title}>
+                    {numSelected > 0
+                        ? (
+                            <Typography color="inherit" variant="subtitle1">
+                                已選擇 {numSelected} 位老師
+                        </Typography>)
+                        : (
+                            <Typography style={{ color: '#111B24' }} variant="h6" id="tableTitle">
+                                老師名單
+                        </Typography>
+                        )
+                    }
+                </div>
+                <div className={classes.spacer} />
+                <div className={classes.actions}>
+                    {numSelected > 0 ? (
+                        <Tooltip title="Delete">
+                        <   IconButton onClick={this.handleDelete} aria-label="Delete">
+                                <DeleteIcon />
+                            </IconButton>
+                        </Tooltip>
+                    ) : (
                         <div></div>
-                    )}
-            </div>
-        </Toolbar>
-    );
-}
+                        )}
+                </div>
+            </Toolbar>
+        );
+    }
 };
 
 EnhancedTableToolbar.propTypes = {
@@ -221,7 +225,7 @@ class EnhancedTable extends React.Component {
         age: '',
         labelWidth: 0,
         classData: [],
-
+        deleted: [],
     };
 
     componentDidMount() {
@@ -237,6 +241,7 @@ class EnhancedTable extends React.Component {
                     const teacher_email = this.state.records.map((record, index) => record.fields['teacher_email']);
                     const teacher_phone = this.state.records.map((record, index) => record.fields['teacher_phone']);
                     const subject_name = this.state.records.map((record, index) => record.fields['subject_name']);
+                    const record_id = this.state.records.map((record, index) => record.id);
 
                     var count = teacher_name.length;
                     var tempT = [];
@@ -260,10 +265,9 @@ class EnhancedTable extends React.Component {
 
                     //table
                     for (var index = 0; index < count; index++) {
-                        tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index]));
+                        tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index], record_id[index]));
 
                     }
-
                     this.setState({ data: tempT });
                     this.setState({ dataInit: tempT });
 
@@ -278,12 +282,10 @@ class EnhancedTable extends React.Component {
         this.setState({ [name]: event.target.value });
         let temp = [];
         var count = this.state.dataInit.length;
-        //console.log(event.target.value);
 
         for (var index = 0; index < count; index++) {
             if (this.state.dataInit[index].subject === event.target.value) {
                 temp.push(this.state.dataInit[index]);
-                //console.log(temp);
             }
         }
         this.setState({ data: temp });
@@ -300,26 +302,33 @@ class EnhancedTable extends React.Component {
         this.setState({ selected: [] });
     };
 
-    handleClick = (event, id) => {
-        const { selected } = this.state;
+    
+    handleClick = (event, id, record_id) => {
+        const { selected , deleted } = this.state;
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
-        console.log(newSelected);
+        let newDeleted = [];
 
         if (selectedIndex === -1) {
             newSelected = newSelected.concat(selected, id);
+            newDeleted = newDeleted.concat(deleted,  record_id);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
+            newDeleted = newDeleted.concat(deleted.slice(1));
         } else if (selectedIndex === selected.length - 1) {
             newSelected = newSelected.concat(selected.slice(0, -1));
+            newDeleted = newDeleted.concat(deleted.slice(0, -1));
         } else if (selectedIndex > 0) {
             newSelected = newSelected.concat(
                 selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1)
+                selected.slice(selectedIndex + 1) 
+            );
+            newDeleted = newDeleted.concat(
+                deleted.slice(0, selectedIndex),
+                deleted.slice(selectedIndex + 1) 
             );
         }
-        console.log(newSelected);
-
+        this.setState({ deleted: newDeleted });
         this.setState({ selected: newSelected });
     };
     isSelected = id => this.state.selected.indexOf(id) !== -1;
@@ -327,7 +336,7 @@ class EnhancedTable extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { data, selected } = this.state;
+        const { data, selected, deleted } = this.state;
 
         return (
             <div>
@@ -376,7 +385,7 @@ class EnhancedTable extends React.Component {
                 </form>
 
                 <Paper className={classes.root}>
-                    <EnhancedTableToolbar numSelected={selected.length} />
+                    <EnhancedTableToolbar numSelected={selected.length} toDelete={deleted}/>
                     <div className={classes.tableWrapper}>
                         <Table className={classes.table} aria-labelledby="tableTitle">
                             <EnhancedTableHead
@@ -395,7 +404,7 @@ class EnhancedTable extends React.Component {
                                         >
                                             <TableCell
                                                 padding="checkbox"
-                                                onClick={event => this.handleClick(event, n.id)}
+                                                onClick={event => this.handleClick(event, n.id, n.record_id)}
                                                 aria-checked={isSelected}
                                                 tabIndex={-1}
                                                 selected={isSelected}
