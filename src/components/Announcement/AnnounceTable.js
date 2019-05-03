@@ -42,13 +42,6 @@ function createData(time, title, body) {
     return { id, time, title, body };
 }
 
-// const rows = [
-//     createData('2019/02/27', '颱風天停課！'),
-//     createData('2019/03/02', '國文Ａ班改到302教室'),
-//     createData('2019/03/04', 'XXXXXXXXXXXXX'),
-//     createData('2019/03/09', 'XXXXXXXXXX'),
-//     createData('2019/04/01', 'XXXXXXXXXXXXXXXXXXXXXXXXX'),
-// ];
 class SimpleTable extends React.Component {
     state = {
         rows: [],
