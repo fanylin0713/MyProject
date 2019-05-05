@@ -17,7 +17,7 @@ class Course extends React.Component {
         return (
             <div>
                 <AppBar callbackFromParent={this.myCallback}/>
-                <CourseDialog />
+                <CourseDialog listNameFromParent={this.state.class_area}/>
                 <CourseTable listNameFromParent={this.state.class_area}/>
             </div>
         )
