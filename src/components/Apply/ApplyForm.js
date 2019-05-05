@@ -7,7 +7,9 @@ import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
-const IP = "http://192.168.79.1:8080";
+var fs = require('browserify-fs');
+
+const IP = "http://localhost:8080";
 
 const styles = theme => ({
     container: {
@@ -75,8 +77,9 @@ class OutlinedTextFields extends React.Component {
 
     handleSubmit = (e)=> {
         e.preventDefault()
+  
+
         
-        console.log(this.state);
         // changed here
         //let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{}}};
         let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{},student_school:{},student_email:{},student_parent:{},student_parent_phone:{},student_address:{}}};
@@ -106,16 +109,14 @@ class OutlinedTextFields extends React.Component {
         axios.create({
             baseURL: IP,
             headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
-        }).get("/retrieveface")
+        }).get("/train")
         .then((response)=>{
-            console.log("in response");
+            console.log("in response ApplyForm");
             console.log('open :',response.status,'\nopen camera',new Date());
         })
         .catch((error)=>
-            console.error(error)
+            console.error(error.response)
         );
-
-
     };
 
     handleClick =() =>{
