@@ -178,7 +178,8 @@ class SearchAppBar extends React.Component {
         open: false,
         openSnack: false,
         classData: [],
-        data: ''
+        data: '',
+        finalValue:''
     };
 
     componentDidMount() {
@@ -249,6 +250,7 @@ class SearchAppBar extends React.Component {
     };
 
     handleSubmit = () => {
+        this.setState({ finalValue: this.state.data });
         this.props.callbackFromParent(this.state.data);
         this.setState({ open: false });
     };
@@ -280,7 +282,7 @@ class SearchAppBar extends React.Component {
                         {/* <Selector /> */}
                         {/* 校區選擇 */}
                         <div>
-                            <Button onClick={this.handleClickOpen}>{this.state.data || '校區選擇'}</Button>
+                            <Button onClick={this.handleClickOpen}>{this.state.finalValue || '校區選擇'}</Button>
                             <Dialog
                                 disableBackdropClick
                                 disableEscapeKeyDown
@@ -300,9 +302,7 @@ class SearchAppBar extends React.Component {
                                                     <em>校區</em>
                                                 </MenuItem>
                                                 {(this.state.classData).map((n, index) => {
-                                                    console.log(n)
                                                     return (
-
                                                         <MenuItem key={n} value={n}>{n}</MenuItem>
                                                     );
                                                 })}
@@ -327,8 +327,8 @@ class SearchAppBar extends React.Component {
                         <NavLink activeClassName="active" to="/">
                             <Button className={classes.button}><Home /></Button></NavLink>
                         {/* 點名button */}
-                        <Button className={classes.button} onClick={this.handleClickSnack}><Face /></Button>
-                        <Snackbar
+                        <Button className={classes.button} onClick={this.handleClick}><Face /></Button>
+                        {/* <Snackbar
                             anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'center',
@@ -342,7 +342,7 @@ class SearchAppBar extends React.Component {
                                 variant="warning"
                                 message="學生：林奕蓓 學號：405401360 "
                             />
-                        </Snackbar>
+                        </Snackbar> */}
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
                             <Button className={classes.button}>
                                 <LogoutIcon className={classes.rightIcon} />
