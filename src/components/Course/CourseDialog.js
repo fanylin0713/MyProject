@@ -26,6 +26,12 @@ function createData(classroom, area) {
     return { id: classroom, area };
 }
 
+//let counter = 0;
+function createDayData(classroom, day, time) {
+    counter += 1;
+    return { id: classroom, day, time };
+}
+
 const styles = theme => ({
     root: {
         width: '800px',
@@ -61,7 +67,9 @@ class FormDialog extends React.Component {
         classroomValue:[],
         day: '',
         dayValue:["星期一","星期二","星期三","星期四","星期五","星期六","星期日"],
+        dayInit:[],
         time: '',
+        timeValue:["9:00","13:00","19:00"],
         labelWidth: 0,
         open: false,
         listNameFromParent: ''
@@ -103,16 +111,33 @@ class FormDialog extends React.Component {
         tableClassRoom.select({
             view: "Grid view",
             }).eachPage((records, fetchNextPage) => {
-              this.setState({records});
-              var temp=[];
-              const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']); 
-              const class_area = this.state.records.map((record, index) => record.fields['class_area']); 
-              for(var index = 0; index < classroom_id.length; index++){
-                  temp.push(createData(classroom_id[index], class_area[index]));
-              }
-              this.setState({classroomInit : temp});
-              this.setState({classroomValue : temp});
-              fetchNextPage(); 
+                this.setState({records});
+                var temp=[];
+                const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']); 
+                const class_area = this.state.records.map((record, index) => record.fields['class_area']); 
+                for(var index = 0; index < classroom_id.length; index++){
+                    temp.push(createData(classroom_id[index], class_area[index]));
+                }
+                this.setState({classroomInit : temp});
+                this.setState({classroomValue : temp});
+                fetchNextPage(); 
+            }
+            );
+        //classDay
+        tableClassDay.select({
+            view: "Grid view",
+            }).eachPage((records, fetchNextPage) => {
+                this.setState({records});
+                var temp = [];
+                var tempArea = [];
+                const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']); 
+                const class_day = this.state.records.map((record, index) => record.fields['class_day']); 
+                const class_start_time = this.state.records.map((record, index) => record.fields['class_start_time']); 
+                for(var index = 0; index < classroom_id.length; index++){
+                    temp.push(createDayData(classroom_id[index], class_day[index], class_start_time[index]));
+                }
+                this.setState({dayInit : temp});
+                fetchNextPage(); 
             }
             );
       }
@@ -121,6 +146,38 @@ class FormDialog extends React.Component {
         this.setState({
             [name]: event.target.value,
         });
+
+        //after change classroom
+        var dayValueTemp = ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"];
+        for(var index = 0; index < this.state.dayInit.length; index++){
+            if(event.target.value == this.state.dayInit[index].id){
+                for(var j = 0; j < 5; j++){
+                    if(this.state.dayValue[j] == this.state.dayInit[index].day){
+                        delete dayValueTemp[j];
+                    }
+                }
+            }
+        }
+        this.setState({dayValue : dayValueTemp});
+
+        //time value(after choose day)
+        // var timeValueTemp = ["9:00","13:00","19:00"];
+        // for(var j = 0; j < 5; j++){
+        //     if(event.target.value == this.state.dayValue[j]){
+        //         timeValueTemp = ["19:00"];
+        //     }
+        // }
+        // this.setState({timeValue : timeValueTemp});
+
+        // console.log(event.target.value);
+        // if(event.target.value == "星期六" || event.target.value == "星期日"){
+        //     this.setState({timeValue : ["9:00","13:00","19:00"]});
+        //     //this.setState({timeValue : ["19:00"]});
+        // }else{
+        //     this.setState({timeValue : ["19:00"]});
+        // }
+
+
     };
 
     handleClickOpen = () => {
@@ -272,20 +329,25 @@ class FormDialog extends React.Component {
                                 </InputLabel>
                                     <Select
                                         value={this.state.time}
-                                        onChange={this.handleChange('day')}
+                                        onChange={this.handleChange('time')}
                                         input={
                                             <OutlinedInput
                                                 labelWidth={this.state.labelWidth}
-                                                name="day"
+                                                name="time"
                                                 id="outlined-day-simple"
                                             />
                                         }
                                     >
                                         <MenuItem value="">
                                         </MenuItem>
-                                        <MenuItem value={10}>21:00</MenuItem>
+                                        {(this.state.timeValue).map((n, index) => {
+                                            return (
+                                                <MenuItem value={n}>{n}</MenuItem>
+                                            );
+                                        })}
+                                        {/* <MenuItem value={10}>21:00</MenuItem>
                                         <MenuItem value={20}>22:00</MenuItem>
-                                        <MenuItem value={30}>19:00</MenuItem>
+                                        <MenuItem value={30}>19:00</MenuItem> */}
                                     </Select>
                                 </FormControl>
                             </div>
