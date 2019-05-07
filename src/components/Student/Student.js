@@ -7,6 +7,8 @@ import WarningIcon from '@material-ui/icons/Warning';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Airtable from 'airtable';
 
+import Pin from './pin.png';
+
 const TABLE_NAME = 'Student';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
@@ -127,7 +129,7 @@ class Student extends React.Component {
                 <div>
                     <Card className={classes.card} >
                         <div className={classes.left}>
-                            <Card className={classes.photo} src={this.state.stu_img}/>
+                            <Card className={classes.photo} src={Pin}/>
                             <Typography className={classes.leftText}>
                                 學號：{this.state.stu_id}
                             </Typography>

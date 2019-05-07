@@ -7,7 +7,6 @@ import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
-var fs = require('browserify-fs');
 
 const IP = "http://localhost:8080";
 
