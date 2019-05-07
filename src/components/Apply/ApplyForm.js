@@ -16,19 +16,19 @@ const styles = theme => ({
     },
     textFieldLeft: {
         marginLeft: theme.spacing.unit * 18,
-        marginTop:theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit * 2,
         color: 'white',
         width: '260px',
     },
     textFieldRight: {
         marginLeft: theme.spacing.unit * 6,
-        marginTop:theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit * 2,
         color: 'white',
         width: '260px',
     },
     textFieldFull: {
         marginLeft: theme.spacing.unit * 18,
-        marginTop:theme.spacing.unit * 2,
+        marginTop: theme.spacing.unit * 2,
         color: 'white',
         width: '570px',
     },
@@ -52,14 +52,18 @@ class OutlinedTextFields extends React.Component {
             student_name: '',
             student_id: '',
             student_grade: '',
-            student_phone:'',
-            student_birth:'1998-07-13',
-            student_school:'',
-            student_email:'',
-            student_parent:'',
-            student_parent_phone:'',
-            student_address:''
-        };    
+            student_phone: '',
+            student_birth: '1998-07-13',
+            student_school: '',
+            student_email: '',
+            student_parent: '',
+            student_parent_phone: '',
+            student_address: '',
+            error1: false,
+            error2: false,
+            errorMessage1: '',
+            errorMessage2: '',
+        };
     }
     //https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
     myCallback = (dataFromChild) => {
@@ -68,18 +72,19 @@ class OutlinedTextFields extends React.Component {
 
     handleChange = name => event => {
         this.setState({
-            [name] : event.target.value});
+            [name]: event.target.value
+        });
         //console.log(this.state);
     };
 
 
-    handleSubmit = (e)=> {
+    handleSubmit = (e) => {
         e.preventDefault()
-        
+
         console.log(this.state);
         // changed here
         //let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{}}};
-        let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{},student_school:{},student_email:{},student_parent:{},student_parent_phone:{},student_address:{}}};
+        let data = { fields: { student_name: {}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {} } };
         data.fields.student_name = this.state.student_name;
         data.fields.student_id = this.state.student_id;
         data.fields.student_grade = this.state.student_grade;
@@ -91,54 +96,69 @@ class OutlinedTextFields extends React.Component {
         data.fields.student_parent_phone = this.state.student_parent_phone;
         data.fields.student_address = this.state.student_address;
         console.log(data);
-        fetchPostStudent(data);
-
-        let memberData = {fields:{class_id:{},student_id:{}}};
-        //memberData.fields = this.state.class_id + this.state.student_name;
-        var count = this.state.class_id.length;
-        for(var index = 0; index < count; index++) {
-            memberData.fields.student_id =  this.state.student_id
-            memberData.fields.class_id = this.state.class_id[index]       
+        if (this.state.student_name !== '' && this.state.student_id !== '') {
+            fetchPostStudent(data);
+            let memberData = { fields: { class_id: {}, student_id: {} } };
+            //memberData.fields = this.state.class_id + this.state.student_name;
+            var count = this.state.class_id.length;
+            for (var index = 0; index < count; index++) {
+                memberData.fields.student_id = this.state.student_id
+                memberData.fields.class_id = this.state.class_id[index]
+            }
+            fetchPostClassMember(memberData);
+            console.log('hey')
+            console.log(this.state.student_id)
+            console.log(this.state.student_name)
         }
-        fetchPostClassMember(memberData);
+        else{
+            if(this.state.student_name === ''){
+                this.setState({error1: true ,errorMessage1:'*此欄位必填'})
+            }
+            else if(this.state.student_id === ''){
+                this.setState({error2: true,errorMessage2:'*此欄位必填'})
+            }
+            console.log('hi')
+        }
+
 
         //train
         axios.create({
             baseURL: IP,
-            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         }).get("/retrieveface")
-        .then((response)=>{
-            console.log("in response");
-            console.log('open :',response.status,'\nopen camera',new Date());
-        })
-        .catch((error)=>
-            console.error(error)
-        );
+            .then((response) => {
+                console.log("in response");
+                console.log('open :', response.status, '\nopen camera', new Date());
+            })
+            .catch((error) =>
+                console.error(error)
+            );
 
 
     };
 
-    handleClick =() =>{
+    handleClick = () => {
         axios.create({
             baseURL: IP,
-            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         }).get("/retrieveface")
-        .then((response)=>{
-            console.log("in response");
-            console.log('open :',response.status,'\nopen camera',new Date());
-        })
-        .catch((error)=>
-            console.error(error)
-        );
+            .then((response) => {
+                console.log("in response");
+                console.log('open :', response.status, '\nopen camera', new Date());
+            })
+            .catch((error) =>
+                console.error(error)
+            );
     }
 
 
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         console.log(this.state);
     }
-    
+
     render() {
+        const { error1, error2 , errorMessage1, errorMessage2 } = this.state
         const { classes } = this.props;
 
         return (
@@ -158,9 +178,10 @@ class OutlinedTextFields extends React.Component {
                         id="outlined-helperText"
                         label="姓名"
                         value={this.state.name}
+                        error={error1}
+                        helperText={errorMessage1}
                         onChange={this.handleChange('student_name')}
                         className={classes.textFieldLeft}
-                        helperText="*Required"
                         margin="normal"
                         variant="outlined"
                     />
@@ -168,9 +189,10 @@ class OutlinedTextFields extends React.Component {
                         id="outlined-helperText"
                         label="學號"
                         value={this.state.number}
+                        error={error2}
+                        helperText={errorMessage2}
                         onChange={this.handleChange('student_id')}
                         className={classes.textFieldRight}
-                        helperText="*Required"
                         margin="normal"
                         variant="outlined"
                         placeholder="Placeholder"
@@ -199,7 +221,7 @@ class OutlinedTextFields extends React.Component {
                     />
                 </div>
                 <div>
-                    <Myclass callbackFromParent={this.myCallback}/>
+                    <Myclass callbackFromParent={this.myCallback} />
                 </div>
                 <div>
                     <TextField
@@ -266,7 +288,7 @@ class OutlinedTextFields extends React.Component {
                         variant="outlined"
                     />
                 </div>
-                <Button type="submit" className={classes.button} style={{width:300,margin:'20px auto',}}>
+                <Button type="submit" className={classes.button} style={{ width: 300, margin: '20px auto', }}>
                     送出
                 </Button>
             </form>
