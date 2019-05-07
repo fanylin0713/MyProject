@@ -121,7 +121,7 @@ class EnhancedTableToolbar extends React.Component {
 
     handleDelete = e => {
         for(var index = 0; index < this.props.toDelete.length; index++){
-            fetchDeleteTeacher(this.props.toDelete[index]);
+            fetchDeleteTeacher(this.props.toDelete[index].id);
         }
     }
     render(){

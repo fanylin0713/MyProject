@@ -13,9 +13,24 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 // import { fetchPostCourse } from '../../api';
-// import Airtable from 'airtable';
+import Airtable from 'airtable';
 
-// const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const tableTeacher = base('Teacher');
+const tableClassRoom = base('ClassRoom');
+const tableClassDay = base('ClassDay');
+
+let counter = 0;
+function createData(classroom, area) {
+    counter += 1;
+    return { id: classroom, area };
+}
+
+//let counter = 0;
+function createDayData(classroom, day, time) {
+    counter += 1;
+    return { id: classroom, day, time };
+}
 
 const styles = theme => ({
     root: {
@@ -46,17 +61,123 @@ class FormDialog extends React.Component {
     state = {
         course: '',
         teacher: '',
+        teacherValue:[],
         classroom: '',
+        classroomInit:[],
+        classroomValue:[],
         day: '',
+        dayValue:["星期一","星期二","星期三","星期四","星期五","星期六","星期日"],
+        dayInit:[],
         time: '',
+        timeValue:["9:00","13:00","19:00"],
         labelWidth: 0,
-        open: false
+        open: false,
+        listNameFromParent: ''
     };
+
+    
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.listNameFromParent !== this.state.listNameFromParent) {
+            var count = this.state.classroomInit.length;
+            var temp = [];
+            for (var index = 0; index < count; index++) {
+                if (nextProps.listNameFromParent === this.state.classroomInit[index].area) {
+                    temp.push(this.state.classroomInit[index]);
+                    this.setState({ classroomValue: temp });
+                }
+            }
+            this.setState({ listNameFromParent: nextProps.listNameFromParent });
+        }
+    }
+
+    componentDidMount() {    
+        //Teacher
+        tableTeacher.select({
+          view: "Grid view",
+          }).eachPage((records, fetchNextPage) => {
+            this.setState({records});
+            var temp=[];
+            const teacher_name = this.state.records.map((record, index) => record.fields['teacher_name']); 
+            for(var index = 0; index < teacher_name.length; index++){
+                temp.push(teacher_name[index]);
+            }   
+            
+            this.setState({teacherValue : temp});
+            fetchNextPage(); 
+          }
+          );
+
+        //ClassRoom
+        tableClassRoom.select({
+            view: "Grid view",
+            }).eachPage((records, fetchNextPage) => {
+                this.setState({records});
+                var temp=[];
+                const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']); 
+                const class_area = this.state.records.map((record, index) => record.fields['class_area']); 
+                for(var index = 0; index < classroom_id.length; index++){
+                    temp.push(createData(classroom_id[index], class_area[index]));
+                }
+                this.setState({classroomInit : temp});
+                this.setState({classroomValue : temp});
+                fetchNextPage(); 
+            }
+            );
+        //classDay
+        tableClassDay.select({
+            view: "Grid view",
+            }).eachPage((records, fetchNextPage) => {
+                this.setState({records});
+                var temp = [];
+                var tempArea = [];
+                const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']); 
+                const class_day = this.state.records.map((record, index) => record.fields['class_day']); 
+                const class_start_time = this.state.records.map((record, index) => record.fields['class_start_time']); 
+                for(var index = 0; index < classroom_id.length; index++){
+                    temp.push(createDayData(classroom_id[index], class_day[index], class_start_time[index]));
+                }
+                this.setState({dayInit : temp});
+                fetchNextPage(); 
+            }
+            );
+      }
 
     handleChange = name => event => {
         this.setState({
             [name]: event.target.value,
         });
+
+        //after change classroom
+        var dayValueTemp = ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"];
+        for(var index = 0; index < this.state.dayInit.length; index++){
+            if(event.target.value == this.state.dayInit[index].id){
+                for(var j = 0; j < 5; j++){
+                    if(this.state.dayValue[j] == this.state.dayInit[index].day){
+                        delete dayValueTemp[j];
+                    }
+                }
+            }
+        }
+        this.setState({dayValue : dayValueTemp});
+
+        //time value(after choose day)
+        // var timeValueTemp = ["9:00","13:00","19:00"];
+        // for(var j = 0; j < 5; j++){
+        //     if(event.target.value == this.state.dayValue[j]){
+        //         timeValueTemp = ["19:00"];
+        //     }
+        // }
+        // this.setState({timeValue : timeValueTemp});
+
+        // console.log(event.target.value);
+        // if(event.target.value == "星期六" || event.target.value == "星期日"){
+        //     this.setState({timeValue : ["9:00","13:00","19:00"]});
+        //     //this.setState({timeValue : ["19:00"]});
+        // }else{
+        //     this.setState({timeValue : ["19:00"]});
+        // }
+
+
     };
 
     handleClickOpen = () => {
@@ -116,9 +237,14 @@ class FormDialog extends React.Component {
                                         <MenuItem value="">
                                             <em>選擇老師</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>蔡萌志</MenuItem>
+                                        {(this.state.teacherValue).map((n, index) => {
+                                            return (
+                                                <MenuItem value={n}>{n}</MenuItem>
+                                            );
+                                        })}
+                                        {/* <MenuItem value={10}>蔡萌志</MenuItem>
                                         <MenuItem value={20}>胡俊之</MenuItem>
-                                        <MenuItem value={30}>陳子立</MenuItem>
+                                        <MenuItem value={30}>陳子立</MenuItem> */}
                                     </Select>
                                 </FormControl>
                             </div>
@@ -146,9 +272,14 @@ class FormDialog extends React.Component {
                                         <MenuItem value="">
                                             <em>選擇教室</em>
                                         </MenuItem>
-                                        <MenuItem value={10}>BS336</MenuItem>
+                                        {(this.state.classroomValue).map((n, index) => {
+                                            return (
+                                                <MenuItem value={n.id}>{n.id}</MenuItem>
+                                            );
+                                        })}
+                                        {/* <MenuItem value={10}>BS336</MenuItem>
                                         <MenuItem value={20}>BS440</MenuItem>
-                                        <MenuItem value={30}>LM503</MenuItem>
+                                        <MenuItem value={30}>LM503</MenuItem> */}
                                     </Select>
                                 </FormControl>
                             </div>
@@ -175,9 +306,48 @@ class FormDialog extends React.Component {
                                     >
                                         <MenuItem value="">
                                         </MenuItem>
-                                        <MenuItem value={10}>星期一</MenuItem>
+                                        {(this.state.dayValue).map((n, index) => {
+                                            return (
+                                                <MenuItem value={n}>{n}</MenuItem>
+                                            );
+                                        })}
+                                        {/* <MenuItem value={10}>星期一</MenuItem>
                                         <MenuItem value={20}>星期二</MenuItem>
-                                        <MenuItem value={30}>星期三</MenuItem>
+                                        <MenuItem value={30}>星期三</MenuItem> */}
+                                    </Select>
+                                </FormControl>
+                            </div>
+                            <div>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <InputLabel
+                                        ref={ref => {
+                                            this.InputLabelRef = ref;
+                                        }}
+                                        htmlFor="outlined-day-simple"
+                                    >
+                                        時間
+                                </InputLabel>
+                                    <Select
+                                        value={this.state.time}
+                                        onChange={this.handleChange('time')}
+                                        input={
+                                            <OutlinedInput
+                                                labelWidth={this.state.labelWidth}
+                                                name="time"
+                                                id="outlined-day-simple"
+                                            />
+                                        }
+                                    >
+                                        <MenuItem value="">
+                                        </MenuItem>
+                                        {(this.state.timeValue).map((n, index) => {
+                                            return (
+                                                <MenuItem value={n}>{n}</MenuItem>
+                                            );
+                                        })}
+                                        {/* <MenuItem value={10}>21:00</MenuItem>
+                                        <MenuItem value={20}>22:00</MenuItem>
+                                        <MenuItem value={30}>19:00</MenuItem> */}
                                     </Select>
                                 </FormControl>
                             </div>

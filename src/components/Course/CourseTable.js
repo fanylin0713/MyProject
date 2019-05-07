@@ -256,12 +256,9 @@ class EnhancedTable extends React.Component {
 
 
             }
-            console.log(temp);
             this.setState({ data: temp });
             this.setState({ dataInit: temp });
             //this.setState({ data : temp2 });
-
-
             console.log(this.props.listNameFromParent);
             fetchNextPage();
         }
@@ -269,7 +266,6 @@ class EnhancedTable extends React.Component {
     }
 
     handleSelectAllClick = event => {
-        //console.log(this.props.listNameFromParent);
         if (event.target.checked) {
             this.setState(state => ({ selected: state.data.map(n => n.id) }));
             return;
