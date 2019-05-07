@@ -90,21 +90,7 @@ class OutlinedTextFields extends React.Component {
             }
 
         }
-        // if(this.state.account == this.state.userData.account_id){
-        //     if(this.state.password == this.state.userData.account_passwd){
-        //         console.log("enter");
-        //     }console.log("wrong passwd");
-        // }console.log("wrong account");
     }
-
-    // handleClick = () => {
-    //     console.log("in handleClick");
-    //     console.log(this.state.enter);
-    //     if(this.state.enter){
-    //         this.props.history.replace('/')
-    //     }
-        
-    // }
 
     render() {
         const { error, errorMessage } = this.state
@@ -139,7 +125,6 @@ class OutlinedTextFields extends React.Component {
                         margin="normal"
                         variant="outlined"
                     /></div>
-                <div><a className="forget" href="">忘記密碼?</a></div>
                 <div>
                     <button className="btn login-btn" type="submit" name="loginbutton" disabled={!this.validateForm()}>
                         <span>Log in</span>

@@ -32,6 +32,7 @@
         height: 50px;
         width: 260px;
         padding: 0%;
+        margin-top: 10px ;
         }
     
 .login-btn span{
@@ -45,15 +46,4 @@
 .login-btn:hover{
             border: #B7282E 2px solid;
             cursor: pointer;
-        }
-        
-.forget{
-            color:white; 
-            font-size: 11pt; 
-            text-decoration: underline;
-            margin-left: 180px;
-        }
-.forget:hover{
-            color:#e39532;
-        }
-    
+        }    
