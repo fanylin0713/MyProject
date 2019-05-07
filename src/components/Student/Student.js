@@ -83,20 +83,20 @@ class Student extends React.Component {
         stu_email: '',
         stu_parent: '',
         stu_parent_phone: '',
-      };
+    };
 
     //airtable
     componentDidMount() {
-        
+
         const fileterSentence = 'AND(student_id = ' + this.props.location.aboutProps.name + ')'
         console.log(fileterSentence);
         table.select({
-          filterByFormula: fileterSentence,
-          view: "Grid view",
-          maxRecords: 1
-          }).eachPage((records, fetchNextPage) => {
-            this.setState({records});
-    
+            filterByFormula: fileterSentence,
+            view: "Grid view",
+            maxRecords: 1
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+
             const student_name = this.state.records.map((record, index) => record.fields['student_name']);
             const student_id = this.state.records.map((record, index) => record.fields['student_id']);
             const student_school = this.state.records.map((record, index) => record.fields['student_school']);
@@ -107,17 +107,19 @@ class Student extends React.Component {
             const student_address = this.state.records.map((record, index) => record.fields['student_address']);
             const student_parent = this.state.records.map((record, index) => record.fields['student_parent']);
             const student_parent_phone = this.state.records.map((record, index) => record.fields['student_parent_phone']);
-            const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
-    
-            this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img 
-            ,stu_school : student_school , stu_grade : student_grade, stu_birth: student_birth, stu_address: student_address,
-            stu_email : student_email, stu_phone : student_phone, stu_parent : student_parent, stu_parent_phone : student_parent_phone});
+            const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
+
+            this.setState({
+                stu_id: student_id, stu_name: student_name, stu_img: student_img
+                , stu_school: student_school, stu_grade: student_grade, stu_birth: student_birth, stu_address: student_address,
+                stu_email: student_email, stu_phone: student_phone, stu_parent: student_parent, stu_parent_phone: student_parent_phone
+            });
             //this.setState({ stu_id : student_id });
-            fetchNextPage(); 
-          }
-          );
-      }
-    
+            fetchNextPage();
+        }
+        );
+    }
+
     render() {
         const { classes } = this.props;
         //console.log(this.props.location.aboutProps);
@@ -127,7 +129,7 @@ class Student extends React.Component {
                 <div>
                     <Card className={classes.card} >
                         <div className={classes.left}>
-                            <Card className={classes.photo} src={this.state.stu_img}/>
+                            <img src={this.state.stu_img} alt="location" />
                             <Typography className={classes.leftText}>
                                 學號：{this.state.stu_id}
                             </Typography>
