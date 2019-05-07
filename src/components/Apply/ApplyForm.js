@@ -7,7 +7,7 @@ import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
-
+import Qs from 'qs'
 
 const IP = "http://localhost:8080";
 
@@ -110,16 +110,12 @@ class OutlinedTextFields extends React.Component {
         if (this.state.student_name !== '' && this.state.student_id !== '') {
             fetchPostStudent(data);
             let memberData = { fields: { class_id: {}, student_id: {} } };
-            //memberData.fields = this.state.class_id + this.state.student_name;
             var count = this.state.class_id.length;
             for (var index = 0; index < count; index++) {
                 memberData.fields.student_id = this.state.student_id
                 memberData.fields.class_id = this.state.class_id[index]
             }
             fetchPostClassMember(memberData);
-            console.log('hey')
-            console.log(this.state.student_id)
-            console.log(this.state.student_name)
         }
         else{
             if(this.state.student_name === ''){
@@ -128,35 +124,27 @@ class OutlinedTextFields extends React.Component {
             else if(this.state.student_id === ''){
                 this.setState({error2: true,errorMessage2:'*此欄位必填'})
             }
-            console.log('hi')
         }
 
+        var bodyFormData = new FormData();
+        bodyFormData.set('faceid', this.state.student_id);
 
         //train
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/train',
+            data: bodyFormData,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            });
 
-         axios.create({
-             baseURL: IP,
-             headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
-         })
-        //.get("/train")
-        // .then((response)=>{
-        //     console.log("in response ApplyForm");
-        //     console.log('open :',response.status,'\nopen camera',new Date());
-        // })
-        // .catch((error)=>
-        //     console.error(error.response)
-        // );
-
-
-        .post('/train', {
-            faceid: "JJ",
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
     };
 
     handleClick = () => {
