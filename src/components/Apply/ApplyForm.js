@@ -11,6 +11,9 @@ var fs = require('browserify-fs');
 
 const IP = "http://localhost:8080";
 
+
+
+
 const styles = theme => ({
     container: {
         color: 'white',
@@ -73,11 +76,19 @@ class OutlinedTextFields extends React.Component {
             [name] : event.target.value});
         //console.log(this.state);
     };
+    // _downloadTxtFile = () => {
+    //     var element = document.createElement("a");
+    //     var inputValue = "C:\\Face\\eGroupAI_FaceEngine_v3.1.0\\face\\JJ.jpg	"+document.getElementById('myInput').value+"[No]0"
+    //     var file = new Blob([inputValue], {type: 'text/plain'});
+    //     element.href = URL.createObjectURL(file);
+    //     element.download = "list.txt";
+    //     element.click();
+    //   }
 
 
     handleSubmit = (e)=> {
         e.preventDefault()
-  
+        
 
         
         // changed here
@@ -106,17 +117,28 @@ class OutlinedTextFields extends React.Component {
         fetchPostClassMember(memberData);
 
         //train
-        axios.create({
-            baseURL: IP,
-            headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
-        }).get("/train")
-        .then((response)=>{
-            console.log("in response ApplyForm");
-            console.log('open :',response.status,'\nopen camera',new Date());
-        })
-        .catch((error)=>
-            console.error(error.response)
-        );
+         axios.create({
+             baseURL: IP,
+             headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
+         })
+        //.get("/train")
+        // .then((response)=>{
+        //     console.log("in response ApplyForm");
+        //     console.log('open :',response.status,'\nopen camera',new Date());
+        // })
+        // .catch((error)=>
+        //     console.error(error.response)
+        // );
+
+        .post('/train', {
+            faceid: "JJ",
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     };
 
     handleClick =() =>{
@@ -135,6 +157,7 @@ class OutlinedTextFields extends React.Component {
 
 
 
+
     componentDidUpdate(){
         console.log(this.state);
     }
@@ -143,6 +166,7 @@ class OutlinedTextFields extends React.Component {
         const { classes } = this.props;
 
         return (
+            
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div>
                     <Card style={{ width: '200px', height: '260px', margin: '40px auto' }} />
@@ -270,7 +294,12 @@ class OutlinedTextFields extends React.Component {
                 <Button type="submit" className={classes.button} style={{width:300,margin:'20px auto',}}>
                     送出
                 </Button>
-            </form>
+
+                {/* <div>
+                    <input id="myInput" />
+                    <button onClick={this._downloadTxtFile}>Download txt</button>
+                </div> */}
+            </form>    
         );
     }
 }
