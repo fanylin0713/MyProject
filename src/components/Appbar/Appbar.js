@@ -26,7 +26,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import axios from 'axios';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
-const IP = "http://192.168.79.1:8080";
+const IP = "http://localhost:8080";
 
 // this.Axios = axios.create({
 //         baseURL: IP,

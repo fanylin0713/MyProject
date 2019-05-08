@@ -8,6 +8,8 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Airtable from 'airtable';
 import amber from '@material-ui/core/colors/amber';
 
+import Pin from './pin.png';
+
 const TABLE_NAME = 'Student';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
