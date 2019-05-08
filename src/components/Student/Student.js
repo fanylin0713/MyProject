@@ -6,6 +6,7 @@ import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import WarningIcon from '@material-ui/icons/Warning';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Airtable from 'airtable';
+import amber from '@material-ui/core/colors/amber';
 
 const TABLE_NAME = 'Student';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
@@ -26,7 +27,7 @@ const styles = theme => ({
     },
     photo: {
         width: '200px',
-        height: '260px',
+        height: '200px',
         marginLeft: theme.spacing.unit * 18,
         marginTop: theme.spacing.unit * 10,
     },
@@ -46,15 +47,29 @@ const styles = theme => ({
         fontSize: '16pt',
         marginBottom: theme.spacing.unit * 2,
     },
-    snack: {
+    snack1: {
         backgroundColor: theme.palette.error.dark,
         minWidth: "200px",
         width: '200px',
         height: '40px',
         borderRadius: '50px',
     },
-    icon: {
+    snack2: {
+        backgroundColor: amber[700],
+        minWidth: "200px",
+        width: '200px',
+        height: '40px',
+        borderRadius: '50px',
+    },
+    icon1: {
         backgroundColor: theme.palette.error.dark,
+        fontSize: 20,
+        color: 'white',
+        opacity: 0.9,
+        marginRight: theme.spacing.unit,
+    },
+    icon2: {
+        backgroundColor: amber[700],
         fontSize: 20,
         color: 'white',
         opacity: 0.9,
@@ -129,7 +144,7 @@ class Student extends React.Component {
                 <div>
                     <Card className={classes.card} >
                         <div className={classes.left}>
-                            <img src={this.state.stu_img} alt="location" />
+                            <img className={classes.photo} src={this.state.stu_img} alt="location" />
                             <Typography className={classes.leftText}>
                                 學號：{this.state.stu_id}
                             </Typography>
@@ -140,12 +155,32 @@ class Student extends React.Component {
                                 Train
                             </Button>
                             <SnackbarContent
-                                className={classes.snack}
+                                className={classes.snack1}
                                 variant="error"
                                 message={
                                     <span id="client-snackbar" className={classes.message}>
-                                        <WarningIcon className={classes.icon} />
+                                        <WarningIcon className={classes.icon1} />
                                         成績預警
+                                    </span>
+                                }
+                            />
+                            <SnackbarContent
+                                className={classes.snack2}
+                                variant="warning"
+                                message={
+                                    <span id="client-snackbar" className={classes.message}>
+                                        <WarningIcon className={classes.icon2} />
+                                        缺席警告
+                                    </span>
+                                }
+                            />
+                            <SnackbarContent
+                                className={classes.snack2}
+                                variant="warning"
+                                message={
+                                    <span id="client-snackbar" className={classes.message}>
+                                        <WarningIcon className={classes.icon2} />
+                                        缺交作業提醒
                                     </span>
                                 }
                             />
