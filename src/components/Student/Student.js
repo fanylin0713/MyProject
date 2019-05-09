@@ -8,8 +8,6 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Airtable from 'airtable';
 import amber from '@material-ui/core/colors/amber';
 
-import Pin from './pin.png';
-
 const TABLE_NAME = 'Student';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
@@ -26,11 +24,15 @@ const styles = theme => ({
     left: {
         float: 'left',
         width: '40%',
+        paddingLeft: theme.spacing.unit * 18,
+    },
+    leftText: {
+        fontSize: '16pt',
+        marginTop: theme.spacing.unit * 2,
     },
     photo: {
         width: '200px',
         height: '200px',
-        marginLeft: theme.spacing.unit * 18,
         marginTop: theme.spacing.unit * 10,
     },
     button: {
@@ -38,6 +40,7 @@ const styles = theme => ({
         borderRadius: '30px',
         color: '#FFBF5F',
         margin: 'auto',
+        marginLeft: theme.spacing.unit * 3,
     },
     right: {
         width: '50%',
@@ -55,6 +58,7 @@ const styles = theme => ({
         width: '200px',
         height: '40px',
         borderRadius: '50px',
+        marginTop: theme.spacing.unit,
     },
     snack2: {
         backgroundColor: amber[700],
@@ -62,6 +66,7 @@ const styles = theme => ({
         width: '200px',
         height: '40px',
         borderRadius: '50px',
+        marginTop: theme.spacing.unit,
     },
     icon1: {
         backgroundColor: theme.palette.error.dark,
@@ -79,11 +84,6 @@ const styles = theme => ({
     },
     message: {
         color: 'white',
-    },
-    leftText: {
-        fontSize: '16pt',
-        marginLeft: theme.spacing.unit * 18,
-        marginTop: theme.spacing.unit * 2,
     },
 });
 
