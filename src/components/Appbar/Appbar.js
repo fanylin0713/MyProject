@@ -303,7 +303,7 @@ class SearchAppBar extends React.Component {
                                                 </MenuItem>
                                                 {(this.state.classData).map((n, index) => {
                                                     return (
-                                                        <MenuItem key={n} value={n}>{n}</MenuItem>
+                                                        <MenuItem key={index} value={n}>{n}</MenuItem>
                                                     );
                                                 })}
                                                 {/* <MenuItem value={10}>北投校區</MenuItem>
@@ -327,8 +327,8 @@ class SearchAppBar extends React.Component {
                         <NavLink activeClassName="active" to="/">
                             <Button className={classes.button}><Home /></Button></NavLink>
                         {/* 點名button */}
-                        <Button className={classes.button} onClick={this.handleClick}><Face /></Button>
-                        {/* <Snackbar
+                        <Button className={classes.button} onClick={this.handleClickSnack}><Face /></Button>
+                        <Snackbar
                             anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'center',
@@ -342,7 +342,7 @@ class SearchAppBar extends React.Component {
                                 variant="warning"
                                 message="學生：林奕蓓 學號：405401360 "
                             />
-                        </Snackbar> */}
+                        </Snackbar>
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
                             <Button className={classes.button}>
                                 <LogoutIcon className={classes.rightIcon} />
