@@ -21,9 +21,9 @@ const tableClassRoom = base('ClassRoom');
 const tableClassDay = base('ClassDay');
 
 let counter = 0;
-function createData(classroom, area) {
+function createData(classroom, area, table) {
     counter += 1;
-    return { id: classroom, area };
+    return { id: classroom, area, table };
 }
 
 function createTeacherData(id, name) {
@@ -120,8 +120,9 @@ class FormDialog extends React.Component {
             var temp = [];
             const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']);
             const class_area = this.state.records.map((record, index) => record.fields['class_area']);
+            const classroom_tableId = this.state.records.map((record, index) => record.id['id']);
             for (var index = 0; index < classroom_id.length; index++) {
-                temp.push(createData(classroom_id[index], class_area[index]));
+                temp.push(createData(classroom_id[index], class_area[index], classroom_tableId[index]));
             }
             this.setState({ classroomInit: temp });
             this.setState({ classroomValue: temp });
@@ -182,13 +183,18 @@ class FormDialog extends React.Component {
         this.setState({ open: false });
     };
     handleSubmit = () => {
-        let data = { fields: { class_id:{}, class_day: {}, class_start_time: {}, classroom_id: {}, teacher_id:{} } };
+        let data = { fields: { class_id:{}, class_day: {}, class_start_time: {}, classroom_id: {}, classroom_id_link:{}, teacher_id:{} } };
 
         data.fields.class_id = this.state.course;
         data.fields.class_day = this.state.day;
         data.fields.class_start_time = this.state.time;
         data.fields.classroom_id = this.state.classroom;
-        //data.fields.teacher_id = [this.state.teacherValue.id];
+
+        for (var index = 0; index < this.state.classroomValue.length; index++) {
+            if(this.state.classroom == this.state.classroomValue[index].id){
+                data.fields.classroom_id_link = [this.state.classroomValue[index].table];
+            }
+        }
 
         for (var index = 0; index < this.state.teacherValue.length; index++) {
             if(this.state.teacher == this.state.teacherValue[index].name){
@@ -287,7 +293,7 @@ class FormDialog extends React.Component {
                                         </MenuItem>
                                         {(this.state.classroomValue).map((n, index) => {
                                             return (
-                                                <MenuItem value={n.id}>{n.id}</MenuItem>
+                                                <MenuItem key={n.table} value={n.id}>{n.id}</MenuItem>
                                             );
                                         })}
                                         {/* <MenuItem value={10}>BS336</MenuItem>
