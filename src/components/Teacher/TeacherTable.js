@@ -264,8 +264,6 @@ class EnhancedTable extends React.Component {
                     //table
                     for (var index = 0; index < count; index++) {
                         tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index], record_id[index]));
-
-
                     }
                     this.setState({ data: tempT });
                     this.setState({ dataInit: tempT });
@@ -365,7 +363,7 @@ class EnhancedTable extends React.Component {
                             </MenuItem>
                             {(this.state.classData).map((n, index) => {
                                 return (
-                                    <MenuItem value={n}>{n}</MenuItem>
+                                    <MenuItem key={n.id} value={n}>{n}</MenuItem>
                                 );
                             })}
                         </Select>

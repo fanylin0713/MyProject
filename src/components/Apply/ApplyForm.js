@@ -7,7 +7,6 @@ import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
-import Qs from 'qs'
 
 const IP = "http://localhost:8080";
 
