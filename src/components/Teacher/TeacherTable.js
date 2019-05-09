@@ -210,6 +210,7 @@ const styles = theme => ({
     },
     add: {
         marginTop: theme.spacing.unit * 4,
+        marginLeft: theme.spacing.unit * 3,
     },
 });
 
