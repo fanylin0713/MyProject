@@ -5,6 +5,10 @@ import MakeupTable2 from './MakeupTable2';
 import MakeupTable3 from './MakeupTable3';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
+import MakeupDialog1 from './MakeupDialog1';
+import MakeupDialog2 from './MakeupDialog2';
+import MakeupDialog3 from './MakeupDialog3';
+
 
 const styles = theme => ({
     paper:{
@@ -31,18 +35,15 @@ class MakeupClass extends React.Component {
                 <AppBar />
                 <div className={classes.paper}>
                     <div className={classes.table}>
-                        早上
-                        <Button className={classes.button}>預約補課</Button>
+                        <MakeupDialog1 />
                         <MakeupTable1 />
                     </div>
                     <div className={classes.table}>
-                        下午
-                        <Button className={classes.button}>預約補課</Button>
+                    <MakeupDialog2 />
                         <MakeupTable2 />
                     </div>
                     <div className={classes.table}>
-                        晚上
-                        <Button className={classes.button}>預約補課</Button>
+                    <MakeupDialog3 />
                         <MakeupTable3 />
                     </div>
                 </div>

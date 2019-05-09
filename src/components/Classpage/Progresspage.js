@@ -122,12 +122,9 @@ class Progresspage extends Component {
                 const progress_date = this.state.data.map((data, index) => data['progress_date']);
                 const progress_origin = this.state.data.map((data, index) => data['progress_origin']);
                 const progress_real = this.state.data.map((data, index) => data['progress_real']);
-                
                 // for (var index = 0; index < progress_date.length; index++) {
                 //     data.push(createData(progress_date[index], progress_origin[index], progress_real[index]));
-                // }
-
-               
+                // }               
                 this.setState({ rows: data });
                 
                 // console.log(data[0]);

@@ -143,8 +143,16 @@ class OutlinedTextFields extends React.Component {
                 //handle error
                 console.log(response);
             });
-
     };
+
+    handleFocus = e => {
+        this.setState({
+            error1: false ,
+            error2: false ,
+            errorMessage1: '',
+            errorMessage2: '',
+        })
+    }
 
     handleClick = () => {
         axios.create({
@@ -158,7 +166,47 @@ class OutlinedTextFields extends React.Component {
             .catch((error) =>
                 console.error(error)
             );
-    }
+    };
+    handleup = () => {
+        axios.create({
+            baseURL: IP,
+            headers: {'Content-Type': 'multipart/form-data' }
+        }).post("/up")
+            .then((response) => {
+                console.log("in up")
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+            
+    };
+    handleUpload = (e) => {
+        e.preventDefault();
+        
+        let file = e.target.files[0];
+        const formdata = new FormData();
+        formdata.append('file', file);
+            
+        for (var value of formdata.values()) {
+            console.log(value);
+        }
+        
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/up',
+            data: formdata,
+            config: { headers: {'Content-Type': 'multipart/form-data' }}
+            })
+        .then((response) => {
+            console.log("in upload")
+        })
+        .catch((error) =>
+            console.error(error)
+        );
+        
+    };
+    
+    
 
 
     componentDidUpdate(){
@@ -179,7 +227,8 @@ class OutlinedTextFields extends React.Component {
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
-                    <Button className={classes.button}>
+                    <input type="file" onChange={this.handleUpload}/>
+                    <Button className={classes.button}onClick={this.handleup}>
                         Train
                     </Button>
                 </div>
@@ -190,6 +239,7 @@ class OutlinedTextFields extends React.Component {
                         value={this.state.name}
                         error={error1}
                         helperText={errorMessage1}
+                        onClick={this.handleFocus}
                         onChange={this.handleChange('student_name')}
                         className={classes.textFieldLeft}
                         margin="normal"
@@ -201,11 +251,11 @@ class OutlinedTextFields extends React.Component {
                         value={this.state.number}
                         error={error2}
                         helperText={errorMessage2}
+                        onClick={this.handleFocus}
                         onChange={this.handleChange('student_id')}
                         className={classes.textFieldRight}
                         margin="normal"
                         variant="outlined"
-                        placeholder="Placeholder"
                     />
                 </div>
                 <div>

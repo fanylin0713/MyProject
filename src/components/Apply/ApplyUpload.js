@@ -57,11 +57,11 @@ export default class UploadFile extends PureComponent {
         }
 
         //此处的url应该是服务端提供的上传文件api 
-        const url = 'http://localhost:3000/api/upload';
+        const url = 'http://localhost:8080/up';
         const form = new FormData();
 
         //此处的file字段由上传的api决定，可以是其它值
-        form.append('file', data);
+        form.append('files', data);
 
         fetch(url, {
             method: 'POST',
