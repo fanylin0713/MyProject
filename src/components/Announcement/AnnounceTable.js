@@ -14,6 +14,7 @@ const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWI
 const styles = theme => ({
     root: {
         width: '80%',
+        minWidth: 900,
         margin: '0 auto',
         marginTop: theme.spacing.unit,
         backgroundColor: '#212832',
