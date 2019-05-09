@@ -65,7 +65,7 @@ class FormDialog extends React.Component {
         const { classes } = this.props;
         return (
             <div>
-                晚上
+                晚上（18:30~22:30）
                 <Button className={classes.button} onClick={this.handleClickOpen}>預約補課</Button>
                 <Dialog className={classes.root}
                     open={this.state.open}
