@@ -10,6 +10,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import XLSX from 'xlsx';
+import { fetchPostSchedule } from '../../api';
+import Airtable from 'airtable';
+
+const TABLE_NAME = 'Schedule';
+const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const table = base(TABLE_NAME);
 
 const styles = theme => ({
     button: {
@@ -60,6 +66,44 @@ class Progresspage extends Component {
         rows: [],
     }
 
+        //airtable
+        componentDidMount() {
+
+            //const fileterSentence = 'AND(student_id = ' + this.props.location.aboutProps.name + ')'
+            table.select({
+                //filterByFormula: fileterSentence,
+                view: "Grid view",
+                //maxRecords: 1
+            }).eachPage((records, fetchNextPage) => {
+                this.setState({ records });
+    
+                const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
+                const schedule_expect = this.state.records.map((record, index) => record.fields['schedule_expect']);
+                const schedule_real = this.state.records.map((record, index) => record.fields['schedule_real']);
+                //const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
+                var temp = [];
+                for(var index = 0; index < schedule_date.length; index++) {
+                    temp.push(createData(schedule_date[index],schedule_expect[index],schedule_real[index]));  
+                }
+    
+                this.setState({ rows : temp });
+                fetchNextPage();
+            }
+            );
+        }
+
+    handleClick = () => {
+        if(this.state.rows != ""){
+            
+            for (var index = 0; index < this.state.rows.length; index++) {
+                let data = { fields: { schedule_date: {}, schedule_expect: {} } };
+                data.fields.schedule_date = this.state.rows[index].date;
+                data.fields.schedule_expect = this.state.rows[index].origin;
+                fetchPostSchedule(data);
+            }
+        }
+    }
+
     onImportExcel = file => {
         const { files } = file.target;
         const fileReader = new FileReader();
@@ -78,16 +122,17 @@ class Progresspage extends Component {
                 const progress_date = this.state.data.map((data, index) => data['progress_date']);
                 const progress_origin = this.state.data.map((data, index) => data['progress_origin']);
                 const progress_real = this.state.data.map((data, index) => data['progress_real']);
-                for (var index = 0; index < id; index++) {
-                    data.push(createData(progress_date[index], progress_origin[index], progress_real[index]));
+                
+                // for (var index = 0; index < progress_date.length; index++) {
+                //     data.push(createData(progress_date[index], progress_origin[index], progress_real[index]));
+                // }
 
-                }
-
+               
                 this.setState({ rows: data });
-                console.log(data);
-                console.log(data[0]);
-                console.log(data[0].date);
-                console.log(data[0].origin);
+                
+                // console.log(data[0]);
+                // console.log(data[0].date);
+                // console.log(data[0].origin);
             } catch (e) {
                 // message.error('文件類型不正确！');
             }
@@ -106,7 +151,7 @@ class Progresspage extends Component {
                     <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
                     <span>匯入教學進度</span>
                 </Button>
-                <Button className={classes.editButton}>
+                <Button className={classes.editButton} onClick={this.handleClick}>
                     儲存
                 </Button>
                 <Button className={classes.editButton}>

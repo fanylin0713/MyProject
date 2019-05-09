@@ -33,6 +33,9 @@ export const fetchDeleteTeacher = (payload) => axios.delete(deleteURL + payload 
 //Course
 export const fetchPostCourse = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ClassDay?view=Grid%20view', payload, config)
 
+//Progresspage Schedule
+export const fetchPostSchedule = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Schedule?view=Grid%20view', payload, config)
+
 
 // this.Axios = axios.create({
 //   baseURL: "http://localhost:8080",
