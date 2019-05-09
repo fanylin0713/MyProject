@@ -61,9 +61,9 @@ class NavTabs extends React.Component {
                 <div className={classes.root} >
                     <AppBar position="static">
                         <Tabs className={classes.tabs} variant="fullWidth" value={value} onChange={this.handleChange}>
-                            <LinkTab style={{ textDecoration: 'none' }} label="成績" href="page1" />
-                            <LinkTab style={{ textDecoration: 'none' }} label="教學進度" href="page2" />
-                            <LinkTab style={{ textDecoration: 'none' }} label="學生資料" href="page3" />
+                            <LinkTab style={{ fontSize:'14pt', textDecoration: 'none' }} label="成績" href="page1" />
+                            <LinkTab style={{ fontSize:'14pt', textDecoration: 'none' }} label="教學進度" href="page2" />
+                            <LinkTab style={{ fontSize:'14pt', textDecoration: 'none' }} label="學生資料" href="page3" />
                         </Tabs>
                     </AppBar>
                     {value === 0 && <TabContainer><Gradepage /></TabContainer>}

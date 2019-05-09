@@ -26,7 +26,7 @@ const styles = theme => ({
     },
     button: {
         margin: 'auto 30px',
-        borderRadius: '30px',
+        borderRadius: '20px',
         marginLeft: theme.spacing.unit * 10,
     },
 });
