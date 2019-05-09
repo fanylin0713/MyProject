@@ -13,11 +13,11 @@ const styles = theme => ({
         float: "left",
         width: '40%',
         marginTop: theme.spacing.unit * 3,
-        marginLeft: "10%",
+        marginLeft: "15%",
     },
     right: {
         float: "right",
-        width: '40%',
+        width: '37%',
         marginTop: theme.spacing.unit * 6,
     },
 });
