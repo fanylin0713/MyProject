@@ -1,26 +1,69 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '../AppBar/Appbar'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import AppBar from '../AppBar/Appbar';
+import {FormControlLabel, 
+        Radio, 
+        RadioGroup, 
+        FormControl, 
+        InputLabel, 
+        MenuItem, 
+        Select, 
+        OutlinedInput,
+        Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
+import Rabbit from './rabbit.jpg';
+
 const styles = theme => ({
-  root: {
+  selectBar: {
+    width: '80%',
+    margin: 'auto',
+    marginTop: theme.spacing.unit * 5,
+    border: '#FFBF5F solid 0.8px',
+    borderRadius: '10px',
     display: 'flex',
     flexDirection: 'row',
+    minWidth:'900px',
+  },
+  radio: {
+    marginLeft: '20%',
+  },
+  formControl: {
+    margin:'auto 0',
+    marginLeft: '13%',
   },
   label: {
     fontSize: '14pt',
   },
-  nowClass:{
-    width:'140px'
+  select: {
+    width: '180px'
+  },
+  button: {
+    fontSize: '16pt',
+    height: '50px',
+    border: '#FFBF5F solid 0.8px',
+    borderRadius: '10px',
+    margin: 'auto 0',
+    marginLeft:'15%',
+  },
+
+  info: {
+    width: '80%',
+    minWidth:'900px',
+    margin: 'auto',
+  },
+
+  photo: {
+    width: '200px',
+    height: '200px',
+    marginLeft: '40%',
+    marginTop: theme.spacing.unit * 10,
+  },
+
+  studentInfo:{
+    fontSize:'16pt',
+    marginLeft: '35%',
+    marginTop: theme.spacing.unit * 5,
   },
 });
 
@@ -32,10 +75,10 @@ class Rollcall extends React.Component {
   };
 
   handleChange = name => event => {
-    this.setState({ [name] : event.target.value });
+    this.setState({ [name]: event.target.value });
   };
 
-  handleClick = e =>{
+  handleClick = e => {
 
   };
 
@@ -44,8 +87,8 @@ class Rollcall extends React.Component {
     return (
       <div>
         <AppBar />
-        <div>
-          <FormControl className={classes.root} component="fieldset">
+        <div className={classes.selectBar}>
+          <FormControl className={classes.radio} component="fieldset">
             <RadioGroup
               aria-label="area"
               name="area"
@@ -64,12 +107,12 @@ class Rollcall extends React.Component {
               }}
               htmlFor="outlined-nowClass-simple"
             >
-            班級
+              班級
                     </InputLabel>
             <Select
               value={this.state.nowClass}
               onChange={this.handleChange('nowClass')}
-              className={classes.nowClass}
+              className={classes.select}
               input={
                 <OutlinedInput
                   labelWidth={this.state.labelWidth}
@@ -86,7 +129,11 @@ class Rollcall extends React.Component {
               <MenuItem value={30}>國文Ｂ班</MenuItem>
             </Select>
           </FormControl>
-          <Button onClick={this.handleClick}>開始點名</Button>
+          <Button className={classes.button} onClick={this.handleClick}>開始點名</Button>
+        </div>
+        <div className={classes.info}>
+          <img className={classes.photo} src={Rabbit} alt="location" />
+          <pre><Typography  className={classes.studentInfo}>姓名：林奕蓓     學號：405401360</Typography></pre>
         </div>
       </div>
     )
