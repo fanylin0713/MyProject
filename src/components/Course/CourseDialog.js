@@ -44,16 +44,16 @@ const styles = theme => ({
     },
     container: {
         width: '400px',
-        paddingLeft:'22%',
+        paddingLeft: '22%',
     },
     textField: {
         width: 220,
         marginTop: theme.spacing.unit * 3,
     },
-    add:{
+    add: {
         marginTop: theme.spacing.unit * 3,
         marginLeft: theme.spacing.unit * 150,
-        borderRadius:'10px',
+        borderRadius: '10px',
     },
 });
 
@@ -61,21 +61,21 @@ class FormDialog extends React.Component {
     state = {
         course: '',
         teacher: '',
-        teacherValue:[],
+        teacherValue: [],
         classroom: '',
-        classroomInit:[],
-        classroomValue:[],
+        classroomInit: [],
+        classroomValue: [],
         day: '',
-        dayValue:["星期一","星期二","星期三","星期四","星期五","星期六","星期日"],
-        dayInit:[],
+        dayValue: ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+        dayInit: [],
         time: '',
-        timeValue:["9:00","13:00","19:00"],
+        timeValue: ["9:00", "13:00", "19:00"],
         labelWidth: 0,
         open: false,
         listNameFromParent: ''
     };
 
-    
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.listNameFromParent !== this.state.listNameFromParent) {
             var count = this.state.classroomInit.length;
@@ -90,57 +90,57 @@ class FormDialog extends React.Component {
         }
     }
 
-    componentDidMount() {    
+    componentDidMount() {
         //Teacher
         tableTeacher.select({
-          view: "Grid view",
-          }).eachPage((records, fetchNextPage) => {
-            this.setState({records});
-            var temp=[];
-            const teacher_name = this.state.records.map((record, index) => record.fields['teacher_name']); 
-            for(var index = 0; index < teacher_name.length; index++){
+            view: "Grid view",
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+            var temp = [];
+            const teacher_name = this.state.records.map((record, index) => record.fields['teacher_name']);
+            for (var index = 0; index < teacher_name.length; index++) {
                 temp.push(teacher_name[index]);
-            }   
-            
-            this.setState({teacherValue : temp});
-            fetchNextPage(); 
-          }
-          );
+            }
+
+            this.setState({ teacherValue: temp });
+            fetchNextPage();
+        }
+        );
 
         //ClassRoom
         tableClassRoom.select({
             view: "Grid view",
-            }).eachPage((records, fetchNextPage) => {
-                this.setState({records});
-                var temp=[];
-                const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']); 
-                const class_area = this.state.records.map((record, index) => record.fields['class_area']); 
-                for(var index = 0; index < classroom_id.length; index++){
-                    temp.push(createData(classroom_id[index], class_area[index]));
-                }
-                this.setState({classroomInit : temp});
-                this.setState({classroomValue : temp});
-                fetchNextPage(); 
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+            var temp = [];
+            const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']);
+            const class_area = this.state.records.map((record, index) => record.fields['class_area']);
+            for (var index = 0; index < classroom_id.length; index++) {
+                temp.push(createData(classroom_id[index], class_area[index]));
             }
-            );
+            this.setState({ classroomInit: temp });
+            this.setState({ classroomValue: temp });
+            fetchNextPage();
+        }
+        );
         //classDay
         tableClassDay.select({
             view: "Grid view",
-            }).eachPage((records, fetchNextPage) => {
-                this.setState({records});
-                var temp = [];
-                var tempArea = [];
-                const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']); 
-                const class_day = this.state.records.map((record, index) => record.fields['class_day']); 
-                const class_start_time = this.state.records.map((record, index) => record.fields['class_start_time']); 
-                for(var index = 0; index < classroom_id.length; index++){
-                    temp.push(createDayData(classroom_id[index], class_day[index], class_start_time[index]));
-                }
-                this.setState({dayInit : temp});
-                fetchNextPage(); 
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+            var temp = [];
+            var tempArea = [];
+            const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']);
+            const class_day = this.state.records.map((record, index) => record.fields['class_day']);
+            const class_start_time = this.state.records.map((record, index) => record.fields['class_start_time']);
+            for (var index = 0; index < classroom_id.length; index++) {
+                temp.push(createDayData(classroom_id[index], class_day[index], class_start_time[index]));
             }
-            );
-      }
+            this.setState({ dayInit: temp });
+            fetchNextPage();
+        }
+        );
+    }
 
     handleChange = name => event => {
         this.setState({
@@ -148,17 +148,17 @@ class FormDialog extends React.Component {
         });
 
         //after change classroom
-        var dayValueTemp = ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"];
-        for(var index = 0; index < this.state.dayInit.length; index++){
-            if(event.target.value == this.state.dayInit[index].id){
-                for(var j = 0; j < 5; j++){
-                    if(this.state.dayValue[j] == this.state.dayInit[index].day){
+        var dayValueTemp = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+        for (var index = 0; index < this.state.dayInit.length; index++) {
+            if (event.target.value === this.state.dayInit[index].id) {
+                for (var j = 0; j < 5; j++) {
+                    if (this.state.dayValue[j] === this.state.dayInit[index].day) {
                         delete dayValueTemp[j];
                     }
                 }
             }
         }
-        this.setState({dayValue : dayValueTemp});
+        this.setState({ dayValue: dayValueTemp });
 
         //time value(after choose day)
         // var timeValueTemp = ["9:00","13:00","19:00"];
