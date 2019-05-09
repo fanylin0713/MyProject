@@ -12,7 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-// import { fetchPostCourse } from '../../api';
+import { fetchPostCourse } from '../../api';
 import Airtable from 'airtable';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
@@ -26,7 +26,10 @@ function createData(classroom, area) {
     return { id: classroom, area };
 }
 
-//let counter = 0;
+function createTeacherData(id, name) {
+    return { id: id, name };
+}
+
 function createDayData(classroom, day, time) {
     counter += 1;
     return { id: classroom, day, time };
@@ -72,7 +75,7 @@ class FormDialog extends React.Component {
         timeValue: ["9:00", "13:00", "19:00"],
         labelWidth: 0,
         open: false,
-        listNameFromParent: ''
+        listNameFromParent: '',
     };
 
 
@@ -96,10 +99,12 @@ class FormDialog extends React.Component {
             view: "Grid view",
         }).eachPage((records, fetchNextPage) => {
             this.setState({ records });
+            console.log(records);
             var temp = [];
             const teacher_name = this.state.records.map((record, index) => record.fields['teacher_name']);
+            const teacher_tableId = this.state.records.map((record, index) => record.id['id']);
             for (var index = 0; index < teacher_name.length; index++) {
-                temp.push(teacher_name[index]);
+                temp.push(createTeacherData(teacher_tableId[index], teacher_name[index]));
             }
 
             this.setState({ teacherValue: temp });
@@ -129,7 +134,6 @@ class FormDialog extends React.Component {
         }).eachPage((records, fetchNextPage) => {
             this.setState({ records });
             var temp = [];
-            var tempArea = [];
             const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']);
             const class_day = this.state.records.map((record, index) => record.fields['class_day']);
             const class_start_time = this.state.records.map((record, index) => record.fields['class_start_time']);
@@ -159,25 +163,15 @@ class FormDialog extends React.Component {
             }
         }
         this.setState({ dayValue: dayValueTemp });
-
-        //time value(after choose day)
-        // var timeValueTemp = ["9:00","13:00","19:00"];
-        // for(var j = 0; j < 5; j++){
-        //     if(event.target.value == this.state.dayValue[j]){
-        //         timeValueTemp = ["19:00"];
-        //     }
-        // }
-        // this.setState({timeValue : timeValueTemp});
-
-        // console.log(event.target.value);
-        // if(event.target.value == "星期六" || event.target.value == "星期日"){
-        //     this.setState({timeValue : ["9:00","13:00","19:00"]});
-        //     //this.setState({timeValue : ["19:00"]});
-        // }else{
-        //     this.setState({timeValue : ["19:00"]});
-        // }
-
-
+    };
+    //change time value(after choose day)
+    handleDayChange = name => event => {
+        this.setState({ [name]: event.target.value });
+        if(event.target.value == "星期六" || event.target.value == "星期日"){
+            this.setState({timeValue : ["9:00","13:00","19:00"]});
+        }else{
+            this.setState({timeValue : ["19:00"]});
+        }
     };
 
     handleClickOpen = () => {
@@ -185,6 +179,25 @@ class FormDialog extends React.Component {
     };
 
     handleClose = () => {
+        this.setState({ open: false });
+    };
+    handleSubmit = () => {
+        let data = { fields: { class_id:{}, class_day: {}, class_start_time: {}, classroom_id: {}, teacher_id:{} } };
+
+        data.fields.class_id = this.state.course;
+        data.fields.class_day = this.state.day;
+        data.fields.class_start_time = this.state.time;
+        data.fields.classroom_id = this.state.classroom;
+        //data.fields.teacher_id = [this.state.teacherValue.id];
+
+        for (var index = 0; index < this.state.teacherValue.length; index++) {
+            if(this.state.teacher == this.state.teacherValue[index].name){
+                data.fields.teacher_id = [this.state.teacherValue[index].id];
+            }
+        }
+        fetchPostCourse(data);
+        
+
         this.setState({ open: false });
     };
 
@@ -239,7 +252,7 @@ class FormDialog extends React.Component {
                                         </MenuItem>
                                         {(this.state.teacherValue).map((n, index) => {
                                             return (
-                                                <MenuItem value={n}>{n}</MenuItem>
+                                                <MenuItem key={n.id} value={n.name}>{n.name}</MenuItem>
                                             );
                                         })}
                                         {/* <MenuItem value={10}>蔡萌志</MenuItem>
@@ -295,7 +308,7 @@ class FormDialog extends React.Component {
                                 </InputLabel>
                                     <Select
                                         value={this.state.day}
-                                        onChange={this.handleChange('day')}
+                                        onChange={this.handleDayChange('day')}
                                         input={
                                             <OutlinedInput
                                                 labelWidth={this.state.labelWidth}
@@ -355,7 +368,7 @@ class FormDialog extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">取消</Button>
-                        <Button onClick={this.handleClose} color="primary">新增課程</Button>
+                        <Button onClick={this.handleSubmit} color="primary">新增課程</Button>
                     </DialogActions>
                 </Dialog>
             </div>
