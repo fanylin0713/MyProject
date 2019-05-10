@@ -36,6 +36,10 @@ const styles = theme => ({
         color: 'white',
         width: '570px',
     },
+    input:{
+        outline: 'none',
+        opacity: 0,
+    },
     button: {
         display: 'flex',
         border: '1px #FFBF5F solid',
@@ -116,19 +120,19 @@ class OutlinedTextFields extends React.Component {
             }
             fetchPostClassMember(memberData);
         }
-        else{
-            if(this.state.student_name === ''){
-                this.setState({error1: true ,errorMessage1:'*此欄位必填'})
+        else {
+            if (this.state.student_name === '') {
+                this.setState({ error1: true, errorMessage1: '*此欄位必填' })
             }
-            else if(this.state.student_id === ''){
-                this.setState({error2: true,errorMessage2:'*此欄位必填'})
+            else if (this.state.student_id === '') {
+                this.setState({ error2: true, errorMessage2: '*此欄位必填' })
             }
         }
 
         var bodyFormData = new FormData();
         bodyFormData.set('faceid', this.state.student_id);
- 
- 
+
+
         //train
 
         // axios({
@@ -154,8 +158,8 @@ class OutlinedTextFields extends React.Component {
 
     handleFocus = e => {
         this.setState({
-            error1: false ,
-            error2: false ,
+            error1: false,
+            error2: false,
             errorMessage1: '',
             errorMessage2: '',
         })
@@ -177,47 +181,47 @@ class OutlinedTextFields extends React.Component {
 
     handleUpload = (e) => {
         e.preventDefault();
-        
+
         let file = e.target.files[0];
         const formdata = new FormData();
         formdata.append('file', file);
         formdata.set('faceid', this.state.student_id);
-            
+
         for (var value of formdata.values()) {
             console.log(value);
         }
 
- 
+
         axios({
             method: 'post',
             url: 'http://localhost:8080/train',
             data: formdata,
-            config: { headers: {'Content-Type': 'multipart/form-data' }}
-            })
-        .then((response) => {
-            console.log("in upload")
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
         })
-        .catch((error) =>
-            console.error(error)
-        );
-        
+            .then((response) => {
+                console.log("in upload")
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+
 
     };
-    
-    
 
 
-    componentDidUpdate(){
+
+
+    componentDidUpdate() {
 
         console.log(this.state);
     }
 
     render() {
-        const { error1, error2 , errorMessage1, errorMessage2 } = this.state
+        const { error1, error2, errorMessage1, errorMessage2 } = this.state
         const { classes } = this.props;
 
         return (
-            
+
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div>
                     <Card style={{ width: '200px', height: '260px', margin: '40px auto' }} />
@@ -225,7 +229,12 @@ class OutlinedTextFields extends React.Component {
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
-                    <input type="file" onChange={this.handleUpload}/>
+                    <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input} />
+                    <label htmlFor="contained-button-file" style={{margin:'10px 0 0 7%'}}>
+                        <Button  component="span" className={classes.button}>
+                            Train
+                        </Button>
+                    </label>
                     {/* <Button className={classes.button}>
                         Train
                     </Button> */}
@@ -354,7 +363,7 @@ class OutlinedTextFields extends React.Component {
                     <input id="myInput" />
                     <button onClick={this._downloadTxtFile}>Download txt</button>
                 </div> */}
-            </form>    
+            </form>
         );
     }
 }
