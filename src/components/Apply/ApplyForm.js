@@ -55,7 +55,7 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
     },
     form:{
-        width:'90%',
+        width:'800px',
         margin:'auto',
     },
 });
