@@ -99,21 +99,9 @@ class SimpleSelect extends React.Component {
     handleChange  = name => event => {
         //this.setState({ [event.target.name]: event.target.value });
         this.setState({ [name]: event.target.value });
-        // let temp = [];
-        // var count = this.state.dataInit.length;
-        // for (var index = 0; index < count; index++) {
-        //     if (this.state.dataInit[index].subject === event.target.value) {
-        //         temp.push(this.state.dataInit[index]);
-        //     }
-        // }
-        // this.setState({ data: temp });
-        // if (event.target.value === "1") {
-        //     this.setState({ data: this.state.dataInit });
-        // }
     };
 
     handleSubjectChange  = name => event => {
-        //this.setState({ [event.target.name]: event.target.value });
         this.setState({ [name]: event.target.value });
         let temp = [];
         var count = this.state.dataInit.length;
@@ -127,6 +115,10 @@ class SimpleSelect extends React.Component {
             this.setState({ data: this.state.dataInit });
         }
     };
+
+    handleClick = () => {
+        this.props.callbackFromClassSelector(this.state.myclass);
+    }
 
     render() {
         const { classes } = this.props;

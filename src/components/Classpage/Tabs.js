@@ -47,10 +47,13 @@ const styles = theme => ({
 class NavTabs extends React.Component {
     state = {
         value: 0,
+        class_idFromParent:'',
     };
+
 
     handleChange = (event, value) => {
         this.setState({ value });
+        //console.log(this.props.class_idFromParent);
     };
 
     render() {
@@ -67,8 +70,8 @@ class NavTabs extends React.Component {
                             <LinkTab style={{ fontSize:'14pt', textDecoration: 'none' }} label="學生資料" href="page3" />
                         </Tabs>
                     </AppBar>
-                    {value === 0 && <TabContainer><Gradepage /></TabContainer>}
-                    {value === 1 && <TabContainer><Progresspage /></TabContainer>}
+                    {value === 0 && <TabContainer><Gradepage class_id={this.props.class_idFromParent}/></TabContainer>}
+                    {value === 1 && <TabContainer><Progresspage class_id={this.props.class_idFromParent} /></TabContainer>}
                     {value === 2 && <TabContainer><Studentpage /></TabContainer>}
                 </div>
             </NoSsr>

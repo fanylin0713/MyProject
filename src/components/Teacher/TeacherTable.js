@@ -31,6 +31,11 @@ const TABLE_NAME = 'Teacher';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
 
+
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 let counter = 0;
 function createData(name, phone, email, subject, record_id) {
     counter += 1;
@@ -123,10 +128,13 @@ class EnhancedTableToolbar extends React.Component {
         for(var index = 0; index < this.props.toDelete.length; index++){
             fetchDeleteTeacher(this.props.toDelete[index].id);
         }
+        sleep(500).then(() => {
+            window.location.reload();
+        })
+
     }
     render(){
         const { numSelected, classes } = this.props;
-        //console.log(this.props.toDelete);
 
         return (
             <Toolbar

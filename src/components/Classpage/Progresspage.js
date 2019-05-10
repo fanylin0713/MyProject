@@ -56,21 +56,35 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(date, origin, real) {
+function createData(date, origin, real, class_id) {
     id += 1;
-    return { id, date, origin, real };
+    return { id, date, origin, real, class_id };
 }
 
 class Progresspage extends Component {
     state = {
         rows: [],
         noClick: false,
+        rowsInit: [],
+        class_id: '',
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.class_id !== this.state.class_id) {
+            var count = this.state.rowsInit.length;
+            var temp = [];
+            for (var index = 0; index < count; index++) {
+                if (nextProps.class_id === this.state.rowsInit[index].class_id) {
+                    temp.push(this.state.rowsInit[index]);
+                    this.setState({ rows: temp });
+                }
+            }
+            this.setState({ class_id: nextProps.class_id });
+        }
     }
 
     //airtable
     componentDidMount() {
 
-        //const fileterSentence = 'AND(student_id = ' + this.props.location.aboutProps.name + ')'
         table.select({
             //filterByFormula: fileterSentence,
             view: "Grid view",
@@ -81,27 +95,27 @@ class Progresspage extends Component {
             const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
             const schedule_expect = this.state.records.map((record, index) => record.fields['schedule_expect']);
             const schedule_real = this.state.records.map((record, index) => record.fields['schedule_real']);
-            //const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
+            const class_id = this.state.records.map((record, index) => record.fields['class_id']);
             var temp = [];
             for (var index = 0; index < schedule_date.length; index++) {
-                temp.push(createData(schedule_date[index], schedule_expect[index], schedule_real[index]));
+                temp.push(createData(schedule_date[index], schedule_expect[index], schedule_real[index], class_id[index]));
             }
 
             this.setState({ rows: temp });
+            this.setState({ rowsInit: temp });
             fetchNextPage();
-            //把匯入按鍵功能取消
-            // this.setState({ noClick: true })
         }
         );
     }
 
     handleClick = () => {
         if (this.state.rows !== "") {
-            
+
             for (var index = 0; index < this.state.rows.length; index++) {
-                let data = { fields: { schedule_date: {}, schedule_expect: {} } };
+                let data = { fields: { class_id: {}, schedule_date: {}, schedule_expect: {} } };
                 data.fields.schedule_date = this.state.rows[index].date;
                 data.fields.schedule_expect = this.state.rows[index].origin;
+                data.fields.class_id = this.state.class_id;
                 fetchPostSchedule(data);
             }
         }
@@ -140,7 +154,6 @@ class Progresspage extends Component {
         fileReader.readAsBinaryString(files[0]);
     }
     render() {
-
         const { classes } = this.props;
         const { rows, noClick } = this.state;
 

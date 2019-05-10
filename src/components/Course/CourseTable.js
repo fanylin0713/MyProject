@@ -15,6 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import { fetchDeleteCourse } from '../../api';
 
 import Airtable from 'airtable';
 
@@ -23,10 +24,14 @@ const tableClass = base('ClassDay');
 const tableTeacher = base('Teacher');
 const tableClassRoom = base('ClassRoom');
 
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 let counter = 0;
-function createData(course, teacher, classroom, day, time, area) {
+function createData(course, teacher, classroom, day, time, area, record_id) {
     counter += 1;
-    return { id: counter, course, teacher, classroom, day, time, area };
+    return { id: counter, course, teacher, classroom, day, time, area, record_id };
 }
 
 const rows = [
@@ -109,6 +114,16 @@ const toolbarStyles = theme => ({
 });
 
 class EnhancedTableToolbar extends React.Component  {
+
+    handleDelete = e => {
+        for(var index = 0; index < this.props.toDelete.length; index++){
+            fetchDeleteCourse(this.props.toDelete[index].id);
+        }
+        sleep(500).then(() => {
+            window.location.reload();
+        })
+
+    }
     render(){
         const { numSelected, classes } = this.props;
     return (
@@ -134,7 +149,7 @@ class EnhancedTableToolbar extends React.Component  {
             <div className={classes.actions}>
                 {numSelected > 0 ? (
                     <Tooltip title="刪除">
-                        <IconButton aria-label="刪除">
+                        <IconButton onClick={this.handleDelete} aria-label="刪除">
                             <DeleteIcon />
                         </IconButton>
                     </Tooltip>
@@ -182,6 +197,7 @@ class EnhancedTable extends React.Component {
         data: [],
         dataInit: [],
         listNameFromParent: '',
+        deleted: [],
     };
 
     componentWillReceiveProps(nextProps) {
@@ -212,24 +228,24 @@ class EnhancedTable extends React.Component {
             const class_start_time = this.state.records.map((record, index) => record.fields['class_start_time']);
             const classroom_id = this.state.records.map((record, index) => record.fields['classroom_id']);
             const teacher_id = this.state.records.map((record, index) => record.fields['teacher_id']);
-
+            const record_id = this.state.records.map((record, index) => record.id);
             //const class_end_time = this.state.records.map((record, index) => record.fields['class_end_time']);
-
+            //console.log(record_id);
 
             var temp = [];
-            // var temp2 = [];
             var count = teacher_id.length;
             for (var index = 0; index < count; index++) {
-                const record_id = teacher_id[index];
+                const teacher_idR = teacher_id[index];
                 const record_id_room = classroom_id_link[index];
                 const class_idR = class_id[index];
                 const class_dayR = class_day[index];
                 const class_start_timeR = class_start_time[index];
                 const classroom_idR = classroom_id[index];
+                const record_idR = record_id[index];
                 //const class_end_timeR = class_end_time[index];
 
                 //teacher Name
-                tableTeacher.find(record_id, (err, record) => {
+                tableTeacher.find(teacher_idR, (err, record) => {
                     if (err) {
                         console.error(err)
                         return
@@ -243,12 +259,7 @@ class EnhancedTable extends React.Component {
                             return
                         }
                         const class_area = record.fields['class_area'];
-                        temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR, class_area));
-                        //   if(classroom_area == this.props.listNameFromParent){
-                        //     console.log("same!");
-                        //     //temp2.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
-                        //   }
-                        //temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
+                        temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR, class_area, record_idR));
                     })
                 })
 
@@ -257,8 +268,8 @@ class EnhancedTable extends React.Component {
             }
             this.setState({ data: temp });
             this.setState({ dataInit: temp });
-            //this.setState({ data : temp2 });
-            console.log(this.props.listNameFromParent);
+
+            //console.log(this.props.listNameFromParent);
             fetchNextPage();
         }
         );
@@ -272,35 +283,43 @@ class EnhancedTable extends React.Component {
         this.setState({ selected: [] });
     };
 
-    handleClick = (event, id) => {
-        const { selected } = this.state;
+    handleClick = (event, id, record_id) => {
+        const { selected , deleted } = this.state;
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
+        let newDeleted = [];
 
         if (selectedIndex === -1) {
             newSelected = newSelected.concat(selected, id);
+            newDeleted = newDeleted.concat(deleted,  record_id);
         } else if (selectedIndex === 0) {
             newSelected = newSelected.concat(selected.slice(1));
+            newDeleted = newDeleted.concat(deleted.slice(1));
         } else if (selectedIndex === selected.length - 1) {
             newSelected = newSelected.concat(selected.slice(0, -1));
+            newDeleted = newDeleted.concat(deleted.slice(0, -1));
         } else if (selectedIndex > 0) {
             newSelected = newSelected.concat(
                 selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1)
+                selected.slice(selectedIndex + 1) 
+            );
+            newDeleted = newDeleted.concat(
+                deleted.slice(0, selectedIndex),
+                deleted.slice(selectedIndex + 1) 
             );
         }
-
+        this.setState({ deleted: newDeleted });
         this.setState({ selected: newSelected });
     };
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
         const { classes } = this.props;
-        const { data, selected } = this.state;
+        const { data, selected, deleted } = this.state;
 
         return (
             <Paper className={classes.root}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar numSelected={selected.length} toDelete={deleted}/>
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
@@ -319,7 +338,7 @@ class EnhancedTable extends React.Component {
                                     >
                                         <TableCell
                                             padding="checkbox"
-                                            onClick={event => this.handleClick(event, n.id)}
+                                            onClick={event => this.handleClick(event, n.id, n.record_id)}
                                             aria-checked={isSelected}
                                             tabIndex={-1}
                                             selected={isSelected}
