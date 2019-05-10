@@ -128,22 +128,25 @@ class OutlinedTextFields extends React.Component {
 
         var bodyFormData = new FormData();
         bodyFormData.set('faceid', this.state.student_id);
-
+ 
+ 
         //train
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/train',
-            data: bodyFormData,
-            config: { headers: {'Content-Type': 'multipart/form-data' }}
-            })
-            .then(function (response) {
-                //handle success
-                console.log(response);
-            })
-            .catch(function (response) {
-                //handle error
-                console.log(response);
-            });
+        // axios({
+        //     method: 'post',
+        //     url: 'http://localhost:8080/train',
+        //     data:bodyFormData,
+        //     config: { headers: {'Content-Type': 'multipart/form-data' }}
+        //     })
+        //     .then(function (response) {
+        //         //handle success
+        //         console.log("in up");
+        //         console.log(response);
+        //     })
+        //     .catch(function (response) {
+        //         //handle error
+        //         console.log(response);
+        //     });
+
 
     };
 
@@ -160,33 +163,23 @@ class OutlinedTextFields extends React.Component {
                 console.error(error)
             );
     };
-    handleup = () => {
-        axios.create({
-            baseURL: IP,
-            headers: {'Content-Type': 'multipart/form-data' }
-        }).post("/up")
-            .then((response) => {
-                console.log("in up")
-            })
-            .catch((error) =>
-                console.error(error)
-            );
-            
-    };
+
     handleUpload = (e) => {
         e.preventDefault();
         
         let file = e.target.files[0];
         const formdata = new FormData();
         formdata.append('file', file);
+        formdata.set('faceid', this.state.student_id);
             
         for (var value of formdata.values()) {
             console.log(value);
         }
-        
+
+ 
         axios({
             method: 'post',
-            url: 'http://localhost:8080/up',
+            url: 'http://localhost:8080/train',
             data: formdata,
             config: { headers: {'Content-Type': 'multipart/form-data' }}
             })
@@ -197,6 +190,7 @@ class OutlinedTextFields extends React.Component {
             console.error(error)
         );
         
+
     };
     
     
@@ -221,9 +215,9 @@ class OutlinedTextFields extends React.Component {
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
                     <input type="file" onChange={this.handleUpload}/>
-                    <Button className={classes.button}onClick={this.handleup}>
+                    {/* <Button className={classes.button}>
                         Train
-                    </Button>
+                    </Button> */}
                 </div>
                 <div>
                     <TextField
