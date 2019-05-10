@@ -25,6 +25,7 @@ const styles = theme => ({
     },
     container: {
         width: '400px',
+        paddingLeft: '22%',
     },
     textField: {
         width: 220,
