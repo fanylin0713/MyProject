@@ -8,6 +8,7 @@ const config = {
 }
 
 const deleteURL = 'https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Teacher/'
+const CourseDeleteURL = 'https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ClassDay/'
 
 
 // Api docs, http://www.amiiboapi.com/
@@ -32,6 +33,15 @@ export const fetchDeleteTeacher = (payload) => axios.delete(deleteURL + payload 
 
 //Course
 export const fetchPostCourse = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ClassDay?view=Grid%20view', payload, config)
+
+//CourseDelete
+export const fetchDeleteCourse = (payload) => axios.delete(CourseDeleteURL + payload ,config)
+.then(res => {
+  console.log(res)
+})
+.catch(err => {
+  console.error(err); 
+})
 
 //Progresspage Schedule
 export const fetchPostSchedule = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Schedule?view=Grid%20view', payload, config)

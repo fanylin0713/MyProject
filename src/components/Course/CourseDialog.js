@@ -20,6 +20,10 @@ const tableTeacher = base('Teacher');
 const tableClassRoom = base('ClassRoom');
 const tableClassDay = base('ClassDay');
 
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 let counter = 0;
 function createData(classroom, area, table) {
     counter += 1;
@@ -202,9 +206,11 @@ class FormDialog extends React.Component {
             }
         }
         fetchPostCourse(data);
-        
-
         this.setState({ open: false });
+
+        sleep(500).then(() => {
+            window.location.reload();
+        })
     };
 
     render() {
