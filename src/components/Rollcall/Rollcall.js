@@ -1,19 +1,21 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '../AppBar/Appbar';
-import {FormControlLabel, 
-        Radio, 
-        RadioGroup, 
-        FormControl, 
-        InputLabel, 
-        MenuItem, 
-        Select, 
-        OutlinedInput,
-        Typography,
-        TextField} from '@material-ui/core';
+import {
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  OutlinedInput,
+  Typography,
+  TextField
+} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
-import Add from '@material-ui/icons/AddCircleOutlined';
+import Add from '@material-ui/icons/AddBoxOutlined';
 
 import Rabbit from './rabbit.jpg';
 
@@ -26,13 +28,13 @@ const styles = theme => ({
     borderRadius: '10px',
     display: 'flex',
     flexDirection: 'row',
-    minWidth:'900px',
+    minWidth: '900px',
   },
   radio: {
     marginLeft: '20%',
   },
   formControl: {
-    margin:'auto 0',
+    margin: 'auto 0',
     marginLeft: '13%',
   },
   label: {
@@ -41,18 +43,18 @@ const styles = theme => ({
   select: {
     width: '180px'
   },
-  button: {
+  buttonStart: {
     fontSize: '16pt',
     height: '50px',
     border: '#FFBF5F solid 0.8px',
     borderRadius: '10px',
     margin: 'auto 0',
-    marginLeft:'15%',
+    marginLeft: '15%',
   },
 
   info: {
     width: '80%',
-    minWidth:'900px',
+    minWidth: '900px',
     margin: 'auto',
   },
 
@@ -63,16 +65,28 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 10,
   },
 
-  studentInfo:{
-    fontSize:'16pt',
+  studentInfo: {
+    fontSize: '16pt',
     marginLeft: '35%',
     marginTop: theme.spacing.unit * 5,
   },
-  textField:{
-    float:'right',
+  textField: {
+
   },
-  addIcon:{
-    float:'right',
+  addIcon: {
+    // float:'right',
+    color: '#FFBF5F',
+    fontSize: '40pt',
+    marginTop: theme.spacing.unit * 2,
+  },
+  buttonEnd: {
+    float: 'right',
+    fontSize: '16pt',
+    height: '50px',
+    border: '#FFBF5F solid 0.8px',
+    borderRadius: '10px',
+    marginTop: theme.spacing.unit * 2.5,
+    margin: 'auto 0',
   },
 });
 
@@ -90,6 +104,10 @@ class Rollcall extends React.Component {
   handleClick = e => {
     console.log('hi')
   };
+
+  handleClickAdd = name => e => {
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -138,19 +156,21 @@ class Rollcall extends React.Component {
               <MenuItem value={30}>國文Ｂ班</MenuItem>
             </Select>
           </FormControl>
-          <Button className={classes.button} onClick={this.handleClick}>開始點名</Button>
+          <Button className={classes.buttonStart} onClick={this.handleClick}>開始點名</Button>
         </div>
+
         <div className={classes.info}>
           <img className={classes.photo} src={Rabbit} alt="location" />
-          <pre><Typography  className={classes.studentInfo}>姓名：林奕蓓     學號：405401360</Typography></pre>
+          <pre><Typography className={classes.studentInfo}>姓名：林奕蓓     學號：405401360</Typography></pre>
+          <Button className={classes.buttonEnd} onClick={this.handleClick}>結束點名</Button>
           <TextField
-          id="filled-with-placeholder"
-          label="輸入學號"
-          className={classes.textField}
-          margin="normal"
-          variant="filled"
-        />
-        <Add className={classes.addIcon} onClick={this.handleClick} />
+            id="filled-with-placeholder"
+            label="輸入學號"
+            className={classes.textField}
+            margin="normal"
+            variant="filled"
+          />
+          <Add className={classes.addIcon} onClick={this.handleClickAdd} />
         </div>
       </div>
     )
