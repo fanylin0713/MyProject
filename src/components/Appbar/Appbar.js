@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {AppBar, Toolbar, Button, InputBase, 
-        FormControl, Select, MenuItem, 
-        Dialog, DialogActions, DialogContent, DialogTitle,
-        Input, IconButton,
-        Snackbar, SnackbarContent} from '@material-ui/core';
+import {
+    AppBar, Toolbar, Button, InputBase,
+    FormControl, Select, MenuItem,
+    Dialog, DialogActions, DialogContent, DialogTitle,
+    Input, IconButton,
+    Snackbar, SnackbarContent
+} from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { NavLink } from "react-router-dom";
@@ -42,7 +44,11 @@ const styles1 = theme => ({
     warning: {
         backgroundColor: '#FFBF5F',
     },
-    icon: {
+    check: {
+        fontSize: 20,
+        color: '#111B24',
+    },
+    close: {
         fontSize: 20,
         color: '#111B24',
     },
@@ -75,20 +81,19 @@ function MySnackbarContent(props) {
                     key="close"
                     aria-label="Close"
                     color="inherit"
-                    className={classes.close}
                     onClick={onClose}
                 >
-                    <CheckIcon className={classes.icon} />
+                    <NavLink className={classes.check} activeClassName="active" to="/student">
+                        <CheckIcon />
+                    </NavLink>
                 </IconButton>,
                 <IconButton
                     key="close"
                     aria-label="Close"
                     color="inherit"
-                    className={classes.close}
                     onClick={onClose}
                 >
-
-                    <CloseIcon className={classes.icon} />
+                    <CloseIcon className={classes.close} />
                 </IconButton>
             ]}
             {...other}
@@ -179,7 +184,7 @@ class SearchAppBar extends React.Component {
         openSnack: false,
         classData: [],
         data: '',
-        finalValue:''
+        finalValue: ''
     };
 
     componentDidMount() {
