@@ -6,16 +6,12 @@ import Chart from "react-google-charts";
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-  select: {
-    marginTop: theme.spacing.unit * 3,
-    marginLeft: '15%',
-  },
   card: {
     backgroundColor: '#212832',
     border: '0.8px #FFBF5F solid',
     borderRadius: '2px',
     width: '70%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 5,
     margin: '0 auto',
   },
 });
@@ -116,9 +112,6 @@ class Operation extends React.Component {
       <div>
         {/* 這是導覽 */}
         <AppBar />
-        <div className={classes.select}>
-          <Select />
-        </div>
         <div>
           <Card className={classes.card} >
             <Typography style={{
