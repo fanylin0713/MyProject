@@ -55,8 +55,8 @@ function SimpleTable(props) {
                             <TableCell component="th" scope="row">
                                 {row.student}
                             </TableCell>
-                            <TableCell>{row.number}</TableCell>
-                            <TableCell>{row.project}</TableCell>
+                            <TableCell align="center">{row.number}</TableCell>
+                            <TableCell align="center">{row.project}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
