@@ -28,7 +28,7 @@ const styles = theme => ({
     },
     train:{
         marginTop: theme.spacing.unit * 2,
-        marginLeft:'30%'
+        marginLeft:'10%'
     },
     button: {
         display: 'flex',
@@ -241,12 +241,14 @@ class OutlinedTextFields extends React.Component {
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
+                    <div className={classes.train}>
                     <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
-                    <label htmlFor="contained-button-file" className={classes.train}>
+                    <label htmlFor="contained-button-file">
                         <Button component="span" className={classes.button}>
                             Train
                         </Button>
                     </label>
+                    </div>
                     {/* <Button className={classes.button}>
                         Train
                     </Button> */}
