@@ -22,6 +22,24 @@ const styles = theme => ({
         height: '260px',
         margin: '40px auto'
     },
+    input: {
+        outline: 'none',
+        opacity: 0,
+    },
+    train:{
+        marginTop: theme.spacing.unit * 2,
+        marginLeft:'30%'
+    },
+    button: {
+        display: 'flex',
+        border: '1px #FFBF5F solid',
+        borderRadius: '30px',
+        color: '#FFBF5F',
+        margin: 'auto',
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
     textFieldLeft: {
         marginLeft: '13%',
         marginTop: theme.spacing.unit * 2,
@@ -40,23 +58,9 @@ const styles = theme => ({
         color: 'white',
         width: '570px',
     },
-    input: {
-        outline: 'none',
-        opacity: 0,
-    },
-    button: {
-        display: 'flex',
-        border: '1px #FFBF5F solid',
-        borderRadius: '30px',
-        color: '#FFBF5F',
+    form: {
+        width: '800px',
         margin: 'auto',
-    },
-    rightIcon: {
-        marginLeft: theme.spacing.unit,
-    },
-    form:{
-        width:'800px',
-        margin:'auto',
     },
 });
 
@@ -237,8 +241,8 @@ class OutlinedTextFields extends React.Component {
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
-                    <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input} />
-                    <label htmlFor="contained-button-file" style={{ margin: 'auto 0' }}>
+                    <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
+                    <label htmlFor="contained-button-file" className={classes.train}>
                         <Button component="span" className={classes.button}>
                             Train
                         </Button>
@@ -248,122 +252,122 @@ class OutlinedTextFields extends React.Component {
                     </Button> */}
                 </div>
                 <div className={classes.form}>
-                <div>
-                    <TextField
-                        id="outlined-helperText"
-                        label="姓名"
-                        value={this.state.name}
-                        error={error1}
-                        helperText={errorMessage1}
-                        onClick={this.handleFocus}
-                        onChange={this.handleChange('student_name')}
-                        className={classes.textFieldLeft}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    <TextField
-                        id="outlined-helperText"
-                        label="學號"
-                        value={this.state.number}
-                        error={error2}
-                        helperText={errorMessage2}
-                        onClick={this.handleFocus}
-                        onChange={this.handleChange('student_id')}
-                        className={classes.textFieldRight}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </div>
-                <div>
-                    <TextField
-                        id="outlined-name"
-                        label="年級"
-                        value={this.state.grade}
-                        onChange={this.handleChange('student_grade')}
-                        className={classes.textFieldLeft}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    <TextField
-                        id="date"
-                        label="生日"
-                        type="date"
-                        value={this.state.student_birth}
-                        onChange={this.handleChange('student_birth')}
-                        className={classes.textFieldRight}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                </div>
-                <div>
-                    <Myclass callbackFromParent={this.myCallback} />
-                </div>
-                <div>
-                    <TextField
-                        id="outlined-name"
-                        label="學校"
-                        value={this.state.school}
-                        onChange={this.handleChange('student_school')}
-                        className={classes.textFieldLeft}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    <TextField
-                        id="outlined-name"
-                        label="手機"
-                        value={this.state.phone}
-                        onChange={this.handleChange('student_phone')}
-                        className={classes.textFieldRight}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </div>
-                <div>
-                    <TextField
-                        id="outlined-email-input"
-                        label="Email"
-                        value={this.state.email}
-                        onChange={this.handleChange('student_email')}
-                        className={classes.textFieldFull}
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </div>
-                <div>
-                    <TextField
-                        id="outlined-name"
-                        label="住址"
-                        value={this.state.address}
-                        onChange={this.handleChange('student_address')}
-                        className={classes.textFieldFull}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </div>
-                <div>
-                    <TextField
-                        id="outlined-name"
-                        label="聯絡人"
-                        value={this.state.parent}
-                        onChange={this.handleChange('student_parent')}
-                        className={classes.textFieldLeft}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    <TextField
-                        id="outlined-name"
-                        label="聯絡人手機"
-                        value={this.state.parentPhone}
-                        onChange={this.handleChange('student_parent_phone')}
-                        className={classes.textFieldRight}
-                        margin="normal"
-                        variant="outlined"
-                    />
-                </div>
+                    <div>
+                        <TextField
+                            id="outlined-helperText"
+                            label="姓名"
+                            value={this.state.name}
+                            error={error1}
+                            helperText={errorMessage1}
+                            onClick={this.handleFocus}
+                            onChange={this.handleChange('student_name')}
+                            className={classes.textFieldLeft}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            id="outlined-helperText"
+                            label="學號"
+                            value={this.state.number}
+                            error={error2}
+                            helperText={errorMessage2}
+                            onClick={this.handleFocus}
+                            onChange={this.handleChange('student_id')}
+                            className={classes.textFieldRight}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id="outlined-name"
+                            label="年級"
+                            value={this.state.grade}
+                            onChange={this.handleChange('student_grade')}
+                            className={classes.textFieldLeft}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            id="date"
+                            label="生日"
+                            type="date"
+                            value={this.state.student_birth}
+                            onChange={this.handleChange('student_birth')}
+                            className={classes.textFieldRight}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <Myclass callbackFromParent={this.myCallback} />
+                    </div>
+                    <div>
+                        <TextField
+                            id="outlined-name"
+                            label="學校"
+                            value={this.state.school}
+                            onChange={this.handleChange('student_school')}
+                            className={classes.textFieldLeft}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            id="outlined-name"
+                            label="手機"
+                            value={this.state.phone}
+                            onChange={this.handleChange('student_phone')}
+                            className={classes.textFieldRight}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id="outlined-email-input"
+                            label="Email"
+                            value={this.state.email}
+                            onChange={this.handleChange('student_email')}
+                            className={classes.textFieldFull}
+                            type="email"
+                            name="email"
+                            autoComplete="email"
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id="outlined-name"
+                            label="住址"
+                            value={this.state.address}
+                            onChange={this.handleChange('student_address')}
+                            className={classes.textFieldFull}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </div>
+                    <div>
+                        <TextField
+                            id="outlined-name"
+                            label="聯絡人"
+                            value={this.state.parent}
+                            onChange={this.handleChange('student_parent')}
+                            className={classes.textFieldLeft}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            id="outlined-name"
+                            label="聯絡人手機"
+                            value={this.state.parentPhone}
+                            onChange={this.handleChange('student_parent_phone')}
+                            className={classes.textFieldRight}
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </div>
                 </div>
                 <Button type="submit" className={classes.button} style={{ width: 300, margin: '20px auto', }}>
                     送出
