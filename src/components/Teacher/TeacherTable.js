@@ -31,6 +31,11 @@ const TABLE_NAME = 'Teacher';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
 
+
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 let counter = 0;
 function createData(name, phone, email, subject, record_id) {
     counter += 1;
@@ -118,15 +123,29 @@ const toolbarStyles = theme => ({
 });
 
 class EnhancedTableToolbar extends React.Component {
+    // state = {
+    //     deleted: false,
+    // };
+    
 
     handleDelete = e => {
-        for(var index = 0; index < this.props.toDelete.length; index++){
-            fetchDeleteTeacher(this.props.toDelete[index].id);
+        var doFor = false;
+        if(doFor == false){
+            for(var index = 0; index < this.props.toDelete.length; index++){
+                fetchDeleteTeacher(this.props.toDelete[index].id);
+            }
+            doFor = true;
+            console.log("hi");
         }
+        if(doFor == true){
+            console.log("hey");
+            window.location.reload();
+        }
+        //window.location.reload();
+        //this.setState({deleted : true});
     }
     render(){
         const { numSelected, classes } = this.props;
-        //console.log(this.props.toDelete);
 
         return (
             <Toolbar
