@@ -10,6 +10,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import XLSX from 'xlsx';
+//import { fetchPostSchedule } from '../../api';
+// import Airtable from 'airtable';
+
+// const TABLE_NAME = 'TestScore';
+// const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+// const table = base(TABLE_NAME);
 
 const styles = theme => ({
     button: {
@@ -53,7 +59,48 @@ function createData(name, number, grade, rank) {
 class Progresspage extends Component {
     state = {
         rows: [],
+        //rowsInit:[],
+        //class_id:'',
     }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.class_id !== this.state.class_id) {
+    //         var count = this.state.rowsInit.length;
+    //         var temp = [];
+    //         for (var index = 0; index < count; index++) {
+    //             if (nextProps.class_id === this.state.rowsInit[index].class_id) {
+    //                 temp.push(this.state.rowsInit[index]);
+    //                 this.setState({ rows: temp });
+    //             }
+    //         }
+    //         this.setState({ class_id: nextProps.class_id });
+    //     }
+    // }
+    //     //airtable
+    // componentDidMount() {
+    //     //const fileterSentence = 'AND(class_id = ' + this.props.class_id + ')'
+    //     table.select({
+    //         //filterByFormula: fileterSentence,
+    //         view: "Grid view",
+    //         //maxRecords: 1
+    //     }).eachPage((records, fetchNextPage) => {
+    //         this.setState({ records });
+    
+    //         const class_id = this.state.records.map((record, index) => record.fields['class_id']);
+    //         const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+    //         const test_score = this.state.records.map((record, index) => record.fields['test_score']);
+
+    //          var temp = [];
+    //         for(var index = 0; index < schedule_date.length; index++) {
+    //             temp.push(createData("name",student_id[index],test_score[index],"rank"));  
+    //         }
+    
+    //         this.setState({ rows : temp });
+    //         this.setState({ rowsInit : temp });
+    //         fetchNextPage();
+    //     }
+    //     );
+    // }
+
 
     onImportExcel = file => {
         // 獲取上傳的文件對象

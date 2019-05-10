@@ -70,7 +70,7 @@ class NavTabs extends React.Component {
                             <LinkTab style={{ fontSize:'14pt', textDecoration: 'none' }} label="學生資料" href="page3" />
                         </Tabs>
                     </AppBar>
-                    {value === 0 && <TabContainer><Gradepage /></TabContainer>}
+                    {value === 0 && <TabContainer><Gradepage class_id={this.props.class_idFromParent}/></TabContainer>}
                     {value === 1 && <TabContainer><Progresspage class_id={this.props.class_idFromParent} /></TabContainer>}
                     {value === 2 && <TabContainer><Studentpage /></TabContainer>}
                 </div>
