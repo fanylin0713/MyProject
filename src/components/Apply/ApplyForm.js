@@ -16,10 +16,14 @@ const IP = "http://localhost:8080";
 const styles = theme => ({
     container: {
         color: 'white',
-
+    },
+    card: {
+        width: '200px',
+        height: '260px',
+        margin: '40px auto'
     },
     textFieldLeft: {
-        marginLeft: theme.spacing.unit * 18,
+        marginLeft: '13%',
         marginTop: theme.spacing.unit * 2,
         color: 'white',
         width: '260px',
@@ -31,12 +35,12 @@ const styles = theme => ({
         width: '260px',
     },
     textFieldFull: {
-        marginLeft: theme.spacing.unit * 18,
+        marginLeft: '13%',
         marginTop: theme.spacing.unit * 2,
         color: 'white',
         width: '570px',
     },
-    input:{
+    input: {
         outline: 'none',
         opacity: 0,
     },
@@ -49,6 +53,10 @@ const styles = theme => ({
     },
     rightIcon: {
         marginLeft: theme.spacing.unit,
+    },
+    form:{
+        width:'90%',
+        margin:'auto',
     },
 });
 
@@ -224,14 +232,14 @@ class OutlinedTextFields extends React.Component {
 
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div>
-                    <Card style={{ width: '200px', height: '260px', margin: '40px auto' }} />
+                    <Card className={classes.card} />
                     <Button className={classes.button} onClick={this.handleClick}>
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
                     <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input} />
-                    <label htmlFor="contained-button-file" style={{margin:'10px 0 0 7%'}}>
-                        <Button  component="span" className={classes.button}>
+                    <label htmlFor="contained-button-file" style={{ margin: 'auto 0' }}>
+                        <Button component="span" className={classes.button}>
                             Train
                         </Button>
                     </label>
@@ -239,6 +247,7 @@ class OutlinedTextFields extends React.Component {
                         Train
                     </Button> */}
                 </div>
+                <div className={classes.form}>
                 <div>
                     <TextField
                         id="outlined-helperText"
@@ -354,6 +363,7 @@ class OutlinedTextFields extends React.Component {
                         margin="normal"
                         variant="outlined"
                     />
+                </div>
                 </div>
                 <Button type="submit" className={classes.button} style={{ width: 300, margin: '20px auto', }}>
                     送出
