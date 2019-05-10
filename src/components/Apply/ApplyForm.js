@@ -25,10 +25,10 @@ const styles = theme => ({
     input: {
         outline: 'none',
         opacity: 0,
+        width:'47%',
     },
     train:{
         marginTop: theme.spacing.unit * 2,
-        marginLeft:'10%'
     },
     button: {
         display: 'flex',
@@ -41,7 +41,7 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
     },
     textFieldLeft: {
-        marginLeft: '13%',
+        marginLeft: '14%',
         marginTop: theme.spacing.unit * 2,
         color: 'white',
         width: '260px',
