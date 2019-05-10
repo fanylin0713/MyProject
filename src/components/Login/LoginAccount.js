@@ -65,9 +65,16 @@ class OutlinedTextFields extends React.Component {
         return this.state.account.length > 0 && this.state.password.length > 0;
     }
 
+    handleClick = e =>{
+        this.setState({
+            error: false,
+            errorMessage:'',
+        })
+    }
+
     handleChange = event => {
         this.setState({
-            [event.target.id]: event.target.value
+            [event.target.id]: event.target.value,
         });
     }
 
@@ -107,6 +114,7 @@ class OutlinedTextFields extends React.Component {
                         error={error}
                         helperText={errorMessage}
                         value={this.state.account}
+                        onClick={this.handleClick}
                         onChange={this.handleChange}
                         className={classes.textField}
                         margin="normal"

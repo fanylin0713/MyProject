@@ -18,6 +18,9 @@ import Airtable from 'airtable';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
 const styles = theme => ({
     root: {
         width: '800px',
@@ -25,6 +28,7 @@ const styles = theme => ({
     },
     container: {
         width: '400px',
+        paddingLeft: '22%',
     },
     textField: {
         width: 220,
@@ -91,6 +95,10 @@ class FormDialog extends React.Component {
 
         fetchPostTeacher(data);
         this.setState({ open: false });
+
+        sleep(500).then(() => {
+            window.location.reload();
+        })
     };
 
     handleChange = name => event => {

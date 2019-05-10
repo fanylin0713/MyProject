@@ -7,7 +7,6 @@ import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
-import Qs from 'qs'
 
 const IP = "http://localhost:8080";
 
@@ -131,6 +130,7 @@ class OutlinedTextFields extends React.Component {
  
  
         //train
+
         // axios({
         //     method: 'post',
         //     url: 'http://localhost:8080/train',
@@ -148,7 +148,18 @@ class OutlinedTextFields extends React.Component {
         //     });
 
 
+
+
     };
+
+    handleFocus = e => {
+        this.setState({
+            error1: false ,
+            error2: false ,
+            errorMessage1: '',
+            errorMessage2: '',
+        })
+    }
 
     handleClick = () => {
         axios.create({
@@ -226,6 +237,7 @@ class OutlinedTextFields extends React.Component {
                         value={this.state.name}
                         error={error1}
                         helperText={errorMessage1}
+                        onClick={this.handleFocus}
                         onChange={this.handleChange('student_name')}
                         className={classes.textFieldLeft}
                         margin="normal"
@@ -237,11 +249,11 @@ class OutlinedTextFields extends React.Component {
                         value={this.state.number}
                         error={error2}
                         helperText={errorMessage2}
+                        onClick={this.handleFocus}
                         onChange={this.handleChange('student_id')}
                         className={classes.textFieldRight}
                         margin="normal"
                         variant="outlined"
-                        placeholder="Placeholder"
                     />
                 </div>
                 <div>

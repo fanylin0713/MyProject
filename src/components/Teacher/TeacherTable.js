@@ -31,6 +31,11 @@ const TABLE_NAME = 'Teacher';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
 
+
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 let counter = 0;
 function createData(name, phone, email, subject, record_id) {
     counter += 1;
@@ -123,10 +128,13 @@ class EnhancedTableToolbar extends React.Component {
         for(var index = 0; index < this.props.toDelete.length; index++){
             fetchDeleteTeacher(this.props.toDelete[index].id);
         }
+        sleep(500).then(() => {
+            window.location.reload();
+        })
+
     }
     render(){
         const { numSelected, classes } = this.props;
-        //console.log(this.props.toDelete);
 
         return (
             <Toolbar
@@ -174,6 +182,7 @@ EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 const styles = theme => ({
     root: {
         width: '80%',
+        minWidth:'900px',
         margin: '0 auto',
         marginTop: theme.spacing.unit,
         backgroundColor: '#212832',
@@ -210,6 +219,7 @@ const styles = theme => ({
     },
     add: {
         marginTop: theme.spacing.unit * 4,
+        marginLeft: theme.spacing.unit * 3,
     },
 });
 
@@ -264,8 +274,6 @@ class EnhancedTable extends React.Component {
                     //table
                     for (var index = 0; index < count; index++) {
                         tempT.push(createData(teacher_name[index], teacher_phone[index], teacher_email[index], subject_name[index], record_id[index]));
-
-
                     }
                     this.setState({ data: tempT });
                     this.setState({ dataInit: tempT });
@@ -365,7 +373,7 @@ class EnhancedTable extends React.Component {
                             </MenuItem>
                             {(this.state.classData).map((n, index) => {
                                 return (
-                                    <MenuItem value={n}>{n}</MenuItem>
+                                    <MenuItem key={n.id} value={n}>{n}</MenuItem>
                                 );
                             })}
                         </Select>
