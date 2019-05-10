@@ -38,19 +38,19 @@ const styles = theme => ({
         width: '100%',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
-        backgroundColor:'#212832',
-        border:'white 1px solid',
+        backgroundColor: '#212832',
+        border: 'white 1px solid',
     },
-    head:{
-        fontSize:'14pt',
-        color:'#FFBF5F',
+    head: {
+        fontSize: '14pt',
+        color: '#FFBF5F',
     },
     content: {
         fontSize: '14pt',
     },
-    editButton:{
-        border:'#FFBF5F 1px solid',
-        float:'right',
+    editButton: {
+        border: '#FFBF5F 1px solid',
+        float: 'right',
         marginLeft: theme.spacing.unit * 2,
     }
 });
@@ -64,36 +64,39 @@ function createData(date, origin, real) {
 class Progresspage extends Component {
     state = {
         rows: [],
+        noClick: false,
     }
 
-        //airtable
-        componentDidMount() {
+    //airtable
+    componentDidMount() {
 
-            //const fileterSentence = 'AND(student_id = ' + this.props.location.aboutProps.name + ')'
-            table.select({
-                //filterByFormula: fileterSentence,
-                view: "Grid view",
-                //maxRecords: 1
-            }).eachPage((records, fetchNextPage) => {
-                this.setState({ records });
-    
-                const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
-                const schedule_expect = this.state.records.map((record, index) => record.fields['schedule_expect']);
-                const schedule_real = this.state.records.map((record, index) => record.fields['schedule_real']);
-                //const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
-                var temp = [];
-                for(var index = 0; index < schedule_date.length; index++) {
-                    temp.push(createData(schedule_date[index],schedule_expect[index],schedule_real[index]));  
-                }
-    
-                this.setState({ rows : temp });
-                fetchNextPage();
+        //const fileterSentence = 'AND(student_id = ' + this.props.location.aboutProps.name + ')'
+        table.select({
+            //filterByFormula: fileterSentence,
+            view: "Grid view",
+            //maxRecords: 1
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+
+            const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
+            const schedule_expect = this.state.records.map((record, index) => record.fields['schedule_expect']);
+            const schedule_real = this.state.records.map((record, index) => record.fields['schedule_real']);
+            //const schedule_date = this.state.records.map((record, index) => record.fields['schedule_date']);
+            var temp = [];
+            for (var index = 0; index < schedule_date.length; index++) {
+                temp.push(createData(schedule_date[index], schedule_expect[index], schedule_real[index]));
             }
-            );
+
+            this.setState({ rows: temp });
+            fetchNextPage();
+            //把匯入按鍵功能取消
+            // this.setState({ noClick: true })
         }
+        );
+    }
 
     handleClick = () => {
-        if(this.state.rows != ""){
+        if (this.state.rows !== "") {
             
             for (var index = 0; index < this.state.rows.length; index++) {
                 let data = { fields: { schedule_date: {}, schedule_expect: {} } };
@@ -126,7 +129,7 @@ class Progresspage extends Component {
                 //     data.push(createData(progress_date[index], progress_origin[index], progress_real[index]));
                 // }               
                 this.setState({ rows: data });
-                
+
                 // console.log(data[0]);
                 // console.log(data[0].date);
                 // console.log(data[0].origin);
@@ -139,11 +142,11 @@ class Progresspage extends Component {
     render() {
 
         const { classes } = this.props;
-        const { rows } = this.state;
+        const { rows, noClick } = this.state;
 
         return (
             <div style={{ borderColor: '#FFBF5F' }}>
-                <Button className={classes.button}>
+                <Button disabled={noClick} className={classes.button}>
                     <Upload type='upload' />
                     <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
                     <span>匯入教學進度</span>
