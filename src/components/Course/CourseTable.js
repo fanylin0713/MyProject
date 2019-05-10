@@ -108,14 +108,14 @@ const toolbarStyles = theme => ({
     }
 });
 
-let EnhancedTableToolbar = props => {
-    const { numSelected, classes } = props;
-
+class EnhancedTableToolbar extends React.Component  {
+    render(){
+        const { numSelected, classes } = this.props;
     return (
         <Toolbar
             className={classNames(classes.root, {
-                [classes.highlight]: numSelected > 0
-            })}
+                    [classes.highlight]: numSelected > 0
+                })}
         >
             <div className={classes.title}>
                 {numSelected > 0
@@ -145,6 +145,7 @@ let EnhancedTableToolbar = props => {
         </Toolbar>
     );
 };
+}
 
 EnhancedTableToolbar.propTypes = {
     classes: PropTypes.object.isRequired,
@@ -156,6 +157,7 @@ EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 const styles = theme => ({
     root: {
         width: '80%',
+        minWidth:'900px',
         margin: '0 auto',
         marginTop: theme.spacing.unit,
         backgroundColor: '#212832',
@@ -242,15 +244,12 @@ class EnhancedTable extends React.Component {
                         }
                         const class_area = record.fields['class_area'];
                         temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR, class_area));
-
                         //   if(classroom_area == this.props.listNameFromParent){
                         //     console.log("same!");
                         //     //temp2.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
                         //   }
                         //temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
-
                     })
-
                 })
 
 

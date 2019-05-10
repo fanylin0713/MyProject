@@ -9,8 +9,11 @@ import {FormControlLabel,
         MenuItem, 
         Select, 
         OutlinedInput,
-        Typography} from '@material-ui/core';
+        Typography,
+        TextField} from '@material-ui/core';
 import { Button } from '@material-ui/core';
+
+import Add from '@material-ui/icons/AddCircleOutlined';
 
 import Rabbit from './rabbit.jpg';
 
@@ -65,6 +68,12 @@ const styles = theme => ({
     marginLeft: '35%',
     marginTop: theme.spacing.unit * 5,
   },
+  textField:{
+    float:'right',
+  },
+  addIcon:{
+    float:'right',
+  },
 });
 
 class Rollcall extends React.Component {
@@ -79,7 +88,7 @@ class Rollcall extends React.Component {
   };
 
   handleClick = e => {
-
+    console.log('hi')
   };
 
   render() {
@@ -134,6 +143,14 @@ class Rollcall extends React.Component {
         <div className={classes.info}>
           <img className={classes.photo} src={Rabbit} alt="location" />
           <pre><Typography  className={classes.studentInfo}>姓名：林奕蓓     學號：405401360</Typography></pre>
+          <TextField
+          id="filled-with-placeholder"
+          label="輸入學號"
+          className={classes.textField}
+          margin="normal"
+          variant="filled"
+        />
+        <Add className={classes.addIcon} onClick={this.handleClick} />
         </div>
       </div>
     )

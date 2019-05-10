@@ -193,6 +193,7 @@ EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
 const styles = theme => ({
     root: {
         width: '80%',
+        minWidth:'900px',
         margin: '0 auto',
         marginTop: theme.spacing.unit,
         backgroundColor: '#212832',

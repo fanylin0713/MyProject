@@ -34,6 +34,7 @@ const styles = theme => ({
         backgroundColor: '#212832',
         width: '90%',
         margin: 'auto',
+        minWidth:'900px',
     },
 
     tabs: {
