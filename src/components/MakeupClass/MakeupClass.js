@@ -17,6 +17,7 @@ const styles = theme => ({
         color:'white',
     },
     table:{
+        width:'30%',
         margin:'auto',
         fontSize:'14pt',
         marginTop: theme.spacing.unit * 3,
