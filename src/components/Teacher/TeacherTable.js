@@ -123,26 +123,15 @@ const toolbarStyles = theme => ({
 });
 
 class EnhancedTableToolbar extends React.Component {
-    // state = {
-    //     deleted: false,
-    // };
-    
 
     handleDelete = e => {
-        var doFor = false;
-        if(doFor == false){
-            for(var index = 0; index < this.props.toDelete.length; index++){
-                fetchDeleteTeacher(this.props.toDelete[index].id);
-            }
-            doFor = true;
-            console.log("hi");
+        for(var index = 0; index < this.props.toDelete.length; index++){
+            fetchDeleteTeacher(this.props.toDelete[index].id);
         }
-        if(doFor == true){
-            console.log("hey");
+        sleep(500).then(() => {
             window.location.reload();
-        }
-        //window.location.reload();
-        //this.setState({deleted : true});
+        })
+
     }
     render(){
         const { numSelected, classes } = this.props;
