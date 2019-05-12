@@ -18,6 +18,8 @@ import { Button } from '@material-ui/core';
 import Add from '@material-ui/icons/AddBoxOutlined';
 
 import Rabbit from './rabbit.jpg';
+import axios from 'axios';
+const IP = "http://localhost:8080";
 
 const styles = theme => ({
   selectBar: {
@@ -105,6 +107,20 @@ class Rollcall extends React.Component {
     console.log('hi')
   };
 
+  handleEngine = () => {
+    axios.create({
+      baseURL: IP,
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    }).get("/retrieveface")
+      .then((response) => {
+          console.log("in response");
+          console.log('open :', response.status, '\nopen camera', new Date());
+      })
+      .catch((error) =>
+          console.error(error)
+      );
+  };
+
   handleClickAdd = name => e => {
 
   }
@@ -156,7 +172,7 @@ class Rollcall extends React.Component {
               <MenuItem value={30}>國文Ｂ班</MenuItem>
             </Select>
           </FormControl>
-          <Button className={classes.buttonStart} onClick={this.handleClick}>開始點名</Button>
+          <Button className={classes.buttonStart} onClick={this.handleEngine}>開始點名</Button>
         </div>
 
         <div className={classes.info}>
