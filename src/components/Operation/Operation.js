@@ -1,6 +1,5 @@
 import React from 'react';
 import AppBar from '../AppBar/Appbar';
-import Select from './OperationSelect'
 import { Card, Typography } from '@material-ui/core';
 import Chart from "react-google-charts";
 import { withStyles } from '@material-ui/core/styles';
@@ -10,97 +9,98 @@ const styles = theme => ({
     backgroundColor: '#212832',
     border: '0.8px #FFBF5F solid',
     borderRadius: '2px',
-    width: '70%',
+    width: '80%',
+    minWidth: '1000px',
     marginTop: theme.spacing.unit * 5,
     margin: '0 auto',
   },
+  line: {
+    width: '80%',
+    margin: '0 auto',
+  },
+  pie: {
+    color: 'white',
+    display: 'flex',
+    flexDirection: 'row',
+    width: '80%',
+    margin: '0 auto',
+    marginTop: theme.spacing.unit * 5,
+  },
+  bar:{
+    width: '80%',
+    margin: '0 auto',
+  }
 });
 
-
-const piedata = [
-  ["到課率", "Hours per Day"],
-  ["出席", 70.3],
-  ["缺席", 29.7], // CSS-style declaration
-];
-
-//圓餅圖
-const pieoptions = {
-  //title: "My Daily Activities",
-  is3D: true,
-  backgroundColor: 'transparent',
-  // heigth: '800px',
-  // width: '400px',
-  colors: ['#0088FE', '#FFBB28'],
-  //testStyle:{color:'blue',fontSize:16}
-  chartArea: {
-    width: '800px'
-  },
-  pieSliceTextStyle: { color: 'white', fontFamily: 'Microsoft JhengHei', fontSize: 14, fontWeight: "bold" },
-  legend: { textStyle: { color: 'white', fontName: 'Microsoft JhengHei', fontSize: 14, fontWeight: "bold" } },
-};
+//報名人數
 
 const linedata = [
-  ['x', '人數'],
-  [2010, 18274],
-  [2011, 18249],
-  [2012, 18274],
-  [2013, 17489],
-  [2014, 18134],
-  [2015, 17489],
-  [2016, 19284],
-  [2017, 18273],
-  [2018, 17833],
-  [2019, 18540],
-  [2020, 17649],
+  ['x', '國中', '高中'],
+  ['2010', 12430, 13530],
+  ['2011', 15410, 12435],
+  ['2012', 12423, 14215],
+  ['2013', 12417, 15329],
+  ['2014', 12518, 15310],
+  ['2015', 15739, 13325],
+  ['2016', 12311, 15233],
+  ['2017', 15327, 13819],
+  ['2018', 12727, 15819],
 ];
 
+//報名人數（國高中）
 const lineoptions = {
+  title: "歷年報名人數：",
+  titleTextStyle: { color: 'white', fontSize: 20, bold: false },
   hAxis: {
-    textStyle: {
-      color: 'white'
-    },
-    title: '年份',
-    titleTextStyle: {
-      color: 'white'
-    }
+    textStyle: { color: 'white' },
+    title: '年度',
+    titleTextStyle: { color: 'white' }
   },
   vAxis: {
-    textStyle: {
-      color: 'white'
-    },
+    textStyle: { color: 'white' },
     title: '人數',
-    titleTextStyle: {
-      color: 'white'
-    }
+    titleTextStyle: { color: 'white' }
   },
   legend: {
-    textStyle: {
-      color: 'white',
-    }
+    textStyle: { color: 'white', }
   },
-  backgroundColor: '#212832',
+  series: { 0: { color: '#0088FE', curveType: 'function' }, 1: { color: '#FFBB28', curveType: 'function' } },
+  backgroundColor: 'transparent',
 };
 
-const bardata = [
-  ['', '國中', '高中'],
-  ['國文', 70, 82],
-  ['英文', 88, 76],
-  ['數學', 82, 90],
-  ['理化', 88, 79],
-  ['社會', 69, 89],
+//國中出席率
+const piedata1 = [
+  ["到課率", "Hours per Day"],
+  ["出席", 70.3],
+  ["缺席", 29.7],
 ];
 
-//長條圖
-const baroptions = {
-  //backgroundColor: 'transparent',
-  colors: ['#0088FE', '#FFBB28'],
-  width: 475,
-  height: 380,
-  is3D: false,
+const pieoptions1 = {
+  title: "國中到課率：",
+  is3D: true,
   backgroundColor: 'transparent',
-  legend: { textStyle: { color: 'white', fontSize: 14, fontWeight: "bold" } },
-  hAxis: { textStyle: { color: 'white', fontSize: 14, fontWeight: "bold" } },
-  vAxis: { textStyle: { color: 'white', fontSize: 14, fontWeight: "bold" } },
+  display: 'flex',
+  colors: ['#0088FE', '#FFBB28'],
+  titleTextStyle: { color: 'white', fontSize: 20, bold: false },
+  pieSliceTextStyle: { fontSize: 16 },
+  legend: { textStyle: { color: 'white', fontSize: 16 } }
+};
+
+//高中出席率
+const piedata2 = [
+  ["到課率", "Hours per Day"],
+  ["出席", 87.4],
+  ["缺席", 12.6],
+];
+
+const pieoptions2 = {
+  title: "高中到課率：",
+  is3D: true,
+  backgroundColor: 'transparent',
+  colors: ['#0088FE', '#FFBB28'],
+  titleTextStyle: { color: 'white', fontSize: 20, bold: false },
+  pieSliceTextStyle: { fontSize: 16 },
+  legend: { textStyle: { color: 'white', fontSize: 16 } }
 };
 
 
@@ -114,29 +114,63 @@ class Operation extends React.Component {
         <AppBar />
         <div>
           <Card className={classes.card} >
-            <Typography style={{
-              marginTop: 30, fontFamily: "Microsoft JhengHei", LetterSpacing: 4, fontSize: 16,
-              fontWeight: "bold", color: 'white'
-            }}>
-              <span style={{ marginLeft: '10%' }} >到課率:</span>
-              <span style={{ marginLeft: '50%' }} >本學期報名人數:1000/30000</span>
-            </Typography>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <Chart chartType="PieChart" data={piedata} options={pieoptions} />
-              <Chart style={{ width: '70%' }} chartType="LineChart" data={linedata} options={lineoptions} />
+            <Typography variant='h5' align='center' style={{ marginTop: '3%' }} >《 補習班營運總表 》</Typography>
+            {/* 報名人數 */}
+            <div className={classes.line}>
+              <Chart
+                width={'920px'}
+                height={'400px'}
+                chartType="LineChart"
+                data={linedata}
+                options={lineoptions}
+                rootProps={{ 'data-testid': '2' }}
+              />
             </div>
-            <div align="center">
-              <Typography style={{
-                marginTop: 30, fontFamily: "Microsoft JhengHei", LetterSpacing: 4, fontSize: 16,
-                fontWeight: "bold", color: 'white'
-              }}>
-                <span style={{ margin: '0 auto' }} >本學期平均成績</span>
-              </Typography>
-              <Chart chartType="BarChart" data={bardata} options={baroptions} style={{ marginBottom: 60, }} />
+            <div className={classes.pie}>
+              <Chart
+                width={'500px'}
+                height={'300px'}
+                chartType="PieChart"
+                loader={<div>正在讀取...</div>}
+                data={piedata1}
+                options={pieoptions1}
+                rootProps={{ 'data-testid': '2' }}
+              />
+              <Chart
+                width={'500px'}
+                height={'300px'}
+                chartType="PieChart"
+                data={piedata2}
+                options={pieoptions2}
+                rootProps={{ 'data-testid': '2' }}
+              />
+            </div>
+            <div className={classes.bar}>
+              <Chart
+                width={'500px'}
+                height={'300px'}
+                chartType="Bar"
+                loader={<div>Loading Chart</div>}
+                data={[
+                  ['Year', 'Sales', 'Expenses', 'Profit'],
+                  ['2014', 1000, 400, 200],
+                  ['2015', 1170, 460, 250],
+                  ['2016', 660, 1120, 300],
+                  ['2017', 1030, 540, 350],
+                ]}
+                options={{
+                  // Material design options
+                  chart: {
+                    title: '國、高中成績平均',
+                  },
+                  backgroundColor:'transparent'
+                }}
+                // For tests
+                rootProps={{ 'data-testid': '2' }}
+              />
             </div>
           </Card>
         </div>
-        <div style={{ height: 20 }}></div>
       </div>
     )
   }

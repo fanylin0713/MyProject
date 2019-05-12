@@ -95,7 +95,7 @@ const styles = theme => ({
         width: '260px',
     },
     textFieldFull: {
-        marginLeft: '13%',
+        marginLeft: '14%',
         marginTop: theme.spacing.unit * 2,
         color: 'white',
         width: '570px',

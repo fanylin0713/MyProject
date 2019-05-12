@@ -76,7 +76,6 @@ const styles = theme => ({
 
   },
   addIcon: {
-    // float:'right',
     color: '#FFBF5F',
     fontSize: '40pt',
     marginTop: theme.spacing.unit * 2,
@@ -87,9 +86,15 @@ const styles = theme => ({
     height: '50px',
     border: '#FFBF5F solid 0.8px',
     borderRadius: '10px',
-    marginTop: theme.spacing.unit * 2.5,
     margin: 'auto 0',
+    marginLeft: theme.spacing.unit,
   },
+  yes:{
+    backgroundColor:'green',
+  },
+  no:{
+    backgroundColor:'red',
+  }
 });
 
 class Rollcall extends React.Component {
@@ -97,17 +102,15 @@ class Rollcall extends React.Component {
   state = {
     value: '',
     nowClass: '',
+    start: false,
+    end: true,
   };
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
 
-  handleClick = e => {
-    console.log('hi')
-  };
-
-  handleEngine = () => {
+  handleStart = e => {
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -119,10 +122,28 @@ class Rollcall extends React.Component {
       .catch((error) =>
           console.error(error)
       );
+    this.setState({ start: true})
+    this.setState({ end: false})
+  };
+
+
+
+  handleClickAdd = name => e => {
+  }
+
+  handleEnd = e => {
+    this.setState({ start: false})
+    this.setState({ end: true})
+  };
+
+
+  handleYes = e => {
+  };
+
+  handleNo = e => {
   };
 
   handleClickAdd = name => e => {
-
   }
 
   render() {
@@ -172,13 +193,16 @@ class Rollcall extends React.Component {
               <MenuItem value={30}>國文Ｂ班</MenuItem>
             </Select>
           </FormControl>
-          <Button className={classes.buttonStart} onClick={this.handleEngine}>開始點名</Button>
+
+          <Button disabled={this.state.start} className={classes.buttonStart} onClick={this.handleStart}>開始點名</Button>
+          <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
+
         </div>
 
         <div className={classes.info}>
           <img className={classes.photo} src={Rabbit} alt="location" />
           <pre><Typography className={classes.studentInfo}>姓名：林奕蓓     學號：405401360</Typography></pre>
-          <Button className={classes.buttonEnd} onClick={this.handleClick}>結束點名</Button>
+          
           <TextField
             id="filled-with-placeholder"
             label="輸入學號"
@@ -187,6 +211,8 @@ class Rollcall extends React.Component {
             variant="filled"
           />
           <Add className={classes.addIcon} onClick={this.handleClickAdd} />
+          <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
+          <Button onClick={this.handleNo} className={classes.no}>NO</Button>
         </div>
       </div>
     )
