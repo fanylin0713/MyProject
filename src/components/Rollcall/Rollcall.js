@@ -350,25 +350,23 @@ class Rollcall extends React.Component {
 
         {
           this.state.start === true ?
-        <div className={classes.info}>
-        <div>
-            <img className={classes.photo} src={this.state.stu_img} alt="location" />
-            </div>
-          <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
+            <div className={classes.info}>
+              <img className={classes.photo} src={this.state.stu_img} alt="location" />
+              <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
 
-          <TextField
-            id="filled-with-placeholder"
-            label="輸入學號"
-            className={classes.textField}
-            margin="normal"
-            variant="filled"
-          />
-          <Add className={classes.addIcon} onClick={this.handleClickAdd} />
-          <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
-          <Button onClick={this.handleNo} className={classes.no}>NO</Button>
-        </div>:
-        <div></div>
-        } 
+              <TextField
+                id="filled-with-placeholder"
+                label="輸入學號"
+                className={classes.textField}
+                margin="normal"
+                variant="filled"
+              />
+              <Add className={classes.addIcon} onClick={this.handleClickAdd} />
+              <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
+              <Button onClick={this.handleNo} className={classes.no}>NO</Button>
+            </div> :
+            <div></div>
+        }
 
       </div>
     )
