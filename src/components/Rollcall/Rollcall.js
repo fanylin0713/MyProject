@@ -351,7 +351,7 @@ class Rollcall extends React.Component {
         {
           this.state.start === true ?
         <div className={classes.info}>
-        <div style={{width:'400px',height:'400px'}}>
+        <div>
             <img className={classes.photo} src={this.state.stu_img} alt="location" />
             </div>
           <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
