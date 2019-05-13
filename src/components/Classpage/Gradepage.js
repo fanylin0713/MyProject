@@ -27,9 +27,9 @@ class Gradepage extends Component {
         // 設定 state
         this.state = {
             todos: [
-                { id: 1, name: 'hello', },
-                { id: 2, name: 'aaaaaa', },
-                { id: 3, name: 'world', }
+                { id: 1, name: '10/2 國文第一課', },
+                { id: 2, name: '10/9 國文第二課', },
+                { id: 3, name: '10/16 國文第三課', }
             ]
         }
     }

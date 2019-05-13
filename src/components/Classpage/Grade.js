@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
 import Upload from '@material-ui/icons/CreateNewFolderRounded';
 import { withStyles } from '@material-ui/core/styles';
 // import { fromJS, List, Map } from 'immutable'
@@ -18,6 +19,16 @@ import XLSX from 'xlsx';
 // const table = base(TABLE_NAME);
 
 const styles = theme => ({
+    card: {
+        backgroundColor: '#212832',
+        border: '0.8px #FFBF5F solid',
+        borderRadius: '2px',
+        width: '80%',
+        minWidth: '1000px',
+        marginTop: theme.spacing.unit * 5,
+        margin: '0 auto',
+        padding:'3%'
+    },
     button: {
         backgroundColor: '#111B24',
         color: 'white',
@@ -38,12 +49,12 @@ const styles = theme => ({
         width: '100%',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
-        backgroundColor:'#212832',
-        border:'white 1px solid',
+        backgroundColor: '#212832',
+        border: 'white 1px solid',
     },
-    head:{
-        fontSize:'14pt',
-        color:'#FFBF5F',
+    head: {
+        fontSize: '14pt',
+        color: '#FFBF5F',
     },
     content: {
         fontSize: '14pt',
@@ -84,7 +95,7 @@ class Grade extends Component {
     //         //maxRecords: 1
     //     }).eachPage((records, fetchNextPage) => {
     //         this.setState({ records });
-    
+
     //         const class_id = this.state.records.map((record, index) => record.fields['class_id']);
     //         const student_id = this.state.records.map((record, index) => record.fields['student_id']);
     //         const test_score = this.state.records.map((record, index) => record.fields['test_score']);
@@ -93,7 +104,7 @@ class Grade extends Component {
     //         for(var index = 0; index < schedule_date.length; index++) {
     //             temp.push(createData("name",student_id[index],test_score[index],"rank"));  
     //         }
-    
+
     //         this.setState({ rows : temp });
     //         this.setState({ rowsInit : temp });
     //         fetchNextPage();
@@ -129,9 +140,9 @@ class Grade extends Component {
                 const grade_studentId = this.state.data.map((data, index) => data['grade_studentId']);
                 const grade_studentGrade = this.state.data.map((data, index) => data['grade_studentGrade']);
                 const grade_studentRank = this.state.data.map((data, index) => data['grade_studentRank']);
-                
+
                 for (var index = 0; index < id; index++) {
-                    data.push(createData(grade_studentName[index], grade_studentId[index], grade_studentGrade[index],grade_studentRank[index]));
+                    data.push(createData(grade_studentName[index], grade_studentId[index], grade_studentGrade[index], grade_studentRank[index]));
 
                 }
 
@@ -152,36 +163,38 @@ class Grade extends Component {
         const { rows } = this.state;
 
         return (
-            <div style={{ borderColor: '#FFBF5F' }}>
-                <Button className={classes.button}>
-                    <Upload type='upload' />
-                    <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
-                    <span>成績上傳</span>
-                </Button>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead >
-                            <TableRow>
-                                <TableCell className={classes.head} style={{ width: '25%' }}>學生姓名</TableCell>
-                                <TableCell className={classes.head} >學號</TableCell>
-                                <TableCell className={classes.head} >分數</TableCell>
-                                <TableCell className={classes.head} >排名</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map(row => (
-                                <TableRow hover key={row.id}>
-                                    <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
-                                    <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
-                                    <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
-                                    <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
+            <Card className={classes.card} >
+                <div style={{ borderColor: '#FFBF5F' }}>
+                    <Button className={classes.button}>
+                        <Upload type='upload' />
+                        <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
+                        <span>成績上傳</span>
+                    </Button>
+                    <Paper className={classes.root}>
+                        <Table className={classes.table}>
+                            <TableHead >
+                                <TableRow>
+                                    <TableCell className={classes.head} style={{ width: '25%' }}>學生姓名</TableCell>
+                                    <TableCell className={classes.head} >學號</TableCell>
+                                    <TableCell className={classes.head} >分數</TableCell>
+                                    <TableCell className={classes.head} >排名</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Paper>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map(row => (
+                                    <TableRow hover key={row.id}>
+                                        <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
+                                        <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
+                                        <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
+                                        <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Paper>
 
-            </div>
+                </div>
+            </Card>
         );
     }
 }
