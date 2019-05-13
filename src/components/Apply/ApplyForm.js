@@ -108,8 +108,6 @@ class OutlinedTextFields extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        // changed here
-        //let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{}}};
         let data = { fields: { student_name: {}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {}, student_img:{} } };
         data.fields.student_name = this.state.student_name;
         data.fields.student_id = this.state.student_id;
@@ -146,24 +144,6 @@ class OutlinedTextFields extends React.Component {
         var bodyFormData = new FormData();
         bodyFormData.set('faceid', this.state.student_id);
 
-
-        //train
-
-        // axios({
-        //     method: 'post',
-        //     url: 'http://localhost:8080/train',
-        //     data:bodyFormData,
-        //     config: { headers: {'Content-Type': 'multipart/form-data' }}
-        //     })
-        //     .then(function (response) {
-        //         //handle success
-        //         console.log("in up");
-        //         console.log(response);
-        //     })
-        //     .catch(function (response) {
-        //         //handle error
-        //         console.log(response);
-        //     });
 
     };
 
