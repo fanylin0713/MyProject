@@ -96,9 +96,17 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   yes: {
+    marginLeft: '14%',
+    marginTop: theme.spacing.unit * 2,
+    height:'50px',
+    width:'140px',
     backgroundColor: 'green'
   },
   no: {
+    marginLeft: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
+    height:'50px',
+    width:'140px',
     backgroundColor: 'red',
   }
 });
