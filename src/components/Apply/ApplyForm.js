@@ -189,16 +189,30 @@ class OutlinedTextFields extends React.Component {
 
     handleUpload = (e) => {
         e.preventDefault();
-
+        ////
         let file = e.target.files[0];
+        const formimg = new FormData();
+        const id = '4a951eb39b49f41'; // 填入 App 的 Client ID
+        formimg.append('image', file); //required
+        formimg.append('title', 'test'); //optional
+        formimg.append('description', 'test'); //optional
+
+        axios({
+            method: 'POST',
+            url: 'https://api.imgur.com/3/image',
+            data: formimg,
+            headers: { 'Content-Type': 'multipart/form-data' , 'authorization': 'Client-ID ' + id },
+            mimeType: 'multipart/form-data'
+            }).then(res => {
+                console.log(res)
+            }).catch(e => {
+                console.log(e)
+            })
+        ////
         const formdata = new FormData();
         formdata.append('file', file);
         formdata.set('faceid', this.state.student_id);
 
-        for (var value of formdata.values()) {
-            console.log(value);
-        }
-        //engine
         axios({
             method: 'post',
             url: 'http://localhost:8080/train',
@@ -236,9 +250,9 @@ class OutlinedTextFields extends React.Component {
 
 
                     <div className={classes.train}>
-                    <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
+                    <input type="file" name="file" ref="file"  id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
                     <label htmlFor="contained-button-file">
-                        <Button component="span" className={classes.button}>
+                        <Button component="span"  className={classes.button}>
                             Train
                         </Button>
                     </label>
@@ -378,8 +392,10 @@ class OutlinedTextFields extends React.Component {
     }
 }
 
+
 OutlinedTextFields.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(OutlinedTextFields);
