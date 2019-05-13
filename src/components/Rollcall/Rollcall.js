@@ -97,7 +97,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   yes: {
-    marginLeft: '35%',
+    marginLeft: '36.5%',
     marginTop: theme.spacing.unit * 2,
     height:'50px',
     width:'140px',
