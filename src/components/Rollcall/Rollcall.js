@@ -115,10 +115,46 @@ class Rollcall extends React.Component {
     end: true,
     stu_id:'',
     stu_name:'',
-    stu_img:'',
+    stu_img:Rabbit,
     face_id:'',
   };
-  componentDidUpdate(){
+  // componentDidUpdate(){
+  //   axios.create({
+  //     baseURL: IP,
+  //     headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+  //   }).get("/real")
+  //     .then((response) => {
+  //         console.log("in real");
+  //         console.log(response.data);
+  //         this.setState({face_id : response.data});
+  //         console.log( "faceid is "+this.state.face_id);
+  //         const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+  //         table.select({
+  //           filterByFormula: fileterSentence,
+  //           view: "Grid view",
+  //         //maxRecords: 1
+  //         }).eachPage((records, fetchNextPage) => {
+  //           this.setState({records});
+
+  //           const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+  //           const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+  //           const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
+
+  //           this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
+      
+  //         }
+  //         );
+
+  //     })
+  //     .catch((error) =>
+  //         console.error(error)
+  //     );
+  // }
+
+  componentDidUpdate(prevProps){
+    if (this.state.face_id !== prevProps.face_id && this.state.end===false) {
+      console.log(this.state.face_id);
+      console.log(prevProps.face_id);
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -149,43 +185,8 @@ class Rollcall extends React.Component {
       .catch((error) =>
           console.error(error)
       );
+    }
   }
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.face_id !== this.state.face_id) {
-
-//         // var count = this.state.dataInit.length;
-//         // var temp = [];
-//         // for (var index = 0; index < count; index++) {
-//         //     if (nextProps.listNameFromParent === this.state.dataInit[index].area) {
-//         //         temp.push(this.state.dataInit[index]);
-//         //         this.setState({ data: temp });
-//         //     }
-//         // }
-//         this.setState({ face_id: nextProps.face_id });
-//     }
-// }
-
-  // componentDidMount() {
-  //   //console.log();
-  //   table.select({
-  //     filterByFormula: 'AND(student_id = 405401152)',
-  //     view: "Grid view",
-  //     maxRecords: 1
-  //     }).eachPage((records, fetchNextPage) => {
-  //       this.setState({records});
-
-  //       //const class_id = this.state.records.map((record, index) => record.fields['class_id']);
-  //       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-  //       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-  //       const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
-
-
-  //       this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
-  //       fetchNextPage(); 
-  //     }
-  //     );
-  // }
-
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -350,6 +351,7 @@ class Rollcall extends React.Component {
         </div>
 
         <div className={classes.info}>
+        
           <img className={classes.photo} src={this.state.stu_img} alt="location" />
           <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
           
