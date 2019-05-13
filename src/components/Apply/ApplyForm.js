@@ -7,53 +7,10 @@ import { Card, Button } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
-// var multer = require('multer');
-// var cloudinary = require('cloudinary').v2;
+
 // var Airtable = require('airtable');
-// const CLOUDINARY_URL="cloudinary://232947559366573:UqMIBbdRtXA5S8a1CJDUg9lWIjU@djxmkwdsx";
 
 const IP = "http://localhost:8080";
-
-// //trying upload image
-// var multerOptions = {
-//     storage: multer.memoryStorage(),
-//     fileFilter(req, file, next) {
-//       const isPhoto = file.mimetype.startsWith('image/');
-//       if(isPhoto) {
-//         next(null, true);
-//       } else {
-//         next({ message: "That filetype isn't allowed"}, false);
-//       }
-//     }
-// };
-
-// // Helper function
-// function uploadToCloudinary(image) {
-//     return new Promise((resolve, reject) => {
-//       cloudinary.uploader.upload_stream(
-//         {
-//           resource_type: 'image',
-//           width: 800,
-//           crop: 'scale',
-//           quality: 80
-//         },
-//         function(error, result){
-//           if(error) {
-//             reject(error);
-//           } else {
-//             resolve({"url":result.url});
-//           }
-//         }
-//       ).end(image.buffer);
-//     })
-// }
-
-// exports.upload = multer(multerOptions).fields([{name:'headshots', maxCount: 5}, {name:'bodyshots', maxCount: 5}]);
-  
-// const fileObjects = req.files;
-
-
-
 
 const styles = theme => ({
     container: {
@@ -205,9 +162,6 @@ class OutlinedTextFields extends React.Component {
         //         console.log(response);
         //     });
 
-
-
-
     };
 
     handleFocus = e => {
@@ -244,28 +198,6 @@ class OutlinedTextFields extends React.Component {
         for (var value of formdata.values()) {
             console.log(value);
         }
-
-        // //image upload test
-        // let counter = 0;
-        // for (const fieldname in fileObjects) {
-        //     const images = fileObjects[fieldname];
-        //     let promises = images.map((image) => {
-        //         return uploadToCloudinary(image);
-        //     });
-        //     Promise.all(promises)
-        //     .then(res => {
-        //     counter = counter + 1;
-        //     req.body[fieldname] = res;
-        //         if(counter == 2) {
-        //         next(); // This then calls the createModel after all promises of the for loop are resolved
-        //         }
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     })
-        // }
-        // console.log(req.body.headshots);
-
         //engine
         axios({
             method: 'post',
@@ -283,20 +215,17 @@ class OutlinedTextFields extends React.Component {
 
     };
 
-
-
-
     componentDidUpdate() {
 
         console.log(this.state);
     }
+
 
     render() {
         const { error1, error2, errorMessage1, errorMessage2 } = this.state
         const { classes } = this.props;
 
         return (
-
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div>
                     <Card className={classes.card} />
@@ -304,6 +233,8 @@ class OutlinedTextFields extends React.Component {
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
+
+
                     <div className={classes.train}>
                     <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
                     <label htmlFor="contained-button-file">
