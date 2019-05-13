@@ -26,7 +26,7 @@ const styles = theme => ({
     margin: '0 auto',
     marginTop: theme.spacing.unit * 5,
   },
-  bar:{
+  bar: {
     width: '80%',
     margin: '0 auto',
   }
@@ -103,7 +103,36 @@ const pieoptions2 = {
   legend: { textStyle: { color: 'white', fontSize: 16 } }
 };
 
+//平均成績分布（國、高中）
 
+const bardata = [
+  ['科目', '國中', '高中'],
+  ['國文', 57.4, 49.8],
+  ['英文', 76.4, 65.7],
+  ['數學', 35.4, 29.3],
+  ['自然', 39.6, 74.3],
+  ['社會', 87.6, 57.7],
+];
+
+const baroptions = {
+  title: '國、高中平均成績表',
+  chartArea: { width: '80%' },
+  backgroundColor: 'transparent',
+  titleTextStyle: { color: 'white', fontSize: 20, bold: false },
+  legend: { textStyle: { color: 'white', fontSize: 16 } },
+  colors: ['#0088FE', '#FFBB28'],
+  hAxis: {
+    title: '成績',
+    textStyle: { color: 'white' },
+    titleTextStyle: { color: 'white' },
+    minValue: 0,
+  },
+  vAxis: {
+    title: '科目',
+    textStyle: { color: 'white' },
+    titleTextStyle: { color: 'white' },
+  },
+};
 class Operation extends React.Component {
 
   render() {
@@ -147,26 +176,13 @@ class Operation extends React.Component {
             </div>
             <div className={classes.bar}>
               <Chart
-                width={'500px'}
-                height={'300px'}
-                chartType="Bar"
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ['Year', 'Sales', 'Expenses', 'Profit'],
-                  ['2014', 1000, 400, 200],
-                  ['2015', 1170, 460, 250],
-                  ['2016', 660, 1120, 300],
-                  ['2017', 1030, 540, 350],
-                ]}
-                options={{
-                  // Material design options
-                  chart: {
-                    title: '國、高中成績平均',
-                  },
-                  backgroundColor:'transparent'
-                }}
+                width={'920px'}
+                height={'400px'}
+                chartType="BarChart"
+                data={bardata}
+                options={baroptions}
                 // For tests
-                rootProps={{ 'data-testid': '2' }}
+                rootProps={{ 'data-testid': '1' }}
               />
             </div>
           </Card>
