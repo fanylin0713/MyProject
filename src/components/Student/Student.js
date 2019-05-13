@@ -25,6 +25,7 @@ const styles = theme => ({
         borderRadius: '2px',
         width: '70%',
         marginTop: theme.spacing.unit * 3,
+        marginBottom: theme.spacing.unit * 10,
         margin: '0 auto',
     },
     left: {
@@ -52,6 +53,7 @@ const styles = theme => ({
         width: '50%',
         float: 'right',
         marginTop: theme.spacing.unit * 10,
+        marginBottom: theme.spacing.unit * 5,
         marginLeft: theme.spacing.unit,
     },
     rightText: {
@@ -261,8 +263,6 @@ class Student extends React.Component {
                                     聯絡人電話：{this.state.stu_parent_phone}
                                 </Typography>
                             </div>
-
-                            <Button className={classes.button}>編輯</Button>
                         </div>
                     </Card>
                 </div>
