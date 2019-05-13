@@ -79,9 +79,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 5,
   },
   textField: {
-
+    float:'right',
   },
   addIcon: {
+    float:'right',
     color: '#FFBF5F',
     fontSize: '40pt',
     marginTop: theme.spacing.unit * 2,
@@ -96,7 +97,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   yes: {
-    marginLeft: '14%',
+    marginLeft: '35%',
     marginTop: theme.spacing.unit * 2,
     height:'50px',
     width:'140px',
@@ -361,7 +362,9 @@ class Rollcall extends React.Component {
             <div className={classes.info}>
               <img className={classes.photo} src={this.state.stu_img} alt="location" />
               <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
-
+              <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
+              <Button onClick={this.handleNo} className={classes.no}>NO</Button>
+              <Add className={classes.addIcon} onClick={this.handleClickAdd} />
               <TextField
                 id="filled-with-placeholder"
                 label="輸入學號"
@@ -369,9 +372,6 @@ class Rollcall extends React.Component {
                 margin="normal"
                 variant="filled"
               />
-              <Add className={classes.addIcon} onClick={this.handleClickAdd} />
-              <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
-              <Button onClick={this.handleNo} className={classes.no}>NO</Button>
             </div> :
             <div></div>
         }
