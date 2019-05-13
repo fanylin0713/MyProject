@@ -95,11 +95,11 @@ const styles = theme => ({
     margin: 'auto 0',
     marginLeft: theme.spacing.unit,
   },
-  yes:{
-    backgroundColor:'green',
+  yes: {
+    backgroundColor: 'green'
   },
-  no:{
-    backgroundColor:'red',
+  no: {
+    backgroundColor: 'red',
   }
 });
 
@@ -118,39 +118,6 @@ class Rollcall extends React.Component {
     stu_img:Rabbit,
     face_id:'',
   };
-  // componentDidUpdate(){
-  //   axios.create({
-  //     baseURL: IP,
-  //     headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-  //   }).get("/real")
-  //     .then((response) => {
-  //         console.log("in real");
-  //         console.log(response.data);
-  //         this.setState({face_id : response.data});
-  //         console.log( "faceid is "+this.state.face_id);
-  //         const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
-  //         table.select({
-  //           filterByFormula: fileterSentence,
-  //           view: "Grid view",
-  //         //maxRecords: 1
-  //         }).eachPage((records, fetchNextPage) => {
-  //           this.setState({records});
-
-  //           const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-  //           const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-  //           const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
-
-  //           this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
-      
-  //         }
-  //         );
-
-  //     })
-  //     .catch((error) =>
-  //         console.error(error)
-  //     );
-  // }
-
   componentDidUpdate(prevProps){
     if (this.state.face_id !== prevProps.face_id && this.state.end===false) {
       console.log(this.state.face_id);
@@ -160,30 +127,30 @@ class Rollcall extends React.Component {
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/real")
       .then((response) => {
-          console.log("in real");
-          console.log(response.data);
-          this.setState({face_id : response.data});
-          console.log( "faceid is "+this.state.face_id);
-          const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
-          table.select({
-            filterByFormula: fileterSentence,
-            view: "Grid view",
+        console.log("in real");
+        console.log(response.data);
+        this.setState({ face_id: response.data });
+        console.log("faceid is " + this.state.face_id);
+        const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+        table.select({
+          filterByFormula: fileterSentence,
+          view: "Grid view",
           //maxRecords: 1
-          }).eachPage((records, fetchNextPage) => {
-            this.setState({records});
+        }).eachPage((records, fetchNextPage) => {
+          this.setState({ records });
 
-            const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-            const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-            const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
+          const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+          const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+          const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
 
-            this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
-      
-          }
-          );
+          this.setState({ stu_id: student_id, stu_name: student_name, stu_img: student_img });
+
+        }
+        );
 
       })
       .catch((error) =>
-          console.error(error)
+        console.error(error)
       );
     }
   }
@@ -197,69 +164,69 @@ class Rollcall extends React.Component {
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/retrieveface")
       .then((response) => {
-          console.log("in response");
-          console.log('open :', response.status, '\nopen camera', new Date());
+        console.log("in response");
+        console.log('open :', response.status, '\nopen camera', new Date());
       })
       .catch((error) =>
-          console.error(error)
+        console.error(error)
       );
 
-      // axios.create({
-      //   baseURL: IP,
-      //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-      // }).get("/real")
-      //   .then((response) => {
-      //       console.log("in real");
-      //       console.log(response.data);
-      //       this.setState({face_id : response.data});
-      //       console.log( "faceid is "+this.state.face_id);
-      //       const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
-      //       table.select({
-      //         filterByFormula: fileterSentence,
-      //         view: "Grid view",
-      //       //maxRecords: 1
-      //       }).eachPage((records, fetchNextPage) => {
-      //         this.setState({records});
- 
-      //         const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-      //         const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-      //         const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
+    // axios.create({
+    //   baseURL: IP,
+    //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    // }).get("/real")
+    //   .then((response) => {
+    //       console.log("in real");
+    //       console.log(response.data);
+    //       this.setState({face_id : response.data});
+    //       console.log( "faceid is "+this.state.face_id);
+    //       const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+    //       table.select({
+    //         filterByFormula: fileterSentence,
+    //         view: "Grid view",
+    //       //maxRecords: 1
+    //       }).eachPage((records, fetchNextPage) => {
+    //         this.setState({records});
 
-      //         this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
-        
-      //       }
-      //       );
+    //         const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+    //         const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+    //         const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
 
-      //   })
-      //   .catch((error) =>
-      //       console.error(error)
-      //   );
-      
+    //         this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
 
-       
-        // console.log( "faceid is "+this.state.face_id);
-        // table.select({
-        // filterByFormula: 'AND(student_id = ' + this.state.face_id + ")",
-        // view: "Grid view",
-        // //maxRecords: 1
-        // }).eachPage((records, fetchNextPage) => {
-        //   this.setState({records});
-    
-            
-        //   const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-        //   const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-        //   const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
-    
-    
-        //   this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
-    
-        // }
-        // );
-      
-    
+    //       }
+    //       );
 
-    this.setState({ start: true})
-    this.setState({ end: false})
+    //   })
+    //   .catch((error) =>
+    //       console.error(error)
+    //   );
+
+
+
+    // console.log( "faceid is "+this.state.face_id);
+    // table.select({
+    // filterByFormula: 'AND(student_id = ' + this.state.face_id + ")",
+    // view: "Grid view",
+    // //maxRecords: 1
+    // }).eachPage((records, fetchNextPage) => {
+    //   this.setState({records});
+
+
+    //   const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+    //   const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+    //   const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
+
+
+    //   this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
+
+    // }
+    // );
+
+
+
+    this.setState({ start: true })
+    this.setState({ end: false })
   };
 
 
@@ -269,8 +236,8 @@ class Rollcall extends React.Component {
   }
 
   handleEnd = e => {
-    this.setState({ start: false})
-    this.setState({ end: true})
+    this.setState({ start: false })
+    this.setState({ end: true })
   };
 
 
@@ -279,16 +246,16 @@ class Rollcall extends React.Component {
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/real")
-    
+
       .then((response) => {
-          console.log("in real");
-          console.log(response.data);
-          this.setState({face_id : response.data});
+        console.log("in real");
+        console.log(response.data);
+        this.setState({ face_id: response.data });
       })
       .catch((error) =>
-          console.error(error)
+        console.error(error)
       );
- 
+
   };
 
   handleNo = e => {
@@ -347,14 +314,15 @@ class Rollcall extends React.Component {
 
           <Button disabled={this.state.start} className={classes.buttonStart} onClick={this.handleStart}>開始點名</Button>
           <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
-
         </div>
 
+        {
+          this.state.start === true ?
         <div className={classes.info}>
-        
-          <img className={classes.photo} src={this.state.stu_img} alt="location" />
+
+            <img className={classes.photo} src={this.state.stu_img} alt="location" />
           <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
-          
+
           <TextField
             id="filled-with-placeholder"
             label="輸入學號"
@@ -365,7 +333,10 @@ class Rollcall extends React.Component {
           <Add className={classes.addIcon} onClick={this.handleClickAdd} />
           <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
           <Button onClick={this.handleNo} className={classes.no}>NO</Button>
-        </div>
+        </div>:
+        <div></div>
+        } 
+
       </div>
     )
   }
