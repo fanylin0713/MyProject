@@ -88,7 +88,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   yes:{
-    backgroundColor:'green',
+    backgroundColor:'green'
   },
   no:{
     backgroundColor:'red',
