@@ -8,10 +8,9 @@ import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
 
+// var Airtable = require('airtable');
+
 const IP = "http://localhost:8080";
-
-
-
 
 const styles = theme => ({
     container: {
@@ -83,6 +82,7 @@ class OutlinedTextFields extends React.Component {
             error2: false,
             errorMessage1: '',
             errorMessage2: '',
+            imgUrl:'',
         };
     }
     //https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
@@ -110,7 +110,7 @@ class OutlinedTextFields extends React.Component {
         e.preventDefault()
         // changed here
         //let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{}}};
-        let data = { fields: { student_name: {}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {} } };
+        let data = { fields: { student_name: {}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {}, student_img:{} } };
         data.fields.student_name = this.state.student_name;
         data.fields.student_id = this.state.student_id;
         data.fields.student_grade = this.state.student_grade;
@@ -121,6 +121,8 @@ class OutlinedTextFields extends React.Component {
         data.fields.student_parent = this.state.student_parent;
         data.fields.student_parent_phone = this.state.student_parent_phone;
         data.fields.student_address = this.state.student_address;
+        data.fields.student_img = [{"url":this.state.imgUrl}];
+        
         console.log(data);
         if (this.state.student_name !== '' && this.state.student_id !== '') {
             fetchPostStudent(data);
@@ -163,9 +165,6 @@ class OutlinedTextFields extends React.Component {
         //         console.log(response);
         //     });
 
-
-
-
     };
 
     handleFocus = e => {
@@ -193,16 +192,31 @@ class OutlinedTextFields extends React.Component {
 
     handleUpload = (e) => {
         e.preventDefault();
-
+        ////
         let file = e.target.files[0];
+        const formimg = new FormData();
+        const id = '4a951eb39b49f41'; // 填入 App 的 Client ID
+        formimg.append('image', file); //required
+        formimg.append('title', 'test'); //optional
+        formimg.append('description', 'test'); //optional
+
+        axios({
+            method: 'POST',
+            url: 'https://api.imgur.com/3/image',
+            data: formimg,
+            headers: { 'Content-Type': 'multipart/form-data' , 'authorization': 'Client-ID ' + id },
+            mimeType: 'multipart/form-data'
+            }).then(res => {
+                console.log(res);
+                //console.log(res.data.data.link);
+                this.setState({imgUrl : res.data.data.link});
+            }).catch(e => {
+                console.log(e)
+            })
+        ////
         const formdata = new FormData();
         formdata.append('file', file);
         formdata.set('faceid', this.state.student_id);
-
-        for (var value of formdata.values()) {
-            console.log(value);
-        }
-
 
         axios({
             method: 'post',
@@ -220,20 +234,17 @@ class OutlinedTextFields extends React.Component {
 
     };
 
-
-
-
     componentDidUpdate() {
 
         console.log(this.state);
     }
+
 
     render() {
         const { error1, error2, errorMessage1, errorMessage2 } = this.state
         const { classes } = this.props;
 
         return (
-
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div>
                     <Card className={classes.card} />
@@ -241,10 +252,12 @@ class OutlinedTextFields extends React.Component {
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
+
+
                     <div className={classes.train}>
-                    <input type="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
+                    <input type="file" name="file" ref="file"  id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
                     <label htmlFor="contained-button-file">
-                        <Button component="span" className={classes.button}>
+                        <Button component="span"  className={classes.button}>
                             Train
                         </Button>
                     </label>
@@ -384,8 +397,10 @@ class OutlinedTextFields extends React.Component {
     }
 }
 
+
 OutlinedTextFields.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(OutlinedTextFields);
