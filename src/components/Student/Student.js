@@ -9,8 +9,14 @@ import Airtable from 'airtable';
 import amber from '@material-ui/core/colors/amber';
 
 const TABLE_NAME = 'Student';
+const SCORE_TABLE_NAME = 'TestScore';
+const ATTEND_TABLE_NAME = 'Attend';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
+const scoreTable = base(SCORE_TABLE_NAME);
+const attendTable = base(ATTEND_TABLE_NAME);
+
+
 
 const styles = theme => ({
     card: {
@@ -100,13 +106,14 @@ class Student extends React.Component {
         stu_email: '',
         stu_parent: '',
         stu_parent_phone: '',
+        fail:true,
+        homework:true,
     };
 
     //airtable
     componentDidMount() {
 
         const fileterSentence = 'AND(student_id = ' + this.props.location.aboutProps.name + ')'
-        console.log(fileterSentence);
         table.select({
             filterByFormula: fileterSentence,
             view: "Grid view",
@@ -131,8 +138,39 @@ class Student extends React.Component {
                 , stu_school: student_school, stu_grade: student_grade, stu_birth: student_birth, stu_address: student_address,
                 stu_email: student_email, stu_phone: student_phone, stu_parent: student_parent, stu_parent_phone: student_parent_phone
             });
-            //this.setState({ stu_id : student_id });
             fetchNextPage();
+        }
+        );
+
+        scoreTable.select({
+            filterByFormula: fileterSentence,
+            view: "Grid view"
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+            const test_score = this.state.records.map((record, index) => record.fields['test_score']);
+
+            for(var index = 0; index < test_score.length; index++) {
+                if(test_score[index] < 60){
+                    this.setState({fail : false});
+                }
+            }
+            // fetchNextPage();
+        }
+        );
+        attendTable.select({
+            filterByFormula: fileterSentence,
+            view: "Grid view"
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
+            const attend_hw = this.state.records.map((record, index) => record.fields['attend_hw']);
+
+            for(var index = 0; index < attend_hw.length; index++) {
+                console.log(attend_hw[index]);
+                if(attend_hw[index] != true){
+                    this.setState({homework : false});
+                }
+            }
+            // fetchNextPage();
         }
         );
     }
@@ -157,6 +195,7 @@ class Student extends React.Component {
                                 Train
                             </Button>
                             <SnackbarContent
+                                hidden={this.state.fail}
                                 className={classes.snack1}
                                 variant="error"
                                 message={
@@ -175,8 +214,10 @@ class Student extends React.Component {
                                         缺席警告
                                     </span>
                                 }
-                            />
+
+                                />
                             <SnackbarContent
+                                hidden={this.state.homework}
                                 className={classes.snack2}
                                 variant="warning"
                                 message={
