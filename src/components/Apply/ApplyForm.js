@@ -82,6 +82,7 @@ class OutlinedTextFields extends React.Component {
             error2: false,
             errorMessage1: '',
             errorMessage2: '',
+            imgUrl:'',
         };
     }
     //https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
@@ -109,7 +110,7 @@ class OutlinedTextFields extends React.Component {
         e.preventDefault()
         // changed here
         //let data = {fields:{student_name:{},student_id:{},student_grade:{},student_phone:{},student_birth:{}}};
-        let data = { fields: { student_name: {}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {} } };
+        let data = { fields: { student_name: {}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {}, student_img:{} } };
         data.fields.student_name = this.state.student_name;
         data.fields.student_id = this.state.student_id;
         data.fields.student_grade = this.state.student_grade;
@@ -120,6 +121,8 @@ class OutlinedTextFields extends React.Component {
         data.fields.student_parent = this.state.student_parent;
         data.fields.student_parent_phone = this.state.student_parent_phone;
         data.fields.student_address = this.state.student_address;
+        data.fields.student_img = [{"url":this.state.imgUrl}];
+        
         console.log(data);
         if (this.state.student_name !== '' && this.state.student_id !== '') {
             fetchPostStudent(data);
@@ -204,7 +207,9 @@ class OutlinedTextFields extends React.Component {
             headers: { 'Content-Type': 'multipart/form-data' , 'authorization': 'Client-ID ' + id },
             mimeType: 'multipart/form-data'
             }).then(res => {
-                console.log(res)
+                console.log(res);
+                //console.log(res.data.data.link);
+                this.setState({imgUrl : res.data.data.link});
             }).catch(e => {
                 console.log(e)
             })

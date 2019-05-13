@@ -171,7 +171,6 @@ class Rollcall extends React.Component {
           console.error(error)
       );
 
-
       axios.create({
         baseURL: IP,
         headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -188,13 +187,11 @@ class Rollcall extends React.Component {
             //maxRecords: 1
             }).eachPage((records, fetchNextPage) => {
               this.setState({records});
-        
-                
+ 
               const student_name = this.state.records.map((record, index) => record.fields['student_name']);
               const student_id = this.state.records.map((record, index) => record.fields['student_id']);
               const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
-        
-        
+
               this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
         
             }
@@ -204,6 +201,7 @@ class Rollcall extends React.Component {
         .catch((error) =>
             console.error(error)
         );
+      
 
        
         // console.log( "faceid is "+this.state.face_id);
@@ -230,6 +228,7 @@ class Rollcall extends React.Component {
     this.setState({ start: true})
     this.setState({ end: false})
   };
+  
 
 
 
