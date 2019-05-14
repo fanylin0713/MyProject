@@ -193,35 +193,35 @@ class SearchAppBar extends React.Component {
     };
 
     componentDidUpdate() {
-        axios.create({
-          baseURL: IP,
-          headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-        }).get("/real")
-          .then((response) => {
-            console.log("in real");
-            console.log(response.data);
-            this.setState({ face_id: response.data });
-            console.log("faceid is " + this.state.face_id);
-            const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
-            table.select({
-              filterByFormula: fileterSentence,
-              view: "Grid view",
-              //maxRecords: 1
-            }).eachPage((records, fetchNextPage) => {
-              this.setState({ records });
+        // axios.create({
+        //   baseURL: IP,
+        //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        // }).get("/real")
+        //   .then((response) => {
+        //     console.log("in real");
+        //     console.log(response.data);
+        //     this.setState({ face_id: response.data });
+        //     console.log("faceid is " + this.state.face_id);
+        //     const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+        //     table.select({
+        //       filterByFormula: fileterSentence,
+        //       view: "Grid view",
+        //       //maxRecords: 1
+        //     }).eachPage((records, fetchNextPage) => {
+        //       this.setState({ records });
     
-              const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-              const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+        //       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+        //       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
     
-              this.setState({ stu_id: student_id, stu_name: student_name});
+        //       this.setState({ stu_id: student_id, stu_name: student_name});
     
-            }
-            );
+        //     }
+        //     );
     
-          })
-          .catch((error) =>
-            console.error(error)
-          );
+        //   })
+        //   .catch((error) =>
+        //     console.error(error)
+        //   );
       }
 
     componentDidMount() {
