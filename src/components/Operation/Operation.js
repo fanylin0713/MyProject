@@ -76,7 +76,7 @@ const piedata1 = [
 ];
 
 const pieoptions1 = {
-  title: "國中到課率：",
+  title: "本學期國中到課率：",
   is3D: true,
   backgroundColor: 'transparent',
   display: 'flex',
@@ -94,7 +94,7 @@ const piedata2 = [
 ];
 
 const pieoptions2 = {
-  title: "高中到課率：",
+  title: "本學期高中到課率：",
   is3D: true,
   backgroundColor: 'transparent',
   colors: ['#0088FE', '#FFBB28'],
