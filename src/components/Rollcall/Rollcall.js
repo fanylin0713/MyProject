@@ -115,7 +115,7 @@ class Rollcall extends React.Component {
     end: true,
     stu_id:'',
     stu_name:'',
-    stu_img:Rabbit,
+    stu_img:'',
     face_id:'',
   };
   componentDidUpdate(prevProps){
@@ -236,6 +236,16 @@ class Rollcall extends React.Component {
   }
 
   handleEnd = e => {
+    axios.create({
+      baseURL: IP,
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    }).get("/terminate")
+    .then((response) => {
+      console.log("in terminate");
+  })
+  .catch((error) =>
+      console.error(error)
+  );
     this.setState({ start: false })
     this.setState({ end: true })
   };
