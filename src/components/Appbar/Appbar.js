@@ -68,7 +68,8 @@ const styles1 = theme => ({
 function MySnackbarContent(props) {
     const { classes, className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
-
+    const {stu_id}=props;
+    console.log(props);
     return (
         <SnackbarContent
             className={classNames(classes[variant], className)}
@@ -85,7 +86,9 @@ function MySnackbarContent(props) {
                     color="inherit"
                     onClick={onClose}
                 >
-                    <NavLink className={classes.check} activeClassName="active" to="/student">
+                    <NavLink className={classes.check}style={{ textDecoration: 'none' }} 
+                    activeClassName="active" to={{pathname:'/student', 
+                    aboutProps:{name:stu_id}}}>
                         <CheckIcon />
                     </NavLink>
                 </IconButton>,
@@ -192,16 +195,19 @@ class SearchAppBar extends React.Component {
         face_id: '',
     };
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps){
+        if (this.state.face_id !== prevProps.face_id && this.state.openSnack===true) {
+          console.log(this.state.face_id);
+          console.log(prevProps.face_id);
         axios.create({
           baseURL: IP,
           headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         }).get("/real")
           .then((response) => {
-            console.log("in real");
-            console.log(response.data);
+            //console.log("in real");
+            //console.log(response.data);
             this.setState({ face_id: response.data });
-            console.log("faceid is " + this.state.face_id);
+            //console.log("faceid is " + this.state.face_id);
             const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
             table.select({
               filterByFormula: fileterSentence,
@@ -212,8 +218,9 @@ class SearchAppBar extends React.Component {
     
               const student_name = this.state.records.map((record, index) => record.fields['student_name']);
               const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+              const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
     
-              this.setState({ stu_id: student_id, stu_name: student_name});
+              this.setState({ stu_id: student_id, stu_name: student_name, stu_img: student_img });
     
             }
             );
@@ -222,6 +229,7 @@ class SearchAppBar extends React.Component {
           .catch((error) =>
             console.error(error)
           );
+        }
       }
 
     componentDidMount() {
@@ -265,6 +273,8 @@ class SearchAppBar extends React.Component {
     handleClose = () => {
         this.setState({ open: false });
     };
+
+
 
     //snack
     handleClickSnack = () => {
@@ -312,10 +322,11 @@ class SearchAppBar extends React.Component {
         this.setState({ openSnack: true });
     };
 
-    handleCloseSnack = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+    handleCloseSnack = () => {
+        axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          }).get("/terminate")
         this.setState({ openSnack: false });
     };
 
@@ -405,13 +416,15 @@ class SearchAppBar extends React.Component {
                                 horizontal: 'center',
                             }}
                             open={this.state.openSnack}
-                            autoHideDuration={2000}
+                            // autoHideDuration={2000}
                             onClose={this.handleCloseSnack}
                         >
                             <MySnackbarContentWrapper
+
                                 onClose={this.handleCloseSnack}
                                 variant="warning"
                                 message={"學生："+this.state.stu_name+" 學號："+this.state.stu_id}
+                                {...this.state}
                             />
                         </Snackbar>
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
