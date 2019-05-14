@@ -167,9 +167,6 @@ class Progresspage extends Component {
                 <Button className={classes.editButton} onClick={this.handleClick}>
                     儲存
                 </Button>
-                <Button className={classes.editButton}>
-                    編輯
-                </Button>
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead >
