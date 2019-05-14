@@ -22,10 +22,16 @@ import axios from 'axios';
 import Airtable from 'airtable';
 
 const TABLE_NAME = 'Student';
+const CLASS_TABLE_NAME = 'ClassDay';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
+const classTable = base(CLASS_TABLE_NAME);
 
 const IP = "http://localhost:8080";
+
+function createData(classid, grade) {
+  return { id: classid, grade };
+}
 
 const styles = theme => ({
   selectBar: {
@@ -126,17 +132,23 @@ class Rollcall extends React.Component {
     stu_name: '',
     stu_img: NoFace,
     face_id: '',
+    classDataInit:[],
+    classData:[],
   };
-  componentDidUpdate() {
+
+  componentDidUpdate(prevProps){
+    if (this.state.face_id !== prevProps.face_id && this.state.end===false) {
+      console.log(this.state.face_id);
+      console.log(prevProps.face_id);
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/real")
       .then((response) => {
-        console.log("in real");
-        console.log(response.data);
+        //console.log("in real");
+        //console.log(response.data);
         this.setState({ face_id: response.data });
-        console.log("faceid is " + this.state.face_id);
+        //console.log("faceid is " + this.state.face_id);
         const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
         table.select({
           filterByFormula: fileterSentence,
@@ -158,46 +170,51 @@ class Rollcall extends React.Component {
       .catch((error) =>
         console.error(error)
       );
+    }
   }
 
-  //   componentWillReceiveProps(nextProps) {
-  //     if (nextProps.face_id !== this.state.face_id) {
+  componentDidMount(){
 
-  //         // var count = this.state.dataInit.length;
-  //         // var temp = [];
-  //         // for (var index = 0; index < count; index++) {
-  //         //     if (nextProps.listNameFromParent === this.state.dataInit[index].area) {
-  //         //         temp.push(this.state.dataInit[index]);
-  //         //         this.setState({ data: temp });
-  //         //     }
-  //         // }
-  //         this.setState({ face_id: nextProps.face_id });
-  //     }
-  // }
+    classTable.select({
+      //filterByFormula: fileterSentence,
+      view: "Grid view",
+      //maxRecords: 1
+    }).eachPage((records, fetchNextPage) => {
+      this.setState({ records });
 
-  // componentDidMount() {
-  //   //console.log();
-  //   table.select({
-  //     filterByFormula: 'AND(student_id = 405401152)',
-  //     view: "Grid view",
-  //     maxRecords: 1
-  //     }).eachPage((records, fetchNextPage) => {
-  //       this.setState({records});
-
-  //       //const class_id = this.state.records.map((record, index) => record.fields['class_id']);
-  //       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-  //       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-  //       const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
-
-
-  //       this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
-  //       fetchNextPage(); 
-  //     }
-  //     );
-  // }
+      const class_id = this.state.records.map((record, index) => record.fields['class_id']);
+      const class_grade_id = this.state.records.map((record, index) => record.fields['class_grade_id']);
+      var temp=[];
+      for (var index = 0; index < class_id.length; index++) {
+        temp.push(createData(class_id[index], class_grade_id[index]));
+      }
+      this.setState({ classDataInit: temp });
+      this.setState({ classData: temp });
+    }
+    );
+  }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
+    var temp=[];
+    if (event.target.value === "國中") {
+      for (var index = 0; index < this.state.classDataInit.length; index++) {
+        if(this.state.classDataInit[index].grade == "middle"){
+          temp.push(this.state.classDataInit[index]);
+        }
+      }
+      this.setState({ classData : temp });
+        
+    }else if(event.target.value === "高中"){
+      for (var index = 0; index < this.state.classDataInit.length; index++) {
+        if(this.state.classDataInit[index].grade == "high"){
+          temp.push(this.state.classDataInit[index]);
+        }
+      }
+      this.setState({ classData : temp });
+    }
+
+    
   };
 
   handleStart = e => {
@@ -258,15 +275,14 @@ class Rollcall extends React.Component {
   handleEnd = e => {
     axios.create({
       baseURL: IP,
-      headers: { 'content-type': 'application/json'}
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/terminate")
-      .then((response) => {
-        console.log("in terminate");
-      })
-      .catch((error) =>
-        console.error(error)
-      );
-
+    .then((response) => {
+      console.log("in terminate");
+  })
+  .catch((error) =>
+      console.error(error)
+  );
 
     this.setState({ start: false })
     this.setState({ end: true })
@@ -338,9 +354,14 @@ class Rollcall extends React.Component {
               <MenuItem value="">
                 <em>班級</em>
               </MenuItem>
-              <MenuItem value={10}>英文Ａ班</MenuItem>
+              {(this.state.classData).map((n, index) => {
+                return (
+                  <MenuItem key={n.id} value={n.id}>{n.id}</MenuItem>
+                );
+              })}
+              {/* <MenuItem value={10}>英文Ａ班</MenuItem>
               <MenuItem value={20}>數學Ａ班</MenuItem>
-              <MenuItem value={30}>國文Ｂ班</MenuItem>
+              <MenuItem value={30}>國文Ｂ班</MenuItem> */}
             </Select>
           </FormControl>
 
@@ -367,6 +388,7 @@ class Rollcall extends React.Component {
             </div> :
             <div></div>
         }
+
 
       </div>
     )
