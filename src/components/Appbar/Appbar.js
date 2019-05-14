@@ -195,6 +195,7 @@ class SearchAppBar extends React.Component {
         face_id: '',
     };
 
+
     componentDidUpdate(prevProps){
         if (this.state.face_id !== prevProps.face_id && this.state.openSnack===true) {
           console.log(this.state.face_id);
@@ -218,14 +219,13 @@ class SearchAppBar extends React.Component {
     
               const student_name = this.state.records.map((record, index) => record.fields['student_name']);
               const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-              const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
     
-              this.setState({ stu_id: student_id, stu_name: student_name, stu_img: student_img });
+              this.setState({ stu_id: student_id, stu_name: student_name });
+
     
-            }
-            );
-    
+
           })
+        })
           .catch((error) =>
             console.error(error)
           );
