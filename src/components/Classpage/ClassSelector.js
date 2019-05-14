@@ -181,7 +181,7 @@ class SimpleSelect extends React.Component {
                         </MenuItem>
                         {(this.state.classData).map((n, index) => {
                                 return (
-                                    <MenuItem key={n.id}value={n}>{n}</MenuItem>
+                                    <MenuItem key={n}value={n}>{n}</MenuItem>
                                 );
                             })}
                     </Select>
