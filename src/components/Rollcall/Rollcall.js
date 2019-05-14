@@ -17,7 +17,7 @@ import { Button } from '@material-ui/core';
 
 import Add from '@material-ui/icons/AddBoxOutlined';
 
-import Rabbit from './rabbit.jpg';
+import NoFace from './noFace.jpg';
 import axios from 'axios';
 import Airtable from 'airtable';
 
@@ -79,9 +79,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 5,
   },
   textField: {
-
+    float:'right',
   },
   addIcon: {
+    float:'right',
     color: '#FFBF5F',
     fontSize: '40pt',
     marginTop: theme.spacing.unit * 2,
@@ -96,9 +97,17 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   yes: {
+    marginLeft: '36.5%',
+    marginTop: theme.spacing.unit * 2,
+    height:'50px',
+    width:'140px',
     backgroundColor: 'green'
   },
   no: {
+    marginLeft: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
+    height:'50px',
+    width:'140px',
     backgroundColor: 'red',
   }
 });
@@ -113,10 +122,10 @@ class Rollcall extends React.Component {
     nowClass: '',
     start: false,
     end: true,
-    stu_id:'',
-    stu_name:'',
-    stu_img:'',
-    face_id:'',
+    stu_id: '',
+    stu_name: '',
+    stu_img: NoFace,
+    face_id: '',
   };
   componentDidUpdate(prevProps){
     if (this.state.face_id !== prevProps.face_id && this.state.end===false) {
@@ -154,6 +163,7 @@ class Rollcall extends React.Component {
       );
     }
   }
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -171,58 +181,36 @@ class Rollcall extends React.Component {
         console.error(error)
       );
 
-    // axios.create({
-    //   baseURL: IP,
-    //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    // }).get("/real")
-    //   .then((response) => {
-    //       console.log("in real");
-    //       console.log(response.data);
-    //       this.setState({face_id : response.data});
-    //       console.log( "faceid is "+this.state.face_id);
-    //       const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
-    //       table.select({
-    //         filterByFormula: fileterSentence,
-    //         view: "Grid view",
-    //       //maxRecords: 1
-    //       }).eachPage((records, fetchNextPage) => {
-    //         this.setState({records});
+    axios.create({
+      baseURL: IP,
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    }).get("/real")
+      .then((response) => {
+        console.log("in real");
+        console.log(response.data);
+        this.setState({ face_id: response.data });
+        console.log("faceid is " + this.state.face_id);
+        const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+        table.select({
+          filterByFormula: fileterSentence,
+          view: "Grid view",
+          //maxRecords: 1
+        }).eachPage((records, fetchNextPage) => {
+          this.setState({ records });
 
-    //         const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-    //         const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-    //         const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
+          const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+          const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+          const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
 
-    //         this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
+          this.setState({ stu_id: student_id, stu_name: student_name, stu_img: student_img });
 
-    //       }
-    //       );
+        }
+        );
 
-    //   })
-    //   .catch((error) =>
-    //       console.error(error)
-    //   );
-
-
-
-    // console.log( "faceid is "+this.state.face_id);
-    // table.select({
-    // filterByFormula: 'AND(student_id = ' + this.state.face_id + ")",
-    // view: "Grid view",
-    // //maxRecords: 1
-    // }).eachPage((records, fetchNextPage) => {
-    //   this.setState({records});
-
-
-    //   const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-    //   const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-    //   const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url); 
-
-
-    //   this.setState({ stu_id : student_id, stu_name : student_name, stu_img : student_img });
-
-    // }
-    // );
-
+      })
+      .catch((error) =>
+        console.error(error)
+      );
 
 
     this.setState({ start: true })
@@ -246,6 +234,7 @@ class Rollcall extends React.Component {
   .catch((error) =>
       console.error(error)
   );
+
     this.setState({ start: false })
     this.setState({ end: true })
   };
@@ -326,26 +315,26 @@ class Rollcall extends React.Component {
           <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
         </div>
 
+
         {
           this.state.start === true ?
-        <div className={classes.info}>
+            <div className={classes.info}>
+              <img className={classes.photo} src={this.state.stu_img} alt="location" />
+              <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
+              <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
+              <Button onClick={this.handleNo} className={classes.no}>NO</Button>
+              <Add className={classes.addIcon} onClick={this.handleClickAdd} />
+              <TextField
+                id="filled-with-placeholder"
+                label="輸入學號"
+                className={classes.textField}
+                margin="normal"
+                variant="filled"
+              />
+            </div> :
+            <div></div>
+        }
 
-            <img className={classes.photo} src={this.state.stu_img} alt="location" />
-          <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
-
-          <TextField
-            id="filled-with-placeholder"
-            label="輸入學號"
-            className={classes.textField}
-            margin="normal"
-            variant="filled"
-          />
-          <Add className={classes.addIcon} onClick={this.handleClickAdd} />
-          <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
-          <Button onClick={this.handleNo} className={classes.no}>NO</Button>
-        </div>:
-        <div></div>
-        } 
 
       </div>
     )
