@@ -22,10 +22,16 @@ import axios from 'axios';
 import Airtable from 'airtable';
 
 const TABLE_NAME = 'Student';
+const CLASS_TABLE_NAME = 'ClassDay';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
+const classTable = base(CLASS_TABLE_NAME);
 
 const IP = "http://localhost:8080";
+
+function createData(classid, grade) {
+  return { id: classid, grade };
+}
 
 const styles = theme => ({
   selectBar: {
@@ -126,7 +132,10 @@ class Rollcall extends React.Component {
     stu_name: '',
     stu_img: NoFace,
     face_id: '',
+    classDataInit:[],
+    classData:[],
   };
+
   componentDidUpdate(prevProps){
     if (this.state.face_id !== prevProps.face_id && this.state.end===false) {
       console.log(this.state.face_id);
@@ -136,10 +145,10 @@ class Rollcall extends React.Component {
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/real")
       .then((response) => {
-        console.log("in real");
-        console.log(response.data);
+        //console.log("in real");
+        //console.log(response.data);
         this.setState({ face_id: response.data });
-        console.log("faceid is " + this.state.face_id);
+        //console.log("faceid is " + this.state.face_id);
         const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
         table.select({
           filterByFormula: fileterSentence,
@@ -164,8 +173,48 @@ class Rollcall extends React.Component {
     }
   }
 
+  componentDidMount(){
+
+    classTable.select({
+      //filterByFormula: fileterSentence,
+      view: "Grid view",
+      //maxRecords: 1
+    }).eachPage((records, fetchNextPage) => {
+      this.setState({ records });
+
+      const class_id = this.state.records.map((record, index) => record.fields['class_id']);
+      const class_grade_id = this.state.records.map((record, index) => record.fields['class_grade_id']);
+      var temp=[];
+      for (var index = 0; index < class_id.length; index++) {
+        temp.push(createData(class_id[index], class_grade_id[index]));
+      }
+      this.setState({ classDataInit: temp });
+      this.setState({ classData: temp });
+    }
+    );
+  }
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
+    var temp=[];
+    if (event.target.value === "國中") {
+      for (var index = 0; index < this.state.classDataInit.length; index++) {
+        if(this.state.classDataInit[index].grade == "middle"){
+          temp.push(this.state.classDataInit[index]);
+        }
+      }
+      this.setState({ classData : temp });
+        
+    }else if(event.target.value === "高中"){
+      for (var index = 0; index < this.state.classDataInit.length; index++) {
+        if(this.state.classDataInit[index].grade == "high"){
+          temp.push(this.state.classDataInit[index]);
+        }
+      }
+      this.setState({ classData : temp });
+    }
+
+    
   };
 
   handleStart = e => {
@@ -305,9 +354,14 @@ class Rollcall extends React.Component {
               <MenuItem value="">
                 <em>班級</em>
               </MenuItem>
-              <MenuItem value={10}>英文Ａ班</MenuItem>
+              {(this.state.classData).map((n, index) => {
+                return (
+                  <MenuItem key={n.id} value={n.id}>{n.id}</MenuItem>
+                );
+              })}
+              {/* <MenuItem value={10}>英文Ａ班</MenuItem>
               <MenuItem value={20}>數學Ａ班</MenuItem>
-              <MenuItem value={30}>國文Ｂ班</MenuItem>
+              <MenuItem value={30}>國文Ｂ班</MenuItem> */}
             </Select>
           </FormControl>
 
