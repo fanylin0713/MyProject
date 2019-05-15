@@ -28,6 +28,8 @@ import CheckIcon from '@material-ui/icons/Check';
 import axios from 'axios';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const TABLE_NAME = 'Student';
+const table = base(TABLE_NAME);
 const IP = "http://localhost:8080";
 
 // this.Axios = axios.create({
@@ -66,7 +68,8 @@ const styles1 = theme => ({
 function MySnackbarContent(props) {
     const { classes, className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
-
+    const {stu_id}=props;
+    console.log(props);
     return (
         <SnackbarContent
             className={classNames(classes[variant], className)}
@@ -83,7 +86,9 @@ function MySnackbarContent(props) {
                     color="inherit"
                     onClick={onClose}
                 >
-                    <NavLink className={classes.check} activeClassName="active" to="/student">
+                    <NavLink className={classes.check}style={{ textDecoration: 'none' }} 
+                    activeClassName="active" to={{pathname:'/student', 
+                    aboutProps:{name:stu_id}}}>
                         <CheckIcon />
                     </NavLink>
                 </IconButton>,
@@ -184,8 +189,49 @@ class SearchAppBar extends React.Component {
         openSnack: false,
         classData: [],
         data: '',
-        finalValue: ''
+        finalValue: '',
+        stu_id: '',
+        stu_name: '',
+        face_id: '',
     };
+
+
+    componentDidUpdate(prevProps){
+        if (this.state.face_id !== prevProps.face_id && this.state.openSnack===true) {
+          console.log(this.state.face_id);
+          console.log(prevProps.face_id);
+        axios.create({
+          baseURL: IP,
+          headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        }).get("/real")
+          .then((response) => {
+            var face_id = response.data.split("!")[0];
+            //console.log("in real");
+            //console.log(response.data);
+            this.setState({ face_id: face_id });
+            //console.log("faceid is " + this.state.face_id);
+            const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+            table.select({
+              filterByFormula: fileterSentence,
+              view: "Grid view",
+              //maxRecords: 1
+            }).eachPage((records, fetchNextPage) => {
+              this.setState({ records });
+    
+              const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+              const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+    
+              this.setState({ stu_id: student_id, stu_name: student_name });
+
+    
+
+          })
+        })
+          .catch((error) =>
+            console.error(error)
+          );
+        }
+      }
 
     componentDidMount() {
         base('ClassRoom').select({ view: 'Grid view' })
@@ -214,19 +260,6 @@ class SearchAppBar extends React.Component {
                 }
             );
 
-
-        // axios.create({
-        //         baseURL: IP,
-        //         headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}
-        //       }).get("/retrieveface")
-        // .then((response)=>{
-        //     console.log("in response");
-        //     console.log('open :',response.status,'\nopen camera',new Date());
-        // })
-        // .catch((error)=>
-        //     console.error(error)
-        // );
-
     }
 
     //select
@@ -242,15 +275,59 @@ class SearchAppBar extends React.Component {
         this.setState({ open: false });
     };
 
+
+
     //snack
     handleClickSnack = () => {
+        axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          }).get("/retrieveface")
+            .then((response) => {
+              console.log("in response");
+              console.log('open :', response.status, '\nopen camera', new Date());
+            })
+            .catch((error) =>
+              console.error(error)
+            );
+      
+          axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          }).get("/real")
+            .then((response) => {
+              console.log("in real");
+              console.log(response.data);
+              this.setState({ face_id: response.data });
+              console.log("faceid is " + this.state.face_id);
+              const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+              table.select({
+                filterByFormula: fileterSentence,
+                view: "Grid view",
+                //maxRecords: 1
+              }).eachPage((records, fetchNextPage) => {
+                this.setState({ records });
+      
+                const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+                const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+      
+                this.setState({ stu_id: student_id, stu_name: student_name});
+      
+              }
+              );
+      
+            })
+            .catch((error) =>
+              console.error(error)
+            );
         this.setState({ openSnack: true });
     };
 
-    handleCloseSnack = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
+    handleCloseSnack = () => {
+        axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+          }).get("/terminate")
         this.setState({ openSnack: false });
     };
 
@@ -259,6 +336,7 @@ class SearchAppBar extends React.Component {
         this.props.callbackFromParent(this.state.data);
         this.setState({ open: false });
     };
+
     handleClick = () => {
         axios.create({
             baseURL: IP,
@@ -339,13 +417,15 @@ class SearchAppBar extends React.Component {
                                 horizontal: 'center',
                             }}
                             open={this.state.openSnack}
-                            autoHideDuration={2000}
+                            // autoHideDuration={2000}
                             onClose={this.handleCloseSnack}
                         >
                             <MySnackbarContentWrapper
+
                                 onClose={this.handleCloseSnack}
                                 variant="warning"
-                                message="學生：林奕蓓 學號：405401360 "
+                                message={"學生："+this.state.stu_name+" 學號："+this.state.stu_id}
+                                {...this.state}
                             />
                         </Snackbar>
                         <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to="/login">
