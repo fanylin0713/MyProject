@@ -15,8 +15,10 @@ import XLSX from 'xlsx';
 import Airtable from 'airtable';
 
 const TABLE_NAME = 'TestScore';
+const STU_TABLE_NAME = 'Student';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
+const studentTable = base(STU_TABLE_NAME);
 
 const styles = theme => ({
     card: {
@@ -59,6 +61,11 @@ const styles = theme => ({
     content: {
         fontSize: '14pt',
     },
+    editButton: {
+        border: '#FFBF5F 1px solid',
+        float: 'right',
+        marginLeft: theme.spacing.unit * 2,
+    }
 });
 
 let id = 0;
@@ -89,28 +96,47 @@ class Grade extends Component {
 
     //airtable
     componentDidMount() {
-        //const fileterSentence = 'AND(class_id = ' + this.props.class_id + ')'
+        // const fileterSentence = 'AND(test_date="' + this.props.location.aboutProps.name.split(" ")[0] + 
+        // '"),AND(test_name="'+ this.props.location.aboutProps.name.split(" ")[1] + '")';
+        const fileterSentence = 'AND(test_name="'+ this.props.location.aboutProps.name.split(" ")[1] + '")'
+
         table.select({
-            //filterByFormula: fileterSentence,
+            filterByFormula: fileterSentence,
             view: "Grid view",
             //maxRecords: 1
         }).eachPage((records, fetchNextPage) => {
             this.setState({ records });
-
             //const class_id = this.state.records.map((record, index) => record.fields['class_id']);
             const student_id = this.state.records.map((record, index) => record.fields['student_id']);
             const test_score = this.state.records.map((record, index) => record.fields['test_score']);
             const test_rank = this.state.records.map((record, index) => record.fields['test_rank']);
 
-             var temp = [];
-            for(var index = 0; index < student_id.length; index++) {
-                temp.push(createData("namee",student_id[index],test_score[index],"rank"));  
-            }
+            //for stu name
+            var temp = [];
+            for (var index = 0; index < student_id.length; index++) {
+                const student_idR = student_id[index];
+                const test_scoreR = test_score[index];
+                const test_rankR = test_rank[index];
 
+                studentTable.select({
+                    filterByFormula: 'AND(student_id="'+ student_idR + '")',
+                    view: "Grid view",
+                    //maxRecords: 1
+                }).eachPage((records, fetchNextPage) => {
+                    this.setState({ records });
+                    const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+                    temp.push(createData(student_name[0], student_idR, test_scoreR, test_rankR));  
+                }
+                );
+            }
+            // var temp = [];
+            // for(var index = 0; index < student_id.length; index++) {
+            //     temp.push(createData("namee",student_id[index],test_score[index],"rank"));  
+            // }
             this.setState({ rows : temp });
-            this.setState({ rowsInit : temp });
             console.log(this.state.rows);
-            fetchNextPage();
+            this.setState({ rowsInit : temp });
+           // fetchNextPage();
         }
         );
     }
@@ -173,6 +199,9 @@ class Grade extends Component {
                         <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
                         <span>成績上傳</span>
                     </Button>
+                    <Button className={classes.editButton} onClick={this.handleClick}>
+                        儲存
+                    </Button>
                     <Paper className={classes.root}>
                         <Table className={classes.table}>
                             <TableHead >
@@ -192,14 +221,6 @@ class Grade extends Component {
                                         <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
                                     </TableRow>
                                 ))}
-                                {/* {rows.map(row => (
-                                    <TableRow hover key={row.id}>
-                                        <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.name}</TableCell>
-                                        <TableCell className={classes.content}>{row.id}</TableCell>
-                                        <TableCell className={classes.content}>{row.grade}</TableCell>
-                                        <TableCell className={classes.content}>{row.rank}</TableCell>
-                                    </TableRow>
-                                ))} */}
                             </TableBody>
                         </Table>
                     </Paper>
