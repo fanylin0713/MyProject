@@ -4,7 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Myclass from './ApplyFormClass';
 import { Card, Button } from '@material-ui/core';
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
+import noTrain from './noTrain.jpg';
 import { fetchPostStudent, fetchPostClassMember } from '../../api';
 import axios from 'axios';
 
@@ -13,13 +19,18 @@ import axios from 'axios';
 const IP = "http://localhost:8080";
 
 const styles = theme => ({
+    root:{
+        margin:'auto',
+        width:'40%',
+    },
     container: {
         color: 'white',
     },
-    card: {
+    photo: {
         width: '200px',
-        height: '260px',
-        margin: '40px auto'
+        height: '200px',
+        marginLeft: '38%',
+        marginTop: theme.spacing.unit * 10,
     },
     input: {
         outline: 'none',
@@ -68,6 +79,7 @@ class OutlinedTextFields extends React.Component {
         super(props);
         this.state = {
             class_id: null,
+            stu_img: noTrain,
             student_name: '',
             student_id: '',
             student_grade: '',
@@ -83,6 +95,7 @@ class OutlinedTextFields extends React.Component {
             errorMessage1: '',
             errorMessage2: '',
             imgUrl:'',
+            open: false,
         };
     }
     //https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
@@ -140,10 +153,9 @@ class OutlinedTextFields extends React.Component {
                 this.setState({ error2: true, errorMessage2: '*此欄位必填' })
             }
         }
-
-
-
     };
+
+
 
     handleFocus = e => {
         this.setState({
@@ -208,14 +220,19 @@ class OutlinedTextFields extends React.Component {
             .catch((error) =>
                 console.error(error)
             );
+    };
 
+    handleClickOpen = () =>{
+        this.setState({ open: true });
+    };
 
+    handleClose = () => {
+        this.setState({ open: false });
     };
 
     componentDidUpdate() {
-
         console.log(this.state);
-    }
+    };
 
 
     render() {
@@ -224,14 +241,12 @@ class OutlinedTextFields extends React.Component {
 
         return (
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
-                <div>
-                    <Card className={classes.card} />
+                <div style={{width:'100%'}}> 
+                <img className={classes.photo} src={this.state.stu_img} alt="location" />
                     <Button className={classes.button} onClick={this.handleClick}>
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
-
-
                     <div className={classes.train}>
                     <input type="file" name="file" ref="file"  id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
                     <label htmlFor="contained-button-file">
@@ -240,9 +255,6 @@ class OutlinedTextFields extends React.Component {
                         </Button>
                     </label>
                     </div>
-                    {/* <Button className={classes.button}>
-                        Train
-                    </Button> */}
                 </div>
                 <div className={classes.form}>
                     <div>
@@ -362,9 +374,18 @@ class OutlinedTextFields extends React.Component {
                         />
                     </div>
                 </div>
-                <Button type="submit" className={classes.button} style={{ width: 300, margin: '20px auto', }}>
+                <Button type="submit" className={classes.button} onClick={this.handleClickOpen} style={{ width: 300, margin: '20px auto', }}>
                     送出
                 </Button>
+                <Dialog className={classes.root}
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                >
+                    <DialogTitle >已送出！</DialogTitle>
+                    <DialogActions>
+                        <Button style={{margin:'auto'}} onClick={this.handleClose} color="primary">確定</Button>
+                    </DialogActions>
+                </Dialog>
 
                 {/* <div>
                     <input id="myInput" />
