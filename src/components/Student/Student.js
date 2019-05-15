@@ -7,6 +7,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Airtable from 'airtable';
 import amber from '@material-ui/core/colors/amber';
+import axios from 'axios';
 
 const TABLE_NAME = 'Student';
 const SCORE_TABLE_NAME = 'TestScore';
@@ -15,6 +16,7 @@ const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWI
 const table = base(TABLE_NAME);
 const scoreTable = base(SCORE_TABLE_NAME);
 const attendTable = base(ATTEND_TABLE_NAME);
+const IP = "http://localhost:8080";
 
 
 
@@ -176,6 +178,42 @@ class Student extends React.Component {
         }
         );
     }
+    handlestart = () => {
+        axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        }).get("/retrieveface")
+            .then((response) => {
+                console.log("in response");
+                console.log('open :', response.status, '\nopen camera', new Date());
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+    };
+    handleUpload = (e) => {
+        e.preventDefault();
+        ////
+        let file = e.target.files[0];
+        const formdata = new FormData();
+        formdata.append('file', file);
+        formdata.set('faceid', this.state.stu_id);
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/train',
+            data: formdata,
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+        })
+            .then((response) => {
+                console.log("in upload")
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+
+
+    };
 
     render() {
         const { classes } = this.props;
@@ -190,9 +228,10 @@ class Student extends React.Component {
                             <Typography className={classes.leftText}>
                                 學號：{this.state.stu_id}
                             </Typography>
-                            <Button className={classes.button}>
+                            <Button className={classes.button} onClick={this.handlestart}>
                                 <CameraIcon />
                             </Button>
+                            <input type="file" name="file" ref="file"  id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
                             <Button className={classes.button}>
                                 Train
                             </Button>
