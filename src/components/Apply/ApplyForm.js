@@ -209,6 +209,17 @@ class OutlinedTextFields extends React.Component {
                 console.error(error)
             );
 
+            axios.create({
+                baseURL: IP,
+                headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+              }).get("/terminate")
+              .then((response) => {
+                console.log("in terminate");
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+
 
     };
 
