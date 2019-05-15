@@ -205,9 +205,10 @@ class SearchAppBar extends React.Component {
           headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         }).get("/real")
           .then((response) => {
+            var face_id = response.data.split("!")[0];
             //console.log("in real");
             //console.log(response.data);
-            this.setState({ face_id: response.data });
+            this.setState({ face_id: face_id });
             //console.log("faceid is " + this.state.face_id);
             const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
             table.select({

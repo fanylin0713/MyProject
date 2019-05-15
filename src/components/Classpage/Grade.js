@@ -11,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import XLSX from 'xlsx';
+import Appbar from '../AppBar/Appbar';
 //import { fetchPostSchedule } from '../../api';
 import Airtable from 'airtable';
 
@@ -29,7 +30,7 @@ const styles = theme => ({
         minWidth: '1000px',
         marginTop: theme.spacing.unit * 5,
         margin: '0 auto',
-        padding:'3%'
+        padding: '3%'
     },
     button: {
         backgroundColor: '#111B24',
@@ -192,41 +193,43 @@ class Grade extends Component {
         const { rows } = this.state;
 
         return (
-            <Card className={classes.card} >
-                <div style={{ borderColor: '#FFBF5F' }}>
-                    <Button className={classes.button}>
-                        <Upload type='upload' />
-                        <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
-                        <span>成績上傳</span>
-                    </Button>
-                    <Button className={classes.editButton} onClick={this.handleClick}>
-                        儲存
-                    </Button>
-                    <Paper className={classes.root}>
-                        <Table className={classes.table}>
-                            <TableHead >
-                                <TableRow>
-                                    <TableCell className={classes.head} style={{ width: '25%' }}>學生姓名</TableCell>
-                                    <TableCell className={classes.head} >學號</TableCell>
-                                    <TableCell className={classes.head} >分數</TableCell>
-                                    <TableCell className={classes.head} >排名</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {rows.map(row => (
-                                    <TableRow hover key={row.id}>
-                                        <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
-                                        <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
-                                        <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
-                                        <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </Paper>
+            <div>
+                <Appbar />
+                <div>
+                    <Card className={classes.card} >
+                        <div style={{ borderColor: '#FFBF5F' }}>
+                            <Button className={classes.button}>
+                                <Upload type='upload' />
+                                <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
+                                <span>成績上傳</span>
+                            </Button>
+                            <Paper className={classes.root}>
+                                <Table className={classes.table}>
+                                    <TableHead >
+                                        <TableRow>
+                                            <TableCell className={classes.head} style={{ width: '25%' }}>學生姓名</TableCell>
+                                            <TableCell className={classes.head} >學號</TableCell>
+                                            <TableCell className={classes.head} >分數</TableCell>
+                                            <TableCell className={classes.head} >排名</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows.map(row => (
+                                            <TableRow hover key={row.id}>
+                                                <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
+                                                <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
+                                                <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
+                                                <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </Paper>
 
+                        </div>
+                    </Card>
                 </div>
-            </Card>
+            </div>
         );
     }
 }
