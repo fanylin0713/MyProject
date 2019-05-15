@@ -35,6 +35,11 @@ const styles = theme => ({
         width: '40%',
         paddingLeft: theme.spacing.unit * 18,
     },
+    input: {
+        outline: 'none',
+        opacity: 0,
+        // width:'47%',
+    },
     leftText: {
         fontSize: '16pt',
         marginTop: theme.spacing.unit * 2,
@@ -110,8 +115,8 @@ class Student extends React.Component {
         stu_email: '',
         stu_parent: '',
         stu_parent_phone: '',
-        fail:true,
-        homework:true,
+        fail: true,
+        homework: true,
     };
 
     //airtable
@@ -153,9 +158,9 @@ class Student extends React.Component {
             this.setState({ records });
             const test_score = this.state.records.map((record, index) => record.fields['test_score']);
 
-            for(var index = 0; index < test_score.length; index++) {
-                if(test_score[index] < 60){
-                    this.setState({fail : false});
+            for (var index = 0; index < test_score.length; index++) {
+                if (test_score[index] < 60) {
+                    this.setState({ fail: false });
                 }
             }
             // fetchNextPage();
@@ -168,10 +173,10 @@ class Student extends React.Component {
             this.setState({ records });
             const attend_hw = this.state.records.map((record, index) => record.fields['attend_hw']);
 
-            for(var index = 0; index < attend_hw.length; index++) {
+            for (var index = 0; index < attend_hw.length; index++) {
                 console.log(attend_hw[index]);
-                if(attend_hw[index] != true){
-                    this.setState({homework : false});
+                if (attend_hw[index] != true) {
+                    this.setState({ homework: false });
                 }
             }
             // fetchNextPage();
@@ -228,13 +233,20 @@ class Student extends React.Component {
                             <Typography className={classes.leftText}>
                                 學號：{this.state.stu_id}
                             </Typography>
+                            <input type="file" name="file" ref="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input} />
                             <Button className={classes.button} onClick={this.handlestart}>
                                 <CameraIcon />
                             </Button>
-                            <input type="file" name="file" ref="file"  id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
+                            <label htmlFor="contained-button-file">
+                                <Button component="span" className={classes.button}>
+                                    Train
+                        </Button>
+                            </label>
+
+                            {/* <input type="file" name="file" ref="file"  id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
                             <Button className={classes.button}>
                                 Train
-                            </Button>
+                            </Button> */}
                             <SnackbarContent
                                 hidden={this.state.fail}
                                 className={classes.snack1}
@@ -256,7 +268,7 @@ class Student extends React.Component {
                                     </span>
                                 }
 
-                                />
+                            />
                             <SnackbarContent
                                 hidden={this.state.homework}
                                 className={classes.snack2}
