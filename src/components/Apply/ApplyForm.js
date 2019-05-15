@@ -141,8 +141,6 @@ class OutlinedTextFields extends React.Component {
             }
         }
 
-        var bodyFormData = new FormData();
-        bodyFormData.set('faceid', this.state.student_id);
 
 
     };
