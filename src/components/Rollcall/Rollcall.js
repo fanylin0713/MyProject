@@ -20,6 +20,7 @@ import Add from '@material-ui/icons/AddBoxOutlined';
 import NoFace from './noFace.jpg';
 import axios from 'axios';
 import Airtable from 'airtable';
+import { fetchPostAttend } from '../../api';
 
 const TABLE_NAME = 'Student';
 const CLASS_TABLE_NAME = 'ClassDay';
@@ -141,6 +142,7 @@ class Rollcall extends React.Component {
     classDataInit:[],
     classData:[],
     stuDataInit:[],
+    class_id:'',
   };
 
   componentDidUpdate(prevProps){
@@ -215,6 +217,7 @@ class Rollcall extends React.Component {
 
   handleClassChange = name => event => {
     this.setState({ [name]: event.target.value });
+    this.setState({ class_id: event.target.value });
     const fileterSentence = 'AND(class_id_link="'+ event.target.value +'")'
     table.select({
       filterByFormula: fileterSentence,
@@ -288,20 +291,13 @@ class Rollcall extends React.Component {
 
 
   handleYes = e => {
-    axios.create({
-      baseURL: IP,
-      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    }).get("/real")
-
-      .then((response) => {
-        console.log("in real");
-        console.log(response.data);
-        this.setState({ face_id: response.data });
-      })
-      .catch((error) =>
-        console.error(error)
-      );
-
+    let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {}  } };
+    data.fields.class_id = this.state.class_id;
+    data.fields.attend_date = this.state.face_time.split(" ")[0];
+    data.fields.student_id = this.state.stu_id;
+    data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0]+ ":" +
+      (this.state.face_time.split(" ")[1]).split(":")[1];
+    fetchPostAttend(data);
   };
 
   handleNo = e => {
