@@ -12,11 +12,11 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import XLSX from 'xlsx';
 //import { fetchPostSchedule } from '../../api';
-// import Airtable from 'airtable';
+import Airtable from 'airtable';
 
-// const TABLE_NAME = 'TestScore';
-// const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
-// const table = base(TABLE_NAME);
+const TABLE_NAME = 'TestScore';
+const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
+const table = base(TABLE_NAME);
 
 const styles = theme => ({
     card: {
@@ -62,15 +62,15 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(name, number, grade, rank) {
+function createData(grade_studentName, grade_studentId, grade_studentGrade, grade_studentRank) {
     id += 1;
-    return { id, name, number, grade, rank };
+    return { id, grade_studentName, grade_studentId, grade_studentGrade, grade_studentRank };
 }
 
 class Grade extends Component {
     state = {
         rows: [],
-        //rowsInit:[],
+        rowsInit:[],
         //class_id:'',
     }
     // componentWillReceiveProps(nextProps) {
@@ -86,31 +86,34 @@ class Grade extends Component {
     //         this.setState({ class_id: nextProps.class_id });
     //     }
     // }
-    //     //airtable
-    // componentDidMount() {
-    //     //const fileterSentence = 'AND(class_id = ' + this.props.class_id + ')'
-    //     table.select({
-    //         //filterByFormula: fileterSentence,
-    //         view: "Grid view",
-    //         //maxRecords: 1
-    //     }).eachPage((records, fetchNextPage) => {
-    //         this.setState({ records });
 
-    //         const class_id = this.state.records.map((record, index) => record.fields['class_id']);
-    //         const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-    //         const test_score = this.state.records.map((record, index) => record.fields['test_score']);
+    //airtable
+    componentDidMount() {
+        //const fileterSentence = 'AND(class_id = ' + this.props.class_id + ')'
+        table.select({
+            //filterByFormula: fileterSentence,
+            view: "Grid view",
+            //maxRecords: 1
+        }).eachPage((records, fetchNextPage) => {
+            this.setState({ records });
 
-    //          var temp = [];
-    //         for(var index = 0; index < schedule_date.length; index++) {
-    //             temp.push(createData("name",student_id[index],test_score[index],"rank"));  
-    //         }
+            //const class_id = this.state.records.map((record, index) => record.fields['class_id']);
+            const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+            const test_score = this.state.records.map((record, index) => record.fields['test_score']);
+            const test_rank = this.state.records.map((record, index) => record.fields['test_rank']);
 
-    //         this.setState({ rows : temp });
-    //         this.setState({ rowsInit : temp });
-    //         fetchNextPage();
-    //     }
-    //     );
-    // }
+             var temp = [];
+            for(var index = 0; index < student_id.length; index++) {
+                temp.push(createData("namee",student_id[index],test_score[index],"rank"));  
+            }
+
+            this.setState({ rows : temp });
+            this.setState({ rowsInit : temp });
+            console.log(this.state.rows);
+            fetchNextPage();
+        }
+        );
+    }
 
 
     onImportExcel = file => {
@@ -141,16 +144,16 @@ class Grade extends Component {
                 const grade_studentGrade = this.state.data.map((data, index) => data['grade_studentGrade']);
                 const grade_studentRank = this.state.data.map((data, index) => data['grade_studentRank']);
 
-                for (var index = 0; index < id; index++) {
-                    data.push(createData(grade_studentName[index], grade_studentId[index], grade_studentGrade[index], grade_studentRank[index]));
+                // for (var index = 0; index < id; index++) {
+                //     data.push(createData(grade_studentName[index], grade_studentId[index], grade_studentGrade[index], grade_studentRank[index]));
 
-                }
+                // }
 
                 this.setState({ rows: data });
-                console.log(data);
-                console.log(data[0]);
-                console.log(data[0].grade_studentName);
-                console.log(data[0].grade_studentId);
+                // console.log(data);
+                // console.log(data[0]);
+                // console.log(data[0].grade_studentName);
+                // console.log(data[0].grade_studentId);
             } catch (e) {
                 // message.error('文件類型不正确！');
             }
@@ -158,7 +161,7 @@ class Grade extends Component {
         fileReader.readAsBinaryString(files[0]);
     }
     render() {
-
+        //console.log(this.props.location.aboutProps.name);
         const { classes } = this.props;
         const { rows } = this.state;
 
@@ -189,6 +192,14 @@ class Grade extends Component {
                                         <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
                                     </TableRow>
                                 ))}
+                                {/* {rows.map(row => (
+                                    <TableRow hover key={row.id}>
+                                        <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.name}</TableCell>
+                                        <TableCell className={classes.content}>{row.id}</TableCell>
+                                        <TableCell className={classes.content}>{row.grade}</TableCell>
+                                        <TableCell className={classes.content}>{row.rank}</TableCell>
+                                    </TableRow>
+                                ))} */}
                             </TableBody>
                         </Table>
                     </Paper>
