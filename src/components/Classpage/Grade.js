@@ -12,8 +12,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import XLSX from 'xlsx';
 import Appbar from '../AppBar/Appbar';
-//import { fetchPostSchedule } from '../../api';
 import Airtable from 'airtable';
+import { fetchPostGrade } from '../../api';
 
 const TABLE_NAME = 'TestScore';
 const STU_TABLE_NAME = 'Student';
@@ -78,9 +78,10 @@ function createData(grade_studentName, grade_studentId, grade_studentGrade, grad
 class Grade extends Component {
     state = {
         rows: [],
-        rowsInit:[],
-        //class_id:'',
+        //rowsInit:[],
+        class_id:'',
     }
+
     // componentWillReceiveProps(nextProps) {
     //     if (nextProps.class_id !== this.state.class_id) {
     //         var count = this.state.rowsInit.length;
@@ -94,6 +95,35 @@ class Grade extends Component {
     //         this.setState({ class_id: nextProps.class_id });
     //     }
     // }
+
+    handleClick = () => {
+        if (this.state.rows !== "") {
+
+            for (var index = 0; index < this.state.rows.length; index++) {
+                let data = { fields: { class_id: {}, student_id: {}, test_date: {}, test_name:{}, test_score:{}, test_rank:{},
+                Q1:{}, Q2:{}, Q3:{}, Q4:{}, Q5:{}, Q6:{}, Q7:{}, Q8:{}, Q9:{}, Q10:{}} };
+                data.fields.class_id = this.props.location.aboutProps.class_id;
+                data.fields.student_id = (this.state.rows[index].grade_studentId).toString();
+                data.fields.test_name = this.props.location.aboutProps.name.split(" ")[1];
+                data.fields.test_date = this.props.location.aboutProps.name.split(" ")[0];
+                data.fields.test_score = this.state.rows[index].grade_studentGrade;
+                data.fields.test_rank = this.state.rows[index].grade_studentRank;
+                data.fields.Q1 = this.state.rows[index].Q1;
+                data.fields.Q2 = this.state.rows[index].Q2;
+                data.fields.Q3 = this.state.rows[index].Q3;
+                data.fields.Q4 = this.state.rows[index].Q4;
+                data.fields.Q5 = this.state.rows[index].Q5;
+                data.fields.Q6 = this.state.rows[index].Q6;
+                data.fields.Q7 = this.state.rows[index].Q7;
+                data.fields.Q8 = this.state.rows[index].Q8;
+                data.fields.Q9 = this.state.rows[index].Q9;
+                data.fields.Q10 = this.state.rows[index].Q10;
+                console.log(data);
+
+                fetchPostGrade(data);
+            }
+        }
+    }
 
     //airtable
     componentDidMount() {
@@ -136,8 +166,8 @@ class Grade extends Component {
             // }
             this.setState({ rows : temp });
             console.log(this.state.rows);
-            this.setState({ rowsInit : temp });
-           // fetchNextPage();
+            //this.setState({ rowsInit : temp });
+            fetchNextPage();
         }
         );
     }
@@ -177,7 +207,7 @@ class Grade extends Component {
                 // }
 
                 this.setState({ rows: data });
-                // console.log(data);
+                 console.log(data);
                 // console.log(data[0]);
                 // console.log(data[0].grade_studentName);
                 // console.log(data[0].grade_studentId);
@@ -188,9 +218,10 @@ class Grade extends Component {
         fileReader.readAsBinaryString(files[0]);
     }
     render() {
-        //console.log(this.props.location.aboutProps.name);
+        //console.log(this.props.location.aboutProps.class_id);
         const { classes } = this.props;
-        const { rows } = this.state;
+        // const { rows } = this.state;
+        //console.log(this.state.rows);
 
         return (
             <div>
@@ -203,6 +234,9 @@ class Grade extends Component {
                                 <input className={classes.input} type='file' accept='.xlsx, .xls' onChange={this.onImportExcel} />
                                 <span>成績上傳</span>
                             </Button>
+                            <Button className={classes.editButton} onClick={this.handleClick}>
+                                儲存
+                            </Button>
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead >
@@ -214,14 +248,15 @@ class Grade extends Component {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {rows.map(row => (
-                                            <TableRow hover key={row.id}>
+                                        {(this.state.rows).map((row,index) => {
+                                            return(
+                                            <TableRow hover key={index}>
                                                 <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
                                                 <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
                                                 <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
                                                 <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
                                             </TableRow>
-                                        ))}
+                                        );})}
                                     </TableBody>
                                 </Table>
                             </Paper>

@@ -46,6 +46,9 @@ export const fetchDeleteCourse = (payload) => axios.delete(CourseDeleteURL + pay
 //Progresspage Schedule
 export const fetchPostSchedule = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Schedule?view=Grid%20view', payload, config)
 
+//Gradepage Grade
+export const fetchPostGrade = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/TestScore?view=Grid%20view', payload, config)
+
 //RollCall attend
 export const fetchPostAttend = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Attend?view=Grid%20view', payload, config)
 
