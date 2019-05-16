@@ -85,7 +85,7 @@ class OutlinedTextFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            class_id: null,
+            class_id: [],
             stu_img: noTrain,
             student_name: '',
             student_id: '',
@@ -115,11 +115,11 @@ class OutlinedTextFields extends React.Component {
         }).eachPage((records, fetchNextPage) => {
             this.setState({ records });
             const class_id = this.state.records.map((record, index) => record.fields['class_id']);
-            const record_id = this.state.records.map((record, index) => record.id);
+            const record_id = this.state.records.map((record, index) => record.id.id);
 
             var temp = [];
             for (var index = 0; index < class_id.length; index++) {
-                temp.push(createData(class_id[index], record_id[index]));
+                temp.push(createData(record_id[index],class_id[index]));
             }
             this.setState({ classDaydata: temp });
             fetchNextPage();
@@ -130,9 +130,15 @@ class OutlinedTextFields extends React.Component {
     //https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
     myCallback = (dataFromChild) => {
         //this.setState({ class_id: dataFromChild }); 
-        for (var index = 0; index < this.state.classDaydata.length; index++) {
-            if(dataFromChild == this.state.classDaydata[index].class_name){
-                this.setState({ class_id: this.state.classDaydata[index].id }); 
+        console.log(dataFromChild)
+        var temp =[];
+        for(var i = 0; i < dataFromChild.length; i++){
+            for (var index = 0; index < this.state.classDaydata.length; index++) {
+                if(dataFromChild[i] == this.state.classDaydata[index].class_name){
+                    temp.push(this.state.classDaydata[index].id);
+                    this.setState({ class_id: temp });
+                    console.log(this.state.class_id);
+                }
             }
         }
     }
@@ -161,7 +167,8 @@ class OutlinedTextFields extends React.Component {
         data.fields.student_name = this.state.student_name;
         // data.fields.class_id_link = ["rec8zHmPXU3k3uGhx",
         // "recbeKNQoG8h5jIwJ"];
-        data.fields.class_id_link = [this.state.class_id,];
+        //data.fields.class_id_link = [this.state.class_id,];
+        data.fields.class_id_link = this.state.class_id;
         data.fields.student_id = this.state.student_id;
         data.fields.student_grade = this.state.student_grade;
         data.fields.student_phone = this.state.student_phone;
