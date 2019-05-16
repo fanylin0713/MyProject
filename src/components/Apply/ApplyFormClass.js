@@ -56,10 +56,8 @@ class MultipleSelect extends React.Component {
     handleChange = event => {
         this.setState({ name: event.target.value });
         //add
-        this.props.callbackFromParent(this.state.name);
+        this.props.callbackFromParent(event.target.value);
         //this.setState({ name: event.target.value }, this.updateApplyForm);
-        console.log("handleChange");
-        console.log(this.state.name);
     };
     
 

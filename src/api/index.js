@@ -49,6 +49,9 @@ export const fetchPostSchedule = (payload) => axios.post('https://api.airtable.c
 //RollCall attend
 export const fetchPostAttend = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Attend?view=Grid%20view', payload, config)
 
+//Makeup Class
+export const fetchPostReserveStudent = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ReserveStudent?view=Grid%20view', payload, config)
+
 
 // this.Axios = axios.create({
 //   baseURL: "http://localhost:8080",

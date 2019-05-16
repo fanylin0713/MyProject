@@ -6,6 +6,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from '@material-ui/core/styles';
+import { fetchPostReserveStudent } from '../../api';
+
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 const styles = theme => ({
     root: {
@@ -33,9 +38,12 @@ const styles = theme => ({
 
 class FormDialog extends React.Component {
     state = {
-        student: '學生',
-        id: '學號',
-        subject: '要補的課',
+        student: '學號',
+        id: '補課日期',
+        subject: '補課項目',
+        // student: '學生',
+        // id: '學號',
+        // subject: '要補的課',
         open: false,
     };
 
@@ -44,7 +52,19 @@ class FormDialog extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
+        let data = { fields: { student_id:{}, reserve_date:{}, reserve_address:{}, reserve_time:{}, reserve_class:{}} };
+        data.fields.student_id = this.state.student;
+        data.fields.reserve_date = this.state.id;
+        data.fields.reserve_address = 'from bar';
+        data.fields.reserve_time = '8:30';
+        data.fields.reserve_class = this.state.subject;
+
+        fetchPostReserveStudent(data);
         this.setState({ open: false });
+
+        sleep(500).then(() => {
+            window.location.reload();
+        })
     };
 
     handleChange = name => event => {
@@ -78,10 +98,10 @@ class FormDialog extends React.Component {
                             <div>
                                 <TextField
                                     id="outlined-name"
-                                    label="Name"
+                                    label="id"
                                     className={classes.textField}
                                     value={this.state.student}
-                                    onChange={this.handleChange('')}
+                                    onChange={this.handleChange('student')}
                                     margin="normal"
                                     variant="outlined"
                                 />
@@ -89,10 +109,10 @@ class FormDialog extends React.Component {
                             <div>
                                 <TextField
                                     id="outlined-name"
-                                    label="id"
+                                    label="date"
                                     className={classes.textField}
                                     value={this.state.id}
-                                    onChange={this.handleChange('')}
+                                    onChange={this.handleChange('id')}
                                     margin="normal"
                                     variant="outlined"
                                 />
@@ -103,7 +123,7 @@ class FormDialog extends React.Component {
                                     label="subject"
                                     className={classes.textField}
                                     value={this.state.subject}
-                                    onChange={this.handleChange('')}
+                                    onChange={this.handleChange('subject')}
                                     margin="normal"
                                     variant="outlined"
                                 />
