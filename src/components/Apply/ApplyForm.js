@@ -137,7 +137,6 @@ class OutlinedTextFields extends React.Component {
                 if(dataFromChild[i] == this.state.classDaydata[index].class_name){
                     temp.push(this.state.classDaydata[index].id);
                     this.setState({ class_id: temp });
-                    console.log(this.state.class_id);
                 }
             }
         }
