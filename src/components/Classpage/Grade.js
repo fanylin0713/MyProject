@@ -118,7 +118,7 @@ class Grade extends Component {
                 data.fields.Q8 = this.state.rows[index].Q8;
                 data.fields.Q9 = this.state.rows[index].Q9;
                 data.fields.Q10 = this.state.rows[index].Q10;
-                console.log(data);
+                //console.log(data);
 
                 fetchPostGrade(data);
             }

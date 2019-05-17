@@ -56,6 +56,10 @@ export const fetchPostAttend = (payload) => axios.post('https://api.airtable.com
 export const fetchPostReserveStudent = (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/ReserveStudent?view=Grid%20view', payload, config)
 
 
+//Apply Form add account role
+export const fetchPostAccount= (payload) => axios.post('https://api.airtable.com/v0/appcXtOTPnE4QWIIt/Account?view=Grid%20view', payload, config)
+
+
 // this.Axios = axios.create({
 //   baseURL: "http://localhost:8080",
 //   headers:{'content-type':'application/json','Access-Control-Allow-Origin':'*'}

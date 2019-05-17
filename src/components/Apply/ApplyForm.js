@@ -11,12 +11,16 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import noTrain from './noTrain.jpg';
-import { fetchPostStudent, fetchPostClassMember } from '../../api';
+import { fetchPostStudent, fetchPostAccount } from '../../api';
 import axios from 'axios';
 import Airtable from 'airtable';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const tableClass = base('ClassDay');
+
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 
 function createData(id, class_name) {
@@ -163,6 +167,7 @@ class OutlinedTextFields extends React.Component {
         e.preventDefault()
         let data = { fields: {student_name: {}, class_id_link:{}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {}, student_img:{} } };
         
+        let accountData = {fields: {account_id: {}, account_passwd:{}, account_role:{} }};
         data.fields.student_name = this.state.student_name;
         // data.fields.class_id_link = ["rec8zHmPXU3k3uGhx",
         // "recbeKNQoG8h5jIwJ"];
@@ -178,9 +183,15 @@ class OutlinedTextFields extends React.Component {
         data.fields.student_parent_phone = this.state.student_parent_phone;
         data.fields.student_address = this.state.student_address;
         data.fields.student_img = [{"url":this.state.imgUrl}];
-        
+
+        //account data
+        accountData.fields.account_id = this.state.student_email;
+        accountData.fields.account_passwd = '123';
+        accountData.fields.account_role = 'student';
+
         if (this.state.student_name !== '' && this.state.student_id !== '') {
             fetchPostStudent(data);
+            fetchPostAccount(accountData);
             // let memberData = { fields: { class_id: {}, student_id: {} } };
             // var count = this.state.class_id.length;
             // for (var index = 0; index < count; index++) {
@@ -274,6 +285,13 @@ class OutlinedTextFields extends React.Component {
 
     handleClose = () => {
         this.setState({ open: false });
+    };
+
+    handleCloseRefresh = () => {
+        this.setState({ open: false });
+        sleep(500).then(() => {
+            window.location.reload();
+        })
     };
 
     // componentDidUpdate() {
@@ -429,7 +447,7 @@ class OutlinedTextFields extends React.Component {
                 >
                     <DialogTitle >已送出！</DialogTitle>
                     <DialogActions>
-                        <Button style={{margin:'auto'}} onClick={this.handleClose} color="primary">確定</Button>
+                        <Button style={{margin:'auto'}} onClick={this.handleCloseRefresh} color="primary">確定</Button>
                     </DialogActions>
                 </Dialog>
 
