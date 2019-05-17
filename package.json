@@ -17,6 +17,7 @@
     "cloudinary-react": "^1.1.0",
     "cors": "^2.8.5",
     "date-fns": "^2.0.0-alpha.27",
+    "downshift": "^3.2.10",
     "fs": "0.0.1-security",
     "immutable": "^4.0.0-rc.12",
     "material-ui-pickers": "^2.2.4",
