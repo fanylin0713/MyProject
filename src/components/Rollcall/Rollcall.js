@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '../AppBar/Appbar';
 import {
   FormControlLabel,
+  FormGroup,
+  Switch,
   Radio,
   RadioGroup,
   FormControl,
@@ -31,11 +33,11 @@ const classTable = base(CLASS_TABLE_NAME);
 const IP = "http://localhost:8080";
 
 function createData(classid, grade) {
-  return { id: classid, grade};
+  return { id: classid, grade };
 }
 
 function createStuData(stu_id, name, image) {
-  return { id: stu_id, name, image};
+  return { id: stu_id, name, image };
 }
 
 const styles = theme => ({
@@ -50,11 +52,14 @@ const styles = theme => ({
     minWidth: '900px',
   },
   radio: {
-    marginLeft: '20%',
+    marginLeft: '10%',
+  },
+  homework:{
+    marginLeft: '5%',
   },
   formControl: {
     margin: 'auto 0',
-    marginLeft: '13%',
+    marginLeft: '7%',
   },
   label: {
     fontSize: '14pt',
@@ -90,10 +95,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 5,
   },
   textField: {
-    float:'right',
+    float: 'right',
   },
   addIcon: {
-    float:'right',
+    float: 'right',
     color: '#FFBF5F',
     fontSize: '40pt',
     marginTop: theme.spacing.unit * 2,
@@ -110,15 +115,15 @@ const styles = theme => ({
   yes: {
     marginLeft: '36.5%',
     marginTop: theme.spacing.unit * 2,
-    height:'50px',
-    width:'140px',
+    height: '50px',
+    width: '140px',
     backgroundColor: 'green'
   },
   no: {
     marginLeft: theme.spacing.unit * 3,
     marginTop: theme.spacing.unit * 2,
-    height:'50px',
-    width:'140px',
+    height: '50px',
+    width: '140px',
     backgroundColor: 'red',
   }
 });
@@ -138,42 +143,44 @@ class Rollcall extends React.Component {
     stu_name: '',
     stu_img: NoFace,
     face_id: '',
-    face_time:'',
-    classDataInit:[],
-    classData:[],
-    stuDataInit:[],
-    class_id:'',
+    face_time: '',
+    classDataInit: [],
+    classData: [],
+    stuDataInit: [],
+    class_id: '',
+    checkedHomework: true,
   };
 
-  componentDidUpdate(prevProps){
-    if (this.state.face_id !== prevProps.face_id && this.state.end===false) {
-    axios.create({
-      baseURL: IP,
-      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    }).get("/real")
-      .then((response) => {
-        var face_id = response.data.split("!")[0];
-        var face_time = response.data.split("!")[1];
+  componentDidUpdate(prevProps) {
+    if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
+      axios.create({
+        baseURL: IP,
+        headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+      }).get("/real")
+        .then((response) => {
+          var face_id = response.data.split("!")[0];
+          var face_time = response.data.split("!")[1];
 
-        this.setState({ face_id: face_id });
-        this.setState({ face_time: face_time });
+          this.setState({ face_id: face_id });
+          this.setState({ face_time: face_time });
 
-        for (var index = 0; index < this.state.stuDataInit.length; index++) {
-          if(this.state.stuDataInit[index].id == this.state.face_id){
-            this.setState({ 
-              stu_id: this.state.stuDataInit[index].id, 
-              stu_name: this.state.stuDataInit[index].name,
-              stu_img: this.state.stuDataInit[index].image });
+          for (var index = 0; index < this.state.stuDataInit.length; index++) {
+            if (this.state.stuDataInit[index].id == this.state.face_id) {
+              this.setState({
+                stu_id: this.state.stuDataInit[index].id,
+                stu_name: this.state.stuDataInit[index].name,
+                stu_img: this.state.stuDataInit[index].image
+              });
+            }
           }
-        }
-      })
-      .catch((error) =>
-        console.error(error)
-      );
+        })
+        .catch((error) =>
+          console.error(error)
+        );
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
 
     classTable.select({
       //filterByFormula: fileterSentence,
@@ -184,7 +191,7 @@ class Rollcall extends React.Component {
 
       const class_id = this.state.records.map((record, index) => record.fields['class_id']);
       const class_grade_id = this.state.records.map((record, index) => record.fields['class_grade_id']);
-      var temp=[];
+      var temp = [];
       for (var index = 0; index < class_id.length; index++) {
         temp.push(createData(class_id[index], class_grade_id[index]));
       }
@@ -194,31 +201,36 @@ class Rollcall extends React.Component {
     );
   }
 
+  handleHomework = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
-    var temp=[];
+    var temp = [];
     if (event.target.value === "國中") {
       for (var index = 0; index < this.state.classDataInit.length; index++) {
-        if(this.state.classDataInit[index].grade == "middle"){
+        if (this.state.classDataInit[index].grade == "middle") {
           temp.push(this.state.classDataInit[index]);
         }
       }
-      this.setState({ classData : temp });
-        
-    }else if(event.target.value === "高中"){
+      this.setState({ classData: temp });
+
+    } else if (event.target.value === "高中") {
       for (var index = 0; index < this.state.classDataInit.length; index++) {
-        if(this.state.classDataInit[index].grade == "high"){
+        if (this.state.classDataInit[index].grade == "high") {
           temp.push(this.state.classDataInit[index]);
         }
       }
-      this.setState({ classData : temp });
+      this.setState({ classData: temp });
     }
   };
 
   handleClassChange = name => event => {
     this.setState({ [name]: event.target.value });
     this.setState({ class_id: event.target.value });
-    const fileterSentence = 'AND(class_id_link="'+ event.target.value +'")'
+    const fileterSentence = 'AND(class_id_link="' + event.target.value + '")'
     table.select({
       filterByFormula: fileterSentence,
       view: "Grid view",
@@ -229,11 +241,11 @@ class Rollcall extends React.Component {
       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
       const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
-      var temp=[];
+      var temp = [];
       for (var index = 0; index < student_name.length; index++) {
         temp.push(createStuData(student_id[index], student_name[index], student_img[index]));
       }
-      this.setState({stuDataInit : temp});
+      this.setState({ stuDataInit: temp });
 
     }
     );
@@ -278,12 +290,12 @@ class Rollcall extends React.Component {
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/terminate")
-    .then((response) => {
-      console.log("in terminate");
-  })
-  .catch((error) =>
-      console.error(error)
-  );
+      .then((response) => {
+        console.log("in terminate");
+      })
+      .catch((error) =>
+        console.error(error)
+      );
 
     this.setState({ start: false })
     this.setState({ end: true })
@@ -291,11 +303,11 @@ class Rollcall extends React.Component {
 
 
   handleYes = e => {
-    let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {}  } };
+    let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {} } };
     data.fields.class_id = this.state.class_id;
     data.fields.attend_date = this.state.face_time.split(" ")[0];
     data.fields.student_id = this.state.stu_id;
-    data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0]+ ":" +
+    data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
       (this.state.face_time.split(" ")[1]).split(":")[1];
     fetchPostAttend(data);
   };
@@ -324,6 +336,18 @@ class Rollcall extends React.Component {
               <FormControlLabel classes={{ label: classes.label, }} value="高中" control={<Radio />} label="高中" />
             </RadioGroup>
           </FormControl>
+          <FormGroup className={classes.homework} row>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.checkedHomework}
+                  onChange={this.handleHomework('checkedHomework')}
+                  value="checkedHomework"
+                />
+              }
+              label="作業繳交"
+            />
+          </FormGroup>
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel
               ref={ref => {
