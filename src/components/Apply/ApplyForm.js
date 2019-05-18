@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Myclass from './ApplyFormClass';
-import { Card, Button } from '@material-ui/core';
+import { Snackbar, SnackbarContent, Button } from '@material-ui/core';
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -103,6 +103,7 @@ class OutlinedTextFields extends React.Component {
             errorMessage2: '',
             imgUrl:'',
             open: false,
+            openSnack: false,
             classDaydata:[],
         };
     }
@@ -255,12 +256,12 @@ class OutlinedTextFields extends React.Component {
         })
             .then((response) => {
                 console.log("in upload")
+                this.setState({ openSnack: true });
             })
             .catch((error) =>
                 console.error(error)
             );
     };
-
 
     handleClickOpen = () =>{
         this.setState({ open: true });
@@ -295,6 +296,19 @@ class OutlinedTextFields extends React.Component {
                         </Button>
                     </label>
                     </div>
+                    <Snackbar
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            open={this.state.openSnack}
+                            autoHideDuration={2000}
+                        >
+                            <SnackbarContent
+                                variant="warning"
+                                message="訓練成功！"
+                            />
+                        </Snackbar>
                 </div>
                 <div className={classes.form}>
                     <div>
