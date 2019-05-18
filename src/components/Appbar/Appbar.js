@@ -350,6 +350,18 @@ class SearchAppBar extends React.Component {
                 console.error(error)
             );
     }
+    handleMerge = () => {
+        axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        }).post("/merge")
+            .then((response) => {
+                console.log("merge");
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+    }
 
 
     render() {
@@ -411,6 +423,8 @@ class SearchAppBar extends React.Component {
                             <Button className={classes.button}><Home /></Button></NavLink>
                         {/* 點名button */}
                         <Button className={classes.button} onClick={this.handleClickSnack}><Face /></Button>
+                        {/* Merege button */}
+                        <Button className={classes.button} onClick={this.handleMerge}><Home /></Button>
                         <Snackbar
                             anchorOrigin={{
                                 vertical: 'top',

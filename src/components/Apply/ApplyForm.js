@@ -86,7 +86,6 @@ class OutlinedTextFields extends React.Component {
         super(props);
         this.state = {
             class_id: null,
-            stu_img: noTrain,
             student_name: '',
             student_id: '',
             student_grade: '',
@@ -101,7 +100,7 @@ class OutlinedTextFields extends React.Component {
             error2: false,
             errorMessage1: '',
             errorMessage2: '',
-            imgUrl:'',
+            imgUrl:noTrain,
             open: false,
             openSnack: false,
             classDaydata:[],
@@ -261,6 +260,18 @@ class OutlinedTextFields extends React.Component {
             .catch((error) =>
                 console.error(error)
             );
+
+            axios.create({
+                baseURL: IP,
+                headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+              }).get("/terminate")
+              .then((response) => {
+                console.log("in terminate");
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+
     };
 
     handleClickOpen = () =>{
@@ -283,7 +294,7 @@ class OutlinedTextFields extends React.Component {
         return (
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
                 <div style={{width:'100%'}}> 
-                <img className={classes.photo} src={this.state.stu_img} alt="location" />
+                <img className={classes.photo} src={this.state.imgUrl} alt="location" />
                     <Button className={classes.button} onClick={this.handleClick}>
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
