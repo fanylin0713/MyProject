@@ -68,7 +68,7 @@ const styles1 = theme => ({
 function MySnackbarContent(props) {
     const { classes, className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
-    const { stu_id } = props;
+    const {stu_id}=props;
     console.log(props);
     return (
         <SnackbarContent
@@ -86,11 +86,9 @@ function MySnackbarContent(props) {
                     color="inherit"
                     onClick={onClose}
                 >
-                    <NavLink className={classes.check} style={{ textDecoration: 'none' }}
-                        activeClassName="active" to={{
-                            pathname: '/student',
-                            aboutProps: { name: stu_id }
-                        }}>
+                    <NavLink className={classes.check}style={{ textDecoration: 'none' }} 
+                    activeClassName="active" to={{pathname:'/student', 
+                    aboutProps:{name:stu_id}}}>
                         <CheckIcon />
                     </NavLink>
                 </IconButton>,
@@ -198,42 +196,42 @@ class SearchAppBar extends React.Component {
     };
 
 
-    componentDidUpdate(prevProps) {
-        if (this.state.face_id !== prevProps.face_id && this.state.openSnack === true) {
+    componentDidUpdate(prevProps){
+        if (this.state.face_id !== prevProps.face_id && this.state.openSnack===true) {
             console.log(this.state.face_id);
             console.log(prevProps.face_id);
-            axios.create({
-                baseURL: IP,
-                headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-            }).get("/real")
-                .then((response) => {
-                    var face_id = response.data.split("!")[0];
-                    //console.log("in real");
-                    //console.log(response.data);
-                    this.setState({ face_id: face_id });
-                    //console.log("faceid is " + this.state.face_id);
-                    const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
-                    table.select({
-                        filterByFormula: fileterSentence,
-                        view: "Grid view",
-                        //maxRecords: 1
-                    }).eachPage((records, fetchNextPage) => {
-                        this.setState({ records });
+        axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        }).get("/real")
+            .then((response) => {
+            var face_id = response.data.split("!")[0];
+            //console.log("in real");
+            //console.log(response.data);
+            this.setState({ face_id: face_id });
+            //console.log("faceid is " + this.state.face_id);
+            const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+            table.select({
+              filterByFormula: fileterSentence,
+              view: "Grid view",
+              //maxRecords: 1
+            }).eachPage((records, fetchNextPage) => {
+              this.setState({ records });
+    
+              const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+              const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+    
+              this.setState({ stu_id: student_id, stu_name: student_name });
 
-                        const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-                        const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+    
 
-                        this.setState({ stu_id: student_id, stu_name: student_name });
-
-
-
-                    })
-                })
-                .catch((error) =>
-                    console.error(error)
-                );
+          })
+        })
+          .catch((error) =>
+            console.error(error)
+          );
         }
-    }
+      }
 
     componentDidMount() {
         base('ClassRoom').select({ view: 'Grid view' })
@@ -284,43 +282,43 @@ class SearchAppBar extends React.Component {
         axios.create({
             baseURL: IP,
             headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-        }).get("/retrieveface")
+          }).get("/retrieveface")
             .then((response) => {
-                console.log("in response");
-                console.log('open :', response.status, '\nopen camera', new Date());
+              console.log("in response");
+              console.log('open :', response.status, '\nopen camera', new Date());
             })
             .catch((error) =>
-                console.error(error)
+              console.error(error)
             );
-
-        axios.create({
+      
+          axios.create({
             baseURL: IP,
             headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-        }).get("/real")
+          }).get("/real")
             .then((response) => {
-                console.log("in real");
-                console.log(response.data);
-                this.setState({ face_id: response.data });
-                console.log("faceid is " + this.state.face_id);
-                const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
-                table.select({
-                    filterByFormula: fileterSentence,
-                    view: "Grid view",
-                    //maxRecords: 1
-                }).eachPage((records, fetchNextPage) => {
-                    this.setState({ records });
-
-                    const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-                    const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-
-                    this.setState({ stu_id: student_id, stu_name: student_name });
-
-                }
-                );
-
+              console.log("in real");
+              console.log(response.data);
+              this.setState({ face_id: response.data });
+              console.log("faceid is " + this.state.face_id);
+              const fileterSentence = 'AND(student_id = ' + this.state.face_id + ')'
+              table.select({
+                filterByFormula: fileterSentence,
+                view: "Grid view",
+                //maxRecords: 1
+              }).eachPage((records, fetchNextPage) => {
+                this.setState({ records });
+      
+                const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+                const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+      
+                this.setState({ stu_id: student_id, stu_name: student_name});
+      
+              }
+              );
+      
             })
             .catch((error) =>
-                console.error(error)
+              console.error(error)
             );
         this.setState({ openSnack: true });
     };
@@ -329,7 +327,7 @@ class SearchAppBar extends React.Component {
         axios.create({
             baseURL: IP,
             headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-        }).get("/terminate")
+          }).get("/terminate")
         this.setState({ openSnack: false });
     };
 
@@ -426,7 +424,7 @@ class SearchAppBar extends React.Component {
 
                                 onClose={this.handleCloseSnack}
                                 variant="warning"
-                                message={"學生：" + this.state.stu_name + " 學號：" + this.state.stu_id}
+                                message={"學生："+this.state.stu_name+" 學號："+this.state.stu_id}
                                 {...this.state}
                             />
                         </Snackbar>
