@@ -193,7 +193,6 @@ const styles = theme => ({
   inputRoot: {
     color: '#111B24',
     flexWrap: "wrap",
-    paddingLeft: theme.spacing.unit * 5,
   },
   inputInput: {
     // width: "auto",
@@ -227,8 +226,8 @@ function SearchAppBar(props) {
                 isOpen,
                 selectedItem
               }) => (
-                
-                <div className={classes.container}>
+
+                  <div className={classes.search}>
                     <div className={classes.searchIcon}>
                       <SearchIcon />
                     </div>
