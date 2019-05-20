@@ -173,18 +173,11 @@ class Rollcall extends React.Component {
               });
             }
           }
-<<<<<<< HEAD
-        }console.log(this.state.stu_id);
-      })
-      .catch((error) =>
-        console.error(error)
-      );
-=======
+
         })
         .catch((error) =>
           console.error(error)
         );
->>>>>>> ad38e523cc2a35a058f8c9cf476b761778f8b88c
     }
   }
 
