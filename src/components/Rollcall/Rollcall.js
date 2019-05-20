@@ -13,7 +13,7 @@ import {
   Select,
   OutlinedInput,
   Typography,
-  TextField
+  TextField,
 } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
@@ -91,7 +91,7 @@ const styles = theme => ({
 
   studentInfo: {
     fontSize: '16pt',
-    marginLeft: '35%',
+    marginLeft: '45%',
     marginTop: theme.spacing.unit * 5,
   },
   textField: {
@@ -125,6 +125,12 @@ const styles = theme => ({
     height: '50px',
     width: '140px',
     backgroundColor: 'red',
+  },
+
+  finish:{
+    float:'right',
+    marginTop:'26.5%',
+    marginRight:'10%',
   }
 });
 
@@ -149,6 +155,7 @@ class Rollcall extends React.Component {
     stuDataInit: [],
     class_id: '',
     checkedHomework: true,
+    checkedFinish: true,
   };
 
   componentDidUpdate(prevProps) {
@@ -203,11 +210,8 @@ class Rollcall extends React.Component {
     );
   }
 
-  handleHomework = name => event => {
-    this.setState({ [name]: event.target.checked });
-  };
-
-
+  
+  
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
     var temp = [];
@@ -218,7 +222,7 @@ class Rollcall extends React.Component {
         }
       }
       this.setState({ classData: temp });
-
+      
     } else if (event.target.value === "高中") {
       for (var index = 0; index < this.state.classDataInit.length; index++) {
         if (this.state.classDataInit[index].grade == "high") {
@@ -228,7 +232,7 @@ class Rollcall extends React.Component {
       this.setState({ classData: temp });
     }
   };
-
+  
   handleClassChange = name => event => {
     this.setState({ [name]: event.target.value });
     this.setState({ class_id: event.target.value });
@@ -239,7 +243,7 @@ class Rollcall extends React.Component {
       //maxRecords: 1
     }).eachPage((records, fetchNextPage) => {
       this.setState({ records });
-
+      
       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
       const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
@@ -248,40 +252,45 @@ class Rollcall extends React.Component {
         temp.push(createStuData(student_id[index], student_name[index], student_img[index]));
       }
       this.setState({ stuDataInit: temp });
-
+      
     }
     );
-
+    
   };
-
+  
   handleStart = e => {
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/retrieveface")
-      .then((response) => {
-        console.log("in response");
-        console.log('open :', response.status, '\nopen camera', new Date());
-      })
-      .catch((error) =>
-        console.error(error)
-      );
-
+    .then((response) => {
+      console.log("in response");
+      console.log('open :', response.status, '\nopen camera', new Date());
+    })
+    .catch((error) =>
+    console.error(error)
+    );
+    
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/real")
-      .then((response) => {
-      })
-      .catch((error) =>
-        console.error(error)
-      );
-
+    .then((response) => {
+    })
+    .catch((error) =>
+    console.error(error)
+    );
+    
     this.setState({ start: true })
     this.setState({ end: false })
   };
-
-
+  
+  handleHomework = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+  handleFinish = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
 
 
   handleClickAdd = name => e => {
@@ -356,7 +365,6 @@ class Rollcall extends React.Component {
                 <Switch
                   checked={this.state.checkedHomework}
                   onChange={this.handleHomework('checkedHomework')}
-                  value="checkedHomework"
                 />
               }
               label="作業繳交"
@@ -406,7 +414,24 @@ class Rollcall extends React.Component {
           this.state.start === true ?
             <div className={classes.info}>
               <img className={classes.photo} src={this.state.stu_img} alt="location" />
-              <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
+              {this.state.checkedHomework === true ?
+              <FormGroup className={classes.finish}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={this.state.checkedFinish}
+                    onChange={this.handleFinish('checkedFinish')}
+                  />
+                }
+                label="確認繳交"
+              />
+            </FormGroup>
+              :
+            <div></div>
+              }
+              <pre>
+                <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
+                </pre>
               <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
               <Button onClick={this.handleNo} className={classes.no}>NO</Button>
               <Add className={classes.addIcon} onClick={this.handleClickAdd} />
