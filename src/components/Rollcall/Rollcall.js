@@ -156,6 +156,7 @@ class Rollcall extends React.Component {
     class_id: '',
     checkedHomework: true,
     checkedFinish: true,
+    age:'',
   };
 
   componentDidUpdate(prevProps) {
@@ -293,8 +294,7 @@ class Rollcall extends React.Component {
   };
 
 
-  handleClickAdd = name => e => {
-  }
+
 
   handleEnd = e => {
     axios.create({
@@ -330,17 +330,22 @@ class Rollcall extends React.Component {
   handleNo = e => {
   };
 
-  handleClickAdd = name => e => {
-    console.log("hi");
-    let data = { fields: { class_id: {}, student_id: {} } };
-    data.fields.class_id = this.state.class_id;
-    // data.fields.attend_date = this.state.face_time.split(" ")[0];
-    data.fields.student_id = e.target.value;
-    console.log(e.target.value)
-    // data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
-    //   (this.state.face_time.split(" ")[1]).split(":")[1];
-   //fetchPostAttend(data);
-  }
+  handleClickAdd = name => event => {
+    for (var index = 0; index < this.state.stuDataInit.length; index++) {
+      if (this.state.stuDataInit[index].id == this.state.age) {
+        this.setState({
+          stu_id: this.state.stuDataInit[index].id,
+          stu_name: this.state.stuDataInit[index].name,
+          stu_img: this.state.stuDataInit[index].image
+        });
+      }
+    }
+    //console.log(this.state.age);
+
+  };
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
 
   render() {
     const { classes } = this.props;
@@ -435,11 +440,14 @@ class Rollcall extends React.Component {
                 </pre>
               <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
               <Button onClick={this.handleNo} className={classes.no}>NO</Button>
-              <Button className={classes.addIcon} onClick={this.handleClickAdd}><Add/></Button>
+              {/* <Button ></Button> */}
+              <Add className={classes.addIcon} onClick={this.handleClickAdd()}/>
               <TextField
                 id="filled-with-placeholder"
                 label="輸入學號"
                 className={classes.textField}
+                value={this.state.age}
+                onChange={this.handleChange('age')}
                 margin="normal"
                 variant="filled"
               />
