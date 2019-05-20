@@ -14,6 +14,9 @@ import {
   OutlinedInput,
   Typography,
   TextField,
+  Dialog,
+  DialogActions,
+  DialogTitle
 } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
@@ -149,6 +152,7 @@ class Rollcall extends React.Component {
     stu_name: '',
     stu_img: NoFace,
     face_id: '',
+    open:false,
     // face_time: '',
     classDataInit: [],
     classData: [],
@@ -211,7 +215,7 @@ class Rollcall extends React.Component {
   }
 
   
-  
+  //選國高中
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
     var temp = [];
@@ -258,6 +262,8 @@ class Rollcall extends React.Component {
     
   };
   
+
+  //開始點名
   handleStart = e => {
     axios.create({
       baseURL: IP,
@@ -285,9 +291,12 @@ class Rollcall extends React.Component {
     this.setState({ end: false })
   };
   
+  //要不要交作業
   handleHomework = name => event => {
     this.setState({ [name]: event.target.checked });
   };
+
+  //有沒有教作業
   handleFinish = name => event => {
     this.setState({ [name]: event.target.checked });
   };
@@ -296,6 +305,7 @@ class Rollcall extends React.Component {
   handleClickAdd = name => e => {
   }
 
+  //結束點ㄇㄧㄥˊ
   handleEnd = e => {
     axios.create({
       baseURL: IP,
@@ -310,6 +320,7 @@ class Rollcall extends React.Component {
 
     this.setState({ start: false })
     this.setState({ end: true })
+    this.setState({open: true})
   };
 
 
@@ -341,6 +352,21 @@ class Rollcall extends React.Component {
     //   (this.state.face_time.split(" ")[1]).split(":")[1];
    //fetchPostAttend(data);
   }
+
+  //取消結束點名
+  handleNotEnd = e =>{
+
+  }
+
+  //真的結束點名
+  handleRealEnd = e =>{
+
+  }
+
+  //關Dialog
+  handleClose = () => {
+    this.setState({ open: false });
+};
 
   render() {
     const { classes } = this.props;
@@ -408,6 +434,16 @@ class Rollcall extends React.Component {
 
           <Button disabled={this.state.start} className={classes.buttonStart} onClick={this.handleStart}>開始點名</Button>
           <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
+          <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                >
+                    <DialogTitle >是否結束點名？</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={this.handleNotEnd} color="primary">取消</Button>
+                        <Button onClick={this.handleRealEnd} color="primary">確定</Button>
+                    </DialogActions>
+                </Dialog>
         </div>
 
 
