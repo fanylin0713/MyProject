@@ -180,6 +180,7 @@ class Rollcall extends React.Component {
               });
             }
           }
+
         })
         .catch((error) =>
           console.error(error)

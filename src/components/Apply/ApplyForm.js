@@ -11,12 +11,16 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import CameraIcon from '@material-ui/icons/CameraAltRounded';
 import noTrain from './noTrain.jpg';
-import { fetchPostStudent, fetchPostClassMember } from '../../api';
+import { fetchPostStudent, fetchPostAccount } from '../../api';
 import axios from 'axios';
 import Airtable from 'airtable';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const tableClass = base('ClassDay');
+
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
 
 
 function createData(id, class_name) {
@@ -85,7 +89,9 @@ class OutlinedTextFields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            class_id: null,
+
+            class_id: [],
+            stu_img: noTrain,
             student_name: '',
             student_id: '',
             student_grade: '',
@@ -115,11 +121,11 @@ class OutlinedTextFields extends React.Component {
         }).eachPage((records, fetchNextPage) => {
             this.setState({ records });
             const class_id = this.state.records.map((record, index) => record.fields['class_id']);
-            const record_id = this.state.records.map((record, index) => record.id);
+            const record_id = this.state.records.map((record, index) => record.id.id);
 
             var temp = [];
             for (var index = 0; index < class_id.length; index++) {
-                temp.push(createData(class_id[index], record_id[index]));
+                temp.push(createData(record_id[index],class_id[index]));
             }
             this.setState({ classDaydata: temp });
             fetchNextPage();
@@ -130,9 +136,14 @@ class OutlinedTextFields extends React.Component {
     //https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
     myCallback = (dataFromChild) => {
         //this.setState({ class_id: dataFromChild }); 
-        for (var index = 0; index < this.state.classDaydata.length; index++) {
-            if(dataFromChild == this.state.classDaydata[index].class_name){
-                this.setState({ class_id: this.state.classDaydata[index].id }); 
+        console.log(dataFromChild)
+        var temp =[];
+        for(var i = 0; i < dataFromChild.length; i++){
+            for (var index = 0; index < this.state.classDaydata.length; index++) {
+                if(dataFromChild[i] == this.state.classDaydata[index].class_name){
+                    temp.push(this.state.classDaydata[index].id);
+                    this.setState({ class_id: temp });
+                }
             }
         }
     }
@@ -158,10 +169,12 @@ class OutlinedTextFields extends React.Component {
         e.preventDefault()
         let data = { fields: {student_name: {}, class_id_link:{}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {}, student_img:{} } };
         
+        let accountData = {fields: {account_id: {}, account_passwd:{}, account_role:{} }};
         data.fields.student_name = this.state.student_name;
         // data.fields.class_id_link = ["rec8zHmPXU3k3uGhx",
         // "recbeKNQoG8h5jIwJ"];
-        data.fields.class_id_link = [this.state.class_id,];
+        //data.fields.class_id_link = [this.state.class_id,];
+        data.fields.class_id_link = this.state.class_id;
         data.fields.student_id = this.state.student_id;
         data.fields.student_grade = this.state.student_grade;
         data.fields.student_phone = this.state.student_phone;
@@ -172,9 +185,15 @@ class OutlinedTextFields extends React.Component {
         data.fields.student_parent_phone = this.state.student_parent_phone;
         data.fields.student_address = this.state.student_address;
         data.fields.student_img = [{"url":this.state.imgUrl}];
-        
+
+        //account data
+        accountData.fields.account_id = this.state.student_email;
+        accountData.fields.account_passwd = '123';
+        accountData.fields.account_role = 'student';
+
         if (this.state.student_name !== '' && this.state.student_id !== '') {
             fetchPostStudent(data);
+            fetchPostAccount(accountData);
             // let memberData = { fields: { class_id: {}, student_id: {} } };
             // var count = this.state.class_id.length;
             // for (var index = 0; index < count; index++) {
@@ -280,6 +299,13 @@ class OutlinedTextFields extends React.Component {
 
     handleClose = () => {
         this.setState({ open: false });
+    };
+
+    handleCloseRefresh = () => {
+        this.setState({ open: false });
+        sleep(500).then(() => {
+            window.location.reload();
+        })
     };
 
     // componentDidUpdate() {
@@ -448,7 +474,7 @@ class OutlinedTextFields extends React.Component {
                 >
                     <DialogTitle >已送出！</DialogTitle>
                     <DialogActions>
-                        <Button style={{margin:'auto'}} onClick={this.handleClose} color="primary">確定</Button>
+                        <Button style={{margin:'auto'}} onClick={this.handleCloseRefresh} color="primary">確定</Button>
                     </DialogActions>
                 </Dialog>
 

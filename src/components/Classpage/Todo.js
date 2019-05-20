@@ -24,13 +24,14 @@ class Todo extends React.Component {
     }
 
     render() {
-        const { name,classes } = this.props;
+        const { name,classes,class_id } = this.props;
+
         return (
             <ul>
                 {/* // 傳回 jsx */}
 
                 <li>
-                <NavLink className={classes.link} style={{textDecoration:'none',}} activeClassName="active" to={{pathname:'/grade', aboutProps:{name:name}}}>{name}</NavLink> <div className="btn btn-danger" onClick={this.remove}>Delete</div>
+                <NavLink className={classes.link} style={{textDecoration:'none',}} activeClassName="active" to={{pathname:'/grade', aboutProps:{name:name,class_id:class_id}}}>{name}</NavLink> <div className="btn btn-danger" onClick={this.remove}>Delete</div>
                 {/* <NavLink className={classes.link} style={{textDecoration:'none',}} activeClassName="active" to="/grade">{name}</NavLink> <div className="btn btn-danger" onClick={this.remove}>Delete</div> */}
                 </li>
 

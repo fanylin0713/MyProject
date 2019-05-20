@@ -40,9 +40,11 @@ class Gradepage extends Component {
                 // { id: 1, name: '10/2 國文第一課', },
                 // { id: 2, name: '10/9 國文第二課', },
                 // { id: 3, name: '10/16 國文第三課', }
-            ]
+            ],
         }
     }
+
+
     componentDidMount(){
         table.select({
             view: "Grid view"
@@ -128,6 +130,7 @@ class Gradepage extends Component {
                         <Todo
                             id={todo.id}
                             name={todo.name}
+                            class_id={this.props.class_id}
                             remove={this.removeTodo} />
                     ))
                 }

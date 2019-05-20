@@ -13,7 +13,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { fetchPostTeacher } from '../../api';
+import { fetchPostTeacher, fetchPostAccount } from '../../api';
 import Airtable from 'airtable';
 
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
@@ -87,13 +87,20 @@ class FormDialog extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault()
         let data = { fields: { teacher_id: {}, teacher_name: {}, teacher_phone: {}, teacher_email: {}, subject_name: {} } };
+        let accountData = {fields: {account_id: {}, account_passwd:{}, account_role:{} }};
         data.fields.teacher_id = "Teacher";
         data.fields.teacher_name = this.state.teacher_name;
         data.fields.teacher_phone = this.state.teacher_phone;
         data.fields.teacher_email = this.state.teacher_email;
         data.fields.subject_name = this.state.age;
 
+        //account data
+        accountData.fields.account_id = this.state.teacher_email;
+        accountData.fields.account_passwd = '123';
+        accountData.fields.account_role = 'teacher';
+
         fetchPostTeacher(data);
+        fetchPostAccount(accountData);
         this.setState({ open: false });
 
         sleep(500).then(() => {
