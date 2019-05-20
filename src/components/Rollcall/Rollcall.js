@@ -13,7 +13,7 @@ import {
   Select,
   OutlinedInput,
   Typography,
-  TextField
+  TextField,
 } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
@@ -91,7 +91,7 @@ const styles = theme => ({
 
   studentInfo: {
     fontSize: '16pt',
-    marginLeft: '35%',
+    marginLeft: '45%',
     marginTop: theme.spacing.unit * 5,
   },
   textField: {
@@ -125,6 +125,12 @@ const styles = theme => ({
     height: '50px',
     width: '140px',
     backgroundColor: 'red',
+  },
+
+  finish:{
+    float:'right',
+    marginTop:'26.5%',
+    marginRight:'10%',
   }
 });
 
@@ -149,6 +155,7 @@ class Rollcall extends React.Component {
     stuDataInit: [],
     class_id: '',
     checkedHomework: true,
+    checkedHFinish: true,
   };
 
   componentDidUpdate(prevProps) {
@@ -279,7 +286,9 @@ class Rollcall extends React.Component {
     this.setState({ end: false })
   };
 
-
+  handleFinish = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
 
 
   handleClickAdd = name => e => {
@@ -342,7 +351,6 @@ class Rollcall extends React.Component {
                 <Switch
                   checked={this.state.checkedHomework}
                   onChange={this.handleHomework('checkedHomework')}
-                  value="checkedHomework"
                 />
               }
               label="作業繳交"
@@ -392,7 +400,24 @@ class Rollcall extends React.Component {
           this.state.start === true ?
             <div className={classes.info}>
               <img className={classes.photo} src={this.state.stu_img} alt="location" />
-              <pre><Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id} </Typography></pre>
+              {this.state.checkedHomework === true ?
+              <FormGroup className={classes.finish}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={this.state.checkedFinish}
+                    onChange={this.handleFinish('checkedFinish')}
+                  />
+                }
+                label="確認繳交"
+              />
+            </FormGroup>
+              :
+            <div></div>
+              }
+              <pre>
+                <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
+                </pre>
               <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
               <Button onClick={this.handleNo} className={classes.no}>NO</Button>
               <Add className={classes.addIcon} onClick={this.handleClickAdd} />
