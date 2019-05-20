@@ -331,6 +331,7 @@ class Rollcall extends React.Component {
   };
 
   handleClickAdd = name => e => {
+    console.log("hi");
     let data = { fields: { class_id: {}, student_id: {} } };
     data.fields.class_id = this.state.class_id;
     // data.fields.attend_date = this.state.face_time.split(" ")[0];
