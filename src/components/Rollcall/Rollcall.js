@@ -165,7 +165,7 @@ class Rollcall extends React.Component {
               stu_name: this.state.stuDataInit[index].name,
               stu_img: this.state.stuDataInit[index].image });
           }
-        }
+        }console.log(this.state.stu_id);
       })
       .catch((error) =>
         console.error(error)
