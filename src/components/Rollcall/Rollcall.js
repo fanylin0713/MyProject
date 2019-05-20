@@ -24,6 +24,13 @@ import axios from 'axios';
 import Airtable from 'airtable';
 import { fetchPostAttend } from '../../api';
 
+//excel
+import ReactExport from "react-data-export";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
 const TABLE_NAME = 'Student';
 const CLASS_TABLE_NAME = 'ClassDay';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
@@ -157,6 +164,7 @@ class Rollcall extends React.Component {
     checkedHomework: true,
     checkedFinish: true,
     age:'',
+    absent: [],
   };
 
   componentDidUpdate(prevProps) {
@@ -253,6 +261,7 @@ class Rollcall extends React.Component {
         temp.push(createStuData(student_id[index], student_name[index], student_img[index]));
       }
       this.setState({ stuDataInit: temp });
+      this.setState({ absent: temp });
       
     }
     );
@@ -284,6 +293,13 @@ class Rollcall extends React.Component {
     
     this.setState({ start: true })
     this.setState({ end: false })
+
+    let data = { fields: { class_id: {}, student_id: {}, attend_hw: {}} };
+    data.fields.class_id = this.state.class_id;
+    data.fields.student_id = 'admin';
+    data.fields.attend_hw = this.state.checkedHomework;
+
+    fetchPostAttend(data);
   };
   
   handleHomework = name => event => {
@@ -320,14 +336,27 @@ class Rollcall extends React.Component {
     // data.fields.student_id = this.state.stu_id;
     // data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
     //   (this.state.face_time.split(" ")[1]).split(":")[1];
-    let data = { fields: { class_id: {}, student_id: {} } };
+    let data = { fields: { class_id: {}, student_id: {}, attend_hw: {}} };
     data.fields.class_id = this.state.class_id;
     data.fields.student_id = this.state.stu_id;
+    data.fields.attend_hw = this.state.checkedFinish;
 
     fetchPostAttend(data);
+
+    
+    for(var i = 0; i < this.state.absent.length; i++){
+      if(this.state.stu_id == this.state.absent[i].id){
+        delete this.state.absent[i];
+      }
+    }
+
   };
 
   handleNo = e => {
+  };
+
+  handleAbsent = e => {
+    console.log(this.state.absent);
   };
 
   handleClickAdd = name => event => {
@@ -351,6 +380,7 @@ class Rollcall extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+
         <AppBar />
         <div className={classes.selectBar}>
           <FormControl className={classes.radio} component="fieldset">
@@ -413,6 +443,12 @@ class Rollcall extends React.Component {
 
           <Button disabled={this.state.start} className={classes.buttonStart} onClick={this.handleStart}>開始點名</Button>
           <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
+          <ExcelFile>
+                <ExcelSheet data={this.state.absent} name="Employees">
+                    <ExcelColumn label="Name" value="name"/>
+                    <ExcelColumn label="id" value="id"/>
+                </ExcelSheet>
+          </ExcelFile>
         </div>
 
 
