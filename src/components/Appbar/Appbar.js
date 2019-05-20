@@ -206,7 +206,7 @@ class SearchAppBar extends React.Component {
             headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         }).get("/real")
             .then((response) => {
-            var face_id = response.data.split("!")[0];
+            var face_id = response.data;
             //console.log("in real");
             //console.log(response.data);
             this.setState({ face_id: face_id });
