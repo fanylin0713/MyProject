@@ -149,7 +149,7 @@ class Rollcall extends React.Component {
     stu_name: '',
     stu_img: NoFace,
     face_id: '',
-    face_time: '',
+    // face_time: '',
     classDataInit: [],
     classData: [],
     stuDataInit: [],
@@ -165,11 +165,12 @@ class Rollcall extends React.Component {
         headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
       }).get("/real")
         .then((response) => {
-          var face_id = response.data.split("!")[0];
-          var face_time = response.data.split("!")[1];
+          var face_id = response.data;
+          // var face_id = response.data.split("!")[0];
+          // var face_time = response.data.split("!")[1];
 
           this.setState({ face_id: face_id });
-          this.setState({ face_time: face_time });
+          //this.setState({ face_time: face_time });
 
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (this.state.stuDataInit[index].id == this.state.face_id) {
@@ -313,12 +314,16 @@ class Rollcall extends React.Component {
 
 
   handleYes = e => {
-    let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {} } };
+    // let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {} } };
+    // data.fields.class_id = this.state.class_id;
+    // data.fields.attend_date = this.state.face_time.split(" ")[0];
+    // data.fields.student_id = this.state.stu_id;
+    // data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
+    //   (this.state.face_time.split(" ")[1]).split(":")[1];
+    let data = { fields: { class_id: {}, student_id: {} } };
     data.fields.class_id = this.state.class_id;
-    data.fields.attend_date = this.state.face_time.split(" ")[0];
     data.fields.student_id = this.state.stu_id;
-    data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
-      (this.state.face_time.split(" ")[1]).split(":")[1];
+
     fetchPostAttend(data);
   };
 
@@ -326,6 +331,15 @@ class Rollcall extends React.Component {
   };
 
   handleClickAdd = name => e => {
+    console.log("hi");
+    let data = { fields: { class_id: {}, student_id: {} } };
+    data.fields.class_id = this.state.class_id;
+    // data.fields.attend_date = this.state.face_time.split(" ")[0];
+    data.fields.student_id = e.target.value;
+    console.log(e.target.value)
+    // data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
+    //   (this.state.face_time.split(" ")[1]).split(":")[1];
+   //fetchPostAttend(data);
   }
 
   render() {
