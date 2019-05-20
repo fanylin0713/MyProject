@@ -421,7 +421,7 @@ class Rollcall extends React.Component {
                 </pre>
               <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
               <Button onClick={this.handleNo} className={classes.no}>NO</Button>
-              <Add className={classes.addIcon} onClick={this.handleClickAdd} />
+              <Button className={classes.addIcon} onClick={this.handleClickAdd}><Add/></Button>
               <TextField
                 id="filled-with-placeholder"
                 label="輸入學號"
