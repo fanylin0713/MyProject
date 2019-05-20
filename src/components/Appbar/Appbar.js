@@ -24,6 +24,7 @@ import Face from '@material-ui/icons/FaceOutlined';
 import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
+import MergeIcon from '@material-ui/icons/MergeTypeRounded'
 
 import axios from 'axios';
 
@@ -424,7 +425,7 @@ class SearchAppBar extends React.Component {
                         {/* 點名button */}
                         <Button className={classes.button} onClick={this.handleClickSnack}><Face /></Button>
                         {/* Merege button */}
-                        <Button className={classes.button} onClick={this.handleMerge}><Home /></Button>
+                        <Button className={classes.button} onClick={this.handleMerge}><MergeIcon /></Button>
                         <Snackbar
                             anchorOrigin={{
                                 vertical: 'top',
