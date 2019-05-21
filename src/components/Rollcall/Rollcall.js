@@ -28,12 +28,6 @@ import Airtable from 'airtable';
 import { fetchPostAttend } from '../../api';
 import { NavLink } from "react-router-dom";
 
-//excel
-import ReactExport from "react-data-export";
-
-const ExcelFile = ReactExport.ExcelFile;
-const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
-const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const TABLE_NAME = 'Student';
 const CLASS_TABLE_NAME = 'ClassDay';
@@ -483,15 +477,6 @@ class Rollcall extends React.Component {
 
           <Button disabled={this.state.start} className={classes.buttonStart} onClick={this.handleStart}>開始點名</Button>
           <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
-
-          <ExcelFile>
-                <ExcelSheet data={this.state.absent} name="Employees">
-                    <ExcelColumn label="Name" value="name"/>
-                    <ExcelColumn label="id" value="id"/>
-                    <ExcelColumn label="phone" value="phone"/>
-                    <ExcelColumn label="parent phone" value="parent"/>
-                </ExcelSheet>
-          </ExcelFile>
 
           <Dialog
                     open={this.state.open}

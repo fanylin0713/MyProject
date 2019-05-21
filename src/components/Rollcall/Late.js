@@ -9,10 +9,17 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '../AppBar/Appbar';
 
+//excel
+import ReactExport from "react-data-export";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
 const styles = theme => ({
     root: {
         width: '80%',
-        minWidth:'900px',
+        minWidth: '900px',
         margin: '0 auto',
         marginTop: theme.spacing.unit,
         backgroundColor: '#212832',
@@ -38,43 +45,55 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-function SimpleTable(props) {
-    const { classes } = props;
+class LateTable extends React.Component {
+    state={
+        absent:[]
+    }
+    render() {
+        const { classes } = this.props;
+        return (
+            <div>
+                <AppBar />
+                <ExcelFile>
+                    <ExcelSheet data={this.state.absent} name="Employees">
+                        <ExcelColumn label="Name" value="name" />
+                        <ExcelColumn label="id" value="id" />
+                        <ExcelColumn label="phone" value="phone" />
+                        <ExcelColumn label="parent phone" value="parent" />
+                    </ExcelSheet>
+                </ExcelFile>
 
-    return (
-        <div>
-        <AppBar />
-        
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>學生姓名</TableCell>
-                        <TableCell align="center">學號</TableCell>
-                        <TableCell align="center">學生電話</TableCell>
-                        <TableCell align="center">學生家長電話</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map(row => (
-                        <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="center">{row.calories}</TableCell>
-                            <TableCell align="center">{row.fat}</TableCell>
-                            <TableCell align="center">{row.carbs}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </Paper>
-        </div>
-    );
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>學生姓名</TableCell>
+                                <TableCell align="center">學號</TableCell>
+                                <TableCell align="center">學生電話</TableCell>
+                                <TableCell align="center">學生家長電話</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map(row => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell align="center">{row.calories}</TableCell>
+                                    <TableCell align="center">{row.fat}</TableCell>
+                                    <TableCell align="center">{row.carbs}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Paper>
+            </div>
+        );
+    }
 }
 
-SimpleTable.propTypes = {
+LateTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(LateTable);
