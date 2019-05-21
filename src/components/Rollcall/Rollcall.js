@@ -46,8 +46,8 @@ function createData(classid, grade) {
   return { id: classid, grade };
 }
 
-function createStuData(stu_id, name, image) {
-  return { id: stu_id, name, image };
+function createStuData(stu_id, name, image, phone, parent) {
+  return { id: stu_id, name, image, phone, parent };
 }
 
 const styles = theme => ({
@@ -260,9 +260,11 @@ class Rollcall extends React.Component {
       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
       const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
+      const student_phone = this.state.records.map((record, index) => record.fields['student_phone']);
+      const student_parent_phone = this.state.records.map((record, index) => record.fields['student_parent_phone']);
       var temp = [];
       for (var index = 0; index < student_name.length; index++) {
-        temp.push(createStuData(student_id[index], student_name[index], student_img[index]));
+        temp.push(createStuData(student_id[index], student_name[index], student_img[index], student_phone[index], student_parent_phone[index]));
       }
       this.setState({ stuDataInit: temp });
       this.setState({ absent: temp });
@@ -323,16 +325,16 @@ class Rollcall extends React.Component {
 
   //結束點ㄇㄧㄥˊ
   handleEnd = e => {
-    axios.create({
-      baseURL: IP,
-      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    }).get("/terminate")
-      .then((response) => {
-        console.log("in terminate");
-      })
-      .catch((error) =>
-        console.error(error)
-      );
+    // axios.create({
+    //   baseURL: IP,
+    //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    // }).get("/terminate")
+    //   .then((response) => {
+    //     console.log("in terminate");
+    //   })
+    //   .catch((error) =>
+    //     console.error(error)
+    //   );
 
     this.setState({ start: false })
     this.setState({ end: true })
@@ -366,9 +368,9 @@ class Rollcall extends React.Component {
   handleNo = e => {
   };
 
-  handleAbsent = e => {
-    console.log(this.state.absent);
-  };
+  // handleAbsent = e => {
+  //   console.log(this.state.absent);
+  // };
 
   handleClickAdd = name => event => {
     for (var index = 0; index < this.state.stuDataInit.length; index++) {
@@ -394,6 +396,16 @@ class Rollcall extends React.Component {
 
   //真的結束點名
   handleRealEnd = e =>{
+    axios.create({
+      baseURL: IP,
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    }).get("/terminate")
+      .then((response) => {
+        console.log("in terminate");
+      })
+      .catch((error) =>
+        console.error(error)
+      );
 
   }
 
@@ -474,6 +486,8 @@ class Rollcall extends React.Component {
                 <ExcelSheet data={this.state.absent} name="Employees">
                     <ExcelColumn label="Name" value="name"/>
                     <ExcelColumn label="id" value="id"/>
+                    <ExcelColumn label="phone" value="phone"/>
+                    <ExcelColumn label="parent phone" value="parent"/>
                 </ExcelSheet>
           </ExcelFile>
 
