@@ -30,16 +30,22 @@ function createData(name, calories, fat, carbs, protein) {
     return { id, name, calories, fat, carbs, protein };
 }
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+// const rows = [
+//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//     createData('Eclair', 262, 16.0, 24, 6.0),
+//     createData('Cupcake', 305, 3.7, 67, 4.3),
+//     createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
 
 function SimpleTable(props) {
     const { classes } = props;
+    console.log(props.location.aboutProps.name);
+    const rows = [];
+    for(var i = 0; i < props.location.aboutProps.name.length; i++ ){
+        rows.push(createData(props.location.aboutProps.name[i].name, props.location.aboutProps.name[i].id,
+            props.location.aboutProps.name[i].phone, props.location.aboutProps.name[i].parent));
+    }
 
     return (
         <div>

@@ -500,7 +500,7 @@ class Rollcall extends React.Component {
                     <DialogTitle >是否結束點名？</DialogTitle>
                     <DialogActions>
                         <Button onClick={this.handleNotEnd} color="primary">取消</Button>
-                        <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/late">
+                        <NavLink style={{textDecoration:'none'}} activeClassName="active" to={{pathname:'/late', aboutProps:{name:this.state.absent}}}>
                         <Button onClick={this.handleRealEnd} color="primary">確定</Button>
                         </NavLink>
                     </DialogActions>
