@@ -85,7 +85,7 @@ const styles = theme => ({
     },
     snack:{
         backgroundColor:'#FFBF5F',
-        color:'white',
+        color:'#111B24',
     }
 });
 
@@ -344,14 +344,13 @@ class OutlinedTextFields extends React.Component {
                             }}
                             open={this.state.openSnack}
                             autoHideDuration={2000}
+                            >
+                            <SnackbarContent
                             className={classes.snack}
-                            message="訓練成功！"
-                        >
-                            {/* <SnackbarContent
                                 variant="warning"
                                 message="訓練成功！"
                                 autoHideDuration={2000}
-                            /> */}
+                            />
                         </Snackbar>
                 </div>
                 <div className={classes.form}>
