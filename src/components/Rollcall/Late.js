@@ -49,11 +49,10 @@ function SimpleTable(props) {
             <Table className={classes.table}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>Dessert (100g serving)</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat (g)</TableCell>
-                        <TableCell align="right">Carbs (g)</TableCell>
-                        <TableCell align="right">Protein (g)</TableCell>
+                        <TableCell>學生姓名</TableCell>
+                        <TableCell align="center">學號</TableCell>
+                        <TableCell align="center">學生電話</TableCell>
+                        <TableCell align="center">學生家長電話</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -62,10 +61,9 @@ function SimpleTable(props) {
                             <TableCell component="th" scope="row">
                                 {row.name}
                             </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
+                            <TableCell align="center">{row.calories}</TableCell>
+                            <TableCell align="center">{row.fat}</TableCell>
+                            <TableCell align="center">{row.carbs}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
