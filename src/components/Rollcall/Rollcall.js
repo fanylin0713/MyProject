@@ -26,6 +26,7 @@ import NoFace from './noFace.jpg';
 import axios from 'axios';
 import Airtable from 'airtable';
 import { fetchPostAttend } from '../../api';
+import { NavLink } from "react-router-dom";
 
 //excel
 import ReactExport from "react-data-export";
@@ -334,8 +335,6 @@ class Rollcall extends React.Component {
         console.error(error)
       );
 
-    this.setState({ start: false })
-    this.setState({ end: true })
     this.setState({open: true})
   };
 
@@ -389,12 +388,15 @@ class Rollcall extends React.Component {
 
   //取消結束點名
   handleNotEnd = e =>{
-
+    this.setState({ open: false })
   }
 
   //真的結束點名
   handleRealEnd = e =>{
 
+    this.setState({ start: false })
+    this.setState({ end: true })
+    this.setState({ open: false })
   }
 
   //關Dialog
@@ -484,7 +486,9 @@ class Rollcall extends React.Component {
                     <DialogTitle >是否結束點名？</DialogTitle>
                     <DialogActions>
                         <Button onClick={this.handleNotEnd} color="primary">取消</Button>
+                        <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/late">
                         <Button onClick={this.handleRealEnd} color="primary">確定</Button>
+                        </NavLink>
                     </DialogActions>
                 </Dialog>
 

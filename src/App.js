@@ -16,6 +16,7 @@ import Teacher from './components/Teacher/Teacher';
 import Course from './components/Course/Course';
 import Student from './components/Student/Student';
 import Grade from './components/Classpage/Grade';
+import Late from './components/Rollcall/Late';
 
 
 class App extends Component {
@@ -46,6 +47,7 @@ class App extends Component {
                               <Route path="/course" component={Course} />
                               <Route path="/student" component={Student} />
                               <Route path="/grade" component={Grade} />
+                              <Route path="/late" component={Late} />
                         </Theme>
                   </Router>
                   // <React.Fragment>
