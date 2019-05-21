@@ -11,8 +11,12 @@ import AppBar from '../AppBar/Appbar';
 
 const styles = theme => ({
     root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
+        width: '80%',
+        minWidth:'900px',
+        margin: '0 auto',
+        marginTop: theme.spacing.unit,
+        backgroundColor: '#212832',
+        border: 'white 1px solid',
         overflowX: 'auto',
     },
     table: {
