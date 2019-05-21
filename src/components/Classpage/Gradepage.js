@@ -128,6 +128,7 @@ class Gradepage extends Component {
                 {
                     todos.map((todo) => (
                         <Todo
+                            key={todo.id}
                             id={todo.id}
                             name={todo.name}
                             class_id={this.props.class_id}
