@@ -52,7 +52,7 @@ class FormDialog extends React.Component {
         data.fields.student_id = this.state.student;
         data.fields.reserve_date = this.state.id;
         data.fields.reserve_address = 'from bar';
-        data.fields.reserve_time = '8:30';
+        data.fields.reserve_time = '13:30';
         data.fields.reserve_class = this.state.subject;
 
         fetchPostReserveStudent(data);
