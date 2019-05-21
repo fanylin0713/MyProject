@@ -184,6 +184,13 @@ const styles = theme => ({
   auto: {
     flexGrow: 1,
     height: 35,
+    transition: theme.transitions.create('width'),
+    [theme.breakpoints.up('sm')]: {
+      width: 90,
+      '&:focus': {
+        width: 120,
+      },
+    },
   },
   container: {
     flexGrow: 1,
