@@ -14,6 +14,7 @@ import Downshift from "downshift";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
+import { NavLink } from "react-router-dom";
 
 import Airtable from 'airtable';
 
@@ -21,24 +22,37 @@ const TABLE_NAME = 'Student';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const table = base(TABLE_NAME);
 
-const suggestions = [
-  { label: "403235627" },
-  { label: "403235382" },
-  { label: "403235039" },
-  { label: "403235623" },
-  { label: "403235837" },
-  { label: "404893857" },
-  { label: "404893394" },
-  { label: "404893039" },
-  { label: "405938471" },
-  { label: "405938432" },
-  { label: "405938948" },
-  { label: "405938038" },
-  { label: "406192384" },
-  { label: "406192392" },
-  { label: "406192102" },
-  { label: "406192382" }
-];
+var suggestions =[];
+
+table.select({
+  view: "Grid view",
+}).eachPage((records, fetchNextPage) => {
+  const student_id = records.map((record, index) => record.fields['student_id']);
+  for(var i = 0; i < student_id.length; i++){
+    suggestions.push({label : student_id[i]});
+  }
+  fetchNextPage();
+}
+);
+
+// const suggestions = [
+//   { label: "403235627" },
+//   { label: "403235382" },
+//   { label: "403235039" },
+//   { label: "403235623" },
+//   { label: "403235837" },
+//   { label: "404893857" },
+//   { label: "404893394" },
+//   { label: "404893039" },
+//   { label: "405938471" },
+//   { label: "405938432" },
+//   { label: "405938948" },
+//   { label: "405938038" },
+//   { label: "406192384" },
+//   { label: "406192392" },
+//   { label: "406192102" },
+//   { label: "406192382" }
+// ];
 
 function renderInput(inputProps) {
   const { InputProps, classes, ref, ...other } = inputProps;
@@ -184,6 +198,13 @@ const styles = theme => ({
   auto: {
     flexGrow: 1,
     height: 35,
+    transition: theme.transitions.create('width'),
+    [theme.breakpoints.up('sm')]: {
+      width: 90,
+      '&:focus': {
+        width: 120,
+      },
+    },
   },
   container: {
     flexGrow: 1,
@@ -245,6 +266,7 @@ function SearchAppBar(props) {
                     })}
                     <div {...getMenuProps()}>
                       {isOpen ? (
+                        <NavLink style={{textDecoration:'none'}} activeClassName="active" to={{pathname:'/student', aboutProps:{name:"405401279"}}}>
                         <Paper className={classes.paper} square>
                           {getSuggestions(inputValue).map((suggestion, index) =>
                             renderSuggestion({
@@ -256,6 +278,7 @@ function SearchAppBar(props) {
                             })
                           )}
                         </Paper>
+                        </NavLink>
                       ) : null}
                     </div>
                   </div>

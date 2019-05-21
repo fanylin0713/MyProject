@@ -167,6 +167,8 @@ class Rollcall extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
+    console.log("hi");
+    console.log(this.state.face_id);
     if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
       axios.create({
         baseURL: IP,
@@ -340,8 +342,10 @@ class Rollcall extends React.Component {
 
     
     for(var i = 0; i < this.state.absent.length; i++){
+      //console.log(this.state.absent);
       if(this.state.stu_id == this.state.absent[i].id){
-        delete this.state.absent[i];
+        //delete this.state.absent[i];
+        (this.state.absent).splice(i, 1);
       }
     }
 

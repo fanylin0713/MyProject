@@ -208,7 +208,7 @@ class FormDialog extends React.Component {
                                         </MenuItem>
                                         {(this.state.classData).map((n, index) => {
                                             return (
-                                                <MenuItem value={n}>{n}</MenuItem>
+                                                <MenuItem key={n} value={n}>{n}</MenuItem>
                                             );
                                         })}
                                         {/* <MenuItem value={10}>國文</MenuItem>

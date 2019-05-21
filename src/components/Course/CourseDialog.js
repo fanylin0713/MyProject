@@ -333,7 +333,7 @@ class FormDialog extends React.Component {
                                         </MenuItem>
                                         {(this.state.dayValue).map((n, index) => {
                                             return (
-                                                <MenuItem value={n}>{n}</MenuItem>
+                                                <MenuItem key={n} value={n}>{n}</MenuItem>
                                             );
                                         })}
                                         {/* <MenuItem value={10}>星期一</MenuItem>
@@ -367,7 +367,7 @@ class FormDialog extends React.Component {
                                         </MenuItem>
                                         {(this.state.timeValue).map((n, index) => {
                                             return (
-                                                <MenuItem value={n}>{n}</MenuItem>
+                                                <MenuItem key= {n} value={n}>{n}</MenuItem>
                                             );
                                         })}
                                         {/* <MenuItem value={10}>21:00</MenuItem>
