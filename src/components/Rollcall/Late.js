@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '../AppBar/Appbar';
 
@@ -27,8 +28,21 @@ const styles = theme => ({
         overflowX: 'auto',
     },
     table: {
-        minWidth: 700,
+        minWidth: 800,
     },
+    download:{
+        width:'80%',
+        height:'40px',
+        margin:'auto',
+    },
+    btn:{
+        backgroundColor:'#111B24',
+        color:'white',
+        border:'solid 1px #FFBF5F',
+        borderRadius:'10%',
+        float:'right',
+        marginTop: theme.spacing.unit,
+    }
 });
 
 //let id = 0;
@@ -36,24 +50,6 @@ function createData(name, id, phone, parent) {
     //id += 1;
     return { name, id, phone, parent};
 }
-
-// const rows = [
-//     createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//     createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//     createData('Eclair', 262, 16.0, 24, 6.0),
-//     createData('Cupcake', 305, 3.7, 67, 4.3),
-//     createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
-
-
-// function SimpleTable(props) {
-//     const { classes } = props;
-//     console.log(props.location.aboutProps.name);
-//     const rows = [];
-//     for(var i = 0; i < props.location.aboutProps.name.length; i++ ){
-//         rows.push(createData(props.location.aboutProps.name[i].name, props.location.aboutProps.name[i].id,
-//             props.location.aboutProps.name[i].phone, props.location.aboutProps.name[i].parent));
-//     }
 
 class LateTable extends React.Component {
     state={
@@ -76,15 +72,17 @@ class LateTable extends React.Component {
         return (
             <div>
                 <AppBar />
-                <ExcelFile>
-                    <ExcelSheet data={rows} name="Employees">
+                <div className={classes.download}>
+                <ExcelFile element={<button className={classes.btn}>匯出遲到名單</button>} >
+                    <ExcelSheet data={rows} name="Employees"  >
                         <ExcelColumn label="Name" value="name" />
                         <ExcelColumn label="id" value="id" />
                         <ExcelColumn label="phone" value="phone" />
                         <ExcelColumn label="parent phone" value="parent" />
                     </ExcelSheet>
                 </ExcelFile>
-
+                </div>
+                <div>
                 <Paper className={classes.root}>
                     <Table className={classes.table}>
                         <TableHead>
@@ -109,6 +107,7 @@ class LateTable extends React.Component {
                         </TableBody>
                     </Table>
                 </Paper>
+                </div>
             </div>
         );
     }
