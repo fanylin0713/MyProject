@@ -345,11 +345,13 @@ class OutlinedTextFields extends React.Component {
                             open={this.state.openSnack}
                             autoHideDuration={2000}
                             className={classes.snack}
+                            message="訓練成功！"
                         >
-                            <SnackbarContent
+                            {/* <SnackbarContent
                                 variant="warning"
                                 message="訓練成功！"
-                            />
+                                autoHideDuration={2000}
+                            /> */}
                         </Snackbar>
                 </div>
                 <div className={classes.form}>
