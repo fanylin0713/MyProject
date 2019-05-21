@@ -65,7 +65,7 @@ class LateTable extends React.Component {
         this.setState({rows : temp});
     }
     render() {
-        console.log(this.props.location.aboutProps.name);
+        //console.log(this.props.location.aboutProps.name);
         const { classes } = this.props;
         const { rows } = this.state;
 
