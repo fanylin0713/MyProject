@@ -9,10 +9,17 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '../AppBar/Appbar';
 
+//excel
+import ReactExport from "react-data-export";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
 const styles = theme => ({
     root: {
         width: '80%',
-        minWidth:'900px',
+        minWidth: '900px',
         margin: '0 auto',
         marginTop: theme.spacing.unit,
         backgroundColor: '#212832',
@@ -24,10 +31,10 @@ const styles = theme => ({
     },
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-    id += 1;
-    return { id, name, calories, fat, carbs, protein };
+//let id = 0;
+function createData(name, id, phone, parent) {
+    //id += 1;
+    return { name, id, phone, parent};
 }
 
 // const rows = [
@@ -38,49 +45,77 @@ function createData(name, calories, fat, carbs, protein) {
 //     createData('Gingerbread', 356, 16.0, 49, 3.9),
 // ];
 
-function SimpleTable(props) {
-    const { classes } = props;
-    console.log(props.location.aboutProps.name);
-    const rows = [];
-    for(var i = 0; i < props.location.aboutProps.name.length; i++ ){
-        rows.push(createData(props.location.aboutProps.name[i].name, props.location.aboutProps.name[i].id,
-            props.location.aboutProps.name[i].phone, props.location.aboutProps.name[i].parent));
-    }
 
-    return (
-        <div>
-        <AppBar />
-        
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>學生姓名</TableCell>
-                        <TableCell align="center">學號</TableCell>
-                        <TableCell align="center">學生電話</TableCell>
-                        <TableCell align="center">學生家長電話</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map(row => (
-                        <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="center">{row.calories}</TableCell>
-                            <TableCell align="center">{row.fat}</TableCell>
-                            <TableCell align="center">{row.carbs}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </Paper>
-        </div>
-    );
+// function SimpleTable(props) {
+//     const { classes } = props;
+//     console.log(props.location.aboutProps.name);
+//     const rows = [];
+//     for(var i = 0; i < props.location.aboutProps.name.length; i++ ){
+//         rows.push(createData(props.location.aboutProps.name[i].name, props.location.aboutProps.name[i].id,
+//             props.location.aboutProps.name[i].phone, props.location.aboutProps.name[i].parent));
+//     }
+
+class LateTable extends React.Component {
+    state={
+        absent:[],
+        rows:[]
+    }
+    componentDidMount(){
+        var temp=[];
+        for(var i = 0; i < this.props.location.aboutProps.name.length; i++ ){
+            temp.push(createData(this.props.location.aboutProps.name[i].name, this.props.location.aboutProps.name[i].id,
+                this.props.location.aboutProps.name[i].phone, this.props.location.aboutProps.name[i].parent));
+        }
+        this.setState({rows : temp});
+    }
+    render() {
+        console.log(this.props.location.aboutProps.name);
+        const { classes } = this.props;
+        const { rows } = this.state;
+
+        return (
+            <div>
+                <AppBar />
+                <ExcelFile>
+                    <ExcelSheet data={rows} name="Employees">
+                        <ExcelColumn label="Name" value="name" />
+                        <ExcelColumn label="id" value="id" />
+                        <ExcelColumn label="phone" value="phone" />
+                        <ExcelColumn label="parent phone" value="parent" />
+                    </ExcelSheet>
+                </ExcelFile>
+
+                <Paper className={classes.root}>
+                    <Table className={classes.table}>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>學生姓名</TableCell>
+                                <TableCell align="center">學號</TableCell>
+                                <TableCell align="center">學生電話</TableCell>
+                                <TableCell align="center">學生家長電話</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.map(row => (
+                                <TableRow key={row.id}>
+                                    <TableCell component="th" scope="row">
+                                        {row.name}
+                                    </TableCell>
+                                    <TableCell align="center">{row.id}</TableCell>
+                                    <TableCell align="center">{row.phone}</TableCell>
+                                    <TableCell align="center">{row.parent}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Paper>
+            </div>
+        );
+    }
 }
 
-SimpleTable.propTypes = {
+LateTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(LateTable);
