@@ -277,6 +277,7 @@ function SearchAppBar(props) {
                               selectedItem
                             })
                           )}
+                          {/* {console.log(selectedItem)} */}
                         </Paper>
                         </NavLink>
                       ) : null}
