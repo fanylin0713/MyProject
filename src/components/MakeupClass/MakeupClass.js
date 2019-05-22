@@ -45,7 +45,7 @@ const styles = theme => ({
 class MakeupClass extends React.Component {
 
     state = {
-        selectedDate: new Date('2019-06-01'),
+        selectedDate: new Date('2019-05-22'),
     };
 
     handleDateChange = date => {
