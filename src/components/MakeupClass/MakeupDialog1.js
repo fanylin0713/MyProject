@@ -8,6 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { withStyles } from '@material-ui/core/styles';
 import { fetchPostReserveStudent } from '../../api';
 
+
 function sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -48,15 +49,16 @@ class FormDialog extends React.Component {
     };
 
     componentDidMount() {
+
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
-        let data = { fields: { student_id:{}, reserve_date:{}, reserve_address:{}, reserve_time:{}, reserve_class:{}} };
+        let data = { fields: { student_id:{}, reserve_date:{}, reserve_address:{}, reserve_time:{}, reserve_class:{},reserve_people:{}} };
         data.fields.student_id = this.state.student;
         data.fields.reserve_date = this.state.id;
         data.fields.reserve_address = 'from bar';
-        data.fields.reserve_time = '8:30';
+        data.fields.reserve_time = '09:30';
         data.fields.reserve_class = this.state.subject;
 
         fetchPostReserveStudent(data);

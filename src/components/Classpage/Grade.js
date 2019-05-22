@@ -156,7 +156,9 @@ class Grade extends Component {
                 }).eachPage((records, fetchNextPage) => {
                     this.setState({ records });
                     const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-                    temp.push(createData(student_name[0], student_idR, test_scoreR, test_rankR));  
+                    if(test_rankR < 101){
+                        temp.push(createData(student_name[0], student_idR, test_scoreR, test_rankR));  
+                    }
                 }
                 );
             }

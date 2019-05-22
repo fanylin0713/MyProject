@@ -48,7 +48,7 @@ class SimpleTable extends React.Component {
         //airtable
     componentDidMount() {
         table.select({
-            filterByFormula: 'AND(reserve_time="8:30")',
+            filterByFormula: 'AND(DATESTR="2019-05-22",reserve_time="09:30")',
             view: "Grid view",
         }).eachPage((records, fetchNextPage) => {
             this.setState({ records });
