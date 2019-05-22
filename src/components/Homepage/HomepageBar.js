@@ -131,16 +131,16 @@ const styles = theme => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.25),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.35),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit,
-      width: 'auto',
-    },
+    // backgroundColor: fade(theme.palette.common.white, 0.25),
+    // '&:hover': {
+    //   backgroundColor: fade(theme.palette.common.white, 0.35),
+    // },
+    // // marginLeft: 0,
+    // // width: '100%',
+    // [theme.breakpoints.up('sm')]: {
+    //   marginLeft: theme.spacing.unit,
+    //   width: 'auto',
+    // },
   },
   searchIcon: {
     color: '#111B24',
@@ -199,24 +199,26 @@ const styles = theme => ({
   paper: {
     position: "absolute",
     zIndex: 1,
+    width:'25%',
     marginTop: theme.spacing.unit,
     left: 0,
     right: 0
   },
   inputRoot: {
+    backgroundColor: fade(theme.palette.common.white, 0.25),
     color: '#111B24',
     flexWrap: "wrap",
   },
   inputInput: {
     // width: "auto",
-    paddingLeft: theme.spacing.unit * 5,
+    paddingLeft: theme.spacing.unit,
     flexGrow: 1,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 90,
+      width: 120,
       '&:focus': {
-        width: 120,
+        width: 140,
       },
     },
   },
@@ -240,10 +242,13 @@ function SearchAppBar(props) {
                 selectedItem
               }) => (
 
+                //整包
                   <div className={classes.search}>
-                    <div className={classes.searchIcon}>
+                  {/* icon */}
+                    {/* <div className={classes.searchIcon}>
                       <SearchIcon />
-                    </div>
+                    </div> */}
+                    
                     {renderInput({
                       classes,
                       InputProps: getInputProps({
