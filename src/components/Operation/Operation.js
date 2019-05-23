@@ -64,7 +64,7 @@ const lineoptions = {
   legend: {
     textStyle: { color: 'white', }
   },
-  series: { 0: { color: '#0088FE', curveType: 'function' }, 1: { color: '#FFBB28', curveType: 'function' } },
+  series: { 0: { color: '#0088FE'}, 1: { color: '#FFBB28'} },
   backgroundColor: 'transparent',
 };
 
