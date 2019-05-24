@@ -88,7 +88,7 @@ class Homepage extends React.Component {
               <Button className={classes.btn} ><Makeupicon className={classes.icon} />補課管理</Button>
               </NavLink>
               <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/announcment">
-                <Button className={classes.btn} ><Announceicon className={classes.icon} />公告</Button>
+                <Button className={classes.btn} ><Announceicon className={classes.icon} />公告管理</Button>
               </NavLink>
             </Cards>
           </div>
