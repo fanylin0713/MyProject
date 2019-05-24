@@ -45,6 +45,10 @@ function createStuData(stu_id, name, image, phone, parent) {
   return { id: stu_id, name, image, phone, parent };
 }
 
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 const styles = theme => ({
   selectBar: {
     width: '80%',
@@ -190,13 +194,13 @@ class Rollcall extends React.Component {
                 stu_img: this.state.stuDataInit[index].image
               });
             }
-            else if(this.state.face_id == null || this.state.face_id == 'none'){
-              this.setState({
-                stu_id: '',
-                stu_name: '',
-                stu_img: NoFace
-              });
-            }
+            // else if(this.state.face_id == null || this.state.face_id == 'none'){
+            //   this.setState({
+            //     stu_id: '',
+            //     stu_name: '',
+            //     stu_img: NoFace
+            //   });
+            // }
           }
 
         })
