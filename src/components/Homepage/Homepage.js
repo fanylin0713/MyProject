@@ -5,12 +5,37 @@ import HomepageBar from './HomepageBar'
 import Cards from '../Cards/Cards'
 import Button from '../Button/Button'
 import { NavLink } from "react-router-dom";
+import { withStyles } from '@material-ui/core/styles';
+
+//icon
+import Applyicon from '@material-ui/icons/PersonAddOutlined';
+import Rollcallicon from '@material-ui/icons/HowToRegOutlined';
+import Classicon from '@material-ui/icons/FolderSharedOutlined';
+import Teachericon from '@material-ui/icons/SchoolOutlined';
+import Courseicon from '@material-ui/icons/LocalLibraryOutlined';
+import Operationicon from '@material-ui/icons/SettingsOutlined';
+import Makeupicon from '@material-ui/icons/DateRangeOutlined';
+import Announceicon from '@material-ui/icons/AnnouncementOutlined';
+
+const styles = theme =>({
+  root:{
+    width: "90%", 
+    margin: "30px auto", 
+    display: "flex", 
+    flexDirection: "row" 
+  },
+  line:{
+    borderColor: '#FFBF5F',
+  },
+  icon:{
+    fontSize:'30pt',
+    marginRight:theme.spacing.unit * 3,
+  },
+})
 
 class Homepage extends React.Component {
-
-
-
   render() {
+    const { classes } = this.props;
     return (
       <div >
         {/* 這是導覽 */}
@@ -19,42 +44,42 @@ class Homepage extends React.Component {
         <main style={{ marginTop: "20px" }}>
           <HomepageBar />
           {/* 這是背景排序 */}
-          <div style={{ width: "90%", margin: "30px auto", display: "flex", flexDirection: "row" }}>
+          <div className={classes.root} >
             <Cards>
               課程辨識系統
-              <hr style={{ borderColor: '#FFBF5F', }} />
+              <hr className={classes.line} />
               {/* 跳頁連結 */}
               <NavLink activeClassName="active" to="/apply">
-                <Button type="home">報名</Button>
+                <Button type="home"><Applyicon className={classes.icon} />報名</Button>
               </NavLink>
               <NavLink activeClassName="active" to="/rollcall">
-                <Button type="home">點名</Button>
+                <Button type="home"><Rollcallicon className={classes.icon} />點名</Button>
               </NavLink>
             </Cards>
             <Cards>
               課程資訊
-              <hr style={{ borderColor: '#FFBF5F', }} />
+              <hr className={classes.line} />
               <NavLink activeClassName="active" to="/class">
-                <Button type="home">班級資料</Button>
+                <Button type="home"><Classicon className={classes.icon} />班級資料</Button>
               </NavLink>
               <NavLink activeClassName="active" to="/teacher">
-              <Button type="home">老師管理</Button>
+              <Button type="home"><Teachericon className={classes.icon} />老師管理</Button>
               </NavLink>
               <NavLink activeClassName="active" to="/course">
-              <Button type="home">課程管理</Button>
+              <Button type="home"><Courseicon className={classes.icon} />課程管理</Button>
               </NavLink>
             </Cards>
             <Cards>
               補習班管理
-              <hr style={{ borderColor: '#FFBF5F', }} />
+              <hr className={classes.line} />
               <NavLink activeClassName="active" to="/operation">
-              <Button type="home">營運狀態查詢</Button>
+              <Button type="home"><Operationicon className={classes.icon} />營運狀態</Button>
               </NavLink>
               <NavLink activeClassName="active" to="/makeupclass">
-              <Button type="home">補課管理</Button>
+              <Button type="home"><Makeupicon className={classes.icon} />補課管理</Button>
               </NavLink>
               <NavLink activeClassName="active" to="/announcment">
-                <Button type="home">公告</Button>
+                <Button type="home"><Announceicon className={classes.icon} />公告</Button>
               </NavLink>
             </Cards>
           </div>
@@ -65,4 +90,4 @@ class Homepage extends React.Component {
 
 }
 
-export default Homepage;
+export default withStyles(styles)(Homepage);
