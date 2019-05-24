@@ -35,6 +35,10 @@ const styles = theme =>({
     color: 'white',
     fontSize: '24pt',
     margin: '10px 20px',
+    "&:hover": {
+      backgroundColor: "#FFBF5F",
+      color: '#111B24',
+  }
   },
   icon:{
     fontSize:'30pt',
