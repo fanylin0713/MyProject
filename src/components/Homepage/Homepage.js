@@ -58,37 +58,37 @@ class Homepage extends React.Component {
               課程辨識系統
               <hr className={classes.line} />
               {/* 跳頁連結 */}
-              <NavLink activeClassName="active" to="/apply">
-                <Button className={classes.btn}><Applyicon className={classes.icon} />報名</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/apply">
+                <Button className={classes.btn} ><Applyicon className={classes.icon} />報名</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/rollcall">
-                <Button className={classes.btn}><Rollcallicon className={classes.icon} />點名</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/rollcall">
+                <Button className={classes.btn} ><Rollcallicon className={classes.icon} />點名</Button>
               </NavLink>
             </Cards>
             <Cards>
               課程資訊
               <hr className={classes.line} />
-              <NavLink activeClassName="active" to="/class">
-                <Button className={classes.btn}><Classicon className={classes.icon} />班級資料</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/class">
+                <Button className={classes.btn} ><Classicon className={classes.icon} />班級資料</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/teacher">
-              <Button className={classes.btn}><Teachericon className={classes.icon} />老師管理</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/teacher">
+              <Button className={classes.btn} ><Teachericon className={classes.icon} />老師管理</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/course">
-              <Button className={classes.btn}><Courseicon className={classes.icon} />課程管理</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/course">
+              <Button className={classes.btn} ><Courseicon className={classes.icon} />課程管理</Button>
               </NavLink>
             </Cards>
             <Cards>
               補習班管理
               <hr className={classes.line} />
-              <NavLink activeClassName="active" to="/operation">
-              <Button className={classes.btn}><Operationicon className={classes.icon} />營運狀態</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/operation">
+              <Button className={classes.btn} ><Operationicon className={classes.icon} />營運狀態</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/makeupclass">
-              <Button className={classes.btn}><Makeupicon className={classes.icon} />補課管理</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/makeupclass">
+              <Button className={classes.btn} ><Makeupicon className={classes.icon} />補課管理</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/announcment">
-                <Button className={classes.btn}><Announceicon className={classes.icon} />公告</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/announcment">
+                <Button className={classes.btn} ><Announceicon className={classes.icon} />公告</Button>
               </NavLink>
             </Cards>
           </div>
