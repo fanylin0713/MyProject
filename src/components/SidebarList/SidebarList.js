@@ -10,6 +10,15 @@ import { NavLink } from "react-router-dom";
 
 //icon
 import Moon from '@material-ui/icons/Brightness4';
+//icon
+import Applyicon from '@material-ui/icons/PersonAddOutlined';
+import Rollcallicon from '@material-ui/icons/HowToRegOutlined';
+import Classicon from '@material-ui/icons/FolderSharedOutlined';
+import Teachericon from '@material-ui/icons/SchoolOutlined';
+import Courseicon from '@material-ui/icons/LocalLibraryOutlined';
+import Operationicon from '@material-ui/icons/SettingsOutlined';
+import Makeupicon from '@material-ui/icons/DateRangeOutlined';
+import Announceicon from '@material-ui/icons/AnnouncementOutlined';
 
 
 const styles = theme => ({
@@ -26,6 +35,9 @@ const styles = theme => ({
     },
     headcolor:{
         color: "#111B24",
+    },
+    icon:{
+        color:'white'
     }
 });
 
@@ -53,6 +65,7 @@ function SimpleList(props) {
             <List component="nav" style={{ backgroundColor: "#111B24", }}>
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/apply">
                 <ListItem button>
+                <Applyicon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
@@ -62,6 +75,7 @@ function SimpleList(props) {
                 </NavLink>
 
                 <ListItem button>
+                <Rollcallicon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
@@ -71,6 +85,7 @@ function SimpleList(props) {
 
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/class">
                 <ListItem button>
+                <Classicon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
@@ -81,6 +96,7 @@ function SimpleList(props) {
 
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/teacher">
                 <ListItem button>
+                <Teachericon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
@@ -91,6 +107,7 @@ function SimpleList(props) {
 
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/course">
                 <ListItem button>
+                <Courseicon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
@@ -101,6 +118,7 @@ function SimpleList(props) {
 
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/operation">
                 <ListItem button>
+                <Operationicon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
@@ -111,6 +129,7 @@ function SimpleList(props) {
 
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/makeupclass">
                 <ListItem button>
+                <Makeupicon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
@@ -121,6 +140,7 @@ function SimpleList(props) {
 
                 <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/announcment">
                 <ListItem button>
+                <Announceicon className={classes.icon}/>
                     <ListItemText primaryTypographyProps={{
                         classes: {
                             root: classes.textcolor
