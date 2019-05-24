@@ -253,7 +253,7 @@ class Rollcall extends React.Component {
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
     var temp = [];
-    if (event.target.value === "國中") {
+    if (event.target.value == "國中") {
       for (var index = 0; index < this.state.classDataInit.length; index++) {
         if (this.state.classDataInit[index].grade == "middle") {
           temp.push(this.state.classDataInit[index]);
@@ -261,7 +261,7 @@ class Rollcall extends React.Component {
       }
       this.setState({ classData: temp });
       
-    } else if (event.target.value === "高中") {
+    } else if (event.target.value == "高中") {
       for (var index = 0; index < this.state.classDataInit.length; index++) {
         if (this.state.classDataInit[index].grade == "high") {
           temp.push(this.state.classDataInit[index]);
@@ -429,9 +429,9 @@ class Rollcall extends React.Component {
     //console.log(this.state.age);
 
   };
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
+  // handleChange = name => event => {
+  //   this.setState({ [name]: event.target.value });
+  // };
 
   //取消結束點名
   handleNotEnd = e =>{
