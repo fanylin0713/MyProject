@@ -355,16 +355,6 @@ class Rollcall extends React.Component {
 
 
   handleYes = e => {
-    // axios.create({
-    //   baseURL: IP,
-    //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    // }).get("/again")
-    // .then((response) => {
-    // })
-    // .catch((error) =>
-    // console.error(error)
-    // );
-    
     const formdata = new FormData();
         console.log(this.state.facepath)
         formdata.set('face_path', this.state.facepath);     
