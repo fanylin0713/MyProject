@@ -3,7 +3,7 @@ import React from 'react';
 import AppBar from '../AppBar/Appbar'
 import HomepageBar from './HomepageBar'
 import Cards from '../Cards/Cards'
-import Button from '../Button/Button'
+import Button from '@material-ui/core/Button';
 import { NavLink } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 
@@ -27,6 +27,15 @@ const styles = theme =>({
   line:{
     borderColor: '#FFBF5F',
   },
+  btn:{
+    border: '#FFBF5F 2px solid' ,
+    borderRadius: '10px',
+    height: '15%',
+    width: '85%',
+    color: 'white',
+    fontSize: '24pt',
+    margin: '10px 20px',
+  },
   icon:{
     fontSize:'30pt',
     marginRight:theme.spacing.unit * 3,
@@ -49,37 +58,37 @@ class Homepage extends React.Component {
               課程辨識系統
               <hr className={classes.line} />
               {/* 跳頁連結 */}
-              <NavLink activeClassName="active" to="/apply">
-                <Button type="home"><Applyicon className={classes.icon} />報名</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/apply">
+                <Button className={classes.btn} ><Applyicon className={classes.icon} />報名</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/rollcall">
-                <Button type="home"><Rollcallicon className={classes.icon} />點名</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/rollcall">
+                <Button className={classes.btn} ><Rollcallicon className={classes.icon} />點名</Button>
               </NavLink>
             </Cards>
             <Cards>
               課程資訊
               <hr className={classes.line} />
-              <NavLink activeClassName="active" to="/class">
-                <Button type="home"><Classicon className={classes.icon} />班級資料</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/class">
+                <Button className={classes.btn} ><Classicon className={classes.icon} />班級資料</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/teacher">
-              <Button type="home"><Teachericon className={classes.icon} />老師管理</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/teacher">
+              <Button className={classes.btn} ><Teachericon className={classes.icon} />老師管理</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/course">
-              <Button type="home"><Courseicon className={classes.icon} />課程管理</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/course">
+              <Button className={classes.btn} ><Courseicon className={classes.icon} />課程管理</Button>
               </NavLink>
             </Cards>
             <Cards>
               補習班管理
               <hr className={classes.line} />
-              <NavLink activeClassName="active" to="/operation">
-              <Button type="home"><Operationicon className={classes.icon} />營運狀態</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/operation">
+              <Button className={classes.btn} ><Operationicon className={classes.icon} />營運狀態</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/makeupclass">
-              <Button type="home"><Makeupicon className={classes.icon} />補課管理</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/makeupclass">
+              <Button className={classes.btn} ><Makeupicon className={classes.icon} />補課管理</Button>
               </NavLink>
-              <NavLink activeClassName="active" to="/announcment">
-                <Button type="home"><Announceicon className={classes.icon} />公告</Button>
+              <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/announcment">
+                <Button className={classes.btn} ><Announceicon className={classes.icon} />公告</Button>
               </NavLink>
             </Cards>
           </div>
