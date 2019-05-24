@@ -160,6 +160,7 @@ class Rollcall extends React.Component {
     face_id: '',
     facepath: '',
     open:false,
+    traintwo:true,
     // face_time: '',
     classDataInit: [],
     classData: [],
@@ -368,7 +369,7 @@ class Rollcall extends React.Component {
         console.log(this.state.facepath)
         formdata.set('face_path', this.state.facepath);     
         formdata.set('faceid', this.state.stu_id);
-
+        if(this.state.traintwo === true){
         axios({
             method: 'post',
             url: 'http://localhost:8080/trainagain',
@@ -381,6 +382,7 @@ class Rollcall extends React.Component {
             .catch((error) =>
                 console.error(error)
             );
+          }
           
     // let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {} } };
     // data.fields.class_id = this.state.class_id;
@@ -423,6 +425,7 @@ class Rollcall extends React.Component {
         });
       }
     }
+    this.setState({traintwo: false})
     //console.log(this.state.age);
 
   };
