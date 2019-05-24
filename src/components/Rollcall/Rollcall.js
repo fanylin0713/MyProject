@@ -45,6 +45,10 @@ function createStuData(stu_id, name, image, phone, parent) {
   return { id: stu_id, name, image, phone, parent };
 }
 
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 const styles = theme => ({
   selectBar: {
     width: '80%',
@@ -154,7 +158,9 @@ class Rollcall extends React.Component {
     stu_name: '',
     stu_img: NoFace,
     face_id: '',
+    facepath: '',
     open:false,
+    traintwo:true,
     // face_time: '',
     classDataInit: [],
     classData: [],
@@ -167,7 +173,6 @@ class Rollcall extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    console.log("hi");
     console.log(this.state.face_id);
     if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
       axios.create({
@@ -190,6 +195,13 @@ class Rollcall extends React.Component {
                 stu_img: this.state.stuDataInit[index].image
               });
             }
+            // else if(this.state.face_id == null || this.state.face_id == 'none'){
+            //   this.setState({
+            //     stu_id: '',
+            //     stu_name: '',
+            //     stu_img: NoFace
+            //   });
+            // }
           }
 
         })
@@ -197,6 +209,22 @@ class Rollcall extends React.Component {
           console.error(error)
         );
     }
+    if (this.state.end === false) {  
+    axios.create({
+      baseURL: IP,
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    }).get("/again")
+    .then((response) => {
+      var face_path = response.data;
+      if(response.data !=='no'){
+      this.setState({ facepath: face_path });
+      }
+      console.log(this.state.facepath)
+    })
+    .catch((error) =>
+    console.error(error)
+    );
+  }
   }
 
   componentDidMount() {
@@ -327,6 +355,35 @@ class Rollcall extends React.Component {
 
 
   handleYes = e => {
+    // axios.create({
+    //   baseURL: IP,
+    //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    // }).get("/again")
+    // .then((response) => {
+    // })
+    // .catch((error) =>
+    // console.error(error)
+    // );
+    
+    const formdata = new FormData();
+        console.log(this.state.facepath)
+        formdata.set('face_path', this.state.facepath);     
+        formdata.set('faceid', this.state.stu_id);
+        if(this.state.traintwo === true){
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/trainagain',
+            data: formdata,
+            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+        })
+            .then((response) => {
+                console.log("in")
+            })
+            .catch((error) =>
+                console.error(error)
+            );
+          }
+          
     // let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {} } };
     // data.fields.class_id = this.state.class_id;
     // data.fields.attend_date = this.state.face_time.split(" ")[0];
@@ -368,6 +425,7 @@ class Rollcall extends React.Component {
         });
       }
     }
+    this.setState({traintwo: false})
     //console.log(this.state.age);
 
   };
