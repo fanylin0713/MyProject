@@ -35,6 +35,10 @@ const styles = theme =>({
     color: 'white',
     fontSize: '24pt',
     margin: '10px 20px',
+    "&:hover": {
+      backgroundColor: "#FFBF5F",
+      color: '#111B24',
+  }
   },
   icon:{
     fontSize:'30pt',
@@ -88,7 +92,7 @@ class Homepage extends React.Component {
               <Button className={classes.btn} ><Makeupicon className={classes.icon} />補課管理</Button>
               </NavLink>
               <NavLink style={{textDecoration:'none'}} activeClassName="active" to="/announcment">
-                <Button className={classes.btn} ><Announceicon className={classes.icon} />公告</Button>
+                <Button className={classes.btn} ><Announceicon className={classes.icon} />公告管理</Button>
               </NavLink>
             </Cards>
           </div>

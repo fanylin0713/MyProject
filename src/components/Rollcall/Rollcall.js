@@ -119,18 +119,14 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   yes: {
-    marginLeft: '36.5%',
+    marginLeft: '42%',
     marginTop: theme.spacing.unit * 2,
     height: '50px',
     width: '140px',
-    backgroundColor: 'green'
-  },
-  no: {
-    marginLeft: theme.spacing.unit * 3,
-    marginTop: theme.spacing.unit * 2,
-    height: '50px',
-    width: '140px',
-    backgroundColor: 'red',
+    backgroundColor: '#39dc0d',
+    "&:hover": {
+      backgroundColor: "#1ec613",
+  }
   },
 
   finish:{
@@ -395,9 +391,6 @@ class Rollcall extends React.Component {
 
   };
 
-  handleNo = e => {
-  };
-
   // handleAbsent = e => {
   //   console.log(this.state.absent);
   // };
@@ -554,9 +547,7 @@ class Rollcall extends React.Component {
               <pre>
                 <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
                 </pre>
-              <Button onClick={this.handleYes} className={classes.yes} >Yes</Button>
-              <Button onClick={this.handleNo} className={classes.no}>NO</Button>
-              {/* <Button ></Button> */}
+              <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
               <Add className={classes.addIcon} onClick={this.handleClickAdd()}/>
               <TextField
                 id="filled-with-placeholder"

@@ -32,23 +32,59 @@ const styles = theme => ({
   }
 });
 
+//營收
+
+const linedata1 = [
+  ['x', '獲利'],
+  ['1', 13530],
+  ['2', 14435],
+  ['3', 14215],
+  ['4', 15329],
+  ['5', 15310],
+  ['6', 14325],
+  ['7', 15233],
+  ['8', 13819],
+  ['9', 15819],
+];
+
+//營收
+const lineoptions1 = {
+  title: "本年度每月獲利：",
+  titleTextStyle: { color: 'white', fontSize: 20, bold: false },
+  hAxis: {
+    textStyle: { color: 'white' },
+    title: '月份',
+    titleTextStyle: { color: 'white' }
+  },
+  vAxis: {
+    textStyle: { color: 'white' },
+    title: '元',
+    titleTextStyle: { color: 'white' }
+  },
+  legend: {
+    textStyle: { color: 'white', }
+  },
+  series: { 0: { color: '#0088FE'}, 1: { color: '#FFBB28'} },
+  backgroundColor: 'transparent',
+};
+
 //報名人數
 
-const linedata = [
+const linedata2 = [
   ['x', '國中', '高中'],
-  ['2010', 12430, 13530],
-  ['2011', 15410, 12435],
-  ['2012', 12423, 14215],
-  ['2013', 12417, 15329],
-  ['2014', 12518, 15310],
-  ['2015', 15739, 13325],
-  ['2016', 12311, 15233],
-  ['2017', 15327, 13819],
-  ['2018', 12727, 15819],
+  ['2010', 1243, 1353],
+  ['2011', 1541, 1243],
+  ['2012', 1242, 1425],
+  ['2013', 1241, 1539],
+  ['2014', 1251, 1510],
+  ['2015', 1573, 1335],
+  ['2016', 1231, 1523],
+  ['2017', 1532, 1381],
+  ['2018', 1272, 1581],
 ];
 
 //報名人數（國高中）
-const lineoptions = {
+const lineoptions2 = {
   title: "歷年報名人數：",
   titleTextStyle: { color: 'white', fontSize: 20, bold: false },
   hAxis: {
@@ -150,8 +186,18 @@ class Operation extends React.Component {
                 width={'920px'}
                 height={'400px'}
                 chartType="LineChart"
-                data={linedata}
-                options={lineoptions}
+                data={linedata1}
+                options={lineoptions1}
+                rootProps={{ 'data-testid': '2' }}
+              />
+            </div>
+            <div className={classes.line}>
+              <Chart
+                width={'920px'}
+                height={'400px'}
+                chartType="LineChart"
+                data={linedata2}
+                options={lineoptions2}
                 rootProps={{ 'data-testid': '2' }}
               />
             </div>
