@@ -18,7 +18,7 @@ import Airtable from 'airtable';
 const base = new Airtable({ apiKey: 'keyA7EKdngjou4Dgy' }).base('appcXtOTPnE4QWIIt');
 const tableClass = base('ClassDay');
 
-function sleep (time) {
+function sleep(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
 }
 
@@ -30,9 +30,9 @@ function createData(id, class_name) {
 const IP = "http://localhost:8080";
 
 const styles = theme => ({
-    root:{
-        margin:'auto',
-        width:'40%',
+    root: {
+        margin: 'auto',
+        width: '40%',
     },
     container: {
         color: 'white',
@@ -46,9 +46,9 @@ const styles = theme => ({
     input: {
         outline: 'none',
         opacity: 0,
-        width:'47%',
+        width: '47%',
     },
-    train:{
+    train: {
         marginTop: theme.spacing.unit * 2,
     },
     button: {
@@ -83,9 +83,9 @@ const styles = theme => ({
         width: '800px',
         margin: 'auto',
     },
-    snack:{
-        backgroundColor:'#FFBF5F',
-        color:'#111B24',
+    snack: {
+        backgroundColor: '#FFBF5F',
+        color: '#111B24',
     }
 });
 
@@ -110,10 +110,12 @@ class OutlinedTextFields extends React.Component {
             error2: false,
             errorMessage1: '',
             errorMessage2: '',
-            imgUrl:noTrain,
+            imgUrl: noTrain,
             open: false,
             openSnack: false,
-            classDaydata:[],
+            classDaydata: [],
+            sendMessage: '尚未訓練！',
+            send: true,
         };
     }
 
@@ -129,7 +131,7 @@ class OutlinedTextFields extends React.Component {
 
             var temp = [];
             for (var index = 0; index < class_id.length; index++) {
-                temp.push(createData(record_id[index],class_id[index]));
+                temp.push(createData(record_id[index], class_id[index]));
             }
             this.setState({ classDaydata: temp });
             fetchNextPage();
@@ -141,10 +143,10 @@ class OutlinedTextFields extends React.Component {
     myCallback = (dataFromChild) => {
         //this.setState({ class_id: dataFromChild }); 
         console.log(dataFromChild)
-        var temp =[];
-        for(var i = 0; i < dataFromChild.length; i++){
+        var temp = [];
+        for (var i = 0; i < dataFromChild.length; i++) {
             for (var index = 0; index < this.state.classDaydata.length; index++) {
-                if(dataFromChild[i] == this.state.classDaydata[index].class_name){
+                if (dataFromChild[i] == this.state.classDaydata[index].class_name) {
                     temp.push(this.state.classDaydata[index].id);
                     this.setState({ class_id: temp });
                 }
@@ -171,9 +173,9 @@ class OutlinedTextFields extends React.Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        let data = { fields: {student_name: {}, class_id_link:{}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {}, student_img:{} } };
-        
-        let accountData = {fields: {account_id: {}, account_passwd:{}, account_role:{} }};
+        let data = { fields: { student_name: {}, class_id_link: {}, student_id: {}, student_grade: {}, student_phone: {}, student_birth: {}, student_school: {}, student_email: {}, student_parent: {}, student_parent_phone: {}, student_address: {}, student_img: {} } };
+
+        let accountData = { fields: { account_id: {}, account_passwd: {}, account_role: {} } };
         data.fields.student_name = this.state.student_name;
         // data.fields.class_id_link = ["rec8zHmPXU3k3uGhx",
         // "recbeKNQoG8h5jIwJ"];
@@ -188,7 +190,7 @@ class OutlinedTextFields extends React.Component {
         data.fields.student_parent = this.state.student_parent;
         data.fields.student_parent_phone = this.state.student_parent_phone;
         data.fields.student_address = this.state.student_address;
-        data.fields.student_img = [{"url":this.state.imgUrl}];
+        data.fields.student_img = [{ "url": this.state.imgUrl }];
 
         //account data
         accountData.fields.account_id = this.state.student_email;
@@ -256,15 +258,15 @@ class OutlinedTextFields extends React.Component {
             method: 'POST',
             url: 'https://api.imgur.com/3/image',
             data: formimg,
-            headers: { 'Content-Type': 'multipart/form-data' , 'authorization': 'Client-ID ' + id },
+            headers: { 'Content-Type': 'multipart/form-data', 'authorization': 'Client-ID ' + id },
             mimeType: 'multipart/form-data'
-            }).then(res => {
-                console.log(res);
-                //console.log(res.data.data.link);
-                this.setState({imgUrl : res.data.data.link});
-            }).catch(e => {
-                console.log(e)
-            })
+        }).then(res => {
+            console.log(res);
+            //console.log(res.data.data.link);
+            this.setState({ imgUrl: res.data.data.link });
+        }).catch(e => {
+            console.log(e)
+        })
         ////
         const formdata = new FormData();
         formdata.append('file', file);
@@ -284,20 +286,21 @@ class OutlinedTextFields extends React.Component {
                 console.error(error)
             );
 
-            axios.create({
-                baseURL: IP,
-                headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-              }).get("/terminate")
-              .then((response) => {
+        axios.create({
+            baseURL: IP,
+            headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+        }).get("/terminate")
+            .then((response) => {
                 console.log("in terminate");
             })
             .catch((error) =>
                 console.error(error)
             );
-
+        this.setState({ sendMessage: '送出！' })
+        this.setState({send:false})
     };
 
-    handleClickOpen = () =>{
+    handleClickOpen = () => {
         this.setState({ open: true });
     };
 
@@ -323,35 +326,35 @@ class OutlinedTextFields extends React.Component {
 
         return (
             <form onSubmit={this.handleSubmit} className={classes.container} noValidate autoComplete="off">
-                <div style={{width:'100%'}}> 
-                <img className={classes.photo} src={this.state.imgUrl} alt="location" />
+                <div style={{ width: '100%' }}>
+                    <img className={classes.photo} src={this.state.imgUrl} alt="location" />
                     <Button className={classes.button} onClick={this.handleClick}>
                         Open Camera
                     <CameraIcon className={classes.rightIcon} />
                     </Button>
                     <div className={classes.train}>
-                    <input type="file" name="file" ref="file"  id="contained-button-file" onChange={this.handleUpload} className={classes.input}/>
-                    <label htmlFor="contained-button-file">
-                        <Button component="span"  className={classes.button}>
-                            Train
+                        <input type="file" name="file" ref="file" id="contained-button-file" onChange={this.handleUpload} className={classes.input} />
+                        <label htmlFor="contained-button-file">
+                            <Button component="span" className={classes.button}>
+                                Train
                         </Button>
-                    </label>
+                        </label>
                     </div>
                     <Snackbar
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                            open={this.state.openSnack}
-                            autoHideDuration={2000}
-                            >
-                            <SnackbarContent
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        open={this.state.openSnack}
+                        autoHideDuration={2000}
+                    >
+                        <SnackbarContent
                             className={classes.snack}
-                                variant="warning"
-                                message="訓練成功！"
-                                autoHideDuration={2000}
-                            />
-                        </Snackbar>
+                            variant="warning"
+                            message="訓練成功！"
+                            autoHideDuration={2000}
+                        />
+                    </Snackbar>
                 </div>
                 <div className={classes.form}>
                     <div>
@@ -471,8 +474,8 @@ class OutlinedTextFields extends React.Component {
                         />
                     </div>
                 </div>
-                <Button type="submit" className={classes.button} onClick={this.handleClickOpen} style={{ width: 300, margin: '20px auto', }}>
-                    送出
+                <Button type="submit" disabled={this.state.send} className={classes.button} onClick={this.handleClickOpen} style={{ width: 300, margin: '20px auto', }}>
+                {this.state.sendMessage}
                 </Button>
                 <Dialog className={classes.root}
                     open={this.state.open}
@@ -480,7 +483,7 @@ class OutlinedTextFields extends React.Component {
                 >
                     <DialogTitle >已送出！</DialogTitle>
                     <DialogActions>
-                        <Button style={{margin:'auto'}} onClick={this.handleCloseRefresh} color="primary">確定</Button>
+                        <Button style={{ margin: 'auto' }} onClick={this.handleCloseRefresh} color="primary">確定</Button>
                     </DialogActions>
                 </Dialog>
 
