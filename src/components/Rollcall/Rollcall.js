@@ -16,7 +16,8 @@ import {
   TextField,
   Dialog,
   DialogActions,
-  DialogTitle
+  DialogTitle,
+  DialogContent
 } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 
@@ -29,6 +30,10 @@ import axios from 'axios';
 import Airtable from 'airtable';
 import { fetchPostAttend } from '../../api';
 import { NavLink } from "react-router-dom";
+
+//icon
+import Lock from '@material-ui/icons/LockOutlined';
+import LockOpen from '@material-ui/icons/LockOpenOutlined';
 
 
 const TABLE_NAME = 'Student';
@@ -163,7 +168,7 @@ class Rollcall extends React.Component {
     this_faceid: '',
     open: false,
     traintwo: true,
-    canyes:true,
+    canyes: true,
     // face_time: '',
     classDataInit: [],
     classData: [],
@@ -173,9 +178,11 @@ class Rollcall extends React.Component {
     checkedFinish: true,
     age: '',
     absent: [],
+    ta: false,
+    taopen: false,
   };
 
-  
+
   componentDidUpdate(prevProps) {
     //console.log(this.state.face_id);
     if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
@@ -192,36 +199,36 @@ class Rollcall extends React.Component {
           //this.setState({ face_time: face_time });
 
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-              if (this.state.stuDataInit[index].id == this.state.face_id) {
-                this.setState({
-                  stu_id: this.state.stuDataInit[index].id,
-                  stu_name: this.state.stuDataInit[index].name,
-                  stu_img: this.state.stuDataInit[index].image
-                });
-              }
-              // else if(this.state.face_id == null || this.state.face_id == 'none'){
-              //   this.setState({
-              //     stu_id: '',
-              //     stu_name: '',
-              //     stu_img: NoFace
-              //   });
-              // }
-              else if(this.state.face_id !== this.state.stuDataInit[index].id && this.state.face_id !== 'none'){
-                this.setState({
-                  stu_id:this.state.face_id,
-                  stu_name: '',
-                  stu_img: nostu,
-                  canyes:　false,
-                });
-              }
-              
-              
-
+            if (this.state.stuDataInit[index].id == this.state.face_id) {
+              this.setState({
+                stu_id: this.state.stuDataInit[index].id,
+                stu_name: this.state.stuDataInit[index].name,
+                stu_img: this.state.stuDataInit[index].image
+              });
             }
-          
+            // else if(this.state.face_id == null || this.state.face_id == 'none'){
+            //   this.setState({
+            //     stu_id: '',
+            //     stu_name: '',
+            //     stu_img: NoFace
+            //   });
+            // }
+            else if (this.state.face_id !== this.state.stuDataInit[index].id && this.state.face_id !== 'none') {
+              this.setState({
+                stu_id: this.state.face_id,
+                stu_name: '',
+                stu_img: nostu,
+                canyes: false,
+              });
+            }
 
 
-          
+
+          }
+
+
+
+
 
         })
         .catch((error) =>
@@ -293,6 +300,7 @@ class Rollcall extends React.Component {
     }
   };
 
+  //選擇班級
   handleClassChange = name => event => {
     this.setState({ [name]: event.target.value });
     this.setState({ class_id: event.target.value });
@@ -321,6 +329,16 @@ class Rollcall extends React.Component {
 
   };
 
+  //助教解鎖
+  handleOpenLock = e => {
+    this.setState({ ta: true })
+    this.setState({taopen:true })
+  }
+
+  //助教鎖著
+  handleLock = e => {
+    this.setState({ ta: false })
+  }
 
   //開始點名
   handleStart = e => {
@@ -400,19 +418,19 @@ class Rollcall extends React.Component {
 
     // data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
     //   (this.state.face_time.split(" ")[1]).split(":")[1];
-      if(this.state.canyes === true){
+    if (this.state.canyes === true) {
       let data = { fields: { class_id: {}, student_id: {}, attend_hw: {} } };
       data.fields.class_id = this.state.class_id;
       data.fields.student_id = this.state.stu_id;
       data.fields.attend_hw = this.state.checkedFinish;
       fetchPostAttend(data);
-      
-    this.setState({
-      stu_id: '',
-      stu_name: '',
-      stu_img: NoFace
-    });
-  }
+
+      this.setState({
+        stu_id: '',
+        stu_name: '',
+        stu_img: NoFace
+      });
+    }
 
     for (var i = 0; i < this.state.absent.length; i++) {
       //console.log(this.state.absent);
@@ -467,6 +485,11 @@ class Rollcall extends React.Component {
     this.setState({ start: false })
     this.setState({ end: true })
     this.setState({ open: false })
+  }
+
+  //助教確認
+  handleTa = e =>{
+    
   }
 
   //關Dialog
@@ -542,6 +565,38 @@ class Rollcall extends React.Component {
           <Button disabled={this.state.start} className={classes.buttonStart} onClick={this.handleStart}>開始點名</Button>
           <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
 
+          {this.state.ta === false ?
+            <Button onClick={this.handleOpenLock}><Lock /></Button>
+            :
+            <Button onClick={this.handleLock}><LockOpen /></Button>
+          }
+
+          {/* 助教dialog */}
+          <Dialog
+            open={this.state.taopen}
+            onClose={this.handleClose}
+          >
+            <DialogTitle >輸入密碼</DialogTitle>
+            <DialogContent>
+              <TextField
+                id='password'
+                label="密碼"
+                value={this.state.password}
+                // className={classes.textField}
+                onChange={this.handleChange}
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleNotEnd} color="primary">取消</Button>
+                <Button onClick={this.handleTa} color="primary">確定</Button>
+            </DialogActions>
+          </Dialog>
+
+          {/* 結束點名 */}
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}
