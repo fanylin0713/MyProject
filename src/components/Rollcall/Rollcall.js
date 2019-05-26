@@ -198,38 +198,47 @@ class Rollcall extends React.Component {
           this.setState({ face_id: face_id });
           //this.setState({ face_time: face_time });
 
+          console.log(this.state.stuDataInit);
+          var count = 0;
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (this.state.stuDataInit[index].id == this.state.face_id) {
-              this.setState({
-                stu_id: this.state.stuDataInit[index].id,
-                stu_name: this.state.stuDataInit[index].name,
-                stu_img: this.state.stuDataInit[index].image
-              });
+              count ++;
             }
-            // else if(this.state.face_id == null || this.state.face_id == 'none'){
-            //   this.setState({
-            //     stu_id: '',
-            //     stu_name: '',
-            //     stu_img: NoFace
-            //   });
-            // }
-            else if (this.state.face_id !== this.state.stuDataInit[index].id && this.state.face_id !== 'none') {
-              this.setState({
-                stu_id: this.state.face_id,
-                stu_name: '',
-                stu_img: nostu,
-                canyes: false,
-              });
-            }
-
-
-
           }
+          console.log(count);
+          for (var index = 0; index < this.state.stuDataInit.length; index++) {
+              if (this.state.stuDataInit[index].id == this.state.face_id) {
+                this.setState({
+                  stu_id: this.state.stuDataInit[index].id,
+                  stu_name: this.state.stuDataInit[index].name,
+                  stu_img: this.state.stuDataInit[index].image
+                });
+              }
+              else if(count == 0 && face_id !== 'none' && face_id !== ''){
+                this.setState({
+                  stu_id:this.state.face_id,
+                  stu_name: '',
+                  stu_img: nostu,
+                  canyes:　false,
+                });
+
+              }
+              // else if(count !==0 && face_id ){
+
+              // }
 
 
 
-
-
+              // else if(face_id !== this.state.stuDataInit[index].id && face_id !== 'none' && face_id !== ''){
+              //   console.log(face_id);
+              //   this.setState({
+              //     stu_id:this.state.face_id,
+              //     stu_name: '',
+              //     stu_img: nostu,
+              //     canyes:　false,
+              //   });
+              // }
+            }
         })
         .catch((error) =>
           console.error(error)
@@ -318,11 +327,14 @@ class Rollcall extends React.Component {
       const student_phone = this.state.records.map((record, index) => record.fields['student_phone']);
       const student_parent_phone = this.state.records.map((record, index) => record.fields['student_parent_phone']);
       var temp = [];
+      var temp2 = [];
       for (var index = 0; index < student_name.length; index++) {
         temp.push(createStuData(student_id[index], student_name[index], student_img[index], student_phone[index], student_parent_phone[index]));
+        temp2.push(createStuData(student_id[index], student_name[index], student_img[index], student_phone[index], student_parent_phone[index]));
       }
       this.setState({ stuDataInit: temp });
-      this.setState({ absent: temp });
+      //console.log(this.state.stuDataInit);
+      this.setState({ absent: temp2 });
 
     }
     );
@@ -424,7 +436,6 @@ class Rollcall extends React.Component {
       data.fields.student_id = this.state.stu_id;
       data.fields.attend_hw = this.state.checkedFinish;
       fetchPostAttend(data);
-
       this.setState({
         stu_id: '',
         stu_name: '',
