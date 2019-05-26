@@ -23,6 +23,8 @@ import { Button } from '@material-ui/core';
 import Add from '@material-ui/icons/AddBoxOutlined';
 
 import NoFace from './noFace.jpg';
+import nostu from './nostu.png';
+import arrived from './arrived.png';
 import axios from 'axios';
 import Airtable from 'airtable';
 import { fetchPostAttend } from '../../api';
@@ -44,8 +46,11 @@ function createData(classid, grade) {
 function createStuData(stu_id, name, image, phone, parent) {
   return { id: stu_id, name, image, phone, parent };
 }
+function createAllStuData(stu_id, name, image) {
+  return { id: stu_id, name, image };
+}
 
-function sleep (time) {
+function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
@@ -63,7 +68,7 @@ const styles = theme => ({
   radio: {
     marginLeft: '10%',
   },
-  homework:{
+  homework: {
     marginLeft: '5%',
   },
   formControl: {
@@ -129,13 +134,13 @@ const styles = theme => ({
     backgroundColor: '#39dc0d',
     "&:hover": {
       backgroundColor: "#1ec613",
-  }
+    }
   },
 
-  finish:{
-    float:'right',
-    marginTop:'26.5%',
-    marginRight:'10%',
+  finish: {
+    float: 'right',
+    marginTop: '26.5%',
+    marginRight: '10%',
   }
 });
 
@@ -155,8 +160,10 @@ class Rollcall extends React.Component {
     stu_img: NoFace,
     face_id: '',
     facepath: '',
-    open:false,
-    traintwo:true,
+    this_faceid: '',
+    open: false,
+    traintwo: true,
+    canyes:true,
     // face_time: '',
     classDataInit: [],
     classData: [],
@@ -164,12 +171,12 @@ class Rollcall extends React.Component {
     class_id: '',
     checkedHomework: true,
     checkedFinish: true,
-    age:'',
+    age: '',
     absent: [],
   };
 
   componentDidUpdate(prevProps) {
-    console.log(this.state.face_id);
+    //console.log(this.state.face_id);
     if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
       axios.create({
         baseURL: IP,
@@ -184,43 +191,59 @@ class Rollcall extends React.Component {
           //this.setState({ face_time: face_time });
 
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-            if (this.state.stuDataInit[index].id == this.state.face_id) {
-              this.setState({
-                stu_id: this.state.stuDataInit[index].id,
-                stu_name: this.state.stuDataInit[index].name,
-                stu_img: this.state.stuDataInit[index].image
-              });
+              if (this.state.stuDataInit[index].id == this.state.face_id) {
+                this.setState({
+                  stu_id: this.state.stuDataInit[index].id,
+                  stu_name: this.state.stuDataInit[index].name,
+                  stu_img: this.state.stuDataInit[index].image
+                });
+              }
+              // else if(this.state.face_id == null || this.state.face_id == 'none'){
+              //   this.setState({
+              //     stu_id: '',
+              //     stu_name: '',
+              //     stu_img: NoFace
+              //   });
+              // }
+              else if(this.state.face_id !== this.state.stuDataInit[index].id && this.state.face_id !== 'none'){
+                this.setState({
+                  stu_id:this.state.face_id,
+                  stu_name: '',
+                  stu_img: nostu,
+                  canyes:　false,
+                });
+              }
+              
+              
+
             }
-            // else if(this.state.face_id == null || this.state.face_id == 'none'){
-            //   this.setState({
-            //     stu_id: '',
-            //     stu_name: '',
-            //     stu_img: NoFace
-            //   });
-            // }
-          }
+          
+
+
 
         })
         .catch((error) =>
           console.error(error)
         );
     }
-    if (this.state.end === false) {  
-    axios.create({
-      baseURL: IP,
-      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    }).get("/again")
-    .then((response) => {
-      var face_path = response.data;
-      if(response.data !=='no'){
-      this.setState({ facepath: face_path });
-      }
-      console.log(this.state.facepath)
-    })
-    .catch((error) =>
-    console.error(error)
-    );
-  }
+    if (this.state.end === false) {
+      axios.create({
+        baseURL: IP,
+        headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+      }).get("/again")
+        .then((response) => {
+          var face_path = response.data.split("!")[0];
+          var this_faceid = response.data.split("!")[1];
+          if (response.data !== 'no!') {
+            this.setState({ facepath: face_path });
+            this.setState({ this_faceid: this_faceid });
+          }
+          //console.log(this.state.facepath)
+        })
+        .catch((error) =>
+          console.error(error)
+        );
+    }
   }
 
   componentDidMount() {
@@ -242,9 +265,10 @@ class Rollcall extends React.Component {
       this.setState({ classData: temp });
     }
     );
+
   }
 
-  
+
   //選國高中
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
@@ -256,7 +280,7 @@ class Rollcall extends React.Component {
         }
       }
       this.setState({ classData: temp });
-      
+
     } else if (event.target.value == "高中") {
       for (var index = 0; index < this.state.classDataInit.length; index++) {
         if (this.state.classDataInit[index].grade == "high") {
@@ -266,7 +290,7 @@ class Rollcall extends React.Component {
       this.setState({ classData: temp });
     }
   };
-  
+
   handleClassChange = name => event => {
     this.setState({ [name]: event.target.value });
     this.setState({ class_id: event.target.value });
@@ -277,7 +301,7 @@ class Rollcall extends React.Component {
       //maxRecords: 1
     }).eachPage((records, fetchNextPage) => {
       this.setState({ records });
-      
+
       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
       const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
@@ -289,12 +313,12 @@ class Rollcall extends React.Component {
       }
       this.setState({ stuDataInit: temp });
       this.setState({ absent: temp });
-      
+
     }
     );
-    
+
   };
-  
+
 
   //開始點名
   handleStart = e => {
@@ -302,35 +326,35 @@ class Rollcall extends React.Component {
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
     }).get("/retrieveface")
-    .then((response) => {
-      console.log("in response");
-      console.log('open :', response.status, '\nopen camera', new Date());
-    })
-    .catch((error) =>
-    console.error(error)
-    );
-    
-    axios.create({
-      baseURL: IP,
-      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
-    }).get("/real")
-    .then((response) => {
-    })
-    .catch((error) =>
-    console.error(error)
-    );
-    
+      .then((response) => {
+        console.log("in response");
+        console.log('open :', response.status, '\nopen camera', new Date());
+      })
+      .catch((error) =>
+        console.error(error)
+      );
+
+    // axios.create({
+    //   baseURL: IP,
+    //   headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
+    // }).get("/real")
+    //   .then((response) => {
+    //   })
+    //   .catch((error) =>
+    //     console.error(error)
+    //   );
+
     this.setState({ start: true })
     this.setState({ end: false })
 
-    let data = { fields: { class_id: {}, student_id: {}, attend_hw: {}} };
+    let data = { fields: { class_id: {}, student_id: {}, attend_hw: {} } };
     data.fields.class_id = this.state.class_id;
     data.fields.student_id = 'admin';
     data.fields.attend_hw = this.state.checkedHomework;
 
     fetchPostAttend(data);
   };
-  
+
   //要不要交作業
   handleHomework = name => event => {
     this.setState({ [name]: event.target.checked });
@@ -346,47 +370,47 @@ class Rollcall extends React.Component {
 
   //結束點ㄇㄧㄥˊ
   handleEnd = e => {
-    this.setState({open: true})
+    this.setState({ open: true })
   };
 
 
   handleYes = e => {
     const formdata = new FormData();
-        console.log(this.state.facepath)
-        formdata.set('face_path', this.state.facepath);     
-        formdata.set('faceid', this.state.stu_id);
-        if(this.state.traintwo === true){
-        axios({
-            method: 'post',
-            url: 'http://localhost:8080/trainagain',
-            data: formdata,
-            config: { headers: { 'Content-Type': 'multipart/form-data' } }
+    // console.log(this.state.facepath)
+    // console.log(this.state.this_faceid)
+    formdata.set('face_path', this.state.facepath);
+    formdata.set('faceid', this.state.stu_id);
+    if (this.state.traintwo === true || this.state.stu_id === this.state.this_faceid) {
+      axios({
+        method: 'post',
+        url: 'http://localhost:8080/trainagain',
+        data: formdata,
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+      })
+        .then((response) => {
+          console.log("in")
         })
-            .then((response) => {
-                console.log("in")
-            })
-            .catch((error) =>
-                console.error(error)
-            );
-          }
-          
-    // let data = { fields: { class_id: {}, attend_date: {}, student_id: {}, attend_time: {} } };
-    // data.fields.class_id = this.state.class_id;
-    // data.fields.attend_date = this.state.face_time.split(" ")[0];
-    // data.fields.student_id = this.state.stu_id;
+        .catch((error) =>
+          console.error(error)
+        );
+    }
+
+
     // data.fields.attend_time = (this.state.face_time.split(" ")[1]).split(":")[0] + ":" +
     //   (this.state.face_time.split(" ")[1]).split(":")[1];
-    let data = { fields: { class_id: {}, student_id: {}, attend_hw: {}} };
-    data.fields.class_id = this.state.class_id;
-    data.fields.student_id = this.state.stu_id;
-    data.fields.attend_hw = this.state.checkedFinish;
+      if(this.state.canyes === true){
+      let data = { fields: { class_id: {}, student_id: {}, attend_hw: {} } };
+      data.fields.class_id = this.state.class_id;
+      data.fields.student_id = this.state.stu_id;
+      data.fields.attend_hw = this.state.checkedFinish;
 
-    fetchPostAttend(data);
-
+      fetchPostAttend(data);
+      }
     
-    for(var i = 0; i < this.state.absent.length; i++){
+
+    for (var i = 0; i < this.state.absent.length; i++) {
       //console.log(this.state.absent);
-      if(this.state.stu_id == this.state.absent[i].id){
+      if (this.state.stu_id == this.state.absent[i].id) {
         //delete this.state.absent[i];
         (this.state.absent).splice(i, 1);
       }
@@ -408,7 +432,7 @@ class Rollcall extends React.Component {
         });
       }
     }
-    this.setState({traintwo: false})
+    this.setState({ traintwo: false })
     //console.log(this.state.age);
 
   };
@@ -417,12 +441,12 @@ class Rollcall extends React.Component {
   // };
 
   //取消結束點名
-  handleNotEnd = e =>{
+  handleNotEnd = e => {
     this.setState({ open: false })
   }
 
   //真的結束點名
-  handleRealEnd = e =>{
+  handleRealEnd = e => {
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -442,7 +466,7 @@ class Rollcall extends React.Component {
   //關Dialog
   handleClose = () => {
     this.setState({ open: false });
-};
+  };
 
   render() {
     const { classes } = this.props;
@@ -513,17 +537,17 @@ class Rollcall extends React.Component {
           <Button disabled={this.state.end} className={classes.buttonEnd} onClick={this.handleEnd}>結束點名</Button>
 
           <Dialog
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                >
-                    <DialogTitle >是否結束點名？</DialogTitle>
-                    <DialogActions>
-                        <Button onClick={this.handleNotEnd} color="primary">取消</Button>
-                        <NavLink style={{textDecoration:'none'}} activeClassName="active" to={{pathname:'/late', aboutProps:{name:this.state.absent}}}>
-                        <Button onClick={this.handleRealEnd} color="primary">確定</Button>
-                        </NavLink>
-                    </DialogActions>
-                </Dialog>
+            open={this.state.open}
+            onClose={this.handleClose}
+          >
+            <DialogTitle >是否結束點名？</DialogTitle>
+            <DialogActions>
+              <Button onClick={this.handleNotEnd} color="primary">取消</Button>
+              <NavLink style={{ textDecoration: 'none' }} activeClassName="active" to={{ pathname: '/late', aboutProps: { name: this.state.absent } }}>
+                <Button onClick={this.handleRealEnd} color="primary">確定</Button>
+              </NavLink>
+            </DialogActions>
+          </Dialog>
 
         </div>
 
@@ -533,25 +557,25 @@ class Rollcall extends React.Component {
             <div className={classes.info}>
               <img className={classes.photo} src={this.state.stu_img} alt="location" />
               {this.state.checkedHomework === true ?
-              <FormGroup className={classes.finish}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.checkedFinish}
-                    onChange={this.handleFinish('checkedFinish')}
+                <FormGroup className={classes.finish}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={this.state.checkedFinish}
+                        onChange={this.handleFinish('checkedFinish')}
+                      />
+                    }
+                    label="確認繳交"
                   />
-                }
-                label="確認繳交"
-              />
-            </FormGroup>
-              :
-            <div></div>
+                </FormGroup>
+                :
+                <div></div>
               }
               <pre>
                 <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
-                </pre>
+              </pre>
               <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
-              <Add className={classes.addIcon} onClick={this.handleClickAdd()}/>
+              <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
               <TextField
                 id="filled-with-placeholder"
                 label="輸入學號"
