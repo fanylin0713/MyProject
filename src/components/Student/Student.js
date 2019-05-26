@@ -130,6 +130,8 @@ class Student extends React.Component {
         }).eachPage((records, fetchNextPage) => {
             this.setState({ records });
 
+            console.log(records);
+
             const student_name = this.state.records.map((record, index) => record.fields['student_name']);
             const student_id = this.state.records.map((record, index) => record.fields['student_id']);
             const student_school = this.state.records.map((record, index) => record.fields['student_school']);
@@ -141,6 +143,40 @@ class Student extends React.Component {
             const student_parent = this.state.records.map((record, index) => record.fields['student_parent']);
             const student_parent_phone = this.state.records.map((record, index) => record.fields['student_parent_phone']);
             const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
+            const class_id_link = this.state.records.map((record, index) => record.fields['class_id_link']);
+            
+            // //class name
+            // var temp = [];
+            // var count = teacher_id.length;
+            // for (var index = 0; index < count; index++) {
+            //     const teacher_idR = teacher_id[index];
+            //     const record_id_room = classroom_id_link[index];
+            //     const class_idR = class_id[index];
+            //     const class_dayR = class_day[index];
+            //     const class_start_timeR = class_start_time[index];
+            //     const classroom_idR = classroom_id[index];
+            //     const class_id_link = class_id_link[index];
+            //     //const class_end_timeR = class_end_time[index];
+
+            //     //teacher Name
+            //     tableTeacher.find(teacher_idR, (err, record) => {
+            //         if (err) {
+            //             console.error(err)
+            //             return
+            //         }
+            //         const teacher_name = record.fields['teacher_name'];
+            //         //temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR));
+
+            //         tableClassRoom.find(record_id_room, (err, record) => {
+            //             if (err) {
+            //                 console.error(err)
+            //                 return
+            //             }
+            //             const class_area = record.fields['class_area'];
+            //             temp.push(createData(class_idR, teacher_name, classroom_idR, class_dayR, class_start_timeR, class_area, record_idR));
+            //         })
+            //     })
+            // }
 
             this.setState({
                 stu_id: student_id, stu_name: student_name, stu_img: student_img

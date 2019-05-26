@@ -175,6 +175,7 @@ class Rollcall extends React.Component {
     absent: [],
   };
 
+  
   componentDidUpdate(prevProps) {
     //console.log(this.state.face_id);
     if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
@@ -220,6 +221,7 @@ class Rollcall extends React.Component {
           
 
 
+          
 
         })
         .catch((error) =>
@@ -403,10 +405,14 @@ class Rollcall extends React.Component {
       data.fields.class_id = this.state.class_id;
       data.fields.student_id = this.state.stu_id;
       data.fields.attend_hw = this.state.checkedFinish;
-
       fetchPostAttend(data);
-      }
-    
+      
+    this.setState({
+      stu_id: '',
+      stu_name: '',
+      stu_img: NoFace
+    });
+  }
 
     for (var i = 0; i < this.state.absent.length; i++) {
       //console.log(this.state.absent);
