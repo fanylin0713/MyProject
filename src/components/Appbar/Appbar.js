@@ -378,7 +378,7 @@ class SearchAppBar extends React.Component {
                         {/* <Selector /> */}
                         {/* 校區選擇 */}
                         <div>
-                            <Button onClick={this.handleClickOpen}>{this.state.finalValue || '校區選擇'}</Button>
+                            <Button onClick={this.handleClickOpen}>{this.state.finalValue || '台北校區'}</Button>
                             <Dialog
                                 disableBackdropClick
                                 disableEscapeKeyDown
