@@ -337,7 +337,7 @@ class Student extends React.Component {
                                     年級：{this.state.stu_grade}
                                 </Typography>
                                 <Typography className={classes.rightText}>
-                                    班別：英文Ａ班、數學Ｃ班
+                                    班別：數學Ａ班
                                 </Typography>
                                 <Typography className={classes.rightText}>
                                     生日：{this.state.stu_birth}

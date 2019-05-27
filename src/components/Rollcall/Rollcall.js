@@ -217,7 +217,7 @@ class Rollcall extends React.Component {
           }
           console.log(count);
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-            if (countthis == 0 && face_id !== 'none' && face_id !== '') {
+            if (countthis == 0 && count!==0 && face_id !== 'none' && face_id !== '') {
               this.setState({
                 stu_id: this.state.face_id,
                 stu_name: '',
