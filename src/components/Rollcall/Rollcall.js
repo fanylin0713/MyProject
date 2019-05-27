@@ -180,6 +180,10 @@ class Rollcall extends React.Component {
     absent: [],
     ta: false,
     taopen: false,
+    error: false,
+    errorMessage: '',
+    password: '',
+    notTa: false,
   };
 
 
@@ -202,43 +206,43 @@ class Rollcall extends React.Component {
           var count = 0;
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (this.state.stuDataInit[index].id == this.state.face_id) {
-              count ++;
+              count++;
             }
           }
           console.log(count);
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-              if (this.state.stuDataInit[index].id == this.state.face_id) {
-                this.setState({
-                  stu_id: this.state.stuDataInit[index].id,
-                  stu_name: this.state.stuDataInit[index].name,
-                  stu_img: this.state.stuDataInit[index].image
-                });
-              }
-              else if(count == 0 && face_id !== 'none' && face_id !== ''){
-                this.setState({
-                  stu_id:this.state.face_id,
-                  stu_name: '',
-                  stu_img: nostu,
-                  canyes:　false,
-                });
-
-              }
-              // else if(count !==0 && face_id ){
-
-              // }
-
-
-
-              // else if(face_id !== this.state.stuDataInit[index].id && face_id !== 'none' && face_id !== ''){
-              //   console.log(face_id);
-              //   this.setState({
-              //     stu_id:this.state.face_id,
-              //     stu_name: '',
-              //     stu_img: nostu,
-              //     canyes:　false,
-              //   });
-              // }
+            if (this.state.stuDataInit[index].id == this.state.face_id) {
+              this.setState({
+                stu_id: this.state.stuDataInit[index].id,
+                stu_name: this.state.stuDataInit[index].name,
+                stu_img: this.state.stuDataInit[index].image
+              });
             }
+            else if (count == 0 && face_id !== 'none' && face_id !== '') {
+              this.setState({
+                stu_id: this.state.face_id,
+                stu_name: '',
+                stu_img: nostu,
+                canyes: false,
+              });
+
+            }
+            // else if(count !==0 && face_id ){
+
+            // }
+
+
+
+            // else if(face_id !== this.state.stuDataInit[index].id && face_id !== 'none' && face_id !== ''){
+            //   console.log(face_id);
+            //   this.setState({
+            //     stu_id:this.state.face_id,
+            //     stu_name: '',
+            //     stu_img: nostu,
+            //     canyes:　false,
+            //   });
+            // }
+          }
         })
         .catch((error) =>
           console.error(error)
@@ -344,7 +348,7 @@ class Rollcall extends React.Component {
   //助教解鎖
   handleOpenLock = e => {
     this.setState({ ta: true })
-    this.setState({taopen:true })
+    this.setState({ taopen: true })
   }
 
   //助教鎖著
@@ -378,6 +382,7 @@ class Rollcall extends React.Component {
 
     this.setState({ start: true })
     this.setState({ end: false })
+    this.setState({ notTa: true })
 
     let data = { fields: { class_id: {}, student_id: {}, attend_hw: {} } };
     data.fields.class_id = this.state.class_id;
@@ -498,22 +503,50 @@ class Rollcall extends React.Component {
     this.setState({ open: false })
   }
 
-  //助教確認
-  handleTa = e =>{
-    
+  //助教Dialog
+  handleTa = e => {
+    if (this.state.password === '123') {
+      this.setState({ notTa: false })
+      this.setState({ taopen: false });
+    }
+    else {
+      this.setState({
+        error: true,
+        errorMessage: '密碼錯誤'})
+    }
   }
 
-  //關Dialog
+  handlePassword = event => {
+    this.setState({
+      [event.target.id]: event.target.value,
+    });
+  }
+
+  handleClick = e => {
+    this.setState({
+      error: false,
+      errorMessage: '',
+    })
+  }
+
+  handleCloseTa = e => {
+    this.setState({ taopen: false })
+  }
+
+  //關結束Dialog
   handleClose = () => {
     this.setState({ open: false });
   };
 
   render() {
+    const { error, errorMessage } = this.state
     const { classes } = this.props;
     return (
       <div>
-
-        <AppBar />
+        {this.state.notTa === false ?
+          <AppBar />
+          : <div />
+        }
         <div className={classes.selectBar}>
           <FormControl className={classes.radio} component="fieldset">
             <RadioGroup
@@ -591,10 +624,11 @@ class Rollcall extends React.Component {
             <DialogContent>
               <TextField
                 id='password'
-                label="密碼"
+                error={error}
+                helperText={errorMessage}
                 value={this.state.password}
-                // className={classes.textField}
-                onChange={this.handleChange}
+                onClick={this.handleClick}
+                onChange={this.handlePassword}
                 type="password"
                 autoComplete="current-password"
                 margin="normal"
@@ -602,8 +636,8 @@ class Rollcall extends React.Component {
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleNotEnd} color="primary">取消</Button>
-                <Button onClick={this.handleTa} color="primary">確定</Button>
+              <Button onClick={this.handleCloseTa} color="primary">取消</Button>
+              <Button onClick={this.handleTa} color="primary">確定</Button>
             </DialogActions>
           </Dialog>
 
