@@ -20,6 +20,9 @@ const styles = theme => ({
         backgroudColor: '#212832',
     },
     button: {
+        marginLeft:theme.spacing.unit  * 2,
+        marginTop: theme.spacing.unit * 3,
+        border:'white solid 1px'
     },
 });
 

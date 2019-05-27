@@ -71,10 +71,12 @@ const styles = theme => ({
     minWidth: '900px',
   },
   radio: {
-    marginLeft: '10%',
+    marginLeft: '7%',
+    width:'10%',
   },
   homework: {
     marginLeft: '5%',
+    width:'10%',
   },
   formControl: {
     margin: 'auto 0',
@@ -89,10 +91,11 @@ const styles = theme => ({
   buttonStart: {
     fontSize: '16pt',
     height: '50px',
+    width:'12%',
     border: '#FFBF5F solid 0.8px',
     borderRadius: '10px',
     margin: 'auto 0',
-    marginLeft: '15%',
+    marginLeft: '10%',
   },
 
   info: {
@@ -126,6 +129,7 @@ const styles = theme => ({
     float: 'right',
     fontSize: '16pt',
     height: '50px',
+    width:'12%',
     border: '#FFBF5F solid 0.8px',
     borderRadius: '10px',
     margin: 'auto 0',
