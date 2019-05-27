@@ -353,6 +353,7 @@ class Rollcall extends React.Component {
 
   //助教鎖著
   handleLock = e => {
+    this.setState({ notTa: true })
     this.setState({ ta: false })
   }
 
@@ -543,9 +544,9 @@ class Rollcall extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        {this.state.notTa === false ?
-          <AppBar />
-          : <div />
+        {this.state.notTa === true ?
+          <div />
+          : <AppBar />
         }
         <div className={classes.selectBar}>
           <FormControl className={classes.radio} component="fieldset">
@@ -662,7 +663,7 @@ class Rollcall extends React.Component {
           this.state.start === true ?
             <div className={classes.info}>
               <img className={classes.photo} src={this.state.stu_img} alt="location" />
-              {this.state.checkedHomework === true ?
+              {this.state.checkedHomework === true && this.state.notTa === false ?
                 <FormGroup className={classes.finish}>
                   <FormControlLabel
                     control={
@@ -681,6 +682,8 @@ class Rollcall extends React.Component {
                 <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
               </pre>
               <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
+              {this.state.notTa === false ?
+              <div>
               <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
               <TextField
                 id="filled-with-placeholder"
@@ -691,6 +694,10 @@ class Rollcall extends React.Component {
                 margin="normal"
                 variant="filled"
               />
+              </div>
+              :
+              <div/>
+              }
             </div> :
             <div></div>
         }
