@@ -41,6 +41,8 @@ class Gradepage extends Component {
                 // { id: 2, name: '10/9 國文第二課', },
                 // { id: 3, name: '10/16 國文第三課', }
             ],
+            error1: false,
+            errorMessage1: '',
         }
     }
 
@@ -80,18 +82,40 @@ class Gradepage extends Component {
             text: e.target.value
         })
     }
+    handleFocus = e => {
+        this.setState({
+            error1: false,
+            errorMessage1: '',
+        })
+    }
 
     onClick() {
         const { todos, text } = this.state;
         const newId = todos[todos.length - 1].id + 1;
         // 設定 state
-        this.setState({
-            text: '',
-            todos: [
-                ...todos,
-                { id: newId, name: text }
-            ]
-        })
+        // this.setState({
+        //     text: '',
+        //     todos: [
+        //         ...todos,
+        //         { id: newId, name: text }
+        //     ]
+        // })
+        var exist = false;
+        for(var i = 0; i < this.state.todos.length; i++){
+            if (text === this.state.todos[i].name) {
+                this.setState({ error1: true, errorMessage1: '*資料已存在' })
+                exist = true;
+            }
+        }
+        if(exist == false){
+            this.setState({
+                text: '',
+                todos: [
+                    ...todos,
+                    { id: newId, name: text }
+                ]
+            })
+        }
     }
 
     removeTodo(id) {
@@ -108,14 +132,18 @@ class Gradepage extends Component {
     render() {
 
         // 從 state 取出資料
-        const { todos, text } = this.state;
+        const { todos, text , error1, errorMessage1} = this.state;
         const { classes } = this.props;
 
         return (
             <div>
                 <div>
                     <TextField
+                        id="outlined-helperText"
+                        error={error1}
+                        helperText={errorMessage1}
                         value={text}
+                        onClick={this.handleFocus}
                         onChange={this.onChange}
                         className={classes.input}
                         margin="normal"
