@@ -31,17 +31,17 @@ const styles = theme => ({
     table: {
         minWidth: 800,
     },
-    download:{
-        width:'80%',
-        height:'40px',
-        margin:'auto',
+    download: {
+        width: '80%',
+        height: '40px',
+        margin: 'auto',
     },
-    btn:{
-        backgroundColor:'#111B24',
-        color:'white',
-        border:'solid 1px #FFBF5F',
-        borderRadius:'10%',
-        float:'right',
+    btn: {
+        backgroundColor: '#111B24',
+        color: 'white',
+        border: 'solid 1px #FFBF5F',
+        borderRadius: '10%',
+        float: 'right',
         marginTop: theme.spacing.unit,
     }
 });
@@ -49,29 +49,36 @@ const styles = theme => ({
 //let id = 0;
 function createData(name, id, phone, parent) {
     //id += 1;
-    return { name, id, phone, parent};
+    return { name, id, phone, parent };
 }
 
 class LateTable extends React.Component {
-    state={
-        absent:[],
-        rows:[]
+    state = {
+        absent: [],
+        rows: []
     }
-    componentDidMount(){
-        var temp=[];
-        for(var i = 0; i < this.props.location.aboutProps.name.length; i++ ){
+    componentDidMount() {
+        var temp = [];
+        for (var i = 0; i < this.props.location.aboutProps.name.length; i++) {
             temp.push(createData(this.props.location.aboutProps.name[i].name, this.props.location.aboutProps.name[i].id,
                 this.props.location.aboutProps.name[i].phone, this.props.location.aboutProps.name[i].parent));
         }
-        this.setState({rows : temp});
+        this.setState({ rows: temp });
     }
-    handleClick=() => {
+    handleClick = () => {
         $.post('https://script.google.com/macros/s/AKfycbxxH82LgLve8AsnQ5ybXeSH3cy2bsqPj6KjlbV3FMvXk7liH0UI/exec',
-        {msg:'同學，你遲到囉'},
-        function(e){
-            console.log(e);
-    });
-      };
+            { msg: '同學，你遲到囉' },
+            function (e) {
+                console.log(e);
+            });
+
+        $.post('https://script.google.com/macros/s/AKfycbzyijZX-O_qm63tmGGK_PRioE4GAH7WX7XwE0JPfVWTAfpqzyOc/exec',
+            { msg: '您的小孩已安全到達' },
+            function (e) {
+                console.log(e);
+            });
+    };
+
     render() {
         //console.log(this.props.location.aboutProps.name);
         const { classes } = this.props;
@@ -84,40 +91,40 @@ class LateTable extends React.Component {
                     <Button className={classes.btn} onClick={this.handleClick}>通知</Button>
                 </div>
                 <div className={classes.download}>
-                <ExcelFile element={<button className={classes.btn}>匯出遲到名單</button>} >
-                    <ExcelSheet data={rows} name="Employees"  >
-                        <ExcelColumn label="Name" value="name" />
-                        <ExcelColumn label="id" value="id" />
-                        <ExcelColumn label="phone" value="phone" />
-                        <ExcelColumn label="parent phone" value="parent" />
-                    </ExcelSheet>
-                </ExcelFile>
+                    <ExcelFile element={<button className={classes.btn}>匯出遲到名單</button>} >
+                        <ExcelSheet data={rows} name="Employees"  >
+                            <ExcelColumn label="Name" value="name" />
+                            <ExcelColumn label="id" value="id" />
+                            <ExcelColumn label="phone" value="phone" />
+                            <ExcelColumn label="parent phone" value="parent" />
+                        </ExcelSheet>
+                    </ExcelFile>
                 </div>
                 <div>
-                <Paper className={classes.root}>
-                    <Table className={classes.table}>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>學生姓名</TableCell>
-                                <TableCell align="center">學號</TableCell>
-                                <TableCell align="center">學生電話</TableCell>
-                                <TableCell align="center">學生家長電話</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {rows.map(row => (
-                                <TableRow key={row.id}>
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="center">{row.id}</TableCell>
-                                    <TableCell align="center">{row.phone}</TableCell>
-                                    <TableCell align="center">{row.parent}</TableCell>
+                    <Paper className={classes.root}>
+                        <Table className={classes.table}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>學生姓名</TableCell>
+                                    <TableCell align="center">學號</TableCell>
+                                    <TableCell align="center">學生電話</TableCell>
+                                    <TableCell align="center">學生家長電話</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Paper>
+                            </TableHead>
+                            <TableBody>
+                                {rows.map(row => (
+                                    <TableRow key={row.id}>
+                                        <TableCell component="th" scope="row">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="center">{row.id}</TableCell>
+                                        <TableCell align="center">{row.phone}</TableCell>
+                                        <TableCell align="center">{row.parent}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </Paper>
                 </div>
             </div>
         );
