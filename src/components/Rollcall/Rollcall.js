@@ -202,16 +202,31 @@ class Rollcall extends React.Component {
           this.setState({ face_id: face_id });
           //this.setState({ face_time: face_time });
 
-          console.log(this.state.stuDataInit);
+          
           var count = 0;
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (this.state.stuDataInit[index].id == this.state.face_id) {
               count++;
             }
           }
+          var countthis = 0;
+          for (var index = 0; index < this.state.absent.length; index++) {
+            if (this.state.absent[index].id == this.state.face_id) {
+              countthis++;
+            }
+          }
           console.log(count);
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-            if (this.state.stuDataInit[index].id == this.state.face_id) {
+            if (countthis == 0 && face_id !== 'none' && face_id !== '') {
+              this.setState({
+                stu_id: this.state.face_id,
+                stu_name: '',
+                stu_img: arrived,
+                canyes: false,
+              });
+
+            }
+            else if (this.state.stuDataInit[index].id == this.state.face_id) {
               this.setState({
                 stu_id: this.state.stuDataInit[index].id,
                 stu_name: this.state.stuDataInit[index].name,
@@ -227,21 +242,7 @@ class Rollcall extends React.Component {
               });
 
             }
-            // else if(count !==0 && face_id ){
-
-            // }
-
-
-
-            // else if(face_id !== this.state.stuDataInit[index].id && face_id !== 'none' && face_id !== ''){
-            //   console.log(face_id);
-            //   this.setState({
-            //     stu_id:this.state.face_id,
-            //     stu_name: '',
-            //     stu_img: nostu,
-            //     canyes:　false,
-            //   });
-            // }
+            
           }
         })
         .catch((error) =>
@@ -442,12 +443,13 @@ class Rollcall extends React.Component {
       data.fields.student_id = this.state.stu_id;
       data.fields.attend_hw = this.state.checkedFinish;
       fetchPostAttend(data);
-      this.setState({
-        stu_id: '',
-        stu_name: '',
-        stu_img: NoFace
-      });
     }
+
+    this.setState({
+      stu_id: '',
+      stu_name: '',
+      stu_img: NoFace
+    });
 
     for (var i = 0; i < this.state.absent.length; i++) {
       //console.log(this.state.absent);

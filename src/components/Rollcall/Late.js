@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import AppBar from '../AppBar/Appbar';
+import $ from 'jquery';
 
 //excel
 import ReactExport from "react-data-export";
@@ -64,6 +65,13 @@ class LateTable extends React.Component {
         }
         this.setState({rows : temp});
     }
+    handleClick=() => {
+        $.post('https://script.google.com/macros/s/AKfycbxxH82LgLve8AsnQ5ybXeSH3cy2bsqPj6KjlbV3FMvXk7liH0UI/exec',
+        {msg:'同學，你遲到囉'},
+        function(e){
+            console.log(e);
+    });
+      };
     render() {
         //console.log(this.props.location.aboutProps.name);
         const { classes } = this.props;
@@ -72,6 +80,9 @@ class LateTable extends React.Component {
         return (
             <div>
                 <AppBar />
+                <div>
+                    <Button className={classes.btn} onClick={this.handleClick}>通知</Button>
+                </div>
                 <div className={classes.download}>
                 <ExcelFile element={<button className={classes.btn}>匯出遲到名單</button>} >
                     <ExcelSheet data={rows} name="Employees"  >
