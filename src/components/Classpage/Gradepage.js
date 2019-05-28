@@ -11,8 +11,11 @@ const table = base(TABLE_NAME);
 
 let counter = 0;
 function createData(name) {
-  counter += 1;
-  return { id: counter, name};
+    
+    var class_id = name.split("|")[1];
+    name = name.split("|")[0];
+    counter += 1;
+    return { id: counter, name, class_id};
 }
 
 const styles = theme => ({
@@ -39,6 +42,7 @@ class Gradepage extends Component {
 
         // 設定 state
         this.state = {
+            todosInit:[],
             todos: [
                 // { id: 1, name: '10/2 國文第一課', },
                 // { id: 2, name: '10/9 國文第二課', },
@@ -46,6 +50,21 @@ class Gradepage extends Component {
             ],
             error1: false,
             errorMessage1: '',
+            class_id: '',
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.class_id !== this.state.class_id) {
+            var count = this.state.todosInit.length;
+            var temp = [];
+            for (var index = 0; index < count; index++) {
+                if (nextProps.class_id === this.state.todosInit[index].class_id) {
+                    temp.push(this.state.todosInit[index]);
+                    this.setState({ todos: temp });
+                }
+            }
+            this.setState({ class_id: nextProps.class_id });
         }
     }
 
@@ -55,7 +74,7 @@ class Gradepage extends Component {
             view: "Grid view"
             }).eachPage((records, fetchNextPage) => {
                 this.setState({records});
-            //   const class_id = this.state.records.map((record, index) => record.fields['class_id']);
+                const class_id = this.state.records.map((record, index) => record.fields['class_id']);
             //   const test_score = this.state.records.map((record, index) => record.fields['test_score']);
             //   const test_rank = this.state.records.map((record, index) => record.fields['test_rank']);
                 const test_name = this.state.records.map((record, index) => record.fields['test_name']);
@@ -65,7 +84,8 @@ class Gradepage extends Component {
                 var temp=[];
                 var temp2=[];
                 for(var index = 0; index < test_name.length; index++) {
-                    temp.push(test_date[index] +" "+ test_name[index]);
+                    //temp.push(test_date[index] +" "+ test_name[index]);
+                    temp.push(test_date[index] +" "+ test_name[index]+ "|" + class_id[index]);
                 }
                 var classResult = temp.filter(function(element, index, arr){
                     return arr.indexOf(element) === index;
@@ -74,6 +94,7 @@ class Gradepage extends Component {
                     temp2.push(createData(classResult[index]));
                 }
                 this.setState({ todos : temp2 });
+                this.setState({ todosInit : temp2 });
               fetchNextPage(); 
             }
             );
