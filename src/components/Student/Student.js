@@ -115,6 +115,7 @@ class Student extends React.Component {
         stu_email: '',
         stu_parent: '',
         stu_parent_phone: '',
+        stu_class: '',
         fail: true,
         homework: true,
     };
@@ -143,7 +144,7 @@ class Student extends React.Component {
             const student_parent = this.state.records.map((record, index) => record.fields['student_parent']);
             const student_parent_phone = this.state.records.map((record, index) => record.fields['student_parent_phone']);
             const student_img = this.state.records.map((record, index) => record.fields['student_img'][0].url);
-            const class_id_link = this.state.records.map((record, index) => record.fields['class_id_link']);
+            const class_id_link = this.state.records.map((record, index) => record.fields['strlink']);
             
             // //class name
             // var temp = [];
@@ -179,7 +180,7 @@ class Student extends React.Component {
             // }
 
             this.setState({
-                stu_id: student_id, stu_name: student_name, stu_img: student_img
+                stu_class: class_id_link,stu_id: student_id, stu_name: student_name, stu_img: student_img
                 , stu_school: student_school, stu_grade: student_grade, stu_birth: student_birth, stu_address: student_address,
                 stu_email: student_email, stu_phone: student_phone, stu_parent: student_parent, stu_parent_phone: student_parent_phone
             });
@@ -337,7 +338,7 @@ class Student extends React.Component {
                                     年級：{this.state.stu_grade}
                                 </Typography>
                                 <Typography className={classes.rightText}>
-                                    班別：數學Ａ班
+                                    班別：{this.state.stu_class}
                                 </Typography>
                                 <Typography className={classes.rightText}>
                                     生日：{this.state.stu_birth}

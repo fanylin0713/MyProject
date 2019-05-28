@@ -193,8 +193,8 @@ class Rollcall extends React.Component {
 
 
   componentDidUpdate(prevProps) {
-    //console.log(this.state.face_id);
-    if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
+    // console.log('in didupdate');
+    if (this.state.face_id !== prevProps.face_id && this.state.start === true) {
       axios.create({
         baseURL: IP,
         headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -386,6 +386,8 @@ class Rollcall extends React.Component {
 
   //開始點名
   handleStart = e => {
+
+
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
