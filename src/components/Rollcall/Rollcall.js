@@ -374,12 +374,12 @@ class Rollcall extends React.Component {
 
   //助教解鎖
   handleOpenLock = e => {
-    this.setState({ ta: true })
     this.setState({ taopen: true })
   }
 
   //助教鎖著
   handleLock = e => {
+    this.setState({ end: true })
     this.setState({ notTa: true })
     this.setState({ ta: false })
   }
@@ -534,6 +534,7 @@ class Rollcall extends React.Component {
   //助教Dialog
   handleTa = e => {
     if (this.state.password === '123') {
+      this.setState({ ta: true })
       this.setState({ notTa: false })
       this.setState({ taopen: false });
       this.setState({ end: false })
