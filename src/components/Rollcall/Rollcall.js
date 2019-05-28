@@ -51,8 +51,8 @@ function createData(classid, grade) {
 function createStuData(stu_id, name, image, phone, parent) {
   return { id: stu_id, name, image, phone, parent };
 }
-function createAllStuData(stu_id, name, image) {
-  return { id: stu_id, name, image };
+function createallStuData(stu_id, name, link) {
+  return { id: stu_id, name, link };
 }
 
 function sleep(time) {
@@ -71,10 +71,12 @@ const styles = theme => ({
     minWidth: '900px',
   },
   radio: {
-    marginLeft: '10%',
+    marginLeft: '7%',
+    width: '10%',
   },
   homework: {
     marginLeft: '5%',
+    width: '10%',
   },
   formControl: {
     margin: 'auto 0',
@@ -89,10 +91,11 @@ const styles = theme => ({
   buttonStart: {
     fontSize: '16pt',
     height: '50px',
+    width: '12%',
     border: '#FFBF5F solid 0.8px',
     borderRadius: '10px',
     margin: 'auto 0',
-    marginLeft: '15%',
+    marginLeft: '10%',
   },
 
   info: {
@@ -110,7 +113,7 @@ const styles = theme => ({
 
   studentInfo: {
     fontSize: '16pt',
-    marginLeft: '45%',
+    marginLeft: '35%',
     marginTop: theme.spacing.unit * 5,
   },
   textField: {
@@ -126,6 +129,7 @@ const styles = theme => ({
     float: 'right',
     fontSize: '16pt',
     height: '50px',
+    width: '12%',
     border: '#FFBF5F solid 0.8px',
     borderRadius: '10px',
     margin: 'auto 0',
@@ -173,6 +177,7 @@ class Rollcall extends React.Component {
     classDataInit: [],
     classData: [],
     stuDataInit: [],
+    AllstuData: [],
     class_id: '',
     checkedHomework: true,
     checkedFinish: true,
@@ -219,8 +224,8 @@ class Rollcall extends React.Component {
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (countthis == 0 && count !== 0 && face_id !== 'none' && face_id !== '') {
               this.setState({
-                stu_id: this.state.face_id,
-                stu_name: '',
+                stu_id: this.state.stuDataInit[index].id,
+                stu_name: this.state.stuDataInit[index].name,
                 stu_img: arrived,
                 canyes: false,
               });
@@ -234,13 +239,17 @@ class Rollcall extends React.Component {
               });
             }
             else if (count == 0 && face_id !== 'none' && face_id !== '') {
-              this.setState({
-                stu_id: this.state.face_id,
-                stu_name: '',
-                stu_img: nostu,
-                canyes: false,
-              });
-
+              for (var i = 0; i < this.state.AllstuData.length; i++) {
+                if (this.state.AllstuData[i].id == this.state.face_id) {
+                  this.setState({
+                    stu_id: this.state.AllstuData[i].id,
+                    stu_name: this.state.AllstuData[i].name,
+                    stu_class: this.state.AllstuData[i].link,
+                    stu_img: nostu,
+                    canyes: false,
+                  });
+                }
+              }
             }
 
           }
@@ -286,6 +295,23 @@ class Rollcall extends React.Component {
       }
       this.setState({ classDataInit: temp });
       this.setState({ classData: temp });
+    }
+    );
+    table.select({
+      view: "Grid view",
+    }).eachPage((records, fetchNextPage) => {
+      this.setState({ records });
+
+      const student_name = this.state.records.map((record, index) => record.fields['student_name']);
+      const student_id = this.state.records.map((record, index) => record.fields['student_id']);
+
+      const class_id_link = this.state.records.map((record, index) => record.fields['strlink']);
+      var temp1 = [];
+      for (var index = 0; index < student_name.length; index++) {
+        temp1.push(createallStuData(student_id[index], student_name[index], class_id_link[index]));
+      }
+      this.setState({ AllstuData: temp1 });
+
     }
     );
 
@@ -683,6 +709,7 @@ class Rollcall extends React.Component {
               }
               <pre>
                 <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
+                <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
               </pre>
               <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
               {this.state.notTa === false ?
