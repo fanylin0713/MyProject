@@ -202,7 +202,7 @@ class Rollcall extends React.Component {
           this.setState({ face_id: face_id });
           //this.setState({ face_time: face_time });
 
-          
+
           var count = 0;
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (this.state.stuDataInit[index].id == this.state.face_id) {
@@ -217,7 +217,7 @@ class Rollcall extends React.Component {
           }
           console.log(count);
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-            if (countthis == 0 && count!==0 && face_id !== 'none' && face_id !== '') {
+            if (countthis == 0 && count !== 0 && face_id !== 'none' && face_id !== '') {
               this.setState({
                 stu_id: this.state.face_id,
                 stu_name: '',
@@ -242,7 +242,7 @@ class Rollcall extends React.Component {
               });
 
             }
-            
+
           }
         })
         .catch((error) =>
@@ -383,7 +383,6 @@ class Rollcall extends React.Component {
     //   );
 
     this.setState({ start: true })
-    this.setState({ end: false })
     this.setState({ notTa: true })
 
     let data = { fields: { class_id: {}, student_id: {}, attend_hw: {} } };
@@ -511,11 +510,13 @@ class Rollcall extends React.Component {
     if (this.state.password === '123') {
       this.setState({ notTa: false })
       this.setState({ taopen: false });
+      this.setState({ end: false })
     }
     else {
       this.setState({
         error: true,
-        errorMessage: '密碼錯誤'})
+        errorMessage: '密碼錯誤'
+      })
     }
   }
 
@@ -685,20 +686,20 @@ class Rollcall extends React.Component {
               </pre>
               <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
               {this.state.notTa === false ?
-              <div>
-              <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
-              <TextField
-                id="filled-with-placeholder"
-                label="輸入學號"
-                className={classes.textField}
-                value={this.state.age}
-                onChange={this.handleChange('age')}
-                margin="normal"
-                variant="filled"
-              />
-              </div>
-              :
-              <div/>
+                <div>
+                  <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
+                  <TextField
+                    id="filled-with-placeholder"
+                    label="輸入學號"
+                    className={classes.textField}
+                    value={this.state.age}
+                    onChange={this.handleChange('age')}
+                    margin="normal"
+                    variant="filled"
+                  />
+                </div>
+                :
+                <div />
               }
             </div> :
             <div></div>

@@ -81,8 +81,7 @@ class LateTable extends React.Component {
             <div>
                 <AppBar />
                 <div>
-                    <Button className={classes.btn} onClick={this.handleClick}>通知</Button>
-                </div>
+                    <Button className={classes.btn} style={{marginRight:'10%'}} onClick={this.handleClick}>傳送通知</Button>
                 <div className={classes.download}>
                 <ExcelFile element={<button className={classes.btn}>匯出遲到名單</button>} >
                     <ExcelSheet data={rows} name="Employees"  >
@@ -92,6 +91,7 @@ class LateTable extends React.Component {
                         <ExcelColumn label="parent phone" value="parent" />
                     </ExcelSheet>
                 </ExcelFile>
+                </div>
                 </div>
                 <div>
                 <Paper className={classes.root}>
