@@ -10,6 +10,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import XLSX from 'xlsx';
 import Appbar from '../AppBar/Appbar';
 import Airtable from 'airtable';
@@ -35,6 +39,10 @@ const styles = theme => ({
     button: {
         backgroundColor: '#111B24',
         color: 'white',
+    },
+    dia:{
+        margin: 'auto',
+        width: '40%',
     },
     UploadIcon: {
         margin: '0 auto',
@@ -79,7 +87,8 @@ class Grade extends Component {
     state = {
         rows: [],
         //rowsInit:[],
-        class_id:'',
+        class_id: '',
+        open: false,
     }
 
     // componentWillReceiveProps(nextProps) {
@@ -100,8 +109,12 @@ class Grade extends Component {
         if (this.state.rows !== "") {
 
             for (var index = 0; index < this.state.rows.length; index++) {
-                let data = { fields: { class_id: {}, student_id: {}, test_date: {}, test_name:{}, test_score:{}, test_rank:{},
-                Q1:{}, Q2:{}, Q3:{}, Q4:{}, Q5:{}, Q6:{}, Q7:{}, Q8:{}, Q9:{}, Q10:{}} };
+                let data = {
+                    fields: {
+                        class_id: {}, student_id: {}, test_date: {}, test_name: {}, test_score: {}, test_rank: {},
+                        Q1: {}, Q2: {}, Q3: {}, Q4: {}, Q5: {}, Q6: {}, Q7: {}, Q8: {}, Q9: {}, Q10: {}
+                    }
+                };
                 data.fields.class_id = this.props.location.aboutProps.class_id;
                 data.fields.student_id = (this.state.rows[index].grade_studentId).toString();
                 data.fields.test_name = this.props.location.aboutProps.name.split(" ")[1];
@@ -122,14 +135,18 @@ class Grade extends Component {
 
                 fetchPostGrade(data);
             }
+            this.setState({ open: true })
         }
+    }
+    handleClose = e => {
+        this.setState({ open: false })
     }
 
     //airtable
     componentDidMount() {
         // const fileterSentence = 'AND(test_date="' + this.props.location.aboutProps.name.split(" ")[0] + 
         // '"),AND(test_name="'+ this.props.location.aboutProps.name.split(" ")[1] + '")';
-        const fileterSentence = 'AND(test_name="'+ this.props.location.aboutProps.name.split(" ")[1] + '")'
+        const fileterSentence = 'AND(test_name="' + this.props.location.aboutProps.name.split(" ")[1] + '")'
 
         table.select({
             filterByFormula: fileterSentence,
@@ -150,14 +167,14 @@ class Grade extends Component {
                 const test_rankR = test_rank[index];
 
                 studentTable.select({
-                    filterByFormula: 'AND(student_id="'+ student_idR + '")',
+                    filterByFormula: 'AND(student_id="' + student_idR + '")',
                     view: "Grid view",
                     //maxRecords: 1
                 }).eachPage((records, fetchNextPage) => {
                     this.setState({ records });
                     const student_name = this.state.records.map((record, index) => record.fields['student_name']);
-                    if(test_rankR < 101){
-                        temp.push(createData(student_name[0], student_idR, test_scoreR, test_rankR));  
+                    if (test_rankR < 101) {
+                        temp.push(createData(student_name[0], student_idR, test_scoreR, test_rankR));
                     }
                 }
                 );
@@ -166,7 +183,7 @@ class Grade extends Component {
             // for(var index = 0; index < student_id.length; index++) {
             //     temp.push(createData("namee",student_id[index],test_score[index],"rank"));  
             // }
-            this.setState({ rows : temp });
+            this.setState({ rows: temp });
             console.log(this.state.rows);
             //this.setState({ rowsInit : temp });
             fetchNextPage();
@@ -209,7 +226,7 @@ class Grade extends Component {
                 // }
 
                 this.setState({ rows: data });
-                 console.log(data);
+                console.log(data);
                 // console.log(data[0]);
                 // console.log(data[0].grade_studentName);
                 // console.log(data[0].grade_studentId);
@@ -237,8 +254,17 @@ class Grade extends Component {
                                 <span>成績上傳</span>
                             </Button>
                             <Button className={classes.editButton} onClick={this.handleClick}>
-                                儲存
+                                上傳成績
                             </Button>
+                            <Dialog className={classes.dia}
+                                open={this.state.open}
+                                onClose={this.handleClose}
+                            >
+                                <DialogTitle >上傳成功！</DialogTitle>
+                                <DialogActions>
+                                    <Button style={{ margin: 'auto' }} onClick={this.handleClose} color="primary">確定</Button>
+                                </DialogActions>
+                            </Dialog>
                             <Paper className={classes.root}>
                                 <Table className={classes.table}>
                                     <TableHead >
@@ -250,15 +276,16 @@ class Grade extends Component {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {(this.state.rows).map((row,index) => {
-                                            return(
-                                            <TableRow hover key={index}>
-                                                <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
-                                                <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
-                                                <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
-                                                <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
-                                            </TableRow>
-                                        );})}
+                                        {(this.state.rows).map((row, index) => {
+                                            return (
+                                                <TableRow hover key={index}>
+                                                    <TableCell className={classes.content} style={{ width: '25%' }} component="th" scope="row">{row.grade_studentName}</TableCell>
+                                                    <TableCell className={classes.content}>{row.grade_studentId}</TableCell>
+                                                    <TableCell className={classes.content}>{row.grade_studentGrade}</TableCell>
+                                                    <TableCell className={classes.content}>{row.grade_studentRank}</TableCell>
+                                                </TableRow>
+                                            );
+                                        })}
                                     </TableBody>
                                 </Table>
                             </Paper>
