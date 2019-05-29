@@ -151,13 +151,14 @@ const styles = theme => ({
 
   textField: {
     float: 'right',
+    marginTop:'22px',
   },
   //學號輸入按鈕
   addIcon: {
     float: 'right',
     color: '#FFBF5F',
     fontSize: '40pt',
-    marginTop: theme.spacing.unit * 50,
+    marginTop: '8%',
   },
   //確認按鈕
   yes: {
@@ -173,9 +174,8 @@ const styles = theme => ({
 
   //確認繳交
   finish: {
-    float: 'right',
     marginTop: '100%',
-    marginRight: '14%',
+    marginLeft: '30%',
   }
 });
 
