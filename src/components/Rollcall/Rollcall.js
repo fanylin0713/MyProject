@@ -52,7 +52,7 @@ function createStuData(stu_id, name, image, phone, parent) {
   return { id: stu_id, name, image, phone, parent };
 }
 function createallStuData(stu_id, name, link) {
-  return { id: stu_id, name ,link};
+  return { id: stu_id, name, link };
 }
 
 function sleep(time) {
@@ -72,11 +72,11 @@ const styles = theme => ({
   },
   radio: {
     marginLeft: '7%',
-    width:'10%',
+    width: '10%',
   },
   homework: {
     marginLeft: '5%',
-    width:'10%',
+    width: '10%',
   },
   formControl: {
     margin: 'auto 0',
@@ -91,64 +91,86 @@ const styles = theme => ({
   buttonStart: {
     fontSize: '16pt',
     height: '50px',
-    width:'12%',
+    width: '12%',
     border: '#FFBF5F solid 0.8px',
     borderRadius: '10px',
     margin: 'auto 0',
     marginLeft: '10%',
   },
 
+  buttonEnd: {
+    float: 'right',
+    fontSize: '16pt',
+    height: '50px',
+    width: '12%',
+    border: '#FFBF5F solid 0.8px',
+    borderRadius: '10px',
+    margin: 'auto 0',
+    marginLeft: theme.spacing.unit,
+  },
+
+  //下面全部
   info: {
     width: '80%',
     minWidth: '900px',
     margin: 'auto',
   },
 
+  noTA:{
+    width:'57%',
+    float:'left',
+    margin:'0px',
+  },
+
+  TA:{
+    width:'20%',
+    float:'right',
+  },
+
+  //照片
   photo: {
     width: '200px',
     height: '200px',
-    marginLeft: '40%',
+    float:'right',
     marginTop: theme.spacing.unit * 10,
+    // marginLeft: '40%',
   },
 
+  //姓名學號
   studentInfo: {
     fontSize: '16pt',
-    marginLeft: '35%',
-    marginTop: theme.spacing.unit * 5,
+    float:'right',
+    marginTop: theme.spacing.unit * 40,
+    // marginLeft: '35%',
   },
+
   textField: {
     float: 'right',
   },
+  //學號輸入按鈕
   addIcon: {
     float: 'right',
     color: '#FFBF5F',
     fontSize: '40pt',
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 50,
   },
-  buttonEnd: {
-    float: 'right',
-    fontSize: '16pt',
-    height: '50px',
-    width:'12%',
-    border: '#FFBF5F solid 0.8px',
-    borderRadius: '10px',
-    margin: 'auto 0',
-    marginLeft: theme.spacing.unit,
-  },
+  //確認按鈕
   yes: {
-    marginLeft: '42%',
-    marginTop: theme.spacing.unit * 2,
+    float:'right',
     height: '50px',
     width: '140px',
+    marginTop: theme.spacing.unit * 2,
+    marginRight: '5%',
     backgroundColor: '#39dc0d',
     "&:hover": {
       backgroundColor: "#1ec613",
     }
   },
 
+  //確認繳交
   finish: {
     float: 'right',
-    marginTop: '26.5%',
+    marginTop: '135%',
     marginRight: '10%',
   }
 });
@@ -193,8 +215,8 @@ class Rollcall extends React.Component {
 
 
   componentDidUpdate(prevProps) {
-    //console.log(this.state.face_id);
-    if (this.state.face_id !== prevProps.face_id && this.state.end === false) {
+    // console.log('in didupdate');
+    if (this.state.face_id !== prevProps.face_id && this.state.start === true) {
       axios.create({
         baseURL: IP,
         headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -207,7 +229,7 @@ class Rollcall extends React.Component {
           this.setState({ face_id: face_id });
           //this.setState({ face_time: face_time });
 
-          
+
           var count = 0;
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (this.state.stuDataInit[index].id == this.state.face_id) {
@@ -222,7 +244,7 @@ class Rollcall extends React.Component {
           }
           console.log(count);
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-            if (countthis == 0 && count!==0 && face_id !== 'none' && face_id !== '') {
+            if (countthis == 0 && count !== 0 && face_id !== 'none' && face_id !== '') {
               this.setState({
                 stu_id: this.state.stuDataInit[index].id,
                 stu_name: this.state.stuDataInit[index].name,
@@ -241,20 +263,19 @@ class Rollcall extends React.Component {
               });
             }
             else if (count == 0 && face_id !== 'none' && face_id !== '') {
-              for(var i = 0; i < this.state.AllstuData.length; i++){
-                if( this.state.AllstuData[i].id ==  this.state.face_id){
-              this.setState({
-                stu_id: this.state.AllstuData[i].id,
-                stu_name:  this.state.AllstuData[i].name,
-                stu_class: this.state.AllstuData[i].link,
-                stu_img: nostu,
-                canyes: false,
-              });
+              for (var i = 0; i < this.state.AllstuData.length; i++) {
+                if (this.state.AllstuData[i].id == this.state.face_id) {
+                  this.setState({
+                    stu_id: this.state.AllstuData[i].id,
+                    stu_name: this.state.AllstuData[i].name,
+                    stu_class: this.state.AllstuData[i].link,
+                    stu_img: nostu,
+                    canyes: false,
+                  });
+                }
+              }
             }
 
-            }
-          }
-            
           }
         })
         .catch((error) =>
@@ -307,11 +328,11 @@ class Rollcall extends React.Component {
 
       const student_name = this.state.records.map((record, index) => record.fields['student_name']);
       const student_id = this.state.records.map((record, index) => record.fields['student_id']);
-      
+
       const class_id_link = this.state.records.map((record, index) => record.fields['strlink']);
       var temp1 = [];
       for (var index = 0; index < student_name.length; index++) {
-        temp1.push(createallStuData(student_id[index], student_name[index],class_id_link[index]));
+        temp1.push(createallStuData(student_id[index], student_name[index], class_id_link[index]));
       }
       this.setState({ AllstuData: temp1 });
 
@@ -377,18 +398,20 @@ class Rollcall extends React.Component {
 
   //助教解鎖
   handleOpenLock = e => {
-    this.setState({ ta: true })
     this.setState({ taopen: true })
   }
 
   //助教鎖著
   handleLock = e => {
+    this.setState({ end: true })
     this.setState({ notTa: true })
     this.setState({ ta: false })
   }
 
   //開始點名
   handleStart = e => {
+
+
     axios.create({
       baseURL: IP,
       headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -412,7 +435,6 @@ class Rollcall extends React.Component {
     //   );
 
     this.setState({ start: true })
-    this.setState({ end: false })
     this.setState({ notTa: true })
 
     let data = { fields: { class_id: {}, student_id: {}, attend_hw: {} } };
@@ -538,13 +560,16 @@ class Rollcall extends React.Component {
   //助教Dialog
   handleTa = e => {
     if (this.state.password === '123') {
+      this.setState({ ta: true })
       this.setState({ notTa: false })
       this.setState({ taopen: false });
+      this.setState({ end: false })
     }
     else {
       this.setState({
         error: true,
-        errorMessage: '密碼錯誤'})
+        errorMessage: '密碼錯誤'
+      })
     }
   }
 
@@ -692,9 +717,17 @@ class Rollcall extends React.Component {
 
         {
           this.state.start === true ?
-            <div className={classes.info}>
-              <img className={classes.photo} src={this.state.stu_img} alt="location" />
-              {this.state.checkedHomework === true && this.state.notTa === false ?
+          <div className={classes.info}>
+          <div className={classes.noTA}>
+          <img className={classes.photo} src={this.state.stu_img} alt="location" />
+          <pre>
+          <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
+          <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
+          </pre>
+          <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
+          </div>
+          <div className={classes.TA}>
+          {this.state.checkedHomework === true && this.state.notTa === false ?
                 <FormGroup className={classes.finish}>
                   <FormControlLabel
                     control={
@@ -709,28 +742,64 @@ class Rollcall extends React.Component {
                 :
                 <div></div>
               }
-              <pre>
-                <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
-                <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
-              </pre>
-              <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
-              {this.state.notTa === false ?
-              <div>
-              <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
-              <TextField
-                id="filled-with-placeholder"
-                label="輸入學號"
-                className={classes.textField}
-                value={this.state.age}
-                onChange={this.handleChange('age')}
-                margin="normal"
-                variant="filled"
-              />
-              </div>
-              :
-              <div/>
+          {this.state.notTa === false ?
+                <div>
+                  <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
+                  <TextField
+                    id="filled-with-placeholder"
+                    label="輸入學號"
+                    className={classes.textField}
+                    value={this.state.age}
+                    onChange={this.handleChange('age')}
+                    margin="normal"
+                    variant="filled"
+                  />
+                </div>
+                :
+                <div />
               }
-            </div> :
+          </div>
+          </div>
+            // <div className={classes.info}>
+            //   <img className={classes.photo} src={this.state.stu_img} alt="location" />
+            //   {this.state.checkedHomework === true && this.state.notTa === false ?
+            //     <FormGroup className={classes.finish}>
+            //       <FormControlLabel
+            //         control={
+            //           <Switch
+            //             checked={this.state.checkedFinish}
+            //             onChange={this.handleFinish('checkedFinish')}
+            //           />
+            //         }
+            //         label="確認繳交"
+            //       />
+            //     </FormGroup>
+            //     :
+            //     <div></div>
+            //   }
+            //   <pre>
+            //     <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
+            //     <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
+            //   </pre>
+            //   <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
+            //   {this.state.notTa === false ?
+            //     <div>
+            //       <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
+            //       <TextField
+            //         id="filled-with-placeholder"
+            //         label="輸入學號"
+            //         className={classes.textField}
+            //         value={this.state.age}
+            //         onChange={this.handleChange('age')}
+            //         margin="normal"
+            //         variant="filled"
+            //       />
+            //     </div>
+            //     :
+            //     <div />
+            //   }
+            // </div> 
+            :
             <div></div>
         }
 
