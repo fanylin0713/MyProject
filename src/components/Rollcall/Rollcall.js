@@ -252,6 +252,7 @@ class Rollcall extends React.Component {
               this.setState({
                 stu_id: this.state.stuDataInit[index].id,
                 stu_name: this.state.stuDataInit[index].name,
+                stu_class: '',
                 stu_img: arrived,
                 canyes: false,
               });
@@ -261,7 +262,8 @@ class Rollcall extends React.Component {
               this.setState({
                 stu_id: this.state.stuDataInit[index].id,
                 stu_name: this.state.stuDataInit[index].name,
-                stu_img: this.state.stuDataInit[index].image
+                stu_img: this.state.stuDataInit[index].image,
+                stu_class:'',
               });
             }
             else if (count == 0 && face_id !== 'none' && face_id !== '') {
