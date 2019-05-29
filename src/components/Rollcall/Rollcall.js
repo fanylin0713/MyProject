@@ -117,13 +117,13 @@ const styles = theme => ({
   },
 
   noTA:{
-    width:'57%',
+    width:'67%',
     float:'left',
     margin:'0px',
   },
 
   TA:{
-    width:'20%',
+    width:'30%',
     float:'right',
   },
 
@@ -131,17 +131,22 @@ const styles = theme => ({
   photo: {
     width: '200px',
     height: '200px',
-    float:'right',
     marginTop: theme.spacing.unit * 10,
-    // marginLeft: '40%',
+    marginLeft: '60%',
   },
 
   //姓名學號
   studentInfo: {
     fontSize: '16pt',
-    float:'right',
-    marginTop: theme.spacing.unit * 40,
-    // marginLeft: '35%',
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: '50%',
+  },
+
+  //學生班級
+  studentClass:{
+    fontSize: '16pt',
+    marginTop: theme.spacing.unit * 2,
+    marginLeft: '69%',
   },
 
   textField: {
@@ -156,11 +161,10 @@ const styles = theme => ({
   },
   //確認按鈕
   yes: {
-    float:'right',
     height: '50px',
     width: '140px',
     marginTop: theme.spacing.unit * 2,
-    marginRight: '5%',
+    marginLeft: '64%',
     backgroundColor: '#39dc0d',
     "&:hover": {
       backgroundColor: "#1ec613",
@@ -170,8 +174,8 @@ const styles = theme => ({
   //確認繳交
   finish: {
     float: 'right',
-    marginTop: '135%',
-    marginRight: '10%',
+    marginTop: '100%',
+    marginRight: '14%',
   }
 });
 
@@ -720,7 +724,7 @@ class Rollcall extends React.Component {
           <img className={classes.photo} src={this.state.stu_img} alt="location" />
           <pre>
           <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
-          <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
+          <Typography className={classes.studentClass}>{this.state.stu_class}</Typography>
           </pre>
           <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
           </div>
