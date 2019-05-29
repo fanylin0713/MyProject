@@ -98,33 +98,6 @@ const styles = theme => ({
     marginLeft: '10%',
   },
 
-  info: {
-    width: '80%',
-    minWidth: '900px',
-    margin: 'auto',
-  },
-
-  photo: {
-    width: '200px',
-    height: '200px',
-    marginLeft: '40%',
-    marginTop: theme.spacing.unit * 10,
-  },
-
-  studentInfo: {
-    fontSize: '16pt',
-    marginLeft: '35%',
-    marginTop: theme.spacing.unit * 5,
-  },
-  textField: {
-    float: 'right',
-  },
-  addIcon: {
-    float: 'right',
-    color: '#FFBF5F',
-    fontSize: '40pt',
-    marginTop: theme.spacing.unit * 2,
-  },
   buttonEnd: {
     float: 'right',
     fontSize: '16pt',
@@ -135,20 +108,69 @@ const styles = theme => ({
     margin: 'auto 0',
     marginLeft: theme.spacing.unit,
   },
+
+  //下面全部
+  info: {
+    width: '80%',
+    minWidth: '900px',
+    margin: 'auto',
+  },
+
+  noTA:{
+    width:'57%',
+    float:'left',
+    margin:'0px',
+  },
+
+  TA:{
+    width:'20%',
+    float:'right',
+  },
+
+  //照片
+  photo: {
+    width: '200px',
+    height: '200px',
+    float:'right',
+    marginTop: theme.spacing.unit * 10,
+    // marginLeft: '40%',
+  },
+
+  //姓名學號
+  studentInfo: {
+    fontSize: '16pt',
+    float:'right',
+    marginTop: theme.spacing.unit * 40,
+    // marginLeft: '35%',
+  },
+
+  textField: {
+    float: 'right',
+  },
+  //學號輸入按鈕
+  addIcon: {
+    float: 'right',
+    color: '#FFBF5F',
+    fontSize: '40pt',
+    marginTop: theme.spacing.unit * 50,
+  },
+  //確認按鈕
   yes: {
-    marginLeft: '42%',
-    marginTop: theme.spacing.unit * 2,
+    float:'right',
     height: '50px',
     width: '140px',
+    marginTop: theme.spacing.unit * 2,
+    marginRight: '5%',
     backgroundColor: '#39dc0d',
     "&:hover": {
       backgroundColor: "#1ec613",
     }
   },
 
+  //確認繳交
   finish: {
     float: 'right',
-    marginTop: '26.5%',
+    marginTop: '135%',
     marginRight: '10%',
   }
 });
@@ -693,9 +715,17 @@ class Rollcall extends React.Component {
 
         {
           this.state.start === true ?
-            <div className={classes.info}>
-              <img className={classes.photo} src={this.state.stu_img} alt="location" />
-              {this.state.checkedHomework === true && this.state.notTa === false ?
+          <div className={classes.info}>
+          <div className={classes.noTA}>
+          <img className={classes.photo} src={this.state.stu_img} alt="location" />
+          <pre>
+          <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
+          <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
+          </pre>
+          <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
+          </div>
+          <div className={classes.TA}>
+          {this.state.checkedHomework === true && this.state.notTa === false ?
                 <FormGroup className={classes.finish}>
                   <FormControlLabel
                     control={
@@ -710,12 +740,7 @@ class Rollcall extends React.Component {
                 :
                 <div></div>
               }
-              <pre>
-                <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
-                <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
-              </pre>
-              <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
-              {this.state.notTa === false ?
+          {this.state.notTa === false ?
                 <div>
                   <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
                   <TextField
@@ -731,7 +756,48 @@ class Rollcall extends React.Component {
                 :
                 <div />
               }
-            </div> :
+          </div>
+          </div>
+            // <div className={classes.info}>
+            //   <img className={classes.photo} src={this.state.stu_img} alt="location" />
+            //   {this.state.checkedHomework === true && this.state.notTa === false ?
+            //     <FormGroup className={classes.finish}>
+            //       <FormControlLabel
+            //         control={
+            //           <Switch
+            //             checked={this.state.checkedFinish}
+            //             onChange={this.handleFinish('checkedFinish')}
+            //           />
+            //         }
+            //         label="確認繳交"
+            //       />
+            //     </FormGroup>
+            //     :
+            //     <div></div>
+            //   }
+            //   <pre>
+            //     <Typography className={classes.studentInfo}>姓名：{this.state.stu_name}     學號：{this.state.stu_id}</Typography>
+            //     <Typography className={classes.studentInfo}>{this.state.stu_class}</Typography>
+            //   </pre>
+            //   <Button onClick={this.handleYes} className={classes.yes} >確認！</Button>
+            //   {this.state.notTa === false ?
+            //     <div>
+            //       <Add className={classes.addIcon} onClick={this.handleClickAdd()} />
+            //       <TextField
+            //         id="filled-with-placeholder"
+            //         label="輸入學號"
+            //         className={classes.textField}
+            //         value={this.state.age}
+            //         onChange={this.handleChange('age')}
+            //         margin="normal"
+            //         variant="filled"
+            //       />
+            //     </div>
+            //     :
+            //     <div />
+            //   }
+            // </div> 
+            :
             <div></div>
         }
 
