@@ -67,13 +67,13 @@ class LateTable extends React.Component {
     }
     handleClick = () => {
         $.post('https://script.google.com/macros/s/AKfycbxxH82LgLve8AsnQ5ybXeSH3cy2bsqPj6KjlbV3FMvXk7liH0UI/exec',
-            { msg: '同學，你遲到囉' },
+            { msg: '親愛的家長您好，您的小孩今日尚未到課。' },
             function (e) {
                 console.log(e);
             });
 
         $.post('https://script.google.com/macros/s/AKfycbzyijZX-O_qm63tmGGK_PRioE4GAH7WX7XwE0JPfVWTAfpqzyOc/exec',
-            { msg: '您的小孩已安全到達' },
+            { msg: '同學，你缺課囉，記得去預約補課時間。'},
             function (e) {
                 console.log(e);
             });
