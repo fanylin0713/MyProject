@@ -744,7 +744,7 @@ class Rollcall extends React.Component {
                   />
                 </FormGroup>
                 :
-                <div></div>
+                <div className={classes.finish}></div>
               }
           {this.state.notTa === false ?
                 <div>
