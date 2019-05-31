@@ -266,6 +266,7 @@ class Rollcall extends React.Component {
                 stu_name: this.state.stuDataInit[index].name,
                 stu_img: this.state.stuDataInit[index].image,
                 stu_class:'',
+                canyes: true,
               });
             }
             else if (count == 0 && face_id !== 'none' && face_id !== '') {
