@@ -251,8 +251,6 @@ class Rollcall extends React.Component {
           console.log(count);
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
             if (this.state.stuDataInit[index].id==this.state.face_id && countthis == 0 && count !== 0 && face_id !== 'none' && face_id !== '') {
-              console.log('in if');
-              console.log(this.state.stuDataInit[index].name);
               this.setState({
                 stu_id: this.state.stuDataInit[index].id,
                 stu_name: this.state.stuDataInit[index].name,
@@ -290,7 +288,7 @@ class Rollcall extends React.Component {
           console.error(error)
         );
     }
-    if (this.state.end === false) {
+    if ( this.state.start === true) {
       axios.create({
         baseURL: IP,
         headers: { 'content-type': 'application/json', 'Access-Control-Allow-Origin': '*' }
