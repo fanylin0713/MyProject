@@ -166,9 +166,10 @@ const styles = theme => ({
     width: '140px',
     marginTop: theme.spacing.unit * 2,
     marginLeft: '64%',
-    backgroundColor: '#39dc0d',
+    fontSize:'14pt',
+    backgroundColor: '#00db00',
     "&:hover": {
-      backgroundColor: "#1ec613",
+      backgroundColor: "#00a600",
     }
   },
 
@@ -246,9 +247,12 @@ class Rollcall extends React.Component {
               countthis++;
             }
           }
+          console.log(countthis);
           console.log(count);
           for (var index = 0; index < this.state.stuDataInit.length; index++) {
-            if (countthis == 0 && count !== 0 && face_id !== 'none' && face_id !== '') {
+            if (this.state.stuDataInit[index].id==this.state.face_id && countthis == 0 && count !== 0 && face_id !== 'none' && face_id !== '') {
+              console.log('in if');
+              console.log(this.state.stuDataInit[index].name);
               this.setState({
                 stu_id: this.state.stuDataInit[index].id,
                 stu_name: this.state.stuDataInit[index].name,
