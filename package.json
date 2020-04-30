@@ -20,7 +20,7 @@
     "downshift": "^3.2.10",
     "fs": "0.0.1-security",
     "immutable": "^4.0.0-rc.12",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "material-ui-pickers": "^2.2.4",
     "multer": "^1.4.1",
     "query-string": "^6.4.2",
