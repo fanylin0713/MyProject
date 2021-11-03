@@ -43,7 +43,7 @@
     "redux-observable": "^1.1.0",
     "reselect": "^4.0.0",
     "rxjs": "^6.4.0",
-    "validator": "^10.11.0",
+    "validator": "^13.7.0",
     "xlsx": "^0.14.3"
   },
   "scripts": {
